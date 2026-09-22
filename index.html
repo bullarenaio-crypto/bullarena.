@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BullArena ($BULL) — Meme Arena</title>
+    <title>BullArena ($BULL) — Crypto Combat Arena</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Solana Web3.js SDK -->
     <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
@@ -97,12 +97,12 @@
         <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-2">
                 <span class="text-2xl font-black font-orbitron tracking-wider text-red-500">BULL<span class="text-white">ARENA</span></span>
-                <span class="bg-red-600/20 text-red-400 text-xs px-2 py-1 rounded font-orbitron border border-red-600/30">MEME ARENA</span>
+                <span class="bg-red-600/20 text-red-400 text-xs px-2 py-1 rounded font-orbitron border border-red-600/30">$BULL</span>
             </div>
             
             <div class="flex items-center space-x-4 flex-wrap justify-center">
-                <!-- TOP LINKS ONLY -->
-                <a href="/whitepaper.pdf" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-red-400 hover:text-red-300 transition flex items-center gap-1">
+                <!-- MENU LINKS -->
+                <a href="/whitepaper.pdf" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-gray-400 hover:text-red-400 transition flex items-center gap-1">
                     📄 Whitepaper
                 </a>
                 <a href="#tokenomics" class="text-sm text-gray-400 hover:text-red-400 transition">Tokenomics</a>
@@ -134,125 +134,21 @@
         <!-- HERO SECTION -->
         <section class="max-w-7xl mx-auto px-4 py-20 md:py-32 flex flex-col items-center text-center">
             <div class="inline-block bg-red-600/10 border border-red-500/30 text-red-400 text-xs md:text-sm px-4 py-1.5 rounded-full font-orbitron mb-6 uppercase tracking-widest animate-pulse">
-                ⚡ Decentralized Meme Battles
+                ⚡ A Batalha Definitiva de Memes na Solana
             </div>
             <h1 class="text-4xl md:text-7xl font-black font-orbitron tracking-tight mb-6 max-w-4xl leading-tight">
-                MEME DUELS: <span class="text-red-500 neon-glow">CHOOSE YOUR SIDE</span>
+                THE <span class="text-red-500 neon-glow">CYBER-SAMURAI</span> ARENA
             </h1>
             <p class="text-gray-400 text-base md:text-xl max-w-2xl mb-10 font-light leading-relaxed">
-                Aposte no seu meme favorito. A comunidade decide o vencedor em batalhas dinâmicas de volume e engajamento.
+                Um ecossistema descentralizado de combate de memes onde confrontos épicos geram escassez extrema e forças de mercado ditam o verdadeiro valor.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <a href="#arena" class="bg-red-600 hover:bg-red-500 text-white font-bold px-8 py-4 rounded-xl font-orbitron tracking-wider transition shadow-lg shadow-red-600/40 text-center flex items-center justify-center gap-2">
-                    ⚔️ ENTER THE ARENA
+                    ⚔️ ENTRAR NA ARENA
                 </a>
-            </div>
-        </section>
-
-        <!-- MEME BATTLE ARENA -->
-        <section id="arena" class="max-w-7xl mx-auto px-4 py-20 border-t border-zinc-900">
-            <div class="text-center mb-16">
-                <span class="text-red-500 font-orbitron text-xs font-bold tracking-widest uppercase animate-pulse">⚡ Live Showdown</span>
-                <h2 class="text-3xl md:text-5xl font-black font-orbitron mt-2 mb-4">MEME BATTLE <span class="text-red-500">ARENA</span></h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Compare o volume de mercado em tempo real e aposte no token que vai levar a coroa.</p>
-            </div>
-
-            <!-- DUEL GRID: DYNAMIC MEMES -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-                <!-- Competidor 1: MEME A -->
-                <div class="card-cyber p-8 rounded-3xl border-amber-500/40 flex flex-col items-center text-center relative overflow-hidden">
-                    <div class="absolute top-4 left-4 bg-zinc-900 text-xs px-3 py-1 rounded-lg text-amber-400 font-orbitron border border-amber-500/30">SIDE A</div>
-                    <div class="w-24 h-24 bg-amber-500/10 rounded-full flex items-center justify-center text-5xl mb-4 border border-amber-500/30">⚡</div>
-                    <h3 class="text-3xl font-black font-orbitron mb-1">MEME ALPHA</h3>
-                    <p class="text-xs text-gray-500 mb-6">Token A</p>
-                    
-                    <div class="w-full bg-zinc-900 rounded-full h-3.5 mb-4 overflow-hidden border border-zinc-800">
-                        <div class="bg-amber-400 h-full rounded-full transition-all duration-500" style="width: 58%"></div>
-                    </div>
-                    <div class="flex justify-between w-full text-sm text-gray-400 mb-8 px-2 font-orbitron">
-                        <span>Volume MCP: $4.2M</span>
-                        <span class="text-amber-400 font-bold">58%</span>
-                    </div>
-
-                    <button onclick="placeBet('MEME ALPHA')" class="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold py-3.5 rounded-xl font-orbitron text-sm transition tracking-wider shadow-lg shadow-amber-500/20 cursor-pointer">
-                        BET ON ALPHA ⚡
-                    </button>
-                </div>
-
-                <!-- Competidor 2: MEME B -->
-                <div class="card-cyber p-8 rounded-3xl border-red-500/40 flex flex-col items-center text-center relative overflow-hidden">
-                    <div class="absolute top-4 left-4 bg-zinc-900 text-xs px-3 py-1 rounded-lg text-red-400 font-orbitron border border-red-500/30">SIDE B</div>
-                    <div class="w-24 h-24 bg-red-500/10 rounded-full flex items-center justify-center text-5xl mb-4 border border-red-500/30">🔥</div>
-                    <h3 class="text-3xl font-black font-orbitron mb-1">MEME BETA</h3>
-                    <p class="text-xs text-gray-500 mb-6">Token B</p>
-                    
-                    <div class="w-full bg-zinc-900 rounded-full h-3.5 mb-4 overflow-hidden border border-zinc-800">
-                        <div class="bg-red-500 h-full rounded-full transition-all duration-500" style="width: 42%"></div>
-                    </div>
-                    <div class="flex justify-between w-full text-sm text-gray-400 mb-8 px-2 font-orbitron">
-                        <span>Volume MCP: $3.1M</span>
-                        <span class="text-red-400 font-bold">42%</span>
-                    </div>
-
-                    <button onclick="placeBet('MEME BETA')" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 rounded-xl font-orbitron text-sm transition tracking-wider shadow-lg shadow-red-600/30 cursor-pointer">
-                        BET ON BETA 🔥
-                    </button>
-                </div>
-            </div>
-
-            <!-- 3D CANVAS COMBAT VISUALIZER -->
-            <div class="card-cyber p-4 rounded-3xl relative overflow-hidden border-red-500/50 max-w-4xl mx-auto mb-12">
-                <div class="flex justify-between items-center mb-3 px-2">
-                    <span class="font-orbitron text-xs font-bold text-red-500 uppercase tracking-widest flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> 3D ARENA VISUALIZER
-                    </span>
-                    <span class="text-gray-400 text-xs font-orbitron">Drag mouse to orbit camera</span>
-                </div>
-
-                <div id="arena-3d-canvas" class="w-full h-[320px] md:h-[420px] rounded-2xl overflow-hidden relative border border-zinc-800 bg-black">
-                    <div class="absolute top-4 left-4 right-4 flex justify-between items-center pointer-events-none z-10 font-orbitron">
-                        <div class="bg-black/70 backdrop-blur-md p-3 rounded-xl border border-amber-500/40">
-                            <div class="text-[10px] text-amber-400 font-bold">ALPHA (MEME A)</div>
-                        </div>
-                        <div class="bg-black/80 px-3 py-1.5 rounded-lg border border-zinc-700 text-xs text-red-500 font-black animate-pulse" id="combat-status">
-                            ARENA LIVE
-                        </div>
-                        <div class="bg-black/70 backdrop-blur-md p-3 rounded-xl border border-red-500/40 text-right">
-                            <div class="text-[10px] text-red-400 font-bold">BETA (MEME B)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SIMULATOR -->
-            <div class="card-cyber p-8 md:p-10 rounded-3xl relative overflow-hidden border-red-500/50 max-w-2xl mx-auto">
-                <div class="relative z-10 text-center">
-                    <span class="font-orbitron text-xs font-bold text-red-400 uppercase tracking-widest">Active Pool Simulator</span>
-                    <h3 class="text-xl font-black font-orbitron mt-2 mb-4">REWARD & POOL BREAKDOWN</h3>
-
-                    <div id="sim-result" class="bg-black/60 border border-zinc-800 p-5 rounded-2xl mb-6 space-y-3 font-orbitron text-xs text-left">
-                        <div class="flex justify-between text-gray-400 border-b border-zinc-800 pb-2">
-                           <span>Total Winners Prize (50%):</span>
-                           <span class="text-red-400 font-bold" id="res-winner">25,000 $BULL</span>
-                        </div>
-                        <div class="text-[11px] text-gray-500 space-y-1 pl-2">
-                            <div>• 1st Place Meme (60%): <span class="text-gray-300" id="res-first">15,000 $BULL</span></div>
-                            <div>• Community Bettors (40%): <span class="text-gray-300" id="res-second">10,000 $BULL</span></div>
-                        </div>
-                        <div class="flex justify-between text-gray-400 pt-2 border-t border-zinc-800">
-                           <span>Permanent Token Burn (40%):</span>
-                           <span class="text-red-500 font-bold" id="res-burn">20,000 $BULL 🔥</span>
-                        </div>
-                        <div class="flex justify-between text-gray-400">
-                           <span>Operations & Treasury (10%):</span>
-                           <span class="text-gray-200 font-bold" id="res-ops">5,000 $BULL</span>
-                        </div>
-                    </div>
-
-                    <button onclick="simulateBattle()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 rounded-xl font-orbitron text-sm transition tracking-wider shadow-lg shadow-red-600/40 cursor-pointer">
-                        ⚡ REFRESH BATTLE METRICS
-                    </button>
-                </div>
+                <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-gray-200 font-bold px-8 py-4 rounded-xl font-orbitron tracking-wider transition text-center">
+                    TELEGRAM OFICIAL
+                </a>
             </div>
         </section>
 
@@ -260,33 +156,182 @@
         <section id="tokenomics" class="max-w-7xl mx-auto px-4 py-20 border-t border-zinc-900">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-5xl font-black font-orbitron mb-4">OFFICIAL <span class="text-red-500">TOKENOMICS</span></h2>
-                <p class="text-gray-400 max-w-xl mx-auto mb-4">Financial engineering engineered for maximum scarcity, sustainability, and operational freedom.</p>
+                <p class="text-gray-400 max-w-xl mx-auto mb-4">Engenharia financeira desenhada para máxima escassez, sustentabilidade e liberdade operacional.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Batch 1 -->
                 <div class="card-cyber p-8 rounded-2xl relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-600/10 rounded-full blur-2xl"></div>
                     <span class="text-red-500 font-orbitron text-sm font-bold tracking-widest uppercase">Batch 01</span>
                     <h3 class="text-3xl font-black font-orbitron mt-2 mb-4">600 Million</h3>
-                    <div class="text-xs font-semibold text-red-400 bg-red-950/40 border border-red-900/50 inline-block px-2.5 py-1 rounded mb-4">60% OF TOTAL SUPPLY</div>
-                    <p class="text-gray-400 text-sm leading-relaxed">Allocated for presale and initial Solana market launch, securing solid liquidity and a fair entry.</p>
+                    <div class="text-xs font-semibold text-red-400 bg-red-950/40 border border-red-900/50 inline-block px-2.5 py-1 rounded mb-4">60% DO FORNECIMENTO</div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Alocado para pré-venda e lançamento inicial no mercado Solana, garantindo liquidez sólida e entrada justa.
+                    </p>
                 </div>
+
+                <!-- Batch 2 -->
                 <div class="card-cyber p-8 rounded-2xl relative overflow-hidden border-red-500/50">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-600/20 rounded-full blur-2xl"></div>
                     <span class="text-red-500 font-orbitron text-sm font-bold tracking-widest uppercase">Batch 02</span>
                     <h3 class="text-3xl font-black font-orbitron mt-2 mb-4">Zero Tokens</h3>
-                    <div class="text-xs font-semibold text-emerald-400 bg-emerald-950/40 border border-emerald-900/50 inline-block px-2.5 py-1 rounded mb-4">ZERO TEAM TOKENS</div>
-                    <p class="text-gray-400 text-sm leading-relaxed">The core team holds zero free tokens. Creators buy $BULL directly on the open market like any other user.</p>
+                    <div class="text-xs font-semibold text-emerald-400 bg-emerald-950/40 border border-emerald-900/50 inline-block px-2.5 py-1 rounded mb-4">ZERO TOKENS PARA A EQUIPE</div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        A equipe principal possui zero tokens gratuitos. Os criadores compram $BULL diretamente no mercado aberto como qualquer outro usuário.
+                    </p>
                 </div>
+
+                <!-- Batch 3 -->
                 <div class="card-cyber p-8 rounded-2xl relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-600/10 rounded-full blur-2xl"></div>
                     <span class="text-red-500 font-orbitron text-sm font-bold tracking-widest uppercase">Batch 03</span>
                     <h3 class="text-3xl font-black font-orbitron mt-2 mb-4">300 Million</h3>
-                    <div class="text-xs font-semibold text-red-400 bg-red-950/40 border border-red-900/50 inline-block px-2.5 py-1 rounded mb-4">30% OF TOTAL SUPPLY</div>
-                    <p class="text-gray-400 text-sm leading-relaxed">Battle Treasury & Ecosystem Reserve: 10% Treasury reserve, automated podium payouts, and aggressive burns.</p>
+                    <div class="text-xs font-semibold text-red-400 bg-red-950/40 border border-red-900/50 inline-block px-2.5 py-1 rounded mb-4">30% DO FORNECIMENTO</div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Tesouro de Batalha e Reserva do Ecossistema: 10% de reserva, pagamentos automatizados de pódio e queimas agressivas.
+                    </p>
                 </div>
+
+                <!-- Batch 4 -->
                 <div class="card-cyber p-8 rounded-2xl relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-600/10 rounded-full blur-2xl"></div>
                     <span class="text-red-500 font-orbitron text-sm font-bold tracking-widest uppercase">Batch 04</span>
                     <h3 class="text-3xl font-black font-orbitron mt-2 mb-4">100 Million</h3>
-                    <div class="text-xs font-semibold text-red-400 bg-red-950/40 border border-red-900/50 inline-block px-2.5 py-1 rounded mb-4">10% OF TOTAL SUPPLY</div>
-                    <p class="text-gray-400 text-sm leading-relaxed">Reserved exclusively for strategic partnerships, aggressive marketing campaigns, and immediate expansion.</p>
+                    <div class="text-xs font-semibold text-red-400 bg-red-950/40 border border-red-900/50 inline-block px-2.5 py-1 rounded mb-4">10% DO FORNECIMENTO</div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Reservado exclusivamente para parcerias estratégicas, campanhas agressivas de marketing e expansão imediata.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMBAT ARENA & 3D CANVAS -->
+        <section id="arena" class="max-w-7xl mx-auto px-4 py-20 border-t border-zinc-900">
+            <div class="text-center mb-16">
+                <span class="text-red-500 font-orbitron text-xs font-bold tracking-widest uppercase animate-pulse">⚡ Coliseu de Batalhas de Memes</span>
+                <h2 class="text-3xl md:text-5xl font-black font-orbitron mt-2 mb-4">COMBAT <span class="text-red-500">ARENA</span></h2>
+                <p class="text-gray-400 max-w-xl mx-auto">Escolha sua sala de combate e assista a confrontos de memes em 3D em tempo real via WebGL.</p>
+            </div>
+
+            <!-- 3D ARENA CONTAINER (WEBGL) -->
+            <div class="card-cyber p-4 rounded-3xl relative overflow-hidden border-red-500/50 mb-12">
+                <div class="flex justify-between items-center mb-3 px-2">
+                    <span class="font-orbitron text-xs font-bold text-red-500 uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> TRANSMISSÃO 3D AO VIVO
+                    </span>
+                    <span class="text-gray-400 text-xs font-orbitron">Arraste o mouse para orbitar a câmera</span>
+                </div>
+
+                <!-- Canvas where 3D is rendered -->
+                <div id="arena-3d-canvas" class="w-full h-[350px] md:h-[480px] rounded-2xl overflow-hidden relative border border-zinc-800 bg-black">
+                    <!-- Samurai Health HUD -->
+                    <div class="absolute top-4 left-4 right-4 flex justify-between items-center pointer-events-none z-10 font-orbitron">
+                        <div class="bg-black/70 backdrop-blur-md p-3 rounded-xl border border-red-500/40">
+                            <div class="text-[10px] text-red-400 font-bold">AKAGAMI (RED RONIN)</div>
+                            <div class="w-28 sm:w-36 bg-zinc-900 h-2 rounded-full mt-1 overflow-hidden border border-zinc-700">
+                                <div id="hp-bar-1" class="bg-red-500 h-full w-full transition-all duration-300"></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-black/80 px-3 py-1.5 rounded-lg border border-zinc-700 text-xs text-red-500 font-black animate-pulse" id="combat-status">
+                            PRONTO PARA O COMBATE
+                        </div>
+
+                        <div class="bg-black/70 backdrop-blur-md p-3 rounded-xl border border-blue-500/40 text-right">
+                            <div class="text-[10px] text-blue-400 font-bold">AOMORI (CYBER SHOGUN)</div>
+                            <div class="w-28 sm:w-36 bg-zinc-900 h-2 rounded-full mt-1 overflow-hidden border border-zinc-700">
+                                <div id="hp-bar-2" class="bg-blue-500 h-full w-full transition-all duration-300"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MULTI-ROOM LOBBY -->
+            <div class="mb-12">
+                <h3 class="text-xl font-black font-orbitron mb-6 text-center">⚔️ SALAS DE COMBATE DE MEMES</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Room 1 -->
+                    <div class="card-cyber p-6 rounded-2xl border-zinc-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="font-orbitron text-xs text-red-400 font-bold">ROOM #101 - TIER 1</span>
+                                <span class="bg-emerald-950 text-emerald-400 text-[10px] px-2 py-0.5 rounded font-orbitron">ABERTO</span>
+                            </div>
+                            <h4 class="font-orbitron font-bold text-lg mb-2">Ronin Dojo</h4>
+                            <p class="text-gray-400 text-xs mb-3">Taxa de Entrada: <strong class="text-white">1,000 $BULL</strong> por lutador.</p>
+                            <p class="text-gray-400 text-[11px] mb-4 text-red-400/90 font-medium">✨ Pódio: Top 3 dividem 50% do pote</p>
+                        </div>
+                        <button onclick="selectRoom('Room #101 (Tier 1)', 10000)" class="w-full bg-zinc-900 hover:bg-red-600 text-gray-200 hover:text-white border border-zinc-700 hover:border-red-500 font-bold py-2.5 rounded-xl font-orbitron text-xs transition cursor-pointer">
+                            ENTRAR NA SALA #101
+                        </button>
+                    </div>
+
+                    <!-- Room 2 -->
+                    <div class="card-cyber p-6 rounded-2xl border-red-500/50 relative overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="font-orbitron text-xs text-red-500 font-bold">ROOM #202 - TIER 2</span>
+                                <span class="bg-red-950 text-red-400 text-[10px] px-2 py-0.5 rounded font-orbitron border border-red-900">HOT 🔥</span>
+                            </div>
+                            <h4 class="font-orbitron font-bold text-lg mb-2">Shogun Colosseum</h4>
+                            <p class="text-gray-400 text-xs mb-3">Taxa de Entrada: <strong class="text-white">10,000 $BULL</strong> por lutador.</p>
+                            <p class="text-gray-400 text-[11px] mb-4 text-red-400/90 font-medium">✨ Pódio: Top 3 dividem 50% do pote</p>
+                        </div>
+                        <button onclick="selectRoom('Room #202 (Tier 2)', 50000)" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-2.5 rounded-xl font-orbitron text-xs transition shadow-lg shadow-red-600/30 cursor-pointer">
+                            ENTRAR NA SALA #202
+                        </button>
+                    </div>
+
+                    <!-- Room 3 -->
+                    <div class="card-cyber p-6 rounded-2xl border-zinc-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="font-orbitron text-xs text-yellow-500 font-bold">ROOM #303 - TIER 3</span>
+                                <span class="bg-yellow-950 text-yellow-400 text-[10px] px-2 py-0.5 rounded font-orbitron">WHALES 🐋</span>
+                            </div>
+                            <h4 class="font-orbitron font-bold text-lg mb-2">Emperor's Palace</h4>
+                            <p class="text-gray-400 text-xs mb-3">Taxa de Entrada: <strong class="text-white">50,000 $BULL</strong> por lutador.</p>
+                            <p class="text-gray-400 text-[11px] mb-4 text-yellow-400/90 font-medium">✨ Pódio: Top 3 dividem 50% do pote</p>
+                        </div>
+                        <button onclick="selectRoom('Room #303 (Tier 3)', 250000)" class="w-full bg-zinc-900 hover:bg-yellow-600 text-gray-200 hover:text-white border border-zinc-700 hover:border-yellow-500 font-bold py-2.5 rounded-xl font-orbitron text-xs transition cursor-pointer">
+                            ENTRAR NA SALA #303
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR -->
+            <div class="card-cyber p-8 md:p-10 rounded-3xl relative overflow-hidden border-red-500/50 max-w-2xl mx-auto">
+                <div class="relative z-10 text-center">
+                    <span class="font-orbitron text-xs font-bold text-red-400 uppercase tracking-widest" id="active-room-label">Active Chamber: Room #202 (Tier 2)</span>
+                    <h3 class="text-xl font-black font-orbitron mt-2 mb-4">SIMULADOR DE PÓDIO E TESOURO</h3>
+
+                    <div id="sim-result" class="bg-black/60 border border-zinc-800 p-5 rounded-2xl mb-6 space-y-3 font-orbitron text-xs text-left">
+                        <div class="flex justify-between text-gray-400 border-b border-zinc-800 pb-2">
+                           <span>Prêmio Total do Pódio (50%):</span>
+                           <span class="text-red-400 font-bold" id="res-winner">25,000 $BULL</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500 space-y-1 pl-2">
+                            <div>• 1º Lugar (Campeão - 60% do pódio): <span class="text-gray-300" id="res-first">15,000 $BULL</span></div>
+                            <div>• 2º Lugar (Vice-campeão - 25% do pódio): <span class="text-gray-300" id="res-second">6,250 $BULL</span></div>
+                            <div>• 3º Lugar (Terceiro - 15% do pódio): <span class="text-gray-300" id="res-third">3,750 $BULL</span></div>
+                        </div>
+                        <div class="flex justify-between text-gray-400 pt-2 border-t border-zinc-800">
+                           <span>Queima Permanente (40%):</span>
+                           <span class="text-red-500 font-bold" id="res-burn">20,000 $BULL 🔥</span>
+                        </div>
+                        <div class="flex justify-between text-gray-400">
+                           <span>Operações (10%):</span>
+                           <span class="text-gray-200 font-bold" id="res-ops">5,000 $BULL</span>
+                        </div>
+                    </div>
+
+                    <button onclick="simulateBattle()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 rounded-xl font-orbitron text-sm transition tracking-wider shadow-lg shadow-red-600/40 cursor-pointer">
+                        ⚡ ACIONAR CONFRONTO 3D
+                    </button>
                 </div>
             </div>
         </section>
@@ -302,17 +347,25 @@
                 <div class="card-cyber p-8 rounded-2xl">
                     <div class="text-red-500 font-orbitron text-2xl mb-4">🔒</div>
                     <h3 class="text-lg font-black font-orbitron mb-2">Commit-Reveal Cryptography</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">User votes and pool stakes are cryptographically secured to prevent front-running.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        As jogadas dos players são enviadas primeiro como hashes criptografados para evitar manipulações no mempool.
+                    </p>
                 </div>
+
                 <div class="card-cyber p-8 rounded-2xl">
                     <div class="text-red-500 font-orbitron text-2xl mb-4">🎲</div>
                     <h3 class="text-lg font-black font-orbitron mb-2">VRF Randomness</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Verifiable Random Functions ensure transparent resolution for side events.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Golpes de katana e defesas usam Funções Verificáveis Aleatórias (VRF) para eliminar exploits.
+                    </p>
                 </div>
+
                 <div class="card-cyber p-8 rounded-2xl">
                     <div class="text-red-500 font-orbitron text-2xl mb-4">⚡</div>
-                    <h3 class="text-lg font-black font-orbitron mb-2">Native Solana Validation</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Executed directly by robust smart contracts on Solana, guaranteeing instant payouts.</p>
+                    <h3 class="text-lg font-black font-orbitron mb-2">Validação Nativa Solana</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Executado diretamente por smart contracts robustos na Solana, garantindo pagamentos instantâneos.
+                    </p>
                 </div>
             </div>
         </section>
@@ -327,27 +380,27 @@
                 <div class="card-cyber p-6 rounded-2xl">
                     <span class="text-red-500 font-orbitron text-xs font-bold uppercase">Phase 01</span>
                     <h3 class="text-xl font-black font-orbitron mt-1 mb-2">Awakening</h3>
-                    <p class="text-gray-400 text-xs">• Smart contracts<br>• Community launch<br>• Web3 branding</p>
+                    <p class="text-gray-400 text-xs">• Smart contracts<br>• Lançamento comunitário<br>• Branding Web3</p>
                 </div>
                 <div class="card-cyber p-6 rounded-2xl">
                     <span class="text-red-500 font-orbitron text-xs font-bold uppercase">Phase 02</span>
                     <h3 class="text-xl font-black font-orbitron mt-1 mb-2">Conflict</h3>
-                    <p class="text-gray-400 text-xs">• DEX listing<br>• Fast-track CMC & CG<br>• Treasury burn</p>
+                    <p class="text-gray-400 text-xs">• Listagem DEX<br>• Fast-track CMC & CG<br>• Queima de tesouro</p>
                 </div>
                 <div class="card-cyber p-6 rounded-2xl">
                     <span class="text-red-500 font-orbitron text-xs font-bold uppercase">Phase 03</span>
                     <h3 class="text-xl font-black font-orbitron mt-1 mb-2">Dominance</h3>
-                    <p class="text-gray-400 text-xs">• Gamification release<br>• Tier-1 CEX listing<br>• Meme Arena</p>
+                    <p class="text-gray-400 text-xs">• Lançamento da gamificação<br>• Listagem CEX Tier-1<br>• NFTs Samurai</p>
                 </div>
                 <div class="card-cyber p-6 rounded-2xl">
                     <span class="text-red-500 font-orbitron text-xs font-bold uppercase">Phase 04</span>
                     <h3 class="text-xl font-black font-orbitron mt-1 mb-2">Staking</h3>
-                    <p class="text-gray-400 text-xs">• Staking platform<br>• Contract audits<br>• Multichain expansion</p>
+                    <p class="text-gray-400 text-xs">• Plataforma de staking<br>• Auditorias de contrato<br>• Expansão multichain</p>
                 </div>
                 <div class="card-cyber p-6 rounded-2xl">
                     <span class="text-red-500 font-orbitron text-xs font-bold uppercase">Phase 05</span>
                     <h3 class="text-xl font-black font-orbitron mt-1 mb-2">BullSwap</h3>
-                    <p class="text-gray-400 text-xs">• Native BullSwap DEX<br>• AMM liquidity<br>• Fee-sharing model</p>
+                    <p class="text-gray-400 text-xs">• DEX nativa BullSwap<br>• Liquidez AMM<br>• Modelo de divisão de taxas</p>
                 </div>
             </div>
         </section>
@@ -366,7 +419,7 @@
         </div>
     </footer>
 
-    <!-- 3D ENGINE + LOGIC -->
+    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC -->
     <script>
         let scene, camera, renderer, controls;
         let samurai1, samurai2;
@@ -392,26 +445,29 @@
             controls.dampingFactor = 0.05;
             controls.maxPolarAngle = Math.PI / 2 - 0.05;
 
+            // Lights
             scene.add(new THREE.AmbientLight(0xffffff, 0.4));
             
-            const redLight = new THREE.PointLight(0xf59e0b, 4, 20);
+            const redLight = new THREE.PointLight(0xef4444, 4, 20);
             redLight.position.set(-4, 4, 2);
             scene.add(redLight);
 
-            const blueLight = new THREE.PointLight(0xef4444, 4, 20);
+            const blueLight = new THREE.PointLight(0x3b82f6, 4, 20);
             blueLight.position.set(4, 4, -2);
             scene.add(blueLight);
 
+            // Grid Floor
             const gridHelper = new THREE.GridHelper(30, 30, 0xef4444, 0x27272a);
             gridHelper.position.y = -0.01;
             scene.add(gridHelper);
 
-            samurai1 = createSamurai(0xf59e0b); // Alpha Gold
+            // Samurai Warriors
+            samurai1 = createSamurai(0xef4444); // Red Ronin
             samurai1.position.set(-3, 0, 0);
             samurai1.rotation.y = Math.PI / 4;
             scene.add(samurai1);
 
-            samurai2 = createSamurai(0xef4444); // Beta Red
+            samurai2 = createSamurai(0x3b82f6); // Blue Shogun
             samurai2.position.set(3, 0, 0);
             samurai2.rotation.y = -Math.PI / 4;
             scene.add(samurai2);
@@ -420,14 +476,17 @@
             animate();
         }
 
+        // SAMURAI BUILDER (KABUTO, KIMONO ARMOR, KANATA KATANA SWORD)
         function createSamurai(colorHex) {
             const group = new THREE.Group();
+
             const fabricMat = new THREE.MeshStandardMaterial({ color: 0x14141c, roughness: 0.8 });
             const armorMat = new THREE.MeshStandardMaterial({ color: 0x1f1f2e, metalness: 0.8, roughness: 0.3 });
             const glowMat = new THREE.MeshBasicMaterial({ color: colorHex });
             const bladeMat = new THREE.MeshStandardMaterial({ color: 0xddddff, metalness: 0.95, roughness: 0.1 });
             const goldMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8, roughness: 0.2 });
 
+            // Torso & Armor (Do)
             const torso = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.4, 0.8), fabricMat);
             torso.position.y = 1.5;
             group.add(torso);
@@ -441,14 +500,17 @@
             crestCore.position.set(0, 1.5, 0.55);
             group.add(crestCore);
 
+            // Head & Kabuto Helmet
             const head = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.65, 0.65), fabricMat);
             head.position.set(0, 2.6, 0);
             group.add(head);
 
+            // Kabuto Bowl
             const helmetBowl = new THREE.Mesh(new THREE.SphereGeometry(0.45, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2), armorMat);
             helmetBowl.position.set(0, 2.8, 0);
             group.add(helmetBowl);
 
+            // Kabuto Visor/Mouthplate (Mempo)
             const mempo = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.25, 0.3), armorMat);
             mempo.position.set(0, 2.45, 0.35);
             group.add(mempo);
@@ -457,6 +519,7 @@
             visorGlow.position.set(0, 2.52, 0.45);
             group.add(visorGlow);
 
+            // Kabuto Crest (Maedate - Horn / Crescent)
             const hornL = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.8, 8), goldMat);
             hornL.position.set(-0.35, 3.2, 0.1);
             hornL.rotation.z = -0.4;
@@ -467,6 +530,7 @@
             hornR.rotation.z = 0.4;
             group.add(hornR);
 
+            // Shoulder Guards (Sode)
             const sodeL = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.6, 0.5), armorMat);
             sodeL.position.set(-0.9, 2.0, 0);
             group.add(sodeL);
@@ -475,6 +539,7 @@
             sodeR.position.set(0.9, 2.0, 0);
             group.add(sodeR);
 
+            // Arms
             const armGeo = new THREE.BoxGeometry(0.35, 0.85, 0.35);
             const armL = new THREE.Mesh(armGeo, fabricMat);
             armL.position.set(-0.9, 1.25, 0);
@@ -484,6 +549,7 @@
             armR.position.set(0.9, 1.25, 0);
             group.add(armR);
 
+            // Katana Sword in Right Hand
             const katanaGroup = new THREE.Group();
             const hilt = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), fabricMat);
             hilt.position.set(0, -0.2, 0);
@@ -501,6 +567,7 @@
             katanaGroup.rotation.x = -Math.PI / 4;
             group.add(katanaGroup);
 
+            // Legs (Hakama)
             const legGeo = new THREE.BoxGeometry(0.4, 1.0, 0.4);
             const legL = new THREE.Mesh(legGeo, fabricMat);
             legL.position.set(-0.35, 0.5, 0);
@@ -513,12 +580,12 @@
             return group;
         }
 
-        function simulateBattle() {
+        function trigger3DAttackAnimation() {
             if (isAttacking) return;
             isAttacking = true;
 
             const statusText = document.getElementById('combat-status');
-            statusText.innerText = '⚡ MCP VOLUME UPDATED!';
+            statusText.innerText = '⚡ KATANA CLASH!';
             statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-bounce';
 
             const startX1 = samurai1.position.x;
@@ -530,19 +597,23 @@
                 if (progress <= 1) {
                     samurai1.position.x = startX1 + Math.sin(progress * Math.PI) * 2.2;
                     samurai2.position.x = startX2 - Math.sin(progress * Math.PI) * 2.2;
+                    samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 4) * 0.4;
+                    samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 4) * 0.4;
                 } else {
                     clearInterval(interval);
                     samurai1.position.x = startX1;
                     samurai2.position.x = startX2;
+                    samurai1.rotation.y = Math.PI / 4;
+                    samurai2.rotation.y = -Math.PI / 4;
                     isAttacking = false;
-                    statusText.innerText = 'ARENA LIVE';
-                    statusText.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-zinc-700 text-xs text-red-500 font-black animate-pulse';
+
+                    document.getElementById('hp-bar-1').style.width = (Math.random() * 40 + 60) + '%';
+                    document.getElementById('hp-bar-2').style.width = (Math.random() * 30 + 30) + '%';
+
+                    statusText.innerText = 'ROUND FINALIZADO';
+                    statusText.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-emerald-500 text-xs text-emerald-400 font-bold';
                 }
             }, 30);
-        }
-
-        function placeBet(meme) {
-            alert(`Aposta registrada com sucesso em ${meme}! Boa sorte na disputa.`);
         }
 
         function animate() {
@@ -562,6 +633,52 @@
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        // ROOMS & SIMULATOR LOGIC
+        let currentPoolSize = 50000;
+
+        function selectRoom(roomName, poolSize) {
+            currentPoolSize = poolSize;
+            document.getElementById('active-room-label').innerText = 'Active Chamber: ' + roomName;
+            updateSimulationDisplay();
+        }
+
+        function updateSimulationDisplay() {
+            const totalWinnerPool = currentPoolSize * 0.5;
+            const first = totalWinnerPool * 0.6;
+            const second = totalWinnerPool * 0.25;
+            const third = totalWinnerPool * 0.15;
+            const burn = currentPoolSize * 0.4;
+            const ops = currentPoolSize * 0.1;
+
+            document.getElementById('res-winner').innerText = totalWinnerPool.toLocaleString() + ' $BULL';
+            document.getElementById('res-first').innerText = Math.round(first).toLocaleString() + ' $BULL';
+            document.getElementById('res-second').innerText = Math.round(second).toLocaleString() + ' $BULL';
+            document.getElementById('res-third').innerText = Math.round(third).toLocaleString() + ' $BULL';
+            document.getElementById('res-burn').innerText = burn.toLocaleString() + ' $BULL 🔥';
+            document.getElementById('res-ops').innerText = ops.toLocaleString() + ' $BULL';
+        }
+
+        function simulateBattle() {
+            trigger3DAttackAnimation();
+
+            let variation = (Math.random() * 0.2) - 0.1;
+            let simulatedPool = Math.round(currentPoolSize * (1 + variation));
+
+            const totalWinnerPool = simulatedPool * 0.5;
+            const first = totalWinnerPool * 0.6;
+            const second = totalWinnerPool * 0.25;
+            const third = totalWinnerPool * 0.15;
+            const burn = Math.round(simulatedPool * 0.4);
+            const ops = Math.round(simulatedPool * 0.1);
+
+            document.getElementById('res-winner').innerText = totalWinnerPool.toLocaleString() + ' $BULL';
+            document.getElementById('res-first').innerText = Math.round(first).toLocaleString() + ' $BULL';
+            document.getElementById('res-second').innerText = Math.round(second).toLocaleString() + ' $BULL';
+            document.getElementById('res-third').innerText = Math.round(third).toLocaleString() + ' $BULL';
+            document.getElementById('res-burn').innerText = burn.toLocaleString() + ' $BULL 🔥';
+            document.getElementById('res-ops').innerText = ops.toLocaleString() + ' $BULL';
         }
 
         document.addEventListener('DOMContentLoaded', init3DArena);
@@ -654,7 +771,9 @@
             const resp = await provider.connect({ onlyIfTrusted: true });
             userWalletAddress = resp.publicKey.toString();
             await updateWalletUI(userWalletAddress);
-          } catch (e) {}
+          } catch (e) {
+            // Ignora se não estiver conectado previamente
+          }
         }
       });
     </script>
