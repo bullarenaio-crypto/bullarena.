@@ -108,7 +108,7 @@
                 </a>
                 <a href="#tokenomics" class="text-sm text-gray-400 hover:text-red-400 transition">Tokenomics</a>
                 <a href="#arena" class="text-sm text-gray-400 hover:text-red-400 transition">Meme Arena</a>
-                <a href="#meme-arena-section" class="text-sm text-red-400 hover:text-red-300 font-bold transition">🔥 Enviar Memes</a>
+                <a href="#meme-arena-section" class="text-sm text-red-400 hover:text-red-300 font-bold transition">🔥 Votação</a>
                 <a href="#security" class="text-sm text-gray-400 hover:text-red-400 transition">AI Security</a>
                 <a href="#roadmap" class="text-sm text-gray-400 hover:text-red-400 transition">Roadmap</a>
                 
@@ -149,7 +149,7 @@
                     ⚔️ ENTRAR NA ARENA 3D
                 </a>
                 <a href="#meme-arena-section" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-gray-200 font-bold px-8 py-4 rounded-xl font-orbitron tracking-wider transition text-center">
-                    🔥 ENVIAR MEME
+                    🔥 VOTAR EM MEMES
                 </a>
             </div>
         </section>
@@ -343,99 +343,13 @@
             <div class="text-center mb-16">
                 <span class="text-red-500 font-orbitron text-xs font-bold tracking-widest uppercase animate-pulse">⚡ Comunidade & Batalha de Memes</span>
                 <h2 class="text-3xl md:text-5xl font-black font-orbitron mt-2 mb-4">MEME <span class="text-red-500">ARENA</span></h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Envie seu meme com sua carteira Solana e vote nos melhores guerreiros da comunidade!</p>
+                <p class="text-gray-400 max-w-xl mx-auto">Vote nos melhores guerreiros da comunidade! Apenas um voto permitido por carteira.</p>
             </div>
 
-            <!-- FORMULÁRIO DE ENVIO -->
-            <div class="card-cyber p-8 rounded-3xl max-w-xl mx-auto mb-16 border-red-500/40">
-                <h3 class="text-xl font-black font-orbitron mb-6 text-center">ENVIAR NOVO MEME</h3>
-                <form id="memeForm" class="space-y-4 font-orbitron text-xs">
-                    <div>
-                        <label class="block text-gray-400 mb-2 font-bold">Título do Meme</label>
-                        <input type="text" id="memeTitle" required placeholder="Ex: Pepe Samurai vs Bear" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-2 font-bold">URL da Imagem (Link direto)</label>
-                        <input type="url" id="memeImageUrl" required placeholder="https://exemplo.com/imagem.png" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-2 font-bold">Sua Carteira Solana (Wallet)</label>
-                        <input type="text" id="memeWallet" required placeholder="Endereço da Phantom / Solflare" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none">
-                    </div>
-                    <button type="submit" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 rounded-xl transition tracking-wider shadow-lg shadow-red-600/40 cursor-pointer">
-                        🚀 ENVIAR MEME PARA A ARENA
-                    </button>
-                </form>
-            </div>
-
-            <!-- GRADE DE 4 MEMES (EXEMPLOS FIXOS / INICIAIS DA COMUNIDADE) -->
+            <!-- GRADE DE MEMES -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="memesGrid">
-                <!-- Meme 1 -->
-                <div class="card-cyber p-5 rounded-2xl flex flex-col justify-between border border-zinc-800">
-                    <div>
-                        <div class="rounded-xl overflow-hidden mb-4 h-48 bg-black/50 border border-zinc-800 flex items-center justify-center">
-                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80" alt="Meme 1" class="w-full h-full object-cover">
-                        </div>
-                        <h4 class="font-orbitron font-bold text-base text-white mb-1 truncate">Pepe Samurai Supreme</h4>
-                        <p class="text-zinc-500 text-[10px] font-mono mb-4 truncate">Wallet: 7xKX...9r2Q</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-zinc-800">
-                        <span class="font-orbitron text-xs text-red-400 font-bold">🔥 1,420 Votos</span>
-                        <button onclick="alert('Voto computado com sucesso! ⚡')" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/40 px-4 py-2 rounded-xl font-orbitron text-xs transition cursor-pointer">
-                            VOTAR ⚡
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Meme 2 -->
-                <div class="card-cyber p-5 rounded-2xl flex flex-col justify-between border border-zinc-800">
-                    <div>
-                        <div class="rounded-xl overflow-hidden mb-4 h-48 bg-black/50 border border-zinc-800 flex items-center justify-center">
-                            <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=500&q=80" alt="Meme 2" class="w-full h-full object-cover">
-                        </div>
-                        <h4 class="font-orbitron font-bold text-base text-white mb-1 truncate">Doge Cyber Shogun</h4>
-                        <p class="text-zinc-500 text-[10px] font-mono mb-4 truncate">Wallet: 3vBN...4m1L</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-zinc-800">
-                        <span class="font-orbitron text-xs text-red-400 font-bold">🔥 980 Votos</span>
-                        <button onclick="alert('Voto computado com sucesso! ⚡')" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/40 px-4 py-2 rounded-xl font-orbitron text-xs transition cursor-pointer">
-                            VOTAR ⚡
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Meme 3 -->
-                <div class="card-cyber p-5 rounded-2xl flex flex-col justify-between border border-zinc-800">
-                    <div>
-                        <div class="rounded-xl overflow-hidden mb-4 h-48 bg-black/50 border border-zinc-800 flex items-center justify-center">
-                            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=500&q=80" alt="Meme 3" class="w-full h-full object-cover">
-                        </div>
-                        <h4 class="font-orbitron font-bold text-base text-white mb-1 truncate">Solana Bull Fighter</h4>
-                        <p class="text-zinc-500 text-[10px] font-mono mb-4 truncate">Wallet: 9pLK...8w7Z</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-zinc-800">
-                        <span class="font-orbitron text-xs text-red-400 font-bold">🔥 2,150 Votos</span>
-                        <button onclick="alert('Voto computado com sucesso! ⚡')" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/40 px-4 py-2 rounded-xl font-orbitron text-xs transition cursor-pointer">
-                            VOTAR ⚡
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Meme 4 -->
-                <div class="card-cyber p-5 rounded-2xl flex flex-col justify-between border border-zinc-800">
-                    <div>
-                        <div class="rounded-xl overflow-hidden mb-4 h-48 bg-black/50 border border-zinc-800 flex items-center justify-center">
-                            <img src="https://images.unsplash.com/photo-1614680376593-902f749f7ffc?auto=format&fit=crop&w=500&q=80" alt="Meme 4" class="w-full h-full object-cover">
-                        </div>
-                        <h4 class="font-orbitron font-bold text-base text-white mb-1 truncate">Wojak Ronin Strike</h4>
-                        <p class="text-zinc-500 text-[10px] font-mono mb-4 truncate">Wallet: 5jHN...2k9P</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-zinc-800">
-                        <span class="font-orbitron text-xs text-red-400 font-bold">🔥 850 Votos</span>
-                        <button onclick="alert('Voto computado com sucesso! ⚡')" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/40 px-4 py-2 rounded-xl font-orbitron text-xs transition cursor-pointer">
-                            VOTAR ⚡
-                        </button>
-                    </div>
+                <div class="card-cyber p-6 rounded-2xl text-center text-gray-500 col-span-4">
+                    Carregando memes da arena do Supabase...
                 </div>
             </div>
         </section>
@@ -523,7 +437,7 @@
         </div>
     </footer>
 
-    <!-- SUPABASE CLIENT & MEME ARENA LOGIC -->
+    <!-- SUPABASE CLIENT & MEME ARENA LOGIC COM VOTO ÚNICO POR CARTEIRA -->
     <script>
         const SUPABASE_URL = 'https://gqpnqrylggrcqqklplql.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxcG5xcnlsZ2dyY3Fxa2xwbHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwOTg2NzksImV4cCI6MjEwNTY3NDY3OX0.OgpYFkMteR47FbID1wOMoK3ILY-RcRsVl6AIusbqZgE';
@@ -539,8 +453,14 @@
                 .select('*')
                 .order('votes', { ascending: false });
 
-            if (error || !data || data.length === 0) {
-                // Mantém os 4 cards estáticos caso o banco esteja vazio ou com erro
+            if (error) {
+                console.error("Erro ao buscar memes:", error);
+                grid.innerHTML = '<div class="card-cyber p-6 rounded-2xl text-center text-red-400 col-span-4">Erro ao carregar memes da arena.</div>';
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                grid.innerHTML = '<div class="card-cyber p-6 rounded-2xl text-center text-gray-400 col-span-4 font-orbitron text-xs">Nenhum meme na arena no momento.</div>';
                 return;
             }
 
@@ -564,42 +484,45 @@
         }
 
         async function voteMeme(id, currentVotes) {
-            const { error } = await supabaseClient
+            if (!userWalletAddress) {
+                alert("Conecte sua carteira Phantom antes de votar!");
+                connectWallet();
+                return;
+            }
+
+            // 1. Tenta registrar o voto na tabela de controle de votos restritos por carteira
+            const { error: voteError } = await supabaseClient
+                .from('meme_votes')
+                .insert([{ meme_id: id, wallet_address: userWalletAddress }]);
+
+            if (voteError) {
+                if (voteError.code === '23505') {
+                    alert("⚠️ Sua carteira já realizou um voto na arena! Apenas um voto por carteira é permitido.");
+                } else {
+                    console.error("Erro ao registrar voto:", voteError);
+                    alert("Erro ao computar o voto. Tente novamente.");
+                }
+                return;
+            }
+
+            // 2. Se passou na trava, incrementa o contador no meme correspondente
+            const { error: updateError } = await supabaseClient
                 .from('memes')
                 .update({ votes: currentVotes + 1 })
                 .eq('id', id);
 
-            if (!error) {
+            if (updateError) {
+                console.error("Erro ao atualizar contagem:", updateError);
+            } else {
+                alert("Voto computado com sucesso! ⚡");
                 fetchMemes();
             }
-        }
-
-        const memeFormEl = document.getElementById('memeForm');
-        if (memeFormEl) {
-            memeFormEl.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const title = document.getElementById('memeTitle').value;
-                const image_url = document.getElementById('memeImageUrl').value;
-                const wallet = document.getElementById('memeWallet').value;
-
-                const { error } = await supabaseClient
-                    .from('memes')
-                    .insert([{ title, image_url, wallet, votes: 0 }]);
-
-                if (error) {
-                    alert("Erro ao enviar meme. Verifique os campos.");
-                } else {
-                    alert("Meme enviado com sucesso para a arena! 🚀");
-                    memeFormEl.reset();
-                    fetchMemes();
-                }
-            });
         }
 
         document.addEventListener('DOMContentLoaded', fetchMemes);
     </script>
 
-    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC (COM BATALHA E ESPADAS BATENDO) -->
+    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC -->
     <script>
         let scene, camera, renderer, controls;
         let samurai1, samurai2;
@@ -662,7 +585,6 @@
 
             const fabricMat = new THREE.MeshStandardMaterial({ color: 0x14141c, roughness: 0.8 });
             const armorMat = new THREE.MeshStandardMaterial({ color: 0x1f1f2e, metalness: 0.8, roughness: 0.3 });
-            const glowMat = new THREE.MeshBasicMaterial({ color: colorHex });
             const bladeMat = new THREE.MeshStandardMaterial({ color: 0xddddff, metalness: 0.95, roughness: 0.1 });
             const goldMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8, roughness: 0.2 });
 
@@ -708,7 +630,7 @@
             armR.position.set(0.9, 1.25, 0);
             group.add(armR);
 
-            // Katana Sword in Right Hand (Posicionada para o confronto)
+            // Katana Sword in Right Hand
             const katanaGroup = new THREE.Group();
             const hilt = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), fabricMat);
             hilt.position.set(0, -0.2, 0);
@@ -758,7 +680,6 @@
             const interval = setInterval(() => {
                 progress += 0.03;
                 if (progress <= 1) {
-                    // Avançam para o centro (x = 0) e batem as espadas
                     samurai1.position.x = startX1 + (Math.sin(progress * Math.PI) * 3);
                     samurai2.position.x = startX2 - (Math.sin(progress * Math.PI) * 3);
                     
@@ -767,14 +688,12 @@
                 } else {
                     clearInterval(interval);
                     
-                    // Retornam para as posições iniciais
                     samurai1.position.x = startX1;
                     samurai2.position.x = startX2;
                     samurai1.rotation.y = Math.PI / 4;
                     samurai2.rotation.y = -Math.PI / 4;
                     isAttacking = false;
 
-                    // Atualiza barras de HP e exibe "CONFRONTO FINALIZADO"
                     const hp1 = document.getElementById('hp-bar-1');
                     const hp2 = document.getElementById('hp-bar-2');
                     if (hp1) hp1.style.width = (Math.random() * 30 + 40) + '%';
