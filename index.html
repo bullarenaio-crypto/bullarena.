@@ -207,64 +207,42 @@
             </div>
         </section>
 
-        <!-- COMBAT ARENA & 3D CANVAS & MINIGAME -->
+        <!-- COMBAT ARENA & 3D CANVAS -->
         <section id="arena" class="max-w-7xl mx-auto px-4 py-20 border-t border-zinc-900">
             <div class="text-center mb-16">
-                <span class="text-red-500 font-orbitron text-xs font-bold tracking-widest uppercase animate-pulse">⚡ Coliseu Interativo de Batalhas de Memes</span>
-                <h2 class="text-3xl md:text-5xl font-black font-orbitron mt-2 mb-4">MEME COMBAT <span class="text-red-500">ARENA GAME</span></h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Clique no botão abaixo para iniciar o modo de combate interativo, desferir golpes de Katana e derrotar o oponente em 3D!</p>
+                <span class="text-red-500 font-orbitron text-xs font-bold tracking-widest uppercase animate-pulse">⚡ Coliseu de Batalhas de Memes</span>
+                <h2 class="text-3xl md:text-5xl font-black font-orbitron mt-2 mb-4">MEME COMBAT <span class="text-red-500">ARENA</span></h2>
+                <p class="text-gray-400 max-w-xl mx-auto">Escolha sua sala de combate e assista a confrontos de avatares de memes em 3D em tempo real via WebGL.</p>
             </div>
 
-            <!-- TEMPORIZADOR AUTOMÁTICO DE MERCADO -->
-            <div class="max-w-4xl mx-auto mb-4 flex flex-col sm:flex-row justify-between items-center bg-zinc-900/90 border border-red-500/30 px-5 py-3 rounded-2xl font-orbitron text-xs gap-3">
-                <div class="flex items-center gap-2.5">
-                    <span id="market-status-dot" class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span id="market-status-text" class="text-emerald-400 font-bold tracking-wide">MERCADO DE COMBATE ABERTO</span>
-                </div>
-                <div class="text-gray-400 flex items-center gap-2">
-                    <span>Encerramento do Ciclo em:</span> 
-                    <span id="combat-timer" class="text-red-400 font-black text-sm bg-black/60 px-3 py-1 rounded-lg border border-red-500/40">00:30</span>
-                </div>
-            </div>
-
-            <!-- 3D ARENA CONTAINER (WEBGL) + MINIGAME CONTROLS -->
-            <div class="card-cyber p-4 rounded-3xl relative overflow-hidden border-red-500/50 mb-12 max-w-4xl mx-auto">
-                <div class="flex flex-col sm:flex-row justify-between items-center mb-3 px-2 gap-2">
+            <!-- 3D ARENA CONTAINER (WEBGL) -->
+            <div class="card-cyber p-4 rounded-3xl relative overflow-hidden border-red-500/50 mb-12">
+                <div class="flex justify-between items-center mb-3 px-2">
                     <span class="font-orbitron text-xs font-bold text-red-500 uppercase tracking-widest flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> ARENA INTERATIVA (JOGÁVEL)
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> TRANSMISSÃO 3D DE MEMES AO VIVO
                     </span>
-                    <div class="flex gap-2">
-                        <button onclick="triggerPlayerAttack()" class="bg-red-600 hover:bg-red-500 text-white text-xs font-bold px-4 py-1.5 rounded-lg font-orbitron transition shadow-md cursor-pointer">
-                            ⚔️ ATACAR COM KATANA
-                        </button>
-                        <button onclick="triggerPlayerSpecial()" class="bg-yellow-600 hover:bg-yellow-500 text-white text-xs font-bold px-4 py-1.5 rounded-lg font-orbitron transition shadow-md cursor-pointer">
-                            ⚡ GOLPE ESPECIAL
-                        </button>
-                    </div>
+                    <span class="text-gray-400 text-xs font-orbitron">Arraste o mouse para orbitar a câmera</span>
                 </div>
 
                 <!-- Canvas where 3D is rendered -->
                 <div id="arena-3d-canvas" class="w-full h-[350px] md:h-[480px] rounded-2xl overflow-hidden relative border border-zinc-800 bg-black">
-                    <!-- Combatants Health HUD & Score -->
+                    <!-- Combatants Health HUD -->
                     <div class="absolute top-4 left-4 right-4 flex justify-between items-center pointer-events-none z-10 font-orbitron">
-                        <div class="bg-black/80 backdrop-blur-md p-3 rounded-xl border border-red-500/40">
-                            <div class="text-[10px] text-red-400 font-bold flex justify-between">
-                                <span>AKAGAMI (VOCÊ)</span>
-                                <span id="player-score" class="text-yellow-400">Score: 0</span>
-                            </div>
+                        <div class="bg-black/70 backdrop-blur-md p-3 rounded-xl border border-red-500/40">
+                            <div class="text-[10px] text-red-400 font-bold">AKAGAMI (RED RONIN)</div>
                             <div class="w-28 sm:w-36 bg-zinc-900 h-2 rounded-full mt-1 overflow-hidden border border-zinc-700">
                                 <div id="hp-bar-1" class="bg-red-500 h-full w-full transition-all duration-300"></div>
                             </div>
                         </div>
 
-                        <div class="bg-black/90 px-3 py-1.5 rounded-lg border border-red-500 text-xs text-red-400 font-bold shadow-lg" id="combat-status">
-                            🎮 CLIQUE EM "ATACAR" PARA JOGAR!
+                        <div class="bg-black/80 px-3 py-1.5 rounded-lg border border-zinc-700 text-xs text-red-500 font-black animate-pulse" id="combat-status">
+                            PRONTO PARA O COMBATE
                         </div>
 
-                        <div class="bg-black/80 backdrop-blur-md p-3 rounded-xl border border-blue-500/40 text-right">
-                            <div class="text-[10px] text-blue-400 font-bold">AOMORI (BOT BOSS)</div>
+                        <div class="bg-black/70 backdrop-blur-md p-3 rounded-xl border border-blue-500/40 text-right">
+                            <div class="text-[10px] text-blue-400 font-bold">AOMORI (CYBER SHOGUN)</div>
                             <div class="w-28 sm:w-36 bg-zinc-900 h-2 rounded-full mt-1 overflow-hidden border border-zinc-700">
-                                <div id="hp-bar-2" class="bg-blue-500 h-full w-full transition-all duration-300" style="width: 100%;"></div>
+                                <div id="hp-bar-2" class="bg-blue-500 h-full w-full transition-all duration-300"></div>
                             </div>
                         </div>
                     </div>
@@ -326,13 +304,13 @@
                 </div>
             </div>
 
-            <!-- SIMULATOR & TREASURY STATS -->
+            <!-- SIMULATOR -->
             <div class="card-cyber p-8 md:p-10 rounded-3xl relative overflow-hidden border-red-500/50 max-w-2xl mx-auto">
                 <div class="relative z-10 text-center">
                     <span class="font-orbitron text-xs font-bold text-red-400 uppercase tracking-widest" id="active-room-label">Active Chamber: Room #202 (Tier 2)</span>
-                    <h3 class="text-xl font-black font-orbitron mt-2 mb-4">ESTATÍSTICAS DO PÓDIO E TESOURO</h3>
+                    <h3 class="text-xl font-black font-orbitron mt-2 mb-4">SIMULADOR DE PÓDIO E TESOURO</h3>
 
-                    <div id="sim-result" class="bg-black/60 border border-zinc-800 p-5 rounded-2xl space-y-3 font-orbitron text-xs text-left">
+                    <div id="sim-result" class="bg-black/60 border border-zinc-800 p-5 rounded-2xl mb-6 space-y-3 font-orbitron text-xs text-left">
                         <div class="flex justify-between text-gray-400 border-b border-zinc-800 pb-2">
                            <span>Prêmio Total do Pódio (50%):</span>
                            <span class="text-red-400 font-bold" id="res-winner">25,000 $BULL</span>
@@ -351,6 +329,10 @@
                            <span class="text-gray-200 font-bold" id="res-ops">5,000 $BULL</span>
                         </div>
                     </div>
+
+                    <button onclick="simulateBattle()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 rounded-xl font-orbitron text-sm transition tracking-wider shadow-lg shadow-red-600/40 cursor-pointer">
+                        ⚡ ACIONAR CONFRONTO 3D
+                    </button>
                 </div>
             </div>
         </section>
@@ -385,7 +367,7 @@
                 </form>
             </div>
 
-            <!-- GRADE DE MEMES -->
+            <!-- GRADE DE 4 MEMES -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="memesGrid">
                 <div class="card-cyber p-6 rounded-2xl text-center text-gray-500 col-span-4">
                     Carregando memes da arena do Supabase...
@@ -529,6 +511,7 @@
                 return;
             }
 
+            // 1. Tenta registrar o voto na tabela de controle de votos restritos por carteira
             const { error: voteError } = await supabaseClient
                 .from('meme_votes')
                 .insert([{ meme_id: id, wallet_address: userWalletAddress }]);
@@ -543,6 +526,7 @@
                 return;
             }
 
+            // 2. Se passou na trava, incrementa o contador no meme correspondente
             const { error: updateError } = await supabaseClient
                 .from('memes')
                 .update({ votes: currentVotes + 1 })
@@ -582,17 +566,11 @@
         document.addEventListener('DOMContentLoaded', fetchMemes);
     </script>
 
-    <!-- 3D ENGINE + INTERACTIVE COMBAT GAME LOGIC -->
+    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC (COM BATALHA E ESPADAS BATENDO NO CENTRO) -->
     <script>
         let scene, camera, renderer, controls;
         let samurai1, samurai2;
         let isAttacking = false;
-        let timeLeft = 30; // 30 segundos por ciclo de combate
-        
-        // Estado do Jogo Interativo
-        let playerHP = 100;
-        let bossHP = 100;
-        let playerScore = 0;
 
         function init3DArena() {
             const container = document.getElementById('arena-3d-canvas');
@@ -631,132 +609,21 @@
             scene.add(gridHelper);
 
             // Samurai Warriors
-            samurai1 = createSamurai(0xef4444); // Red Ronin (Player)
+            samurai1 = createSamurai(0xef4444); // Red Ronin
             samurai1.position.set(-3, 0, 0);
             samurai1.rotation.y = Math.PI / 4;
             scene.add(samurai1);
 
-            samurai2 = createSamurai(0x3b82f6); // Blue Shogun (Boss)
+            samurai2 = createSamurai(0x3b82f6); // Blue Shogun
             samurai2.position.set(3, 0, 0);
             samurai2.rotation.y = -Math.PI / 4;
             scene.add(samurai2);
 
             window.addEventListener('resize', onWindowResize);
             animate();
-
-            startAutoCombatLifecycle();
         }
 
-        // CONTROLES INTERATIVOS DO JOGO DE BATALHA
-        function triggerPlayerAttack() {
-            if (isAttacking) return;
-            executeCombatAction(15, '⚔️ VOCÊ DESFERIU UM CORTE DE KATANA!');
-        }
-
-        function triggerPlayerSpecial() {
-            if (isAttacking) return;
-            executeCombatAction(35, '⚡ GOLPE ESPECIAL CRÍTICO ACERTADO!');
-        }
-
-        function executeCombatAction(damage, message) {
-            isAttacking = true;
-            const statusText = document.getElementById('combat-status');
-            if (statusText) {
-                statusText.innerText = message;
-                statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-pulse';
-            }
-
-            // Animação de Avanço do Jogador em direção ao Bot
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 0.05;
-                if (progress <= 1) {
-                    samurai1.position.x = -3 + (Math.sin(progress * Math.PI) * 2.5);
-                    samurai1.rotation.y = (Math.PI / 4) + (progress * Math.PI * 2);
-                } else {
-                    clearInterval(interval);
-                    samurai1.position.x = -3;
-                    samurai1.rotation.y = Math.PI / 4;
-                    isAttacking = false;
-
-                    // Aplica dano no Boss
-                    bossHP -= damage;
-                    playerScore += damage * 10;
-                    if (bossHP <= 0) {
-                        bossHP = 100;
-                        playerScore += 500;
-                        alert('🏆 VITÓRIA! Você derrotou o Shogun Bot e ganhou bônus de score!');
-                    }
-
-                    updateGameHUD();
-
-                    // Resposta do Bot após 1 segundo
-                    setTimeout(() => {
-                        botCounterAttack();
-                    }, 800);
-                }
-            }, 20);
-        }
-
-        function botCounterAttack() {
-            const botDamage = Math.floor(Math.random() * 15) + 5;
-            playerHP -= botDamage;
-            if (playerHP <= 0) {
-                playerHP = 100;
-                alert('💀 Você foi derrotado! Reiniciando HP...');
-            }
-            updateGameHUD();
-            
-            const statusText = document.getElementById('combat-status');
-            if (statusText) {
-                statusText.innerText = `🛡️ BOT AOMORI RETALHOU (-${botDamage} HP)`;
-                statusText.className = 'bg-blue-600 text-white px-3 py-1.5 rounded-lg border border-blue-400 text-xs font-black animate-pulse';
-            }
-        }
-
-        function updateGameHUD() {
-            document.getElementById('hp-bar-1').style.width = playerHP + '%';
-            document.getElementById('hp-bar-2').style.width = bossHP + '%';
-            document.getElementById('player-score').innerText = `Score: ${playerScore}`;
-        }
-
-        function startAutoCombatLifecycle() {
-            setInterval(() => {
-                timeLeft--;
-
-                let seconds = timeLeft % 60;
-                let timerDisplay = document.getElementById('combat-timer');
-                if (timerDisplay) {
-                    timerDisplay.innerText = `00:${String(seconds).padStart(2, '0')}`;
-                }
-
-                if (timeLeft <= 0) {
-                    updateMarketStatusUI(false);
-                    setTimeout(() => {
-                        timeLeft = 30;
-                        updateMarketStatusUI(true);
-                    }, 5000);
-                }
-            }, 1000);
-        }
-
-        function updateMarketStatusUI(isOpen) {
-            const dot = document.getElementById('market-status-dot');
-            const text = document.getElementById('market-status-text');
-            if (!dot || !text) return;
-
-            if (isOpen) {
-                dot.className = "w-3 h-3 rounded-full bg-emerald-500 animate-pulse";
-                text.className = "text-emerald-400 font-bold tracking-wide";
-                text.innerText = "MERCADO DE COMBATE ABERTO";
-            } else {
-                dot.className = "w-3 h-3 rounded-full bg-red-500 animate-ping";
-                text.className = "text-red-400 font-bold tracking-wide";
-                text.innerText = "BATALHA ENCERRADA — APURANDO PÓDIO";
-            }
-        }
-
-        // SAMURAI BUILDER
+        // SAMURAI BUILDER (KABUTO, ARMADURA, KATANA)
         function createSamurai(colorHex) {
             const group = new THREE.Group();
 
@@ -765,6 +632,7 @@
             const bladeMat = new THREE.MeshStandardMaterial({ color: 0xddddff, metalness: 0.95, roughness: 0.1 });
             const goldMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8, roughness: 0.2 });
 
+            // Torso & Armor
             const torso = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.4, 0.8), fabricMat);
             torso.position.y = 1.5;
             group.add(torso);
@@ -773,6 +641,7 @@
             chestPlate.position.set(0, 1.5, 0.42);
             group.add(chestPlate);
 
+            // Head & Kabuto Helmet
             const head = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.65, 0.65), fabricMat);
             head.position.set(0, 2.6, 0);
             group.add(head);
@@ -795,6 +664,7 @@
             hornR.rotation.z = 0.4;
             group.add(hornR);
 
+            // Arms
             const armGeo = new THREE.BoxGeometry(0.35, 0.85, 0.35);
             const armL = new THREE.Mesh(armGeo, fabricMat);
             armL.position.set(-0.9, 1.25, 0);
@@ -804,6 +674,7 @@
             armR.position.set(0.9, 1.25, 0);
             group.add(armR);
 
+            // Katana Sword in Right Hand
             const katanaGroup = new THREE.Group();
             const hilt = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), fabricMat);
             hilt.position.set(0, -0.2, 0);
@@ -822,6 +693,7 @@
             katanaGroup.rotation.y = Math.PI / 4;
             group.add(katanaGroup);
 
+            // Legs
             const legGeo = new THREE.BoxGeometry(0.4, 1.0, 0.4);
             const legL = new THREE.Mesh(legGeo, fabricMat);
             legL.position.set(-0.35, 0.5, 0);
@@ -832,6 +704,51 @@
             group.add(legR);
 
             return group;
+        }
+
+        // ANIMAÇÃO DE CONFRONTO E ESPADAS BATENDO NO CENTRO
+        function trigger3DAttackAnimation() {
+            if (isAttacking) return;
+            isAttacking = true;
+
+            const statusText = document.getElementById('combat-status');
+            if (statusText) {
+                statusText.innerText = '⚔️ CONFRONTO EM ANDAMENTO...';
+                statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-pulse';
+            }
+
+            const startX1 = -3;
+            const startX2 = 3;
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 0.03;
+                if (progress <= 1) {
+                    samurai1.position.x = startX1 + (Math.sin(progress * Math.PI) * 3);
+                    samurai2.position.x = startX2 - (Math.sin(progress * Math.PI) * 3);
+                    
+                    samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 8) * 0.3;
+                    samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 8) * 0.3;
+                } else {
+                    clearInterval(interval);
+                    
+                    samurai1.position.x = startX1;
+                    samurai2.position.x = startX2;
+                    samurai1.rotation.y = Math.PI / 4;
+                    samurai2.rotation.y = -Math.PI / 4;
+                    isAttacking = false;
+
+                    const hp1 = document.getElementById('hp-bar-1');
+                    const hp2 = document.getElementById('hp-bar-2');
+                    if (hp1) hp1.style.width = (Math.random() * 30 + 40) + '%';
+                    if (hp2) hp2.style.width = (Math.random() * 30 + 40) + '%';
+
+                    if (statusText) {
+                        statusText.innerText = 'CONFRONTO FINALIZADO';
+                        statusText.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-emerald-500 text-xs text-emerald-400 font-bold';
+                    }
+                }
+            }, 25);
         }
 
         function animate() {
@@ -868,6 +785,27 @@
             const third = totalWinnerPool * 0.15;
             const burn = currentPoolSize * 0.4;
             const ops = currentPoolSize * 0.1;
+
+            document.getElementById('res-winner').innerText = totalWinnerPool.toLocaleString() + ' $BULL';
+            document.getElementById('res-first').innerText = Math.round(first).toLocaleString() + ' $BULL';
+            document.getElementById('res-second').innerText = Math.round(second).toLocaleString() + ' $BULL';
+            document.getElementById('res-third').innerText = Math.round(third).toLocaleString() + ' $BULL';
+            document.getElementById('res-burn').innerText = burn.toLocaleString() + ' $BULL 🔥';
+            document.getElementById('res-ops').innerText = ops.toLocaleString() + ' $BULL';
+        }
+
+        function simulateBattle() {
+            trigger3DAttackAnimation();
+
+            let variation = (Math.random() * 0.2) - 0.1;
+            let simulatedPool = Math.round(currentPoolSize * (1 + variation));
+
+            const totalWinnerPool = simulatedPool * 0.5;
+            const first = totalWinnerPool * 0.6;
+            const second = totalWinnerPool * 0.25;
+            const third = totalWinnerPool * 0.15;
+            const burn = Math.round(simulatedPool * 0.4);
+            const ops = Math.round(simulatedPool * 0.1);
 
             document.getElementById('res-winner').innerText = totalWinnerPool.toLocaleString() + ' $BULL';
             document.getElementById('res-first').innerText = Math.round(first).toLocaleString() + ' $BULL';
@@ -972,4 +910,4 @@
       });
     </script>
 </body>
-</html>
+</html> 
