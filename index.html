@@ -508,7 +508,6 @@
                 return;
             }
 
-            // 1. Tenta registrar o voto na tabela de controle de votos restritos por carteira
             const { error: voteError } = await supabaseClient
                 .from('meme_votes')
                 .insert([{ meme_id: id, wallet_address: userWalletAddress }]);
@@ -523,7 +522,6 @@
                 return;
             }
 
-            // 2. Se passou na trava, incrementa o contador no meme correspondente
             const { error: updateError } = await supabaseClient
                 .from('memes')
                 .update({ votes: currentVotes + 1 })
