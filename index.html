@@ -345,7 +345,7 @@
                 <p class="text-gray-400 max-w-xl mx-auto">Envie seu meme com sua carteira Solana e vote nos melhores guerreiros da comunidade!</p>
             </div>
 
-            <!-- FORMULÁRIO DE ENVIO ATUALIZADO COM TOKEN MINT ADDRESS -->
+            <!-- FORMULÁRIO DE ENVIO COM URL DE IMAGEM OPCIONAL -->
             <div class="card-cyber p-8 rounded-3xl max-w-xl mx-auto mb-16 border-red-500/40">
                 <h3 class="text-xl font-black font-orbitron mb-6 text-center">ENVIAR NOVO MEME</h3>
                 <form id="memeForm" class="space-y-4 font-orbitron text-xs">
@@ -354,8 +354,8 @@
                         <input type="text" id="memeTitle" required placeholder="Ex: Pepe Samurai vs Bear" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none">
                     </div>
                     <div>
-                        <label class="block text-gray-400 mb-2 font-bold">URL da Imagem (Link direto)</label>
-                        <input type="url" id="memeImageUrl" required placeholder="https://exemplo.com/imagem.png" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none">
+                        <label class="block text-gray-400 mb-2 font-bold">URL da Imagem <span class="text-zinc-500 font-normal">(Opcional)</span></label>
+                        <input type="text" id="memeImageUrl" placeholder="https://exemplo.com/imagem.png (Deixe vazio para imagem padrão)" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none">
                     </div>
                     <div>
                         <label class="block text-gray-400 mb-2 font-bold">Endereço do Token na Solana (Mint Address)</label>
@@ -371,7 +371,7 @@
                 </form>
             </div>
 
-            <!-- GRADE DE 4 MEMES -->
+            <!-- GRADE DE MEMES -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="memesGrid">
                 <div class="card-cyber p-6 rounded-2xl text-center text-gray-500 col-span-4">
                     Carregando memes e volume de mercado...
@@ -462,7 +462,7 @@
         </div>
     </footer>
 
-    <!-- SUPABASE CLIENT & MEME ARENA LOGIC COM PROXY CORS PARA GECKOTERMINAL -->
+    <!-- SUPABASE CLIENT & MEME ARENA LOGIC -->
     <script>
         const SUPABASE_URL = 'https://gqpnqrylggrcqqklplql.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxcG5xcnlsZ2dyY3Fxa2xwbHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwOTg2NzksImV4cCI6MjEwNTY3NDY3OX0.OgpYFkMteR47FbID1wOMoK3ILY-RcRsVl6AIusbqZgE';
@@ -489,7 +489,6 @@
                 return;
             }
 
-            // Mapeia e constrói os cards buscando o volume de 24h via GeckoTerminal com tratamento anti-CORS
             const memeCardsHTML = await Promise.all(data.map(async (meme) => {
                 let volume24hUSD = 0;
 
@@ -511,12 +510,13 @@
                 }
 
                 const formattedVolume = volume24hUSD.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                const displayImage = (meme.image_url && meme.image_url.trim() !== '') ? meme.image_url : 'https://via.placeholder.com/400x300?text=BullArena+Meme';
 
                 return `
                     <div class="card-cyber p-5 rounded-2xl flex flex-col justify-between border border-zinc-800">
                         <div>
                             <div class="rounded-xl overflow-hidden mb-4 h-48 bg-black/50 border border-zinc-800 flex items-center justify-center">
-                                <img src="${meme.image_url}" alt="${meme.title}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x300?text=Meme+Image'">
+                                <img src="${displayImage}" alt="${meme.title}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x300?text=Meme+Image'">
                             </div>
                             <h4 class="font-orbitron font-bold text-base text-white mb-1 truncate">${meme.title}</h4>
                             <p class="text-zinc-500 text-[10px] font-mono mb-2 truncate">Wallet: ${meme.wallet}</p>
@@ -599,7 +599,7 @@
         document.addEventListener('DOMContentLoaded', fetchMemes);
     </script>
 
-    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC (COM BATALHA E ESPADAS BATENDO NO CENTRO) -->
+    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC -->
     <script>
         let scene, camera, renderer, controls;
         let samurai1, samurai2;
@@ -656,7 +656,7 @@
             animate();
         }
 
-        // SAMURAI BUILDER (KABUTO, ARMADURA, KATANA)
+        // SAMURAI BUILDER
         function createSamurai(colorHex) {
             const group = new THREE.Group();
 
@@ -665,7 +665,6 @@
             const bladeMat = new THREE.MeshStandardMaterial({ color: 0xddddff, metalness: 0.95, roughness: 0.1 });
             const goldMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8, roughness: 0.2 });
 
-            // Torso & Armor
             const torso = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.4, 0.8), fabricMat);
             torso.position.y = 1.5;
             group.add(torso);
@@ -674,7 +673,6 @@
             chestPlate.position.set(0, 1.5, 0.42);
             group.add(chestPlate);
 
-            // Head & Kabuto Helmet
             const head = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.65, 0.65), fabricMat);
             head.position.set(0, 2.6, 0);
             group.add(head);
@@ -697,7 +695,6 @@
             hornR.rotation.z = 0.4;
             group.add(hornR);
 
-            // Arms
             const armGeo = new THREE.BoxGeometry(0.35, 0.85, 0.35);
             const armL = new THREE.Mesh(armGeo, fabricMat);
             armL.position.set(-0.9, 1.25, 0);
@@ -707,7 +704,6 @@
             armR.position.set(0.9, 1.25, 0);
             group.add(armR);
 
-            // Katana Sword in Right Hand
             const katanaGroup = new THREE.Group();
             const hilt = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), fabricMat);
             hilt.position.set(0, -0.2, 0);
@@ -726,7 +722,6 @@
             katanaGroup.rotation.y = Math.PI / 4;
             group.add(katanaGroup);
 
-            // Legs
             const legGeo = new THREE.BoxGeometry(0.4, 1.0, 0.4);
             const legL = new THREE.Mesh(legGeo, fabricMat);
             legL.position.set(-0.35, 0.5, 0);
@@ -739,7 +734,6 @@
             return group;
         }
 
-        // ANIMAÇÃO DE CONFRONTO E ESPADAS BATENDO NO CENTRO
         function trigger3DAttackAnimation() {
             if (isAttacking) return;
             isAttacking = true;
