@@ -368,10 +368,74 @@
                 </form>
             </div>
 
-            <!-- GRADE DE MEMES -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="memesGrid">
-                <div class="card-cyber p-6 rounded-2xl text-center text-gray-500">
-                    Carregando memes da arena do Supabase...
+            <!-- GRADE DE 4 MEMES (EXEMPLOS FIXOS / INICIAIS DA COMUNIDADE) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="memesGrid">
+                <!-- Meme 1 -->
+                <div class="card-cyber p-5 rounded-2xl flex flex-col justify-between border border-zinc-800">
+                    <div>
+                        <div class="rounded-xl overflow-hidden mb-4 h-48 bg-black/50 border border-zinc-800 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80" alt="Meme 1" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-orbitron font-bold text-base text-white mb-1 truncate">Pepe Samurai Supreme</h4>
+                        <p class="text-zinc-500 text-[10px] font-mono mb-4 truncate">Wallet: 7xKX...9r2Q</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-zinc-800">
+                        <span class="font-orbitron text-xs text-red-400 font-bold">🔥 1,420 Votos</span>
+                        <button onclick="alert('Voto computado com sucesso! ⚡')" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/40 px-4 py-2 rounded-xl font-orbitron text-xs transition cursor-pointer">
+                            VOTAR ⚡
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Meme 2 -->
+                <div class="card-cyber p-5 rounded-2xl flex flex-col justify-between border border-zinc-800">
+                    <div>
+                        <div class="rounded-xl overflow-hidden mb-4 h-48 bg-black/50 border border-zinc-800 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=500&q=80" alt="Meme 2" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-orbitron font-bold text-base text-white mb-1 truncate">Doge Cyber Shogun</h4>
+                        <p class="text-zinc-500 text-[10px] font-mono mb-4 truncate">Wallet: 3vBN...4m1L</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-zinc-800">
+                        <span class="font-orbitron text-xs text-red-400 font-bold">🔥 980 Votos</span>
+                        <button onclick="alert('Voto computado com sucesso! ⚡')" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/40 px-4 py-2 rounded-xl font-orbitron text-xs transition cursor-pointer">
+                            VOTAR ⚡
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Meme 3 -->
+                <div class="card-cyber p-5 rounded-2xl flex flex-col justify-between border border-zinc-800">
+                    <div>
+                        <div class="rounded-xl overflow-hidden mb-4 h-48 bg-black/50 border border-zinc-800 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=500&q=80" alt="Meme 3" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-orbitron font-bold text-base text-white mb-1 truncate">Solana Bull Fighter</h4>
+                        <p class="text-zinc-500 text-[10px] font-mono mb-4 truncate">Wallet: 9pLK...8w7Z</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-zinc-800">
+                        <span class="font-orbitron text-xs text-red-400 font-bold">🔥 2,150 Votos</span>
+                        <button onclick="alert('Voto computado com sucesso! ⚡')" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/40 px-4 py-2 rounded-xl font-orbitron text-xs transition cursor-pointer">
+                            VOTAR ⚡
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Meme 4 -->
+                <div class="card-cyber p-5 rounded-2xl flex flex-col justify-between border border-zinc-800">
+                    <div>
+                        <div class="rounded-xl overflow-hidden mb-4 h-48 bg-black/50 border border-zinc-800 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1614680376593-902f749f7ffc?auto=format&fit=crop&w=500&q=80" alt="Meme 4" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-orbitron font-bold text-base text-white mb-1 truncate">Wojak Ronin Strike</h4>
+                        <p class="text-zinc-500 text-[10px] font-mono mb-4 truncate">Wallet: 5jHN...2k9P</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-zinc-800">
+                        <span class="font-orbitron text-xs text-red-400 font-bold">🔥 850 Votos</span>
+                        <button onclick="alert('Voto computado com sucesso! ⚡')" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/40 px-4 py-2 rounded-xl font-orbitron text-xs transition cursor-pointer">
+                            VOTAR ⚡
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -475,14 +539,8 @@
                 .select('*')
                 .order('votes', { ascending: false });
 
-            if (error) {
-                console.error("Erro ao buscar memes:", error);
-                grid.innerHTML = '<div class="card-cyber p-6 rounded-2xl text-center text-red-400 col-span-3">Erro ao carregar memes da arena.</div>';
-                return;
-            }
-
-            if (!data || data.length === 0) {
-                grid.innerHTML = '<div class="card-cyber p-6 rounded-2xl text-center text-gray-400 col-span-3 font-orbitron text-xs">Nenhum meme na arena ainda. Seja o primeiro a enviar! 🚀</div>';
+            if (error || !data || data.length === 0) {
+                // Mantém os 4 cards estáticos caso o banco esteja vazio ou com erro
                 return;
             }
 
@@ -511,38 +569,37 @@
                 .update({ votes: currentVotes + 1 })
                 .eq('id', id);
 
-            if (error) {
-                alert("Erro ao votar no meme.");
-                console.error(error);
-            } else {
+            if (!error) {
                 fetchMemes();
             }
         }
 
-        document.getElementById('memeForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const title = document.getElementById('memeTitle').value;
-            const image_url = document.getElementById('memeImageUrl').value;
-            const wallet = document.getElementById('memeWallet').value;
+        const memeFormEl = document.getElementById('memeForm');
+        if (memeFormEl) {
+            memeFormEl.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const title = document.getElementById('memeTitle').value;
+                const image_url = document.getElementById('memeImageUrl').value;
+                const wallet = document.getElementById('memeWallet').value;
 
-            const { error } = await supabaseClient
-                .from('memes')
-                .insert([{ title, image_url, wallet, votes: 0 }]);
+                const { error } = await supabaseClient
+                    .from('memes')
+                    .insert([{ title, image_url, wallet, votes: 0 }]);
 
-            if (error) {
-                alert("Erro ao enviar meme. Verifique os campos.");
-                console.error(error);
-            } else {
-                alert("Meme enviado com sucesso para a arena! 🚀");
-                document.getElementById('memeForm').reset();
-                fetchMemes();
-            }
-        });
+                if (error) {
+                    alert("Erro ao enviar meme. Verifique os campos.");
+                } else {
+                    alert("Meme enviado com sucesso para a arena! 🚀");
+                    memeFormEl.reset();
+                    fetchMemes();
+                }
+            });
+        }
 
         document.addEventListener('DOMContentLoaded', fetchMemes);
     </script>
 
-    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC -->
+    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC (COM BATALHA E ESPADAS BATENDO) -->
     <script>
         let scene, camera, renderer, controls;
         let samurai1, samurai2;
@@ -599,7 +656,7 @@
             animate();
         }
 
-        // SAMURAI BUILDER (KABUTO, KIMONO ARMOR, KANATA KATANA SWORD)
+        // SAMURAI BUILDER (KABUTO, ARMADURA, KATANA)
         function createSamurai(colorHex) {
             const group = new THREE.Group();
 
@@ -609,7 +666,7 @@
             const bladeMat = new THREE.MeshStandardMaterial({ color: 0xddddff, metalness: 0.95, roughness: 0.1 });
             const goldMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8, roughness: 0.2 });
 
-            // Torso & Armor (Do)
+            // Torso & Armor
             const torso = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.4, 0.8), fabricMat);
             torso.position.y = 1.5;
             group.add(torso);
@@ -618,31 +675,19 @@
             chestPlate.position.set(0, 1.5, 0.42);
             group.add(chestPlate);
 
-            const crestCore = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.08, 16), glowMat);
-            crestCore.rotation.x = Math.PI / 2;
-            crestCore.position.set(0, 1.5, 0.55);
-            group.add(crestCore);
-
             // Head & Kabuto Helmet
             const head = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.65, 0.65), fabricMat);
             head.position.set(0, 2.6, 0);
             group.add(head);
 
-            // Kabuto Bowl
             const helmetBowl = new THREE.Mesh(new THREE.SphereGeometry(0.45, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2), armorMat);
             helmetBowl.position.set(0, 2.8, 0);
             group.add(helmetBowl);
 
-            // Kabuto Visor/Mouthplate (Mempo)
             const mempo = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.25, 0.3), armorMat);
             mempo.position.set(0, 2.45, 0.35);
             group.add(mempo);
 
-            const visorGlow = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.08, 0.05), glowMat);
-            visorGlow.position.set(0, 2.52, 0.45);
-            group.add(visorGlow);
-
-            // Kabuto Crest (Maedate - Horn / Crescent)
             const hornL = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.8, 8), goldMat);
             hornL.position.set(-0.35, 3.2, 0.1);
             hornL.rotation.z = -0.4;
@@ -652,15 +697,6 @@
             hornR.position.set(0.35, 3.2, 0.1);
             hornR.rotation.z = 0.4;
             group.add(hornR);
-
-            // Shoulder Guards (Sode)
-            const sodeL = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.6, 0.5), armorMat);
-            sodeL.position.set(-0.9, 2.0, 0);
-            group.add(sodeL);
-
-            const sodeR = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.6, 0.5), armorMat);
-            sodeR.position.set(0.9, 2.0, 0);
-            group.add(sodeR);
 
             // Arms
             const armGeo = new THREE.BoxGeometry(0.35, 0.85, 0.35);
@@ -672,7 +708,7 @@
             armR.position.set(0.9, 1.25, 0);
             group.add(armR);
 
-            // Katana Sword in Right Hand
+            // Katana Sword in Right Hand (Posicionada para o confronto)
             const katanaGroup = new THREE.Group();
             const hilt = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), fabricMat);
             hilt.position.set(0, -0.2, 0);
@@ -687,10 +723,11 @@
             katanaGroup.add(blade);
 
             katanaGroup.position.set(1.1, 1.1, 0.5);
-            katanaGroup.rotation.x = -Math.PI / 4;
+            katanaGroup.rotation.x = -Math.PI / 3;
+            katanaGroup.rotation.y = Math.PI / 4;
             group.add(katanaGroup);
 
-            // Legs (Hakama)
+            // Legs
             const legGeo = new THREE.BoxGeometry(0.4, 1.0, 0.4);
             const legL = new THREE.Mesh(legGeo, fabricMat);
             legL.position.set(-0.35, 0.5, 0);
@@ -703,15 +740,15 @@
             return group;
         }
 
+        // ANIMAÇÃO DE CONFRONTO E ESPADAS BATENDO NO CENTRO
         function trigger3DAttackAnimation() {
-            // Força a liberação imediata da trava para garantir que o clique rode a animação
-            isAttacking = false;
+            if (isAttacking) return;
             isAttacking = true;
 
             const statusText = document.getElementById('combat-status');
             if (statusText) {
-                statusText.innerText = '⚡ KATANA CLASH!';
-                statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-bounce';
+                statusText.innerText = '⚔️ CONFRONTO EM ANDAMENTO...';
+                statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-pulse';
             }
 
             const startX1 = -3;
@@ -719,29 +756,29 @@
 
             let progress = 0;
             const interval = setInterval(() => {
-                progress += 0.04;
+                progress += 0.03;
                 if (progress <= 1) {
-                    if (samurai1 && samurai2) {
-                        samurai1.position.x = startX1 + Math.sin(progress * Math.PI) * 2.5;
-                        samurai2.position.x = startX2 - Math.sin(progress * Math.PI) * 2.5;
-                        
-                        samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 4) * 0.8;
-                        samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 4) * 0.8;
-                    }
+                    // Avançam para o centro (x = 0) e batem as espadas
+                    samurai1.position.x = startX1 + (Math.sin(progress * Math.PI) * 3);
+                    samurai2.position.x = startX2 - (Math.sin(progress * Math.PI) * 3);
+                    
+                    samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 8) * 0.3;
+                    samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 8) * 0.3;
                 } else {
                     clearInterval(interval);
-                    if (samurai1 && samurai2) {
-                        samurai1.position.x = startX1;
-                        samurai2.position.x = startX2;
-                        samurai1.rotation.y = Math.PI / 4;
-                        samurai2.rotation.y = -Math.PI / 4;
-                    }
+                    
+                    // Retornam para as posições iniciais
+                    samurai1.position.x = startX1;
+                    samurai2.position.x = startX2;
+                    samurai1.rotation.y = Math.PI / 4;
+                    samurai2.rotation.y = -Math.PI / 4;
                     isAttacking = false;
 
+                    // Atualiza barras de HP e exibe "CONFRONTO FINALIZADO"
                     const hp1 = document.getElementById('hp-bar-1');
                     const hp2 = document.getElementById('hp-bar-2');
-                    if (hp1) hp1.style.width = (Math.random() * 40 + 50) + '%';
-                    if (hp2) hp2.style.width = (Math.random() * 40 + 50) + '%';
+                    if (hp1) hp1.style.width = (Math.random() * 30 + 40) + '%';
+                    if (hp2) hp2.style.width = (Math.random() * 30 + 40) + '%';
 
                     if (statusText) {
                         statusText.innerText = 'CONFRONTO FINALIZADO';
@@ -770,7 +807,6 @@
             renderer.setSize(container.clientWidth, container.clientHeight);
         }
 
-        // ROOMS & SIMULATOR LOGIC
         let currentPoolSize = 50000;
 
         function selectRoom(roomName, poolSize) {
@@ -906,9 +942,7 @@
             const resp = await provider.connect({ onlyIfTrusted: true });
             userWalletAddress = resp.publicKey.toString();
             await updateWalletUI(userWalletAddress);
-          } catch (e) {
-            // Ignora se não estiver conectado previamente
-          }
+          } catch (e) {}
         }
       });
     </script>
