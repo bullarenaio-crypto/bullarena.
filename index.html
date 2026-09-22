@@ -708,20 +708,23 @@
             isAttacking = true;
 
             const statusText = document.getElementById('combat-status');
-            statusText.innerText = '⚡ KATANA CLASH!';
-            statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-bounce';
+            if (statusText) {
+                statusText.innerText = '⚡ KATANA CLASH!';
+                statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-bounce';
+            }
 
-            const startX1 = samurai1.position.x;
-            const startX2 = samurai2.position.x;
+            const startX1 = -3;
+            const startX2 = 3;
 
             let progress = 0;
             const interval = setInterval(() => {
-                progress += 0.08;
+                progress += 0.05;
                 if (progress <= 1) {
-                    samurai1.position.x = startX1 + Math.sin(progress * Math.PI) * 2.2;
-                    samurai2.position.x = startX2 - Math.sin(progress * Math.PI) * 2.2;
-                    samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 4) * 0.4;
-                    samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 4) * 0.4;
+                    samurai1.position.x = startX1 + Math.sin(progress * Math.PI) * 2.5;
+                    samurai2.position.x = startX2 - Math.sin(progress * Math.PI) * 2.5;
+                    
+                    samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 4) * 0.8;
+                    samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 4) * 0.8;
                 } else {
                     clearInterval(interval);
                     samurai1.position.x = startX1;
@@ -730,13 +733,17 @@
                     samurai2.rotation.y = -Math.PI / 4;
                     isAttacking = false;
 
-                    document.getElementById('hp-bar-1').style.width = (Math.random() * 40 + 60) + '%';
-                    document.getElementById('hp-bar-2').style.width = (Math.random() * 30 + 30) + '%';
+                    const hp1 = document.getElementById('hp-bar-1');
+                    const hp2 = document.getElementById('hp-bar-2');
+                    if (hp1) hp1.style.width = (Math.random() * 40 + 50) + '%';
+                    if (hp2) hp2.style.width = (Math.random() * 40 + 50) + '%';
 
-                    statusText.innerText = 'ROUND FINALIZADO';
-                    statusText.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-emerald-500 text-xs text-emerald-400 font-bold';
+                    if (statusText) {
+                        statusText.innerText = 'CONFRONTO FINALIZADO';
+                        statusText.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-emerald-500 text-xs text-emerald-400 font-bold';
+                    }
                 }
-            }, 30);
+            }, 25);
         }
 
         function animate() {
