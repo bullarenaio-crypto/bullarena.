@@ -704,7 +704,8 @@
         }
 
         function trigger3DAttackAnimation() {
-            if (isAttacking) return;
+            // Força a liberação imediata da trava para garantir que o clique rode a animação
+            isAttacking = false;
             isAttacking = true;
 
             const statusText = document.getElementById('combat-status');
@@ -718,19 +719,23 @@
 
             let progress = 0;
             const interval = setInterval(() => {
-                progress += 0.05;
+                progress += 0.04;
                 if (progress <= 1) {
-                    samurai1.position.x = startX1 + Math.sin(progress * Math.PI) * 2.5;
-                    samurai2.position.x = startX2 - Math.sin(progress * Math.PI) * 2.5;
-                    
-                    samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 4) * 0.8;
-                    samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 4) * 0.8;
+                    if (samurai1 && samurai2) {
+                        samurai1.position.x = startX1 + Math.sin(progress * Math.PI) * 2.5;
+                        samurai2.position.x = startX2 - Math.sin(progress * Math.PI) * 2.5;
+                        
+                        samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 4) * 0.8;
+                        samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 4) * 0.8;
+                    }
                 } else {
                     clearInterval(interval);
-                    samurai1.position.x = startX1;
-                    samurai2.position.x = startX2;
-                    samurai1.rotation.y = Math.PI / 4;
-                    samurai2.rotation.y = -Math.PI / 4;
+                    if (samurai1 && samurai2) {
+                        samurai1.position.x = startX1;
+                        samurai2.position.x = startX2;
+                        samurai1.rotation.y = Math.PI / 4;
+                        samurai2.rotation.y = -Math.PI / 4;
+                    }
                     isAttacking = false;
 
                     const hp1 = document.getElementById('hp-bar-1');
