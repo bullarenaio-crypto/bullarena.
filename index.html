@@ -216,8 +216,20 @@
                 <p class="text-gray-400 max-w-xl mx-auto">Escolha sua sala de combate e assista a confrontos contínuos de avatares de memes em 3D em tempo real via WebGL.</p>
             </div>
 
+            <!-- TEMPORIZADOR AUTOMÁTICO DE MERCADO -->
+            <div class="max-w-4xl mx-auto mb-4 flex flex-col sm:flex-row justify-between items-center bg-zinc-900/90 border border-red-500/30 px-5 py-3 rounded-2xl font-orbitron text-xs gap-3">
+                <div class="flex items-center gap-2.5">
+                    <span id="market-status-dot" class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="market-status-text" class="text-emerald-400 font-bold tracking-wide">MERCADO DE COMBATE ABERTO</span>
+                </div>
+                <div class="text-gray-400 flex items-center gap-2">
+                    <span>Encerramento do Ciclo em:</span> 
+                    <span id="combat-timer" class="text-red-400 font-black text-sm bg-black/60 px-3 py-1 rounded-lg border border-red-500/40">00:30</span>
+                </div>
+            </div>
+
             <!-- 3D ARENA CONTAINER (WEBGL) -->
-            <div class="card-cyber p-4 rounded-3xl relative overflow-hidden border-red-500/50 mb-12">
+            <div class="card-cyber p-4 rounded-3xl relative overflow-hidden border-red-500/50 mb-12 max-w-4xl mx-auto">
                 <div class="flex justify-between items-center mb-3 px-2">
                     <span class="font-orbitron text-xs font-bold text-red-500 uppercase tracking-widest flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> TRANSMISSÃO 3D DE MEMES AO VIVO
@@ -561,11 +573,12 @@
         document.addEventListener('DOMContentLoaded', fetchMemes);
     </script>
 
-    <!-- 3D ENGINE + AUTOMATED COMBAT LOOP -->
+    <!-- 3D ENGINE + AUTOMATED COMBAT LOOP + TIMER DE MERCADO -->
     <script>
         let scene, camera, renderer, controls;
         let samurai1, samurai2;
         let isAttacking = false;
+        let timeLeft = 30; // 30 segundos por ciclo de combate
 
         function init3DArena() {
             const container = document.getElementById('arena-3d-canvas');
@@ -617,11 +630,53 @@
             window.addEventListener('resize', onWindowResize);
             animate();
 
-            // Loop automático de combate a cada 15 segundos
+            // Iniciar o temporizador automático e os ciclos de combate
+            startAutoCombatLifecycle();
+        }
+
+        // CICLO AUTOMÁTICO DE TEMPORIZADOR E APURAÇÃO
+        function startAutoCombatLifecycle() {
             setInterval(() => {
-                trigger3DAttackAnimation();
-                simulateBattleMetrics();
-            }, 15000);
+                timeLeft--;
+
+                let seconds = timeLeft % 60;
+                let timerDisplay = document.getElementById('combat-timer');
+                if (timerDisplay) {
+                    timerDisplay.innerText = `00:${String(seconds).padStart(2, '0')}`;
+                }
+
+                // A cada 15 segundos ocorre o ataque visual na arena
+                if (timeLeft % 15 === 0) {
+                    trigger3DAttackAnimation();
+                    simulateBattleMetrics();
+                }
+
+                // Quando o cronômetro do ciclo zera (ex: 30s)
+                if (timeLeft <= 0) {
+                    updateMarketStatusUI(false); // Indica apuração de pódio
+
+                    setTimeout(() => {
+                        timeLeft = 30; // Reinicia o ciclo
+                        updateMarketStatusUI(true); // Abre o mercado novamente
+                    }, 5000); // 5 segundos de intervalo de apuração
+                }
+            }, 1000);
+        }
+
+        function updateMarketStatusUI(isOpen) {
+            const dot = document.getElementById('market-status-dot');
+            const text = document.getElementById('market-status-text');
+            if (!dot || !text) return;
+
+            if (isOpen) {
+                dot.className = "w-3 h-3 rounded-full bg-emerald-500 animate-pulse";
+                text.className = "text-emerald-400 font-bold tracking-wide";
+                text.innerText = "MERCADO DE COMBATE ABERTO";
+            } else {
+                dot.className = "w-3 h-3 rounded-full bg-red-500 animate-ping";
+                text.className = "text-red-400 font-bold tracking-wide";
+                text.innerText = "BATALHA ENCERRADA — APURANDO PÓDIO";
+            }
         }
 
         // SAMURAI BUILDER (KABUTO, ARMADURA, KATANA)
