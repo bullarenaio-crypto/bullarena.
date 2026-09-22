@@ -512,7 +512,6 @@
                 return;
             }
 
-            // 1. Tenta registrar o voto na tabela de controle de votos restritos por carteira
             const { error: voteError } = await supabaseClient
                 .from('meme_votes')
                 .insert([{ meme_id: id, wallet_address: userWalletAddress }]);
@@ -527,7 +526,6 @@
                 return;
             }
 
-            // 2. Se passou na trava, incrementa o contador no meme correspondente
             const { error: updateError } = await supabaseClient
                 .from('memes')
                 .update({ votes: currentVotes + 1 })
@@ -707,7 +705,7 @@
             return group;
         }
 
-        // ANIMAÇÃO DE CONFRONTO E ESPADAS BATENDO NO CENTRO
+        // ANIMAÇÃO DE CONFRONTO E ESPADAS BATENDO NO CENTRO CORRIGIDA
         function trigger3DAttackAnimation() {
             if (isAttacking) return;
             isAttacking = true;
@@ -746,7 +744,7 @@
 
                     if (statusText) {
                         statusText.innerText = 'CONFRONTO FINALIZADO';
-                        statusTest.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-emerald-500 text-xs text-emerald-400 font-bold';
+                        statusText.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-emerald-500 text-xs text-emerald-400 font-bold';
                     }
                 }
             }, 25);
@@ -911,4 +909,4 @@
       });
     </script>
 </body>
-</html> 
+</html>
