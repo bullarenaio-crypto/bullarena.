@@ -705,50 +705,55 @@
             return group;
         }
 
-        // ANIMAÇÃO DE CONFRONTO E ESPADAS BATENDO NO CENTRO CORRIGIDA
-        function trigger3DAttackAnimation() {
-            if (isAttacking) return;
-            isAttacking = true;
+       // ANIMAÇÃO DE CONFRONTO E RETORNO DOS SAMURAIS
+function trigger3DAttackAnimation() {
+    if (isAttacking) return;
+    isAttacking = true;
 
-            const statusText = document.getElementById('combat-status');
+    const statusText = document.getElementById('combat-status');
+    if (statusText) {
+        statusText.innerText = '⚔️ CONFRONTO EM ANDAMENTO...';
+        statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-pulse';
+    }
+
+    const startX1 = -3;
+    const startX2 = 3;
+
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 0.03;
+        if (progress <= 1) {
+            samurai1.position.x = startX1 + (Math.sin(progress * Math.PI) * 3.5);
+            samurai2.position.x = startX2 - (Math.sin(progress * Math.PI) * 3.5);
+            
+            samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 8) * 0.3;
+            samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 8) * 0.3;
+        } else {
+            clearInterval(interval);
+            
+            samurai1.position.x = startX1;
+            samurai2.position.x = startX2;
+            samurai1.rotation.y = Math.PI / 4;
+            samurai2.rotation.y = -Math.PI / 4;
+            isAttacking = false;
+
+            const hp1 = document.getElementById('hp-bar-1');
+            const hp2 = document.getElementById('hp-bar-2');
+            if (hp1) hp1.style.width = (Math.random() * 30 + 40) + '%';
+            if (hp2) hp2.style.width = (Math.random() * 30 + 40) + '%';
+
             if (statusText) {
-                statusText.innerText = '⚔️ CONFRONTO EM ANDAMENTO...';
-                statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-pulse';
+                statusText.innerText = 'CONFRONTO FINALIZADO';
+                statusText.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-emerald-500 text-xs text-emerald-400 font-bold';
             }
-
-            const startX1 = -3;
-            const startX2 = 3;
-
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 0.03;
-                if (progress <= 1) {
-                    samurai1.position.x = startX1 + (Math.sin(progress * Math.PI) * 3);
-                    samurai2.position.x = startX2 - (Math.sin(progress * Math.PI) * 3);
-                    
-                    samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 8) * 0.3;
-                    samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 8) * 0.3;
-                } else {
-                    clearInterval(interval);
-                    
-                    samurai1.position.x = startX1;
-                    samurai2.position.x = startX2;
-                    samurai1.rotation.y = Math.PI / 4;
-                    samurai2.rotation.y = -Math.PI / 4;
-                    isAttacking = false;
-
-                    const hp1 = document.getElementById('hp-bar-1');
-                    const hp2 = document.getElementById('hp-bar-2');
-                    if (hp1) hp1.style.width = (Math.random() * 30 + 40) + '%';
-                    if (hp2) hp2.style.width = (Math.random() * 30 + 40) + '%';
-
-                    if (statusText) {
-                        statusText.innerText = 'CONFRONTO FINALIZADO';
-                        statusText.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-emerald-500 text-xs text-emerald-400 font-bold';
-                    }
-                }
-            }, 25);
         }
+    }, 25);
+}
+
+// DISPARA O ATAQUE AUTOMATICAMENTE A CADA 15 MINUTOS
+setInterval(() => {
+    trigger3DAttackAnimation();
+}, 15 * 60 * 1000);
 
         function animate() {
             requestAnimationFrame(animate);
