@@ -346,7 +346,7 @@
                 <p class="text-gray-400 max-w-xl mx-auto">Envie seu meme com sua carteira Solana e vote nos melhores guerreiros da comunidade!</p>
             </div>
 
-            <!-- FORMULÁRIO DE ENVIO RESTAURADO -->
+            <!-- FORMULÁRIO DE ENVIO -->
             <div class="card-cyber p-8 rounded-3xl max-w-xl mx-auto mb-16 border-red-500/40">
                 <h3 class="text-xl font-black font-orbitron mb-6 text-center">ENVIAR NOVO MEME</h3>
                 <form id="memeForm" class="space-y-4 font-orbitron text-xs">
@@ -368,7 +368,7 @@
                 </form>
             </div>
 
-            <!-- GRADE DE MEMES -->
+            <!-- GRADE DE 4 MEMES -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="memesGrid">
                 <div class="card-cyber p-6 rounded-2xl text-center text-gray-500 col-span-4">
                     Carregando memes da arena do Supabase...
@@ -459,7 +459,7 @@
         </div>
     </footer>
 
-    <!-- SUPABASE CLIENT & MEME ARENA LOGIC -->
+    <!-- SUPABASE CLIENT & MEME ARENA LOGIC COM VOTO ÚNICO POR CARTEIRA -->
     <script>
         const SUPABASE_URL = 'https://gqpnqrylggrcqqklplql.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxcG5xcnlsZ2dyY3Fxa2xwbHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwOTg2NzksImV4cCI6MjEwNTY3NDY3OX0.OgpYFkMteR47FbID1wOMoK3ILY-RcRsVl6AIusbqZgE';
@@ -512,6 +512,7 @@
                 return;
             }
 
+            // 1. Tenta registrar o voto na tabela de controle de votos restritos por carteira
             const { error: voteError } = await supabaseClient
                 .from('meme_votes')
                 .insert([{ meme_id: id, wallet_address: userWalletAddress }]);
@@ -526,6 +527,7 @@
                 return;
             }
 
+            // 2. Se passou na trava, incrementa o contador no meme correspondente
             const { error: updateError } = await supabaseClient
                 .from('memes')
                 .update({ votes: currentVotes + 1 })
@@ -565,7 +567,7 @@
         document.addEventListener('DOMContentLoaded', fetchMemes);
     </script>
 
-    <!-- 3D ENGINE + SAMURAI BUILDER & AUTOMATIC 15-MIN BATTLE LOOP -->
+    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC (COM BATALHA E ESPADAS BATENDO NO CENTRO) -->
     <script>
         let scene, camera, renderer, controls;
         let samurai1, samurai2;
@@ -705,15 +707,9 @@
             return group;
         }
 
-      function trigger3DAttackAnimation() {
+        // ANIMAÇÃO DE CONFRONTO E ESPADAS BATENDO NO CENTRO
+        function trigger3DAttackAnimation() {
             if (isAttacking) return;
-            // Segurança para evitar erro caso os samurais ainda não tenham carregado
-            if (!window.samurai1 || !window.samurai2) {
-                if (typeof samurai1 !== 'undefined') window.samurai1 = samurai1;
-                if (typeof samurai2 !== 'undefined') window.samurai2 = samurai2;
-            }
-            if (!window.samurai1 || !window.samurai2) return;
-
             isAttacking = true;
 
             const statusText = document.getElementById('combat-status');
@@ -729,18 +725,18 @@
             const interval = setInterval(() => {
                 progress += 0.03;
                 if (progress <= 1) {
-                    window.samurai1.position.x = startX1 + (Math.sin(progress * Math.PI) * 3.5);
-                    window.samurai2.position.x = startX2 - (Math.sin(progress * Math.PI) * 3.5);
+                    samurai1.position.x = startX1 + (Math.sin(progress * Math.PI) * 3);
+                    samurai2.position.x = startX2 - (Math.sin(progress * Math.PI) * 3);
                     
-                    window.samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 8) * 0.3;
-                    window.samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 8) * 0.3;
+                    samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 8) * 0.3;
+                    samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 8) * 0.3;
                 } else {
                     clearInterval(interval);
                     
-                    window.samurai1.position.x = startX1;
-                    window.samurai2.position.x = startX2;
-                    window.samurai1.rotation.y = Math.PI / 4;
-                    window.samurai2.rotation.y = -Math.PI / 4;
+                    samurai1.position.x = startX1;
+                    samurai2.position.x = startX2;
+                    samurai1.rotation.y = Math.PI / 4;
+                    samurai2.rotation.y = -Math.PI / 4;
                     isAttacking = false;
 
                     const hp1 = document.getElementById('hp-bar-1');
@@ -754,6 +750,17 @@
                     }
                 }
             }, 25);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = Date.now() * 0.003;
+            if (!isAttacking) {
+                if (samurai1) samurai1.position.y = Math.sin(time) * 0.08;
+                if (samurai2) samurai2.position.y = Math.cos(time) * 0.08;
+            }
+            controls.update();
+            renderer.render(scene, camera);
         }
 
         function onWindowResize() {
