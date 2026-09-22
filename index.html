@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BullArena ($BULL) — Crypto Combat Arena</title>
+    <title>BullArena ($BULL) — Meme Combat Arena</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Solana Web3.js SDK -->
     <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Three.js + OrbitControls -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -101,12 +103,12 @@
             </div>
             
             <div class="flex items-center space-x-4 flex-wrap justify-center">
-                <!-- MENU LINKS -->
                 <a href="/whitepaper.pdf" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-gray-400 hover:text-red-400 transition flex items-center gap-1">
                     📄 Whitepaper
                 </a>
                 <a href="#tokenomics" class="text-sm text-gray-400 hover:text-red-400 transition">Tokenomics</a>
-                <a href="#arena" class="text-sm text-gray-400 hover:text-red-400 transition">The Arena</a>
+                <a href="#arena" class="text-sm text-gray-400 hover:text-red-400 transition">Meme Arena</a>
+                <a href="#meme-arena-section" class="text-sm text-red-400 hover:text-red-300 font-bold transition">🔥 Enviar Memes</a>
                 <a href="#security" class="text-sm text-gray-400 hover:text-red-400 transition">AI Security</a>
                 <a href="#roadmap" class="text-sm text-gray-400 hover:text-red-400 transition">Roadmap</a>
                 
@@ -137,17 +139,17 @@
                 ⚡ A Batalha Definitiva de Memes na Solana
             </div>
             <h1 class="text-4xl md:text-7xl font-black font-orbitron tracking-tight mb-6 max-w-4xl leading-tight">
-                THE <span class="text-red-500 neon-glow">CYBER-SAMURAI</span> ARENA
+                THE ULTIMATE <span class="text-red-500 neon-glow">MEME COMBAT</span> ARENA
             </h1>
             <p class="text-gray-400 text-base md:text-xl max-w-2xl mb-10 font-light leading-relaxed">
                 Um ecossistema descentralizado de combate de memes onde confrontos épicos geram escassez extrema e forças de mercado ditam o verdadeiro valor.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <a href="#arena" class="bg-red-600 hover:bg-red-500 text-white font-bold px-8 py-4 rounded-xl font-orbitron tracking-wider transition shadow-lg shadow-red-600/40 text-center flex items-center justify-center gap-2">
-                    ⚔️ ENTRAR NA ARENA
+                    ⚔️ ENTRAR NA ARENA 3D
                 </a>
-                <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-gray-200 font-bold px-8 py-4 rounded-xl font-orbitron tracking-wider transition text-center">
-                    TELEGRAM OFICIAL
+                <a href="#meme-arena-section" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-gray-200 font-bold px-8 py-4 rounded-xl font-orbitron tracking-wider transition text-center">
+                    🔥 ENVIAR MEME
                 </a>
             </div>
         </section>
@@ -210,25 +212,25 @@
         <section id="arena" class="max-w-7xl mx-auto px-4 py-20 border-t border-zinc-900">
             <div class="text-center mb-16">
                 <span class="text-red-500 font-orbitron text-xs font-bold tracking-widest uppercase animate-pulse">⚡ Coliseu de Batalhas de Memes</span>
-                <h2 class="text-3xl md:text-5xl font-black font-orbitron mt-2 mb-4">COMBAT <span class="text-red-500">ARENA</span></h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Escolha sua sala de combate e assista a confrontos de memes em 3D em tempo real via WebGL.</p>
+                <h2 class="text-3xl md:text-5xl font-black font-orbitron mt-2 mb-4">MEME COMBAT <span class="text-red-500">ARENA</span></h2>
+                <p class="text-gray-400 max-w-xl mx-auto">Escolha sua sala de combate e assista a confrontos de avatares de memes em 3D em tempo real via WebGL.</p>
             </div>
 
             <!-- 3D ARENA CONTAINER (WEBGL) -->
             <div class="card-cyber p-4 rounded-3xl relative overflow-hidden border-red-500/50 mb-12">
                 <div class="flex justify-between items-center mb-3 px-2">
                     <span class="font-orbitron text-xs font-bold text-red-500 uppercase tracking-widest flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> TRANSMISSÃO 3D AO VIVO
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> TRANSMISSÃO 3D DE MEMES AO VIVO
                     </span>
                     <span class="text-gray-400 text-xs font-orbitron">Arraste o mouse para orbitar a câmera</span>
                 </div>
 
                 <!-- Canvas where 3D is rendered -->
                 <div id="arena-3d-canvas" class="w-full h-[350px] md:h-[480px] rounded-2xl overflow-hidden relative border border-zinc-800 bg-black">
-                    <!-- Samurai Health HUD -->
+                    <!-- Combatants Health HUD -->
                     <div class="absolute top-4 left-4 right-4 flex justify-between items-center pointer-events-none z-10 font-orbitron">
                         <div class="bg-black/70 backdrop-blur-md p-3 rounded-xl border border-red-500/40">
-                            <div class="text-[10px] text-red-400 font-bold">AKAGAMI (RED RONIN)</div>
+                            <div class="text-[10px] text-red-400 font-bold">PEPE WARRIOR (RED BULL)</div>
                             <div class="w-28 sm:w-36 bg-zinc-900 h-2 rounded-full mt-1 overflow-hidden border border-zinc-700">
                                 <div id="hp-bar-1" class="bg-red-500 h-full w-full transition-all duration-300"></div>
                             </div>
@@ -239,7 +241,7 @@
                         </div>
 
                         <div class="bg-black/70 backdrop-blur-md p-3 rounded-xl border border-blue-500/40 text-right">
-                            <div class="text-[10px] text-blue-400 font-bold">AOMORI (CYBER SHOGUN)</div>
+                            <div class="text-[10px] text-blue-400 font-bold">DOGE KNIGHT (BLUE SHIB)</div>
                             <div class="w-28 sm:w-36 bg-zinc-900 h-2 rounded-full mt-1 overflow-hidden border border-zinc-700">
                                 <div id="hp-bar-2" class="bg-blue-500 h-full w-full transition-all duration-300"></div>
                             </div>
@@ -260,7 +262,7 @@
                                 <span class="font-orbitron text-xs text-red-400 font-bold">ROOM #101 - TIER 1</span>
                                 <span class="bg-emerald-950 text-emerald-400 text-[10px] px-2 py-0.5 rounded font-orbitron">ABERTO</span>
                             </div>
-                            <h4 class="font-orbitron font-bold text-lg mb-2">Ronin Dojo</h4>
+                            <h4 class="font-orbitron font-bold text-lg mb-2">Dojo de Memes</h4>
                             <p class="text-gray-400 text-xs mb-3">Taxa de Entrada: <strong class="text-white">1,000 $BULL</strong> por lutador.</p>
                             <p class="text-gray-400 text-[11px] mb-4 text-red-400/90 font-medium">✨ Pódio: Top 3 dividem 50% do pote</p>
                         </div>
@@ -276,7 +278,7 @@
                                 <span class="font-orbitron text-xs text-red-500 font-bold">ROOM #202 - TIER 2</span>
                                 <span class="bg-red-950 text-red-400 text-[10px] px-2 py-0.5 rounded font-orbitron border border-red-900">HOT 🔥</span>
                             </div>
-                            <h4 class="font-orbitron font-bold text-lg mb-2">Shogun Colosseum</h4>
+                            <h4 class="font-orbitron font-bold text-lg mb-2">Coliseu de Memes</h4>
                             <p class="text-gray-400 text-xs mb-3">Taxa de Entrada: <strong class="text-white">10,000 $BULL</strong> por lutador.</p>
                             <p class="text-gray-400 text-[11px] mb-4 text-red-400/90 font-medium">✨ Pódio: Top 3 dividem 50% do pote</p>
                         </div>
@@ -292,7 +294,7 @@
                                 <span class="font-orbitron text-xs text-yellow-500 font-bold">ROOM #303 - TIER 3</span>
                                 <span class="bg-yellow-950 text-yellow-400 text-[10px] px-2 py-0.5 rounded font-orbitron">WHALES 🐋</span>
                             </div>
-                            <h4 class="font-orbitron font-bold text-lg mb-2">Emperor's Palace</h4>
+                            <h4 class="font-orbitron font-bold text-lg mb-2">Palácio dos Whales</h4>
                             <p class="text-gray-400 text-xs mb-3">Taxa de Entrada: <strong class="text-white">50,000 $BULL</strong> por lutador.</p>
                             <p class="text-gray-400 text-[11px] mb-4 text-yellow-400/90 font-medium">✨ Pódio: Top 3 dividem 50% do pote</p>
                         </div>
@@ -330,8 +332,46 @@
                     </div>
 
                     <button onclick="simulateBattle()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 rounded-xl font-orbitron text-sm transition tracking-wider shadow-lg shadow-red-600/40 cursor-pointer">
-                        ⚡ ACIONAR CONFRONTO 3D
+                        ⚡ ACIONAR CONFRONTO 3D DE MEMES
                     </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEME ARENA & COMMUNITY VOTING (SUPABASE CONNECTED) -->
+        <section id="meme-arena-section" class="max-w-7xl mx-auto px-4 py-20 border-t border-zinc-900">
+            <div class="text-center mb-16">
+                <span class="text-red-500 font-orbitron text-xs font-bold tracking-widest uppercase animate-pulse">⚡ Comunidade & Batalha de Memes</span>
+                <h2 class="text-3xl md:text-5xl font-black font-orbitron mt-2 mb-4">MEME <span class="text-red-500">ARENA</span></h2>
+                <p class="text-gray-400 max-w-xl mx-auto">Envie seu meme com sua carteira Solana e vote nos melhores guerreiros da comunidade!</p>
+            </div>
+
+            <!-- FORMULÁRIO DE ENVIO -->
+            <div class="card-cyber p-8 rounded-3xl max-w-xl mx-auto mb-16 border-red-500/40">
+                <h3 class="text-xl font-black font-orbitron mb-6 text-center">ENVIAR NOVO MEME</h3>
+                <form id="memeForm" class="space-y-4 font-orbitron text-xs">
+                    <div>
+                        <label class="block text-gray-400 mb-2 font-bold">Título do Meme</label>
+                        <input type="text" id="memeTitle" required placeholder="Ex: Pepe Samurai vs Bear" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-2 font-bold">URL da Imagem (Link direto)</label>
+                        <input type="url" id="memeImageUrl" required placeholder="https://exemplo.com/imagem.png" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-2 font-bold">Sua Carteira Solana (Wallet)</label>
+                        <input type="text" id="memeWallet" required placeholder="Endereço da Phantom / Solflare" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 rounded-xl transition tracking-wider shadow-lg shadow-red-600/40 cursor-pointer">
+                        🚀 ENVIAR MEME PARA A ARENA
+                    </button>
+                </form>
+            </div>
+
+            <!-- GRADE DE MEMES -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="memesGrid">
+                <div class="card-cyber p-6 rounded-2xl text-center text-gray-500">
+                    Carregando memes da arena do Supabase...
                 </div>
             </div>
         </section>
@@ -356,7 +396,7 @@
                     <div class="text-red-500 font-orbitron text-2xl mb-4">🎲</div>
                     <h3 class="text-lg font-black font-orbitron mb-2">VRF Randomness</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                        Golpes de katana e defesas usam Funções Verificáveis Aleatórias (VRF) para eliminar exploits.
+                        Golpes de memes e defesas usam Funções Verificáveis Aleatórias (VRF) para eliminar exploits.
                     </p>
                 </div>
 
@@ -390,7 +430,7 @@
                 <div class="card-cyber p-6 rounded-2xl">
                     <span class="text-red-500 font-orbitron text-xs font-bold uppercase">Phase 03</span>
                     <h3 class="text-xl font-black font-orbitron mt-1 mb-2">Dominance</h3>
-                    <p class="text-gray-400 text-xs">• Lançamento da gamificação<br>• Listagem CEX Tier-1<br>• NFTs Samurai</p>
+                    <p class="text-gray-400 text-xs">• Lançamento da gamificação<br>• Listagem CEX Tier-1<br>• NFTs de Memes</p>
                 </div>
                 <div class="card-cyber p-6 rounded-2xl">
                     <span class="text-red-500 font-orbitron text-xs font-bold uppercase">Phase 04</span>
@@ -419,10 +459,93 @@
         </div>
     </footer>
 
-    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC -->
+    <!-- SUPABASE CLIENT & MEME ARENA LOGIC -->
+    <script>
+        const SUPABASE_URL = 'https://gqpnqrylggrcqqklplql.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxcG5xcnlsZ2dyY3Fxa2xwbHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwOTg2NzksImV4cCI6MjEwNTY3NDY3OX0.OgpYFkMteR47FbID1wOMoK3ILY-RcRsVl6AIusbqZgE';
+        
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function fetchMemes() {
+            const grid = document.getElementById('memesGrid');
+            if (!grid) return;
+
+            const { data, error } = await supabaseClient
+                .from('memes')
+                .select('*')
+                .order('votes', { ascending: false });
+
+            if (error) {
+                console.error("Erro ao buscar memes:", error);
+                grid.innerHTML = '<div class="card-cyber p-6 rounded-2xl text-center text-red-400 col-span-3">Erro ao carregar memes da arena.</div>';
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                grid.innerHTML = '<div class="card-cyber p-6 rounded-2xl text-center text-gray-400 col-span-3 font-orbitron text-xs">Nenhum meme na arena ainda. Seja o primeiro a enviar! 🚀</div>';
+                return;
+            }
+
+            grid.innerHTML = data.map(meme => `
+                <div class="card-cyber p-5 rounded-2xl flex flex-col justify-between border border-zinc-800">
+                    <div>
+                        <div class="rounded-xl overflow-hidden mb-4 h-48 bg-black/50 border border-zinc-800 flex items-center justify-center">
+                            <img src="${meme.image_url}" alt="${meme.title}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x300?text=Meme+Image'">
+                        </div>
+                        <h4 class="font-orbitron font-bold text-base text-white mb-1 truncate">${meme.title}</h4>
+                        <p class="text-zinc-500 text-[10px] font-mono mb-4 truncate">Wallet: ${meme.wallet}</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-zinc-800">
+                        <span class="font-orbitron text-xs text-red-400 font-bold">🔥 ${meme.votes || 0} Votos</span>
+                        <button onclick="voteMeme(${meme.id}, ${meme.votes || 0})" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/40 px-4 py-2 rounded-xl font-orbitron text-xs transition cursor-pointer">
+                            VOTAR ⚡
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function voteMeme(id, currentVotes) {
+            const { error } = await supabaseClient
+                .from('memes')
+                .update({ votes: currentVotes + 1 })
+                .eq('id', id);
+
+            if (error) {
+                alert("Erro ao votar no meme.");
+                console.error(error);
+            } else {
+                fetchMemes();
+            }
+        }
+
+        document.getElementById('memeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('memeTitle').value;
+            const image_url = document.getElementById('memeImageUrl').value;
+            const wallet = document.getElementById('memeWallet').value;
+
+            const { error } = await supabaseClient
+                .from('memes')
+                .insert([{ title, image_url, wallet, votes: 0 }]);
+
+            if (error) {
+                alert("Erro ao enviar meme. Verifique os campos.");
+                console.error(error);
+            } else {
+                alert("Meme enviado com sucesso para a arena! 🚀");
+                document.getElementById('memeForm').reset();
+                fetchMemes();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', fetchMemes);
+    </script>
+
+    <!-- 3D ENGINE + MEME AVATARS & SIMULATOR LOGIC -->
     <script>
         let scene, camera, renderer, controls;
-        let samurai1, samurai2;
+        let memeFighter1, memeFighter2;
         let isAttacking = false;
 
         function init3DArena() {
@@ -461,119 +584,89 @@
             gridHelper.position.y = -0.01;
             scene.add(gridHelper);
 
-            // Samurai Warriors
-            samurai1 = createSamurai(0xef4444); // Red Ronin
-            samurai1.position.set(-3, 0, 0);
-            samurai1.rotation.y = Math.PI / 4;
-            scene.add(samurai1);
+            // Meme Combatants (Pepe / Doge styled geometric fighters)
+            memeFighter1 = createMemeAvatar(0xef4444, "PEPE"); 
+            memeFighter1.position.set(-3, 0, 0);
+            memeFighter1.rotation.y = Math.PI / 4;
+            scene.add(memeFighter1);
 
-            samurai2 = createSamurai(0x3b82f6); // Blue Shogun
-            samurai2.position.set(3, 0, 0);
-            samurai2.rotation.y = -Math.PI / 4;
-            scene.add(samurai2);
+            memeFighter2 = createMemeAvatar(0x3b82f6, "DOGE"); 
+            memeFighter2.position.set(3, 0, 0);
+            memeFighter2.rotation.y = -Math.PI / 4;
+            scene.add(memeFighter2);
 
             window.addEventListener('resize', onWindowResize);
             animate();
         }
 
-        // SAMURAI BUILDER (KABUTO, KIMONO ARMOR, KANATA KATANA SWORD)
-        function createSamurai(colorHex) {
+        // MEME AVATAR BUILDER (STYLIZED CYBER-MEME WARRIORS)
+        function createMemeAvatar(colorHex, type) {
             const group = new THREE.Group();
 
-            const fabricMat = new THREE.MeshStandardMaterial({ color: 0x14141c, roughness: 0.8 });
+            const bodyMat = new THREE.MeshStandardMaterial({ color: type === "PEPE" ? 0x22c55e : 0xeab308, roughness: 0.6 });
             const armorMat = new THREE.MeshStandardMaterial({ color: 0x1f1f2e, metalness: 0.8, roughness: 0.3 });
             const glowMat = new THREE.MeshBasicMaterial({ color: colorHex });
-            const bladeMat = new THREE.MeshStandardMaterial({ color: 0xddddff, metalness: 0.95, roughness: 0.1 });
-            const goldMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8, roughness: 0.2 });
+            const weaponMat = new THREE.MeshStandardMaterial({ color: 0xddddff, metalness: 0.95, roughness: 0.1 });
 
-            // Torso & Armor (Do)
-            const torso = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.4, 0.8), fabricMat);
+            // Torso
+            const torso = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.4, 0.8), bodyMat);
             torso.position.y = 1.5;
             group.add(torso);
 
-            const chestPlate = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.8, 0.3), armorMat);
-            chestPlate.position.set(0, 1.5, 0.42);
-            group.add(chestPlate);
+            const chestArmor = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.8, 0.3), armorMat);
+            chestArmor.position.set(0, 1.5, 0.42);
+            group.add(chestArmor);
 
-            const crestCore = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.08, 16), glowMat);
-            crestCore.rotation.x = Math.PI / 2;
-            crestCore.position.set(0, 1.5, 0.55);
-            group.add(crestCore);
+            const coreGlow = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.08, 16), glowMat);
+            coreGlow.rotation.x = Math.PI / 2;
+            coreGlow.position.set(0, 1.5, 0.55);
+            group.add(coreGlow);
 
-            // Head & Kabuto Helmet
-            const head = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.65, 0.65), fabricMat);
+            // Head (Meme Head)
+            const head = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.7, 0.8), bodyMat);
             head.position.set(0, 2.6, 0);
             group.add(head);
 
-            // Kabuto Bowl
-            const helmetBowl = new THREE.Mesh(new THREE.SphereGeometry(0.45, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2), armorMat);
-            helmetBowl.position.set(0, 2.8, 0);
-            group.add(helmetBowl);
+            // Meme Visor / Cyber Goggles
+            const visor = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.2, 0.3), armorMat);
+            visor.position.set(0, 2.65, 0.35);
+            group.add(visor);
 
-            // Kabuto Visor/Mouthplate (Mempo)
-            const mempo = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.25, 0.3), armorMat);
-            mempo.position.set(0, 2.45, 0.35);
-            group.add(mempo);
-
-            const visorGlow = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.08, 0.05), glowMat);
-            visorGlow.position.set(0, 2.52, 0.45);
-            group.add(visorGlow);
-
-            // Kabuto Crest (Maedate - Horn / Crescent)
-            const hornL = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.8, 8), goldMat);
-            hornL.position.set(-0.35, 3.2, 0.1);
-            hornL.rotation.z = -0.4;
-            group.add(hornL);
-
-            const hornR = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.8, 8), goldMat);
-            hornR.position.set(0.35, 3.2, 0.1);
-            hornR.rotation.z = 0.4;
-            group.add(hornR);
-
-            // Shoulder Guards (Sode)
-            const sodeL = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.6, 0.5), armorMat);
-            sodeL.position.set(-0.9, 2.0, 0);
-            group.add(sodeL);
-
-            const sodeR = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.6, 0.5), armorMat);
-            sodeR.position.set(0.9, 2.0, 0);
-            group.add(sodeR);
+            const visorLight = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.08, 0.05), glowMat);
+            visorLight.position.set(0, 2.65, 0.46);
+            group.add(visorLight);
 
             // Arms
             const armGeo = new THREE.BoxGeometry(0.35, 0.85, 0.35);
-            const armL = new THREE.Mesh(armGeo, fabricMat);
+            const armL = new THREE.Mesh(armGeo, bodyMat);
             armL.position.set(-0.9, 1.25, 0);
             group.add(armL);
 
-            const armR = new THREE.Mesh(armGeo, fabricMat);
+            const armR = new THREE.Mesh(armGeo, bodyMat);
             armR.position.set(0.9, 1.25, 0);
             group.add(armR);
 
-            // Katana Sword in Right Hand
-            const katanaGroup = new THREE.Group();
-            const hilt = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), fabricMat);
+            // Meme Weapon / Laser Blade
+            const weaponGroup = new THREE.Group();
+            const hilt = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.4, 8), armorMat);
             hilt.position.set(0, -0.2, 0);
-            katanaGroup.add(hilt);
+            weaponGroup.add(hilt);
 
-            const tsuba = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.04, 0.25), goldMat);
-            tsuba.position.set(0, 0, 0);
-            katanaGroup.add(tsuba);
+            const blade = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.4, 0.02), weaponMat);
+            blade.position.set(0, 0.6, 0);
+            weaponGroup.add(blade);
 
-            const blade = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.3, 0.02), bladeMat);
-            blade.position.set(0, 0.7, 0);
-            katanaGroup.add(blade);
+            weaponGroup.position.set(1.1, 1.1, 0.5);
+            weaponGroup.rotation.x = -Math.PI / 4;
+            group.add(weaponGroup);
 
-            katanaGroup.position.set(1.1, 1.1, 0.5);
-            katanaGroup.rotation.x = -Math.PI / 4;
-            group.add(katanaGroup);
-
-            // Legs (Hakama)
+            // Legs
             const legGeo = new THREE.BoxGeometry(0.4, 1.0, 0.4);
-            const legL = new THREE.Mesh(legGeo, fabricMat);
+            const legL = new THREE.Mesh(legGeo, armorMat);
             legL.position.set(-0.35, 0.5, 0);
             group.add(legL);
 
-            const legR = new THREE.Mesh(legGeo, fabricMat);
+            const legR = new THREE.Mesh(legGeo, armorMat);
             legR.position.set(0.35, 0.5, 0);
             group.add(legR);
 
@@ -585,32 +678,32 @@
             isAttacking = true;
 
             const statusText = document.getElementById('combat-status');
-            statusText.innerText = '⚡ KATANA CLASH!';
+            statusText.innerText = '⚡ MEME CLASH DEVASTADOR!';
             statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-bounce';
 
-            const startX1 = samurai1.position.x;
-            const startX2 = samurai2.position.x;
+            const startX1 = memeFighter1.position.x;
+            const startX2 = memeFighter2.position.x;
 
             let progress = 0;
             const interval = setInterval(() => {
                 progress += 0.08;
                 if (progress <= 1) {
-                    samurai1.position.x = startX1 + Math.sin(progress * Math.PI) * 2.2;
-                    samurai2.position.x = startX2 - Math.sin(progress * Math.PI) * 2.2;
-                    samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 4) * 0.4;
-                    samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 4) * 0.4;
+                    memeFighter1.position.x = startX1 + Math.sin(progress * Math.PI) * 2.2;
+                    memeFighter2.position.x = startX2 - Math.sin(progress * Math.PI) * 2.2;
+                    memeFighter1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 4) * 0.4;
+                    memeFighter2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 4) * 0.4;
                 } else {
                     clearInterval(interval);
-                    samurai1.position.x = startX1;
-                    samurai2.position.x = startX2;
-                    samurai1.rotation.y = Math.PI / 4;
-                    samurai2.rotation.y = -Math.PI / 4;
+                    memeFighter1.position.x = startX1;
+                    memeFighter2.position.x = startX2;
+                    memeFighter1.rotation.y = Math.PI / 4;
+                    memeFighter2.rotation.y = -Math.PI / 4;
                     isAttacking = false;
 
                     document.getElementById('hp-bar-1').style.width = (Math.random() * 40 + 60) + '%';
                     document.getElementById('hp-bar-2').style.width = (Math.random() * 30 + 30) + '%';
 
-                    statusText.innerText = 'ROUND FINALIZADO';
+                    statusText.innerText = 'CONFRONTO DE MEME ENCERRADO';
                     statusText.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-emerald-500 text-xs text-emerald-400 font-bold';
                 }
             }, 30);
@@ -620,8 +713,8 @@
             requestAnimationFrame(animate);
             const time = Date.now() * 0.003;
             if (!isAttacking) {
-                if (samurai1) samurai1.position.y = Math.sin(time) * 0.08;
-                if (samurai2) samurai2.position.y = Math.cos(time) * 0.08;
+                if (memeFighter1) memeFighter1.position.y = Math.sin(time) * 0.08;
+                if (memeFighter2) memeFighter2.position.y = Math.cos(time) * 0.08;
             }
             controls.update();
             renderer.render(scene, camera);
