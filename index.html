@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
@@ -224,7 +223,7 @@
                 </div>
                 <div class="text-gray-400 flex items-center gap-2">
                     <span>Encerramento do Ciclo em:</span> 
-                    <span id="combat-timer" class="text-red-400 font-black text-sm bg-black/60 px-3 py-1 rounded-lg border border-red-500/40">24:00:00</span>
+                    <span id="combat-timer" class="text-red-400 font-black text-sm bg-black/60 px-3 py-1 rounded-lg border border-red-500/40">00:30</span>
                 </div>
             </div>
 
@@ -588,7 +587,7 @@
         let scene, camera, renderer, controls;
         let samurai1, samurai2;
         let isAttacking = false;
-        let timeLeft = 86400; // 24 horas completas de disputa (86400 segundos)
+        let timeLeft = 30; // 30 segundos por ciclo de combate
         
         // Estado do Jogo Interativo
         let playerHP = 100;
@@ -725,23 +724,18 @@
             setInterval(() => {
                 timeLeft--;
 
-                // Converte os segundos totais em Horas, Minutos e Segundos
-                let hours = Math.floor(timeLeft / 3600);
-                let minutes = Math.floor((timeLeft % 3600) / 60);
                 let seconds = timeLeft % 60;
-                
                 let timerDisplay = document.getElementById('combat-timer');
                 if (timerDisplay) {
-                    timerDisplay.innerText = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                    timerDisplay.innerText = `00:${String(seconds).padStart(2, '0')}`;
                 }
 
                 if (timeLeft <= 0) {
-                    updateMarketStatusUI(false); // Indica apuração de pódio das 24h
-
+                    updateMarketStatusUI(false);
                     setTimeout(() => {
-                        timeLeft = 86400; // Reinicia o ciclo de 24h
-                        updateMarketStatusUI(true); 
-                    }, 10000); 
+                        timeLeft = 30;
+                        updateMarketStatusUI(true);
+                    }, 5000);
                 }
             }, 1000);
         }
