@@ -213,7 +213,7 @@
             <div class="text-center mb-16">
                 <span class="text-red-500 font-orbitron text-xs font-bold tracking-widest uppercase animate-pulse">⚡ Coliseu de Batalhas de Memes</span>
                 <h2 class="text-3xl md:text-5xl font-black font-orbitron mt-2 mb-4">MEME COMBAT <span class="text-red-500">ARENA</span></h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Escolha sua sala de combate e assista a confrontos de avatares de memes em 3D em tempo real via WebGL.</p>
+                <p class="text-gray-400 max-w-xl mx-auto">Escolha sua sala de combate e assista a confrontos contínuos de avatares de memes em 3D em tempo real via WebGL.</p>
             </div>
 
             <!-- 3D ARENA CONTAINER (WEBGL) -->
@@ -237,7 +237,7 @@
                         </div>
 
                         <div class="bg-black/80 px-3 py-1.5 rounded-lg border border-red-500 text-xs text-red-400 font-bold" id="combat-status">
-                            🛡️ BATALHA 24H (MERCADO ABERTO)
+                            ⚔️ COMBATE CONTÍNUO AO VIVO
                         </div>
 
                         <div class="bg-black/70 backdrop-blur-md p-3 rounded-xl border border-blue-500/40 text-right">
@@ -305,13 +305,13 @@
                 </div>
             </div>
 
-            <!-- SIMULATOR -->
+            <!-- SIMULATOR & TREASURY STATS -->
             <div class="card-cyber p-8 md:p-10 rounded-3xl relative overflow-hidden border-red-500/50 max-w-2xl mx-auto">
                 <div class="relative z-10 text-center">
                     <span class="font-orbitron text-xs font-bold text-red-400 uppercase tracking-widest" id="active-room-label">Active Chamber: Room #202 (Tier 2)</span>
-                    <h3 class="text-xl font-black font-orbitron mt-2 mb-4">SIMULADOR DE PÓDIO E TESOURO</h3>
+                    <h3 class="text-xl font-black font-orbitron mt-2 mb-4">ESTATÍSTICAS DO PÓDIO E TESOURO</h3>
 
-                    <div id="sim-result" class="bg-black/60 border border-zinc-800 p-5 rounded-2xl mb-6 space-y-3 font-orbitron text-xs text-left">
+                    <div id="sim-result" class="bg-black/60 border border-zinc-800 p-5 rounded-2xl space-y-3 font-orbitron text-xs text-left">
                         <div class="flex justify-between text-gray-400 border-b border-zinc-800 pb-2">
                            <span>Prêmio Total do Pódio (50%):</span>
                            <span class="text-red-400 font-bold" id="res-winner">25,000 $BULL</span>
@@ -330,10 +330,6 @@
                            <span class="text-gray-200 font-bold" id="res-ops">5,000 $BULL</span>
                         </div>
                     </div>
-
-                    <button onclick="simulateBattle()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 rounded-xl font-orbitron text-sm transition tracking-wider shadow-lg shadow-red-600/40 cursor-pointer">
-                        ⚡ ACIONAR CONFRONTO 3D
-                    </button>
                 </div>
             </div>
         </section>
@@ -567,7 +563,7 @@
         document.addEventListener('DOMContentLoaded', fetchMemes);
     </script>
 
-    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC (BATALHA 24H CONTÍNUA) -->
+    <!-- 3D ENGINE + AUTOMATED COMBAT LOOP -->
     <script>
         let scene, camera, renderer, controls;
         let samurai1, samurai2;
@@ -622,6 +618,12 @@
 
             window.addEventListener('resize', onWindowResize);
             animate();
+
+            // Loop automático de combate a cada 15 segundos
+            setInterval(() => {
+                trigger3DAttackAnimation();
+                simulateBattleMetrics();
+            }, 15000);
         }
 
         // SAMURAI BUILDER (KABUTO, ARMADURA, KATANA)
@@ -707,14 +709,14 @@
             return group;
         }
 
-        // ANIMAÇÃO DE CONFRONTO E ESPADAS BATENDO NO CENTRO (MERCADO 24H)
+        // ANIMAÇÃO DE CONFRONTO AUTOMÁTICA
         function trigger3DAttackAnimation() {
             if (isAttacking) return;
             isAttacking = true;
 
             const statusText = document.getElementById('combat-status');
             if (statusText) {
-                statusText.innerText = '⚔️ CONFRONTO EM ANDAMENTO...';
+                statusText.innerText = '⚔️ CONFRONTO AO VIVO...';
                 statusText.className = 'bg-red-600 text-white px-3 py-1.5 rounded-lg border border-red-400 text-xs font-black animate-pulse';
             }
 
@@ -745,7 +747,7 @@
                     if (hp2) hp2.style.width = (Math.random() * 30 + 40) + '%';
 
                     if (statusText) {
-                        statusText.innerText = '🛡️ BATALHA 24H (MERCADO ABERTO)';
+                        statusText.innerText = '⚔️ COMBATE CONTÍNUO AO VIVO';
                         statusText.className = 'bg-black/80 px-3 py-1.5 rounded-lg border border-red-500 text-xs text-red-400 font-bold';
                     }
                 }
@@ -795,9 +797,7 @@
             document.getElementById('res-ops').innerText = ops.toLocaleString() + ' $BULL';
         }
 
-        function simulateBattle() {
-            trigger3DAttackAnimation();
-
+        function simulateBattleMetrics() {
             let variation = (Math.random() * 0.2) - 0.1;
             let simulatedPool = Math.round(currentPoolSize * (1 + variation));
 
