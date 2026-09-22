@@ -462,7 +462,7 @@
         </div>
     </footer>
 
-    <!-- SUPABASE CLIENT & MEME ARENA LOGIC COM VOLUME EM TEMPO REAL DA GECKOTERMINAL (COINGECKO) -->
+    <!-- SUPABASE CLIENT & MEME ARENA LOGIC COM PROXY CORS PARA GECKOTERMINAL -->
     <script>
         const SUPABASE_URL = 'https://gqpnqrylggrcqqklplql.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxcG5xcnlsZ2dyY3Fxa2xwbHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwOTg2NzksImV4cCI6MjEwNTY3NDY3OX0.OgpYFkMteR47FbID1wOMoK3ILY-RcRsVl6AIusbqZgE';
@@ -489,18 +489,21 @@
                 return;
             }
 
-            // Mapeia e constrói os cards buscando o volume de 24h via GeckoTerminal (CoinGecko API) para cada token
+            // Mapeia e constrói os cards buscando o volume de 24h via GeckoTerminal com tratamento anti-CORS
             const memeCardsHTML = await Promise.all(data.map(async (meme) => {
                 let volume24hUSD = 0;
 
                 if (meme.token_mint_address) {
                     try {
-                        const response = await fetch(`https://api.geckoterminal.com/api/v2/networks/solana/tokens/${meme.token_mint_address}`, {
-                            headers: { 'Accept': 'application/json;version=20230302' }
-                        });
-                        const result = await response.json();
-                        if (result && result.data && result.data.attributes) {
-                            volume24hUSD = parseFloat(result.data.attributes.volume_usd?.h24 || 0);
+                        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://api.geckoterminal.com/api/v2/networks/solana/tokens/${meme.token_mint_address}`)}`;
+                        const response = await fetch(proxyUrl);
+                        const proxyResult = await response.json();
+                        
+                        if (proxyResult && proxyResult.contents) {
+                            const result = JSON.parse(proxyResult.contents);
+                            if (result && result.data && result.data.attributes) {
+                                volume24hUSD = parseFloat(result.data.attributes.volume_usd?.h24 || 0);
+                            }
                         }
                     } catch (err) {
                         console.error(`Erro ao buscar volume para o token ${meme.token_mint_address}:`, err);
