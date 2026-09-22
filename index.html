@@ -368,7 +368,7 @@
                 </form>
             </div>
 
-            <!-- GRADE DE 4 MEMES -->
+            <!-- GRADE DE MEMES -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="memesGrid">
                 <div class="card-cyber p-6 rounded-2xl text-center text-gray-500 col-span-4">
                     Carregando memes da arena do Supabase...
@@ -567,7 +567,7 @@
         document.addEventListener('DOMContentLoaded', fetchMemes);
     </script>
 
-    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC (COM BATALHA E ESPADAS BATENDO NO CENTRO) -->
+    <!-- 3D ENGINE + SAMURAI BUILDER & SIMULATOR LOGIC (COM BATALHA AUTOMÁTICA A CADA 15 MIN) -->
     <script>
         let scene, camera, renderer, controls;
         let samurai1, samurai2;
@@ -751,6 +751,11 @@
                 }
             }, 25);
         }
+
+        // ⏱️ TEMPORIZADOR AUTOMÁTICO DISPARANDO CONFRONTO A CADA 15 MINUTOS
+        setInterval(() => {
+            trigger3DAttackAnimation();
+        }, 15 * 60 * 1000);
 
         function animate() {
             requestAnimationFrame(animate);
