@@ -10,24 +10,21 @@ function trigger3DAttackAnimation() {
 
             const startX1 = -3;
             const startX2 = 3;
-            const centerOffset = 0.8; // Distância de aproximação no centro
+            const centerOffset = 0.8;
 
             let startTime = performance.now();
-            let duration = 1000; // 1 segundo de duração total
+            let duration = 1000;
 
             function animateStep(currentTime) {
                 let elapsed = currentTime - startTime;
                 let progress = Math.min(elapsed / duration, 1);
 
-                // Curva de ida e volta limpa (avança até o meio e retorna)
                 let step = Math.sin(progress * Math.PI);
 
                 if (samurai1 && samurai2) {
-                    // Move os avatares para o centro e volta
                     samurai1.position.x = startX1 + (Math.abs(startX1) - centerOffset) * step;
                     samurai2.position.x = startX2 - (Math.abs(startX2) - centerOffset) * step;
 
-                    // Vibração rápida das espadas durante o choque (entre 30% e 70% do tempo)
                     let clashVibration = (progress > 0.3 && progress < 0.7) ? Math.sin(elapsed * 0.1) * 0.5 : 0;
                     samurai1.rotation.y = (Math.PI / 4) + clashVibration;
                     samurai2.rotation.y = (-Math.PI / 4) - clashVibration;
@@ -36,7 +33,6 @@ function trigger3DAttackAnimation() {
                 if (progress < 1) {
                     requestAnimationFrame(animateStep);
                 } else {
-                    // Restaura perfeitamente as posições originais
                     if (samurai1 && samurai2) {
                         samurai1.position.x = startX1;
                         samurai2.position.x = startX2;
@@ -45,7 +41,6 @@ function trigger3DAttackAnimation() {
                     }
                     isAttacking = false;
 
-                    // Atualiza as barrinhas de HP
                     const hp1 = document.getElementById('hp-bar-1');
                     const hp2 = document.getElementById('hp-bar-2');
                     if (hp1) hp1.style.width = (Math.floor(Math.random() * 40) + 30) + '%';
