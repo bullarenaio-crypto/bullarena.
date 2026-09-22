@@ -705,9 +705,15 @@
             return group;
         }
 
-       // ANIMAÇÃO DE CONFRONTO E RETORNO AUTOMÁTICO
-        function trigger3DAttackAnimation() {
+      function trigger3DAttackAnimation() {
             if (isAttacking) return;
+            // Segurança para evitar erro caso os samurais ainda não tenham carregado
+            if (!window.samurai1 || !window.samurai2) {
+                if (typeof samurai1 !== 'undefined') window.samurai1 = samurai1;
+                if (typeof samurai2 !== 'undefined') window.samurai2 = samurai2;
+            }
+            if (!window.samurai1 || !window.samurai2) return;
+
             isAttacking = true;
 
             const statusText = document.getElementById('combat-status');
@@ -723,18 +729,18 @@
             const interval = setInterval(() => {
                 progress += 0.03;
                 if (progress <= 1) {
-                    samurai1.position.x = startX1 + (Math.sin(progress * Math.PI) * 3.5);
-                    samurai2.position.x = startX2 - (Math.sin(progress * Math.PI) * 3.5);
+                    window.samurai1.position.x = startX1 + (Math.sin(progress * Math.PI) * 3.5);
+                    window.samurai2.position.x = startX2 - (Math.sin(progress * Math.PI) * 3.5);
                     
-                    samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 8) * 0.3;
-                    samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 8) * 0.3;
+                    window.samurai1.rotation.y = (Math.PI / 4) + Math.sin(progress * Math.PI * 8) * 0.3;
+                    window.samurai2.rotation.y = (-Math.PI / 4) - Math.sin(progress * Math.PI * 8) * 0.3;
                 } else {
                     clearInterval(interval);
                     
-                    samurai1.position.x = startX1;
-                    samurai2.position.x = startX2;
-                    samurai1.rotation.y = Math.PI / 4;
-                    samurai2.rotation.y = -Math.PI / 4;
+                    window.samurai1.position.x = startX1;
+                    window.samurai2.position.x = startX2;
+                    window.samurai1.rotation.y = Math.PI / 4;
+                    window.samurai2.rotation.y = -Math.PI / 4;
                     isAttacking = false;
 
                     const hp1 = document.getElementById('hp-bar-1');
@@ -748,22 +754,6 @@
                     }
                 }
             }, 25);
-        }
-
-        // DISPARA O ATAQUE AUTOMATICAMENTE A CADA 15 MINUTOS (15 * 60 * 1000 ms)
-        setInterval(() => {
-            trigger3DAttackAnimation();
-        }, 15 * 60 * 1000);
-
-        function animate() {
-            requestAnimationFrame(animate);
-            const time = Date.now() * 0.003;
-            if (!isAttacking) {
-                if (samurai1) samurai1.position.y = Math.sin(time) * 0.08;
-                if (samurai2) samurai2.position.y = Math.cos(time) * 0.08;
-            }
-            controls.update();
-            renderer.render(scene, camera);
         }
 
         function onWindowResize() {
