@@ -264,6 +264,7 @@
       .metric-col:not(:last-child)::after { display: none; }
       .hero-title { font-size: 52px; }
       .tokenomics-grid { grid-template-columns: 1fr !important; }
+      .roadmap-grid { grid-template-columns: 1fr !important; }
     }
 
     .card-fighter {
@@ -524,9 +525,7 @@
     .tag-cyan { background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid var(--cyan); }
     .tag-gold { background: rgba(245, 158, 11, 0.15); color: var(--gold); border: 1px solid var(--gold); }
 
-    .t-item {
-      margin-bottom: 14px;
-    }
+    .t-item { margin-bottom: 14px; }
     .t-item:last-child { margin-bottom: 0; }
 
     .t-item-head {
@@ -563,7 +562,7 @@
       font-weight: 600;
     }
 
-    /* BADGES DE SEGURANÇA E AUDITORIA */
+    /* BADGES DE SEGURANÇA */
     .security-ribbon {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -599,6 +598,97 @@
       color: var(--text-muted);
       font-weight: 700;
       margin-top: 2px;
+    }
+
+    /* ROADMAP SECTION */
+    .roadmap-section {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 30px 26px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      margin-bottom: 36px;
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .r-card {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 16px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .r-card.active-phase {
+      border-top: 3px solid var(--cyan);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.12);
+    }
+
+    .r-card.upcoming-phase {
+      border-top: 3px solid var(--purple);
+    }
+
+    .r-phase-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .r-status {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      width: fit-content;
+      text-transform: uppercase;
+    }
+    .status-live { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid var(--green); }
+    .status-wip { background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid var(--cyan); }
+    .status-queued { background: rgba(168, 85, 247, 0.15); color: var(--purple); border: 1px solid var(--purple); }
+    .status-future { background: rgba(245, 158, 11, 0.15); color: var(--gold); border: 1px solid var(--gold); }
+
+    .r-title {
+      font-family: 'Teko', sans-serif;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 1px;
+      color: #fff;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .r-list {
+      list-style: none;
+      font-size: 11px;
+      color: #cbd5e1;
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .r-list li {
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 14px;
+    }
+
+    .r-list li::before {
+      content: "•";
+      color: var(--cyan);
+      position: absolute;
+      left: 0;
+      font-weight: 900;
     }
 
     /* FOOTER */
@@ -680,7 +770,7 @@
         <circle cx="60" cy="80" r="7" fill="none" stroke="#f59e0b" stroke-width="2"/>
       </svg>
 
-      <!-- Clean Slogan (Season tag removed) -->
+      <!-- Clean Slogan -->
       <div class="badge-slogan">THE FINAL MEME STANDING</div>
 
       <h1 class="hero-title">BULL <span>ROYALE</span></h1>
@@ -803,7 +893,7 @@
       </div>
 
       <div class="tokenomics-grid">
-        <!-- CARD 1: GLOBAL SUPPLY (PUMP.FUN ARCHITECTURE) -->
+        <!-- CARD 1: GLOBAL SUPPLY -->
         <div class="t-card">
           <div class="t-card-header">
             <h3 class="t-title">PUMP.FUN SUPPLY ARCHITECTURE</h3>
@@ -919,6 +1009,75 @@
           <div class="sec-badge-icon">📊</div>
           <div class="sec-badge-title">ORACLE SETTLED</div>
           <div class="sec-badge-sub">DexScreener 24h Volume</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRATEGIC ROADMAP SECTION -->
+    <section class="roadmap-section">
+      <div class="sec-header">
+        <div class="sec-badge">SUSTAINABLE ECOSYSTEM GROWTH</div>
+        <h2 class="sec-title">PROTOCOL <span>ROADMAP</span></h2>
+        <p class="sec-sub">
+          A continuous development pipeline engineered to scale user adoption, liquidity retention, and perpetual burning.
+        </p>
+      </div>
+
+      <div class="roadmap-grid">
+        <!-- PHASE 1 -->
+        <div class="r-card active-phase">
+          <span class="r-phase-tag" style="color: var(--green);">PHASE 01</span>
+          <span class="r-status status-live">IN EXECUTION</span>
+          <h3 class="r-title">GENESIS & LAUNCH</h3>
+          <ul class="r-list">
+            <li>Pump.fun Fair Launch (100% clean Block 0).</li>
+            <li>Raydium LP migration & permanent LP burn.</li>
+            <li>Live Bull Royale Arena v1.0 on Solana Mainnet.</li>
+            <li>DexScreener token verification & profile banner.</li>
+            <li>CoinGecko & CoinMarketCap fast-track listing.</li>
+          </ul>
+        </div>
+
+        <!-- PHASE 2 -->
+        <div class="r-card active-phase">
+          <span class="r-phase-tag" style="color: var(--cyan);">PHASE 02</span>
+          <span class="r-status status-wip">UPCOMING Q4</span>
+          <h3 class="r-title">VIRAL ACTIONS & BOT</h3>
+          <ul class="r-list">
+            <li>Solana Blinks integration (bet straight from X / Twitter feed).</li>
+            <li>Telegram Royale Bet Bot for viral memecoin communities.</li>
+            <li>Community DAO Voting on tomorrow's meme contenders.</li>
+            <li>Live On-Chain Deflation & Burn Analytics Dashboard.</li>
+            <li>Tier-2 Micro-Cap Meme Showdowns (POPCAT, MEW, GOAT).</li>
+          </ul>
+        </div>
+
+        <!-- PHASE 3 -->
+        <div class="r-card upcoming-phase">
+          <span class="r-phase-tag" style="color: var(--purple);">PHASE 03</span>
+          <span class="r-status status-queued">SCHEDULED</span>
+          <h3 class="r-title">STAKING & EXPANSION</h3>
+          <ul class="r-list">
+            <li>Royale Vault: Stake $BULL to earn a share of platform fees.</li>
+            <li>First centralized exchange listing (Tier-2 CEX).</li>
+            <li>Affiliate & referral revenue-share smart contract.</li>
+            <li>Weekly Royale Leaderboards with bonus jackpot pools.</li>
+            <li>Comprehensive 3rd-party smart contract audit.</li>
+          </ul>
+        </div>
+
+        <!-- PHASE 4 -->
+        <div class="r-card">
+          <span class="r-phase-tag" style="color: var(--gold);">PHASE 04</span>
+          <span class="r-status status-future">FUTURE VISION</span>
+          <h3 class="r-title">MEME ROYALE LEAGUE</h3>
+          <ul class="r-list">
+            <li>Weekly Royale Cup Tournaments with tiered brackets.</li>
+            <li>Cross-chain prediction oracles (Base & Ethereum volume).</li>
+            <li>Tier-1 CEX Listings (OKX, Bybit, Binance Futures).</li>
+            <li>Mobile PWA Web3 App with settlement push alerts.</li>
+            <li>Decentralized Autonomous Arena governance.</li>
+          </ul>
         </div>
       </div>
     </section>
