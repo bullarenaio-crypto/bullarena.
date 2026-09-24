@@ -46,7 +46,7 @@
       padding: 16px 20px 60px;
     }
 
-    /* NAVBAR COMPLETA E RESPONSIVA */
+    /* NAVBAR RESPONSIVA */
     nav {
       display: flex;
       justify-content: space-between;
@@ -99,6 +99,37 @@
       flex-shrink: 0;
     }
 
+    /* BOTAO TWITTER/X NA NAVBAR */
+    .btn-x-nav {
+      background: #090d16;
+      color: #fff;
+      border: 1.5px solid var(--cyan);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 3px 0 #0284c7;
+      transform: skewX(-6deg);
+      transition: all 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .btn-x-nav:hover {
+      background: #0d1527;
+      color: var(--cyan);
+      box-shadow: 0 0 14px var(--cyan-glow), 0 3px 0 #0284c7;
+    }
+
+    .btn-x-nav:active {
+      transform: skewX(-6deg) translateY(2px);
+      box-shadow: 0 1px 0 #0284c7;
+    }
+
     .btn-buy {
       background: var(--gold);
       color: #000;
@@ -122,7 +153,7 @@
       box-shadow: 0 1px 0 #b45309;
     }
 
-    /* CAIXA DE CARTEIRA E BOTÃO */
+    /* CAIXA DE CARTEIRA E SALDOS */
     .wallet-container {
       display: flex;
       align-items: center;
@@ -180,10 +211,10 @@
       box-shadow: 0 3px 0 #991b1b;
     }
 
-    /* OTIMIZAÇÃO MOBILE PARA NAVBAR */
+    /* AJUSTE COMPACTO PARA CELULARES */
     @media (max-width: 680px) {
       nav {
-        padding: 8px 12px;
+        padding: 8px 10px;
         margin-bottom: 20px;
         border-radius: 12px;
         gap: 6px;
@@ -192,25 +223,34 @@
         gap: 6px;
       }
       .brand-icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 7px;
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
       }
       .brand-icon svg {
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
       }
       .brand-title {
-        font-size: 22px;
+        font-size: 20px;
         letter-spacing: 1px;
       }
       .nav-actions {
-        gap: 6px;
+        gap: 5px;
         flex-wrap: nowrap;
+      }
+      .btn-x-nav {
+        font-size: 10px;
+        padding: 6px 8px;
+        transform: none;
+        box-shadow: 0 2px 0 #0284c7;
+      }
+      .btn-x-nav:active {
+        transform: translateY(2px);
       }
       .btn-buy {
         font-size: 10px;
-        padding: 7px 10px;
+        padding: 6px 8px;
         transform: none;
         box-shadow: 0 2px 0 #b45309;
       }
@@ -219,7 +259,7 @@
       }
       .btn-wallet {
         font-size: 10px;
-        padding: 7px 10px;
+        padding: 6px 8px;
         transform: none;
         box-shadow: 0 2px 0 #4c1d95;
       }
@@ -305,7 +345,7 @@
       font-weight: 700;
     }
 
-    /* BARRA DE MÉTRICAS */
+    /* BARRA DE METRICAS */
     .metrics-bar {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -342,7 +382,7 @@
     .metric-num.pink { color: var(--pink); }
     .metric-num.cyan { color: var(--cyan); }
 
-    /* BARRA INSTITUCIONAL DE CARTEIRAS SUPORTADAS */
+    /* BARRA DE CARTEIRAS SUPORTADAS */
     .supported-wallets-bar {
       background: rgba(13, 19, 34, 0.7);
       border: 1px solid var(--border);
@@ -581,7 +621,7 @@
     .s-val { font-weight: 900; }
     .s-val.gold { color: var(--gold); font-size: 15px; }
 
-    /* BOTÕES DE APOSTA */
+    /* BOTOES DE APOSTA */
     .btn-arcade {
       width: 100%;
       padding: 15px;
@@ -654,7 +694,7 @@
 
     .vs-text span { color: var(--cyan); }
 
-    /* TUG OF WAR */
+    /* CABO DE GUERRA (TUG OF WAR) */
     .tug-zone {
       background: var(--card-inner);
       border: 1px solid var(--border);
@@ -687,7 +727,7 @@
       transition: width 0.3s ease;
     }
 
-    /* MINI HISTÓRICO */
+    /* HISTORICO */
     .history-box {
       border-top: 1px solid var(--border);
       padding-top: 18px;
@@ -1236,7 +1276,7 @@
 
     .faq-item.open .faq-answer { display: block; }
 
-    /* MODAIS GLOBAIS (APOSTA E CARTEIRA) */
+    /* MODAIS GLOBAIS */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -1283,7 +1323,7 @@
 
     .modal-close:hover { color: #fff; }
 
-    /* ESTILOS ESPECÍFICOS DO MODAL DE SELEÇÃO DE CARTEIRAS */
+    /* MODAL DE CARTEIRAS */
     .wallet-list-select {
       display: flex;
       flex-direction: column;
@@ -1500,7 +1540,6 @@
     <nav>
       <a href="https://www.bullarenaa.io/" class="brand notranslate">
         <div class="brand-icon">
-          <!-- Geometric Bull Logo SVG -->
           <svg width="24" height="24" viewBox="0 0 120 100" fill="none">
             <path d="M 40 48 C 28 28, 18 12, 10 14 C 15 26, 28 40, 42 50 Z" fill="#38bdf8"/>
             <path d="M 80 48 C 92 28, 102 12, 110 14 C 105 26, 92 40, 78 50 Z" fill="#38bdf8"/>
@@ -1513,6 +1552,14 @@
       </a>
 
       <div class="nav-actions">
+        <!-- BOTAO OFICIAL DO TWITTER/X -->
+        <a href="https://x.com/bullarenaio" target="_blank" rel="noopener noreferrer" class="btn-x-nav notranslate" title="Follow on X / Twitter">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          <span>TWITTER</span>
+        </a>
+
         <a href="https://raydium.io" target="_blank" class="btn-buy notranslate">BUY $BULL</a>
         <div class="wallet-container">
           <div id="wallet-balance-pill" class="wallet-balance-pill notranslate">
@@ -1525,7 +1572,7 @@
       </div>
     </nav>
 
-    <!-- HERO SECTION WITH ROTATING 3D BULL EMBLEM -->
+    <!-- HERO SECTION -->
     <header class="hero">
       <svg class="hero-bull-emblem" viewBox="0 0 120 100" title="Bull Royale Cyber Emblem">
         <defs>
@@ -1559,7 +1606,7 @@
       </p>
     </header>
 
-    <!-- PROTOCOL METRICS BAR -->
+    <!-- METRICAS -->
     <section class="metrics-bar">
       <div class="metric-col">
         <div class="metric-label">DAILY POOL (ROUND #01)</div>
@@ -1575,7 +1622,7 @@
       </div>
     </section>
 
-    <!-- ALTERAÇÃO 3: BARRA DE CARTEIRAS SUPORTADAS -->
+    <!-- CARTEIRAS SUPORTADAS -->
     <section class="supported-wallets-bar notranslate">
       <div class="wallets-bar-label">
         <span>⚡ SUPPORTED WALLETS:</span>
@@ -1607,7 +1654,7 @@
       </div>
 
       <div class="battle-grid">
-        <!-- CONTENDER 1: BONK -->
+        <!-- BONK -->
         <article class="card-fighter card-cyan">
           <div class="card-meta">
             <span class="pill-rarity pill-cyan notranslate">MYTHIC</span>
@@ -1643,7 +1690,7 @@
           <div class="vs-text notranslate">ORACLE<br><span>DexScreener</span><br>AUTO-SETTLE</div>
         </div>
 
-        <!-- CONTENDER 2: WIF -->
+        <!-- WIF -->
         <article class="card-fighter card-purple">
           <div class="card-meta">
             <span class="pill-rarity pill-purple notranslate">LEGENDARY</span>
@@ -1674,7 +1721,7 @@
         </article>
       </div>
 
-      <!-- TUG OF WAR BAR -->
+      <!-- TUG OF WAR -->
       <div class="tug-zone">
         <div class="tug-labels notranslate">
           <span style="color:var(--cyan);">BONK DOMINANCE: 58% (823.6K $BULL)</span>
@@ -1685,7 +1732,7 @@
         </div>
       </div>
 
-      <!-- RECENT ARENA SETTLEMENTS -->
+      <!-- ON-CHAIN HISTORY -->
       <div class="history-box">
         <div class="history-header">
           <div class="history-title notranslate">PREVIOUS ARENA ROUNDS (ON-CHAIN HISTORY)</div>
@@ -1720,7 +1767,7 @@
       </div>
     </main>
 
-    <!-- HOW IT WORKS SECTION -->
+    <!-- HOW IT WORKS -->
     <section class="how-section">
       <div class="sec-header">
         <div class="sec-badge notranslate">QUICK ONBOARDING GUIDE</div>
@@ -1755,7 +1802,7 @@
       </div>
     </section>
 
-    <!-- PROTOCOL TOKENOMICS & VAULT MECHANICS -->
+    <!-- TOKENOMICS -->
     <section class="tokenomics-section">
       <div class="sec-header">
         <div class="sec-badge notranslate">SOLANA FAIR LAUNCH ARCHITECTURE</div>
@@ -1766,7 +1813,6 @@
       </div>
 
       <div class="tokenomics-grid">
-        <!-- CARD 1: GLOBAL SUPPLY -->
         <div class="t-card">
           <div class="t-card-header">
             <h3 class="t-title notranslate">PUMP.FUN SUPPLY ARCHITECTURE</h3>
@@ -1813,7 +1859,6 @@
           </div>
         </div>
 
-        <!-- CARD 2: DAILY ARENA POT SETTLEMENT -->
         <div class="t-card">
           <div class="t-card-header">
             <h3 class="t-title notranslate">DAILY ARENA SETTLEMENT (100% OF POT)</h3>
@@ -1862,7 +1907,7 @@
       </div>
     </section>
 
-    <!-- PROTOCOL SECURITY & AUDIT INTEGRITY -->
+    <!-- SECURITY -->
     <section class="security-section">
       <div class="sec-header">
         <div class="sec-badge notranslate" style="border-color: var(--green); color: var(--green);">VERIFIED SMART CONTRACT ARCHITECTURE</div>
@@ -1952,7 +1997,7 @@
         </div>
       </div>
 
-      <!-- AUDIT SUMMARY BAR -->
+      <!-- AUDIT BAR -->
       <div class="audit-summary-bar">
         <div class="audit-tag-group notranslate">
           <div class="audit-pill">🛡️ RUGCHECK: <strong>PASSED (GOOD)</strong></div>
@@ -1963,7 +2008,7 @@
       </div>
     </section>
 
-    <!-- STRATEGIC ROADMAP SECTION -->
+    <!-- ROADMAP -->
     <section class="roadmap-section">
       <div class="sec-header">
         <div class="sec-badge notranslate">SUSTAINABLE ECOSYSTEM GROWTH</div>
@@ -2028,7 +2073,7 @@
       </div>
     </section>
 
-    <!-- FAQ ACCORDION SECTION -->
+    <!-- FAQ -->
     <section class="faq-section">
       <div class="sec-header">
         <div class="sec-badge notranslate">KNOWLEDGE BASE</div>
@@ -2096,14 +2141,14 @@
       <div class="notranslate">© 2026 Bull Royale Protocol (bullarenaa.io) • Built on Solana</div>
       <div class="notranslate">
         <a href="https://t.me" target="_blank">Telegram</a>
-        <a href="https://x.com" target="_blank">Twitter / X</a>
+        <a href="https://x.com/bullarenaio" target="_blank" rel="noopener noreferrer">Twitter / X</a>
         <a href="https://dexscreener.com" target="_blank">DexScreener</a>
         <a href="https://solscan.io" target="_blank">Solscan</a>
       </div>
     </footer>
   </div>
 
-  <!-- ALTERAÇÃO 2: MODAL OFICIAL DE SELEÇÃO DE CARTEIRAS -->
+  <!-- MODAL DE CARTEIRAS -->
   <div id="wallet-modal-overlay" class="modal-overlay" onclick="fecharModalCarteira(event)">
     <div class="modal-box notranslate" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="fecharModalCarteira()">✕</button>
@@ -2163,7 +2208,7 @@
           <span class="wallet-badge-network">MULTI</span>
         </button>
 
-        <!-- METAMASK (SOLANA SNAP) -->
+        <!-- METAMASK (SNAP) -->
         <button class="wallet-choice-btn" onclick="conectarProvedor('metamask')">
           <div class="wallet-choice-left">
             <span class="wallet-choice-icon">🦊</span>
@@ -2178,7 +2223,7 @@
     </div>
   </div>
 
-  <!-- CUSTOM WEB3 STAKE MODAL -->
+  <!-- MODAL DE APOSTA -->
   <div id="stake-modal-overlay" class="modal-overlay" onclick="fecharModalAposta(event)">
     <div class="modal-box notranslate" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="fecharModalAposta()">✕</button>
@@ -2387,7 +2432,6 @@
             return;
           }
           try {
-            // Conexão via Solana Snap na MetaMask
             await window.ethereum.request({
               method: 'wallet_requestSnaps',
               params: { 'npm:@solflare-wallet/solana-snap': {} }
