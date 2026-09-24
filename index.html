@@ -156,19 +156,42 @@
       box-shadow: 0 3px 0 #991b1b;
     }
 
-    /* HERO */
+    /* HERO & EMBLEMA 3D GIRATÓRIO */
     .hero {
       text-align: center;
       margin-bottom: 30px;
       position: relative;
+      perspective: 1000px;
     }
 
     .hero-bull-emblem {
-      width: 80px;
-      height: 70px;
-      margin: 0 auto 12px;
+      width: 85px;
+      height: 75px;
+      margin: 0 auto 14px;
       display: block;
-      filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.35));
+      transform-style: preserve-3d;
+      animation: spinY 7s linear infinite;
+      filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.4));
+      cursor: pointer;
+    }
+
+    .hero-bull-emblem:hover {
+      animation-duration: 3s;
+    }
+
+    @keyframes spinY {
+      0% {
+        transform: perspective(600px) rotateY(0deg);
+        filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.4));
+      }
+      50% {
+        transform: perspective(600px) rotateY(180deg) scale(0.95);
+        filter: drop-shadow(0 0 24px rgba(168, 85, 247, 0.45));
+      }
+      100% {
+        transform: perspective(600px) rotateY(360deg);
+        filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.4));
+      }
     }
 
     .badge-slogan {
@@ -962,9 +985,7 @@
       user-select: none;
     }
 
-    .faq-question:hover {
-      color: var(--cyan);
-    }
+    .faq-question:hover { color: var(--cyan); }
 
     .faq-toggle-icon {
       font-size: 18px;
@@ -988,9 +1009,7 @@
       padding-top: 12px;
     }
 
-    .faq-item.open .faq-answer {
-      display: block;
-    }
+    .faq-item.open .faq-answer { display: block; }
 
     /* STAKE MODAL (POPUP WEB3) */
     .modal-overlay {
@@ -1121,10 +1140,7 @@
       cursor: pointer;
       transition: all 0.1s;
     }
-    .btn-pct:hover {
-      border-color: var(--cyan);
-      color: #fff;
-    }
+    .btn-pct:hover { border-color: var(--cyan); color: #fff; }
 
     .modal-summary-box {
       background: #050813;
@@ -1192,9 +1208,9 @@
       </div>
     </nav>
 
-    <!-- HERO SECTION WITH BULL EMBLEM -->
+    <!-- HERO SECTION WITH ROTATING 3D BULL EMBLEM -->
     <header class="hero">
-      <svg class="hero-bull-emblem" viewBox="0 0 120 100">
+      <svg class="hero-bull-emblem" viewBox="0 0 120 100" title="Bull Royale Cyber Emblem">
         <defs>
           <linearGradient id="hornShine" x1="0%" y1="0%" x2="100%" y2="50%">
             <stop offset="0%" stop-color="#38bdf8"/>
@@ -1791,11 +1807,9 @@
   </div>
 
   <script>
-    // Endereço Mint oficial do $BULL (deixe vazio até lançar na Pump.fun)
     const BULL_MINT_ADDRESS = ""; 
     const SOLANA_RPC_URL = "https://api.mainnet-beta.solana.com";
 
-    // Áudio arcade sintetizado via Web Audio API
     function somArcade() {
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -1818,7 +1832,6 @@
       } catch (e) {}
     }
 
-    // Cronômetro regressivo até 23:59:59 UTC
     function atualizarRelogio() {
       const agora = new Date();
       const fecho = new Date();
@@ -1837,12 +1850,10 @@
     setInterval(atualizarRelogio, 1000);
     atualizarRelogio();
 
-    // ESTADO DA CARTEIRA
     let carteiraConectada = false;
     let chavePublicaAtual = null;
     let saldoBullNum = 0;
 
-    // CONSULTA SALDOS ON-CHAIN
     async function consultarSaldos(publicKeyStr) {
       const pill = document.getElementById('wallet-balance-pill');
       const solEl = document.getElementById('val-sol');
@@ -1890,7 +1901,7 @@
             bullEl.innerText = '0';
           }
         } else {
-          saldoBullNum = 10000; // saldo demonstrativo caso o token ainda esteja em pré-lançamento
+          saldoBullNum = 10000;
           bullEl.innerText = '10,000 (Test)';
         }
 
@@ -1900,7 +1911,6 @@
       }
     }
 
-    // CONECTAR / DESCONECTAR PHANTOM (TOGGLE)
     async function gerenciarCarteira() {
       somArcade();
       const btn = document.getElementById('btn-wallet');
@@ -1955,7 +1965,6 @@
       }
     }
 
-    // FAQ ACCORDION HANDLER
     function toggleFaq(el) {
       somArcade();
       const estaAberto = el.classList.contains('open');
@@ -1965,7 +1974,6 @@
       }
     }
 
-    // MODAL DE APOSTA WEB3 LOGIC
     let memeSelecionado = 'BONK';
     let multiplicadorAtual = 1.72;
 
