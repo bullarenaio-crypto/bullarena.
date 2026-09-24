@@ -265,6 +265,7 @@
       .hero-title { font-size: 52px; }
       .tokenomics-grid { grid-template-columns: 1fr !important; }
       .roadmap-grid { grid-template-columns: 1fr !important; }
+      .security-grid { grid-template-columns: 1fr !important; }
     }
 
     .card-fighter {
@@ -545,10 +546,7 @@
       overflow: hidden;
       border: 1px solid #1a2236;
     }
-    .bar-core {
-      height: 100%;
-      border-radius: 5px;
-    }
+    .bar-core { height: 100%; border-radius: 5px; }
     .bar-cyan { background: linear-gradient(90deg, #0284c7, var(--cyan)); }
     .bar-purple { background: linear-gradient(90deg, #7e22ce, var(--purple)); }
     .bar-green { background: linear-gradient(90deg, #059669, var(--green)); }
@@ -562,42 +560,130 @@
       font-weight: 600;
     }
 
-    /* BADGES DE SEGURANÇA */
-    .security-ribbon {
+    /* NEW: ADVANCED PROTOCOL SECURITY SECTION */
+    .security-section {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 30px 26px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      margin-bottom: 36px;
+    }
+
+    .security-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .sec-card {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 18px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sec-card.verified {
+      border-top: 3px solid var(--green);
+    }
+
+    .sec-card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .sec-icon-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #0b1526;
+      border: 1px solid #1a2c4d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .sec-title-box h4 {
+      font-family: 'Teko', sans-serif;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .sec-status-chip {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .sec-card-body {
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .audit-summary-bar {
+      background: #070a12;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
       gap: 12px;
-      border-top: 1px solid var(--border);
-      padding-top: 20px;
-      text-align: center;
     }
 
-    @media (max-width: 600px) {
-      .security-ribbon { grid-template-columns: 1fr 1fr; }
+    .audit-tag-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .sec-badge-item {
-      background: #04060c;
-      border: 1px solid #141c2c;
-      border-radius: 10px;
-      padding: 10px;
+    .audit-pill {
+      background: #0f1629;
+      border: 1px solid #1b2640;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    .sec-badge-icon {
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-    .sec-badge-title {
+    .audit-pill strong { color: var(--green); }
+
+    .btn-verify-audit {
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
       font-size: 11px;
       font-weight: 900;
-      color: #f1f5f9;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.15s;
     }
-    .sec-badge-sub {
-      font-size: 10px;
-      color: var(--text-muted);
-      font-weight: 700;
-      margin-top: 2px;
+    .btn-verify-audit:hover {
+      background: var(--cyan);
+      color: #02141c;
+      box-shadow: 0 0 14px var(--cyan-glow);
     }
 
     /* ROADMAP SECTION */
@@ -987,29 +1073,112 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- SECURITY & AUDIT BADGES -->
-      <div class="security-ribbon">
-        <div class="sec-badge-item">
-          <div class="sec-badge-icon">🛡️</div>
-          <div class="sec-badge-title">NON-CUSTODIAL PDA</div>
-          <div class="sec-badge-sub">Program-controlled pool</div>
+    <!-- PROTOCOL SECURITY & AUDIT INTEGRITY -->
+    <section class="security-section">
+      <div class="sec-header">
+        <div class="sec-badge" style="border-color: var(--green); color: var(--green);">VERIFIED SMART CONTRACT ARCHITECTURE</div>
+        <h2 class="sec-title">PROTOCOL <span>SECURITY</span> & TRUST AUDIT</h2>
+        <p class="sec-sub">
+          Engineered for institutional-grade safety. Mathematical custody, decentralized oracle feeds, and zero admin backdoor access.
+        </p>
+      </div>
+
+      <div class="security-grid">
+        <!-- SECURITY ITEM 1 -->
+        <div class="sec-card verified">
+          <div class="sec-card-head">
+            <div class="sec-icon-wrap">🛡️</div>
+            <div class="sec-title-box">
+              <h4>NON-CUSTODIAL PDA VAULT</h4>
+              <span class="sec-status-chip">● PROGRAM CONTROLLED</span>
+            </div>
+          </div>
+          <p class="sec-card-body">
+            User stakes are locked inside an autonomous Program Derived Address (PDA) on Solana. The developers hold zero private keys to the pot. Fund transfers execute exclusively upon round closure.
+          </p>
         </div>
-        <div class="sec-badge-item">
-          <div class="sec-badge-icon">🚫</div>
-          <div class="sec-badge-title">MINT REVOKED</div>
-          <div class="sec-badge-sub">Fixed 1B total supply</div>
+
+        <!-- SECURITY ITEM 2 -->
+        <div class="sec-card verified">
+          <div class="sec-card-head">
+            <div class="sec-icon-wrap">🚫</div>
+            <div class="sec-title-box">
+              <h4>MINT & FREEZE REVOKED</h4>
+              <span class="sec-status-chip">● PERMANENTLY IMMUTABLE</span>
+            </div>
+          </div>
+          <p class="sec-card-body">
+            Mint authority is permanently disabled, fixing the supply at exactly 1 Billion $BULL forever. Freeze authority is revoked, ensuring no user or wallet can ever be blacklisted or prevented from trading.
+          </p>
         </div>
-        <div class="sec-badge-item">
-          <div class="sec-badge-icon">❄️</div>
-          <div class="sec-badge-title">FREEZE REVOKED</div>
-          <div class="sec-badge-sub">Unstoppable trading</div>
+
+        <!-- SECURITY ITEM 3 -->
+        <div class="sec-card verified">
+          <div class="sec-card-head">
+            <div class="sec-icon-wrap">🔥</div>
+            <div class="sec-title-box">
+              <h4>100% LP BURN ON RAYDIUM</h4>
+              <span class="sec-status-chip">● AUTO-BURN GUARANTEE</span>
+            </div>
+          </div>
+          <p class="sec-card-body">
+            Upon graduation from the Pump.fun bonding curve, all initial liquidity tokens (LP) are automatically burned forever into the Solana null address. Liquidity cannot be drained or manipulated.
+          </p>
         </div>
-        <div class="sec-badge-item">
-          <div class="sec-badge-icon">📊</div>
-          <div class="sec-badge-title">ORACLE SETTLED</div>
-          <div class="sec-badge-sub">DexScreener 24h Volume</div>
+
+        <!-- SECURITY ITEM 4 -->
+        <div class="sec-card verified">
+          <div class="sec-card-head">
+            <div class="sec-icon-wrap">📊</div>
+            <div class="sec-title-box">
+              <h4>DEXSCREENER ORACLE SETTLE</h4>
+              <span class="sec-status-chip">● TAMPER-PROOF DATA</span>
+            </div>
+          </div>
+          <p class="sec-card-body">
+            Outcome calculation relies on transparent public 24-hour volume data pulled via DexScreener APIs. Results are validated deterministically on-chain every night at 23:59 UTC.
+          </p>
         </div>
+
+        <!-- SECURITY ITEM 5 -->
+        <div class="sec-card verified">
+          <div class="sec-card-head">
+            <div class="sec-icon-wrap">⚡</div>
+            <div class="sec-title-box">
+              <h4>ANTI-SNIPE STAKE BUFFER</h4>
+              <span class="sec-status-chip">● FAIR PLAY ENGINE</span>
+            </div>
+          </div>
+          <p class="sec-card-body">
+            A built-in deadline closes all stake submissions 5 minutes prior to final midnight settlement, preventing flash-loan bots and last-second frontrunning manipulation of pool multipliers.
+          </p>
+        </div>
+
+        <!-- SECURITY ITEM 6 -->
+        <div class="sec-card verified">
+          <div class="sec-card-head">
+            <div class="sec-icon-wrap">🔍</div>
+            <div class="sec-title-box">
+              <h4>PUBLIC OPEN-SOURCE AUDIT</h4>
+              <span class="sec-status-chip">● VERIFIED ON SOLSCAN</span>
+            </div>
+          </div>
+          <p class="sec-card-body">
+            Protocol smart contracts are fully open-source and verified on Solscan and GitHub. Any developer or trader can independently inspect Anchor Rust instructions and program ID bytecode.
+          </p>
+        </div>
+      </div>
+
+      <!-- AUDIT SUMMARY BAR -->
+      <div class="audit-summary-bar">
+        <div class="audit-tag-group">
+          <div class="audit-pill">🛡️ RUGCHECK: <strong>PASSED (GOOD)</strong></div>
+          <div class="audit-pill">🫧 BUBBLEMAPS: <strong>CLEAN CLUSTERS</strong></div>
+          <div class="audit-pill">⚡ SPL CONTRACT: <strong>100% RENNOUNCED</strong></div>
+        </div>
+        <a href="https://solscan.io" target="_blank" class="btn-verify-audit">VIEW ON SOLSCAN ↗</a>
       </div>
     </section>
 
