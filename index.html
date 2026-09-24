@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en-US">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bull Royale • O Primeiro Protocolo de Previsão de Memes na Solana</title>
+  <title>Bull Royale • Decentralized Meme Volume Royale on Solana</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,900&family=Teko:wght@600;700&display=swap" rel="stylesheet">
@@ -65,10 +65,10 @@
     }
 
     .brand-icon {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       background: #0f172a;
-      border: 2px solid var(--cyan);
+      border: 1.5px solid var(--cyan);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -129,17 +129,26 @@
       position: relative;
     }
 
-    .season-badge {
+    .hero-bull-emblem {
+      width: 80px;
+      height: 70px;
+      margin: 0 auto 12px;
+      display: block;
+      filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.35));
+    }
+
+    .badge-slogan {
       display: inline-block;
       background: rgba(15, 23, 42, 0.9);
       border: 1px solid var(--border);
       color: var(--cyan);
       font-size: 11px;
       font-weight: 900;
-      letter-spacing: 2px;
-      padding: 5px 16px;
+      letter-spacing: 3px;
+      padding: 6px 18px;
       border-radius: 20px;
       margin-bottom: 12px;
+      text-transform: uppercase;
     }
 
     .hero-title {
@@ -161,7 +170,7 @@
       font-weight: 700;
     }
 
-    /* BARRA DE MÉTRICAS */
+    /* PROTOCOL METRICS BAR */
     .metrics-bar {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -239,7 +248,7 @@
       border-radius: 20px;
     }
 
-    /* GRID DOS MEMES */
+    /* BATTLE GRID */
     .battle-grid {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -327,7 +336,7 @@
     .s-val { font-weight: 900; }
     .s-val.gold { color: var(--gold); font-size: 15px; }
 
-    /* BOTÕES TÁTEIS 3D ARCADE */
+    /* ARCADE 3D BUTTONS */
     .btn-arcade {
       width: 100%;
       padding: 15px;
@@ -364,7 +373,7 @@
       box-shadow: 0 1px 0 var(--purple-btn-shadow);
     }
 
-    /* VS CENTRAL */
+    /* CENTER VS */
     .vs-wrap { text-align: center; }
     .vs-badge {
       width: 58px;
@@ -394,7 +403,7 @@
     }
     .vs-text span { color: var(--cyan); }
 
-    /* CABO DE GUERRA */
+    /* TUG OF WAR */
     .tug-zone {
       background: var(--card-inner);
       border: 1px solid var(--border);
@@ -451,124 +460,166 @@
     <nav>
       <a href="https://www.bullarenaa.io/" class="brand">
         <div class="brand-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5">
-            <path d="M6 3v6M18 3v6M4 9h16l-2 10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L4 9Z"/>
+          <!-- Geometric Bull Logo SVG -->
+          <svg width="24" height="24" viewBox="0 0 120 100" fill="none">
+            <path d="M 40 48 C 28 28, 18 12, 10 14 C 15 26, 28 40, 42 50 Z" fill="#38bdf8"/>
+            <path d="M 80 48 C 92 28, 102 12, 110 14 C 105 26, 92 40, 78 50 Z" fill="#38bdf8"/>
+            <polygon points="60,24 80,46 40,46" fill="#475569"/>
+            <polygon points="60,84 78,48 42,48" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+            <circle cx="60" cy="80" r="7" fill="none" stroke="#f59e0b" stroke-width="2"/>
           </svg>
         </div>
         <div class="brand-title">BULL<span>ROYALE</span></div>
       </a>
 
       <div class="nav-actions">
-        <a href="https://raydium.io" target="_blank" class="btn-buy">COMPRAR $BULL</a>
-        <button id="btn-wallet" class="btn-wallet" onclick="conectarPhantom()">CONECTAR PHANTOM</button>
+        <a href="https://raydium.io" target="_blank" class="btn-buy">BUY $BULL</a>
+        <button id="btn-wallet" class="btn-wallet" onclick="conectarPhantom()">CONNECT PHANTOM</button>
       </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- HERO SECTION WITH BULL EMBLEM -->
     <header class="hero">
-      <div class="season-badge">TEMPORADA 1 • THE FINAL MEME STANDING</div>
+      <!-- Sculptural Cyber Bull Emblem in Header -->
+      <svg class="hero-bull-emblem" viewBox="0 0 120 100">
+        <defs>
+          <linearGradient id="hornShine" x1="0%" y1="0%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="60%" stop-color="#0284c7"/>
+            <stop offset="100%" stop-color="#0f172a"/>
+          </linearGradient>
+          <linearGradient id="armorPlate" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#334155"/>
+            <stop offset="50%" stop-color="#1e293b"/>
+            <stop offset="100%" stop-color="#0c121e"/>
+          </linearGradient>
+        </defs>
+        <!-- Left Horn -->
+        <path d="M 40 48 C 28 28, 18 12, 10 14 C 15 26, 28 40, 42 50 Z" fill="url(#hornShine)" stroke="#38bdf8" stroke-width="0.8"/>
+        <!-- Right Horn -->
+        <path d="M 80 48 C 92 28, 102 12, 110 14 C 105 26, 92 40, 78 50 Z" fill="url(#hornShine)" stroke="#38bdf8" stroke-width="0.8"/>
+        <!-- Forehead Plate -->
+        <polygon points="60,24 80,46 40,46" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
+        <polygon points="60,30 70,46 50,46" fill="#38bdf8" opacity="0.9"/>
+        <!-- Cranial Structure -->
+        <polygon points="60,84 78,48 42,48" fill="url(#armorPlate)" stroke="#334155" stroke-width="1"/>
+        <!-- Cheeks -->
+        <polygon points="42,48 30,62 44,68" fill="#1e293b" stroke="#334155" stroke-width="0.6"/>
+        <polygon points="78,48 90,62 76,68" fill="#1e293b" stroke="#334155" stroke-width="0.6"/>
+        <!-- Snout -->
+        <polygon points="60,84 68,68 52,68" fill="#090d16" stroke="#1e293b" stroke-width="0.8"/>
+        <!-- Cyan Eyes -->
+        <polygon points="49,53 54,55 49,57" fill="#38bdf8"/>
+        <polygon points="71,53 66,55 71,57" fill="#38bdf8"/>
+        <!-- Gold Bull Ring -->
+        <circle cx="60" cy="80" r="7" fill="none" stroke="#f59e0b" stroke-width="2"/>
+      </svg>
+
+      <!-- Clean Slogan (Season tag removed) -->
+      <div class="badge-slogan">THE FINAL MEME STANDING</div>
+
       <h1 class="hero-title">BULL <span>ROYALE</span></h1>
       <p class="hero-sub">
-        Preveja o meme com maior volume em 24h. Ganhe $BULL. O Smart Contract queima 3% de suprimento a cada rodada.
+        Predict the meme with highest 24h volume. Win $BULL. The Smart Contract burns 3% of supply every single round.
       </p>
     </header>
 
-    <!-- MÉTRICAS DO PROTOCOLO -->
+    <!-- PROTOCOL METRICS BAR -->
     <section class="metrics-bar">
       <div class="metric-col">
-        <div class="metric-label">POTE DO DIA (RODADA #01)</div>
-        <div class="metric-num gold">1.420.000 $BULL (~$184.600)</div>
+        <div class="metric-label">DAILY POOL (ROUND #01)</div>
+        <div class="metric-num gold">1,420,000 $BULL (~$184,600)</div>
       </div>
       <div class="metric-col">
-        <div class="metric-label">TOTAL DE $BULL QUEIMADOS 🔥</div>
-        <div class="metric-num pink">18.450.000 $BULL (DEFLACIONÁRIO)</div>
+        <div class="metric-label">TOTAL $BULL BURNED 🔥</div>
+        <div class="metric-num pink">18,450,000 $BULL (DEFLATIONARY)</div>
       </div>
       <div class="metric-col">
-        <div class="metric-label">CUSTÓDIA INTOCÁVEL (PDA)</div>
+        <div class="metric-label">NON-CUSTODIAL VAULT (PDA)</div>
         <div class="metric-num cyan">100% ON-CHAIN SOLANA</div>
       </div>
     </section>
 
-    <!-- ARENA -->
+    <!-- ARENA SHOWDOWN -->
     <main class="arena-box">
       <div class="arena-top">
-        <span class="tag-tier">🔥 DISPUTA PRINCIPAL • PESO PESADO</span>
-        <div class="timer-pill">⏳ FECHAMENTO: <span id="relogio-timer">04h 18m 32s</span> (23:59 UTC)</div>
+        <span class="tag-tier">🔥 MAIN SHOWDOWN • HEAVYWEIGHT DIVISION</span>
+        <div class="timer-pill">⏳ CLOSES IN: <span id="relogio-timer">04h 18m 32s</span> (23:59 UTC)</div>
       </div>
 
       <div class="battle-grid">
-        <!-- CARD MEME 1: BONK -->
+        <!-- CONTENDER 1: BONK -->
         <article class="card-fighter card-cyan">
           <div class="card-meta">
-            <span class="pill-rarity pill-cyan">MÍTICO</span>
+            <span class="pill-rarity pill-cyan">MYTHIC</span>
             <span style="color:var(--text-muted);">TIER 1</span>
           </div>
           <div class="avatar-wrap">
             <img src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="BONK">
           </div>
           <h2 class="meme-title title-cyan">BONK</h2>
-          <p class="meme-sub">O Rei dos Cachorros da Solana</p>
+          <p class="meme-sub">The Dog King of Solana</p>
 
           <div class="stats-box">
             <div class="s-row">
-              <span class="s-lbl">Volume 24h (DexScreener)</span>
-              <span class="s-val">$54.820.000 <span style="color:var(--green); font-size:10px;">+18.4%</span></span>
+              <span class="s-lbl">24h Volume (DexScreener)</span>
+              <span class="s-val">$54,820,000 <span style="color:var(--green); font-size:10px;">+18.4%</span></span>
             </div>
             <div class="s-row">
-              <span class="s-lbl">Pote Apostado</span>
-              <span class="s-val">823.600 $BULL (58%)</span>
+              <span class="s-lbl">Total Staked</span>
+              <span class="s-val">823,600 $BULL (58%)</span>
             </div>
             <div class="s-row">
-              <span class="s-lbl">Multiplicador Atual</span>
+              <span class="s-lbl">Current Multiplier</span>
               <span class="s-val gold">1.72x</span>
             </div>
           </div>
 
-          <button class="btn-arcade btn-arcade-cyan" onclick="apostar('BONK')">Apostar em BONK</button>
+          <button class="btn-arcade btn-arcade-cyan" onclick="apostar('BONK')">BET ON BONK</button>
         </article>
 
-        <!-- VS -->
+        <!-- CENTER VS -->
         <div class="vs-wrap">
           <div class="vs-badge"><span>VS</span></div>
-          <div class="vs-text">ORÁCULO<br><span>DexScreener</span><br>AUTO-SETTLE</div>
+          <div class="vs-text">ORACLE<br><span>DexScreener</span><br>AUTO-SETTLE</div>
         </div>
 
-        <!-- CARD MEME 2: WIF -->
+        <!-- CONTENDER 2: WIF -->
         <article class="card-fighter card-purple">
           <div class="card-meta">
-            <span class="pill-rarity pill-purple">LENDÁRIO</span>
+            <span class="pill-rarity pill-purple">LEGENDARY</span>
             <span style="color:var(--text-muted);">TIER 1</span>
           </div>
           <div class="avatar-wrap">
             <img src="https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg" alt="WIF">
           </div>
           <h2 class="meme-title title-purple">WIF</h2>
-          <p class="meme-sub">dogwifhat • O Fenômeno de Gorro</p>
+          <p class="meme-sub">dogwifhat • The Hat Phenomenon</p>
 
           <div class="stats-box">
             <div class="s-row">
-              <span class="s-lbl">Volume 24h (DexScreener)</span>
-              <span class="s-val">$49.150.000 <span style="color:var(--green); font-size:10px;">+11.2%</span></span>
+              <span class="s-lbl">24h Volume (DexScreener)</span>
+              <span class="s-val">$49,150,000 <span style="color:var(--green); font-size:10px;">+11.2%</span></span>
             </div>
             <div class="s-row">
-              <span class="s-lbl">Pote Apostado</span>
-              <span class="s-val">596.400 $BULL (42%)</span>
+              <span class="s-lbl">Total Staked</span>
+              <span class="s-val">596,400 $BULL (42%)</span>
             </div>
             <div class="s-row">
-              <span class="s-lbl">Multiplicador Atual</span>
+              <span class="s-lbl">Current Multiplier</span>
               <span class="s-val gold">2.28x</span>
             </div>
           </div>
 
-          <button class="btn-arcade btn-arcade-purple" onclick="apostar('WIF')">Apostar em WIF</button>
+          <button class="btn-arcade btn-arcade-purple" onclick="apostar('WIF')">BET ON WIF</button>
         </article>
       </div>
 
-      <!-- CABO DE GUERRA -->
+      <!-- TUG OF WAR BAR -->
       <div class="tug-zone">
         <div class="tug-labels">
-          <span style="color:var(--cyan);">DOMÍNIO BONK: 58% ($823.6k$BULL)</span>
-          <span style="color:var(--purple);">DOMÍNIO WIF: 42% ($596.4k$BULL)</span>
+          <span style="color:var(--cyan);">BONK DOMINANCE: 58% (823.6K $BULL)</span>
+          <span style="color:var(--purple);">WIF DOMINANCE: 42% (596.4K $BULL)</span>
         </div>
         <div class="tug-track">
           <div class="tug-fill"></div>
@@ -578,7 +629,7 @@
 
     <!-- FOOTER -->
     <footer>
-      <div>© 2026 Bull Royale Protocol (bullarenaa.io) • Desenvolvido na Solana</div>
+      <div>© 2026 Bull Royale Protocol (bullarenaa.io) • Built on Solana</div>
       <div>
         <a href="https://t.me" target="_blank">Telegram</a>
         <a href="https://x.com" target="_blank">Twitter / X</a>
@@ -590,7 +641,7 @@
   </div>
 
   <script>
-    // Áudio arcade sintetizado via Web Audio API
+    // Synthesized Arcade Sound
     function somArcade() {
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -613,7 +664,7 @@
       } catch (e) {}
     }
 
-    // Cronômetro até as 23:59:59 UTC
+    // Countdown Timer to 23:59:59 UTC
     function atualizarRelogio() {
       const agora = new Date();
       const fecho = new Date();
@@ -632,7 +683,7 @@
     setInterval(atualizarRelogio, 1000);
     atualizarRelogio();
 
-    // Conexão com Phantom Wallet
+    // Phantom Wallet Web3 Integration
     let carteiraConectada = false;
     async function conectarPhantom() {
       const btn = document.getElementById('btn-wallet');
@@ -645,7 +696,7 @@
           carteiraConectada = true;
         } catch (e) {}
       } else {
-        alert("Extensão Phantom não detectada. Instale em phantom.app");
+        alert("Phantom Wallet extension not detected. Please install at phantom.app");
         window.open("https://phantom.app/", "_blank");
       }
     }
@@ -653,13 +704,13 @@
     function apostar(meme) {
       somArcade();
       if (!carteiraConectada) {
-        alert("Conecte a sua carteira Phantom antes de apostar!");
+        alert("Please connect your Phantom Wallet before placing a stake!");
         conectarPhantom();
         return;
       }
-      const valor = prompt(`Quantos $BULL quer apostar no ${meme}?`, "1000");
+      const valor = prompt(`How much $BULL do you want to stake on ${meme}?`, "1000");
       if (valor && !isNaN(valor) && Number(valor) > 0) {
-        alert(`Aposta de ${valor} $BULL no ${meme} registada para assinatura!`);
+        alert(`Stake of ${valor} $BULL on ${meme} registered for signature!`);
       }
     }
   </script>
