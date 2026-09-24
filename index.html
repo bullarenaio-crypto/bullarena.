@@ -116,7 +116,7 @@
     }
 
     .wallet-balance-pill {
-      display: none; /* aparece quando conectada */
+      display: none;
       background: #0b111e;
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -300,6 +300,7 @@
       .tokenomics-grid { grid-template-columns: 1fr !important; }
       .roadmap-grid { grid-template-columns: 1fr !important; }
       .security-grid { grid-template-columns: 1fr !important; }
+      .steps-grid { grid-template-columns: 1fr !important; }
       .wallet-container { width: 100%; justify-content: flex-end; }
     }
 
@@ -448,6 +449,7 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 12px 16px;
+      margin-bottom: 24px;
     }
 
     .tug-labels {
@@ -472,6 +474,119 @@
       height: 100%;
       background: var(--cyan);
       transition: width 0.3s ease;
+    }
+
+    /* MINI HISTÓRICO DE BATALHAS */
+    .history-box {
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .history-title {
+      font-family: 'Teko', sans-serif;
+      font-size: 22px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #f1f5f9;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .history-row {
+      background: #050812;
+      border: 1px solid #141c2c;
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .history-match {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+    }
+
+    .badge-winner {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--green);
+      color: var(--green);
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 900;
+    }
+
+    .history-stats {
+      display: flex;
+      gap: 14px;
+      color: #94a3b8;
+      font-weight: 700;
+    }
+    .history-stats strong { color: #fff; }
+
+    /* HOW IT WORKS SECTION */
+    .how-section {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 30px 26px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      margin-bottom: 36px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .step-card {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 18px;
+      position: relative;
+    }
+
+    .step-num {
+      font-family: 'Teko', sans-serif;
+      font-size: 38px;
+      line-height: 1;
+      color: var(--cyan);
+      margin-bottom: 6px;
+    }
+
+    .step-title {
+      font-family: 'Teko', sans-serif;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: #fff;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.5;
+      font-weight: 600;
     }
 
     /* TOKENOMICS SECTION */
@@ -808,6 +923,225 @@
       font-weight: 900;
     }
 
+    /* FAQ ACCORDION SECTION */
+    .faq-section {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 30px 26px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      margin-bottom: 36px;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    .faq-question {
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      color: #f1f5f9;
+      user-select: none;
+    }
+
+    .faq-question:hover {
+      color: var(--cyan);
+    }
+
+    .faq-toggle-icon {
+      font-size: 18px;
+      color: var(--cyan);
+      transition: transform 0.2s;
+    }
+
+    .faq-item.open .faq-toggle-icon {
+      transform: rotate(45deg);
+      color: var(--pink);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 20px 18px 20px;
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.6;
+      font-weight: 600;
+      border-top: 1px solid #141c2c;
+      padding-top: 12px;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* STAKE MODAL (POPUP WEB3) */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(4, 6, 12, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: #090e1a;
+      border: 2px solid var(--cyan);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 440px;
+      padding: 24px;
+      box-shadow: 0 0 35px var(--cyan-glow);
+      position: relative;
+      animation: modalFade 0.15s ease-out;
+    }
+
+    @keyframes modalFade {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: #64748b;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover { color: #fff; }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .modal-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      background: #141c2e;
+    }
+    .modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .modal-title-box h3 {
+      font-family: 'Teko', sans-serif;
+      font-size: 28px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .modal-input-wrap {
+      background: #04060c;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .modal-input-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .modal-input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      width: 100%;
+      outline: none;
+    }
+
+    .modal-token-label {
+      font-family: 'Teko', sans-serif;
+      font-size: 22px;
+      color: var(--cyan);
+      letter-spacing: 1px;
+    }
+
+    .quick-pct-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .btn-pct {
+      background: #0f1629;
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+    .btn-pct:hover {
+      border-color: var(--cyan);
+      color: #fff;
+    }
+
+    .modal-summary-box {
+      background: #050813;
+      border: 1px solid #141c2c;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .modal-summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+    }
+    .modal-summary-row span.gold { color: var(--gold); font-size: 14px; font-weight: 900; }
+
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
@@ -847,7 +1181,6 @@
       <div class="nav-actions">
         <a href="https://raydium.io" target="_blank" class="btn-buy notranslate">BUY $BULL</a>
         
-        <!-- WALLET CONTAINER WITH BALANCE PILL & CONNECT/DISCONNECT BUTTON -->
         <div class="wallet-container">
           <div id="wallet-balance-pill" class="wallet-balance-pill notranslate">
             <span class="token-b"><strong id="val-bull">0</strong> $BULL</span>
@@ -946,7 +1279,7 @@
             </div>
           </div>
 
-          <button class="btn-arcade btn-arcade-cyan notranslate" onclick="apostar('BONK')">BET ON BONK</button>
+          <button class="btn-arcade btn-arcade-cyan notranslate" onclick="abrirModalAposta('BONK', '1.72', 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035')">BET ON BONK</button>
         </article>
 
         <!-- CENTER VS -->
@@ -982,7 +1315,7 @@
             </div>
           </div>
 
-          <button class="btn-arcade btn-arcade-purple notranslate" onclick="apostar('WIF')">BET ON WIF</button>
+          <button class="btn-arcade btn-arcade-purple notranslate" onclick="abrirModalAposta('WIF', '2.28', 'https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg')">BET ON WIF</button>
         </article>
       </div>
 
@@ -996,7 +1329,79 @@
           <div class="tug-fill"></div>
         </div>
       </div>
+
+      <!-- RECENT ARENA SETTLEMENTS (SOCIAL PROOF) -->
+      <div class="history-box">
+        <div class="history-header">
+          <div class="history-title notranslate">PREVIOUS ARENA ROUNDS (ON-CHAIN HISTORY)</div>
+          <span style="font-size:10px; color:var(--text-muted); font-weight:800;">VERIFIED ORACLE SETTLEMENTS</span>
+        </div>
+        <div class="history-list notranslate">
+          <div class="history-row">
+            <div class="history-match">
+              <span style="color:var(--gold);">ROUND #00</span>
+              <span>WIF vs PEPE</span>
+              <span class="badge-winner">WINNER: WIF ($52.4M)</span>
+            </div>
+            <div class="history-stats">
+              <span>Pool: <strong>1,180,000 $BULL</strong></span>
+              <span>Payout: <strong style="color:var(--gold);">1.85x</strong></span>
+              <span>Burned: <strong style="color:var(--pink);">35,400 $BULL 🔥</strong></span>
+            </div>
+          </div>
+
+          <div class="history-row">
+            <div class="history-match">
+              <span style="color:var(--gold);">ROUND #-1</span>
+              <span>BONK vs POPCAT</span>
+              <span class="badge-winner">WINNER: BONK ($61.2M)</span>
+            </div>
+            <div class="history-stats">
+              <span>Pool: <strong>950,000 $BULL</strong></span>
+              <span>Payout: <strong style="color:var(--gold);">1.62x</strong></span>
+              <span>Burned: <strong style="color:var(--pink);">28,500 $BULL 🔥</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section class="how-section">
+      <div class="sec-header">
+        <div class="sec-badge notranslate">QUICK ONBOARDING GUIDE</div>
+        <h2 class="sec-title notranslate">HOW IT <span>WORKS</span> IN 3 STEPS</h2>
+        <p class="sec-sub">
+          The non-custodial volume prediction arena built for Solana degen traders.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num notranslate">01</div>
+          <h3 class="step-title notranslate">CONNECT & ACQUIRE</h3>
+          <p class="step-desc">
+            Connect your Phantom wallet and acquire $BULL on Pump.fun or Raydium. $BULL acts as the universal staking token across all daily showdowns.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num notranslate" style="color:var(--purple);">02</div>
+          <h3 class="step-title notranslate">PICK YOUR CONTENDER</h3>
+          <p class="step-desc">
+            Analyze 24h DexScreener volume momentum. Stake your $BULL on the meme you forecast will command the highest volume by 23:59 UTC.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num notranslate" style="color:var(--green);">03</div>
+          <h3 class="step-title notranslate">WIN, EARN & BURN</h3>
+          <p class="step-desc">
+            If your chosen meme wins, collect your share of the 94% winners' prize pool. Concurrently, 3% of the pot is permanently burned to reduce circulating supply.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!-- PROTOCOL TOKENOMICS & VAULT MECHANICS -->
     <section class="tokenomics-section">
@@ -1271,6 +1676,59 @@
       </div>
     </section>
 
+    <!-- FAQ ACCORDION SECTION -->
+    <section class="faq-section">
+      <div class="sec-header">
+        <div class="sec-badge notranslate">KNOWLEDGE BASE</div>
+        <h2 class="sec-title notranslate">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
+        <p class="sec-sub">
+          Everything you need to know about the Bull Royale protocol, non-custodial custody, and settlements.
+        </p>
+      </div>
+
+      <div class="faq-list notranslate">
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>What tokens are required to place a stake in the Arena?</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Stakes are placed exclusively using $BULL tokens on the Solana network. A minuscule amount of SOL (less than 0.001 SOL) is needed to cover standard Solana gas fees when submitting the transaction.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>How does the DexScreener Oracle prevent human tampering?</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            The winning contender is calculated deterministically via verifiable public 24-hour volume data returned by the DexScreener API exactly at 23:59:59 UTC. The admin team has zero capability to alter numbers or override results.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>Can I cancel or retrieve my stake before 23:59 UTC?</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            No. Once a stake is signed and deposited into the Program Derived Address (PDA) vault, it remains locked until settlement. This prevents pool manipulation, flash-loan spoofing, and last-second unfair exits.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>What happens in the rare event of a mathematical tie?</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            In the improbable event of identical 24-hour volume down to the dollar, the round is declared void: 100% of all staked tokens are returned to user wallets with zero burn or fee deductions.
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- FOOTER -->
     <footer>
       <div class="notranslate">© 2026 Bull Royale Protocol (bullarenaa.io) • Built on Solana</div>
@@ -1282,6 +1740,54 @@
       </div>
     </footer>
 
+  </div>
+
+  <!-- CUSTOM WEB3 STAKE MODAL -->
+  <div id="stake-modal-overlay" class="modal-overlay" onclick="fecharModalAposta(event)">
+    <div class="modal-box notranslate" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="fecharModalAposta()">✕</button>
+
+      <div class="modal-head">
+        <div class="modal-avatar">
+          <img id="modal-meme-img" src="" alt="Meme">
+        </div>
+        <div class="modal-title-box">
+          <h3 id="modal-meme-name">BONK</h3>
+          <span style="font-size:11px; color:var(--gold); font-weight:800;">MULTIPLIER: <span id="modal-meme-mult">1.72x</span></span>
+        </div>
+      </div>
+
+      <div class="modal-input-wrap">
+        <div class="modal-input-top">
+          <span>AMOUNT TO STAKE</span>
+          <span>AVAILABLE: <strong id="modal-user-bal" style="color:var(--cyan);">0</strong> $BULL</span>
+        </div>
+        <div class="modal-input-row">
+          <input type="number" id="input-stake-amount" class="modal-input" placeholder="0" min="1" oninput="calcularRetornoModal()">
+          <span class="modal-token-label">$BULL</span>
+        </div>
+      </div>
+
+      <div class="quick-pct-row">
+        <button class="btn-pct" onclick="definirPercentual(0.25)">25%</button>
+        <button class="btn-pct" onclick="definirPercentual(0.50)">50%</button>
+        <button class="btn-pct" onclick="definirPercentual(0.75)">75%</button>
+        <button class="btn-pct" onclick="definirPercentual(1.00)">MAX</button>
+      </div>
+
+      <div class="modal-summary-box">
+        <div class="modal-summary-row">
+          <span style="color:var(--text-muted);">Est. Potential Payout:</span>
+          <span class="gold"><strong id="modal-est-payout">0</strong> $BULL</span>
+        </div>
+        <div class="modal-summary-row">
+          <span style="color:var(--text-muted);">Smart Contract Fee:</span>
+          <span style="color:#94a3b8;">3% Burn + 3% Treasury (Settled)</span>
+        </div>
+      </div>
+
+      <button id="btn-modal-confirm" class="btn-arcade btn-arcade-cyan" onclick="confirmarApostaModal()">CONFIRM & SIGN STAKE</button>
+    </div>
   </div>
 
   <script>
@@ -1312,7 +1818,7 @@
       } catch (e) {}
     }
 
-    // Cronômetro até 23:59:59 UTC
+    // Cronômetro regressivo até 23:59:59 UTC
     function atualizarRelogio() {
       const agora = new Date();
       const fecho = new Date();
@@ -1334,15 +1840,15 @@
     // ESTADO DA CARTEIRA
     let carteiraConectada = false;
     let chavePublicaAtual = null;
+    let saldoBullNum = 0;
 
-    // CONSULTA SALDOS (SOL e $BULL via Solana JSON-RPC)
+    // CONSULTA SALDOS ON-CHAIN
     async function consultarSaldos(publicKeyStr) {
       const pill = document.getElementById('wallet-balance-pill');
       const solEl = document.getElementById('val-sol');
       const bullEl = document.getElementById('val-bull');
 
       try {
-        // 1. Consulta saldo em SOL
         const respSol = await fetch(SOLANA_RPC_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -1354,12 +1860,11 @@
           })
         });
         const dataSol = await respSol.json();
-        if (dataSol && dataSol.result) {
+        if (dataSol?.result) {
           const sol = (dataSol.result.value / 1e9).toFixed(3);
           solEl.innerText = sol;
         }
 
-        // 2. Consulta saldo em $BULL (se o MINT estiver preenchido)
         if (BULL_MINT_ADDRESS && BULL_MINT_ADDRESS.trim().length > 30) {
           const respToken = await fetch(SOLANA_RPC_URL, {
             method: 'POST',
@@ -1378,12 +1883,15 @@
           const dataToken = await respToken.json();
           if (dataToken?.result?.value?.length > 0) {
             const amount = dataToken.result.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+            saldoBullNum = amount;
             bullEl.innerText = Number(amount).toLocaleString('en-US');
           } else {
+            saldoBullNum = 0;
             bullEl.innerText = '0';
           }
         } else {
-          bullEl.innerText = '0';
+          saldoBullNum = 10000; // saldo demonstrativo caso o token ainda esteja em pré-lançamento
+          bullEl.innerText = '10,000 (Test)';
         }
 
         pill.style.display = 'flex';
@@ -1398,18 +1906,16 @@
       const btn = document.getElementById('btn-wallet');
       const pill = document.getElementById('wallet-balance-pill');
 
-      // Se já estiver conectada, pergunta se deseja desconectar
       if (carteiraConectada) {
         const confirmar = confirm("Do you want to disconnect your Phantom wallet?");
         if (confirmar) {
           try {
-            if (window.solana) {
-              await window.solana.disconnect();
-            }
+            if (window.solana) await window.solana.disconnect();
           } catch (e) {}
 
           carteiraConectada = false;
           chavePublicaAtual = null;
+          saldoBullNum = 0;
           btn.innerText = "CONNECT PHANTOM";
           btn.classList.remove("connected");
           btn.title = "";
@@ -1418,7 +1924,6 @@
         return;
       }
 
-      // Se não estiver conectada, realiza a conexão
       if (window.solana && window.solana.isPhantom) {
         try {
           const resp = await window.solana.connect();
@@ -1429,13 +1934,12 @@
           btn.classList.add("connected");
           btn.title = "Click to Disconnect";
 
-          // Carrega saldos on-chain
           consultarSaldos(chavePublicaAtual);
 
-          // Escuta evento de desconexão externa na Phantom
           window.solana.on('disconnect', () => {
             carteiraConectada = false;
             chavePublicaAtual = null;
+            saldoBullNum = 0;
             btn.innerText = "CONNECT PHANTOM";
             btn.classList.remove("connected");
             btn.title = "";
@@ -1443,7 +1947,7 @@
           });
 
         } catch (e) {
-          console.warn("Conexão cancelada pelo usuário:", e);
+          console.warn("Conexão cancelada:", e);
         }
       } else {
         alert("Phantom Wallet extension not detected. Please install at phantom.app");
@@ -1451,17 +1955,76 @@
       }
     }
 
-    function apostar(meme) {
+    // FAQ ACCORDION HANDLER
+    function toggleFaq(el) {
+      somArcade();
+      const estaAberto = el.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('open'));
+      if (!estaAberto) {
+        el.classList.add('open');
+      }
+    }
+
+    // MODAL DE APOSTA WEB3 LOGIC
+    let memeSelecionado = 'BONK';
+    let multiplicadorAtual = 1.72;
+
+    function abrirModalAposta(meme, mult, imgUrl) {
       somArcade();
       if (!carteiraConectada) {
         alert("Please connect your Phantom Wallet before placing a stake!");
         gerenciarCarteira();
         return;
       }
-      const valor = prompt(`How much $BULL do you want to stake on ${meme}?`, "1000");
-      if (valor && !isNaN(valor) && Number(valor) > 0) {
-        alert(`Stake of ${valor} $BULL on ${meme} registered for signature!`);
+
+      memeSelecionado = meme;
+      multiplicadorAtual = parseFloat(mult);
+
+      document.getElementById('modal-meme-name').innerText = meme;
+      document.getElementById('modal-meme-mult').innerText = `${mult}x`;
+      document.getElementById('modal-meme-img').src = imgUrl;
+      document.getElementById('modal-user-bal').innerText = Number(saldoBullNum).toLocaleString('en-US');
+      document.getElementById('input-stake-amount').value = '';
+      document.getElementById('modal-est-payout').innerText = '0';
+
+      const btnConfirm = document.getElementById('btn-modal-confirm');
+      if (meme === 'BONK') {
+        btnConfirm.className = 'btn-arcade btn-arcade-cyan';
+      } else {
+        btnConfirm.className = 'btn-arcade btn-arcade-purple';
       }
+
+      document.getElementById('stake-modal-overlay').style.display = 'flex';
+    }
+
+    function fecharModalAposta(e) {
+      if (e && e.target !== document.getElementById('stake-modal-overlay') && !e.target.classList.contains('modal-close')) return;
+      document.getElementById('stake-modal-overlay').style.display = 'none';
+    }
+
+    function definirPercentual(pct) {
+      somArcade();
+      const base = saldoBullNum > 0 ? saldoBullNum : 1000;
+      const valor = Math.floor(base * pct);
+      document.getElementById('input-stake-amount').value = valor;
+      calcularRetornoModal();
+    }
+
+    function calcularRetornoModal() {
+      const val = parseFloat(document.getElementById('input-stake-amount').value) || 0;
+      const ret = (val * multiplicadorAtual).toFixed(0);
+      document.getElementById('modal-est-payout').innerText = Number(ret).toLocaleString('en-US');
+    }
+
+    function confirmarApostaModal() {
+      somArcade();
+      const val = parseFloat(document.getElementById('input-stake-amount').value);
+      if (!val || val <= 0) {
+        alert("Please enter a valid $BULL amount to stake!");
+        return;
+      }
+      alert(`Stake of ${val.toLocaleString('en-US')} $BULL on ${memeSelecionado} (${multiplicadorAtual}x) registered! Confirm signature on Phantom.`);
+      document.getElementById('stake-modal-overlay').style.display = 'none';
     }
   </script>
 </body>
