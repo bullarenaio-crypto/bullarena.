@@ -88,7 +88,8 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .btn-buy {
@@ -103,8 +104,32 @@
       box-shadow: 0 3px 0 #b45309;
       transform: skewX(-6deg);
       transition: all 0.1s;
+      white-space: nowrap;
     }
     .btn-buy:active { transform: skewX(-6deg) translateY(2px); box-shadow: 0 1px 0 #b45309; }
+
+    /* WALLET BOX & BALANCE BADGE */
+    .wallet-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wallet-balance-pill {
+      display: none; /* aparece quando conectada */
+      background: #0b111e;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #cbd5e1;
+      align-items: center;
+      gap: 8px;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .wallet-balance-pill span.token-b { color: var(--cyan); }
+    .wallet-balance-pill span.sol-b { color: var(--gold); }
 
     .btn-wallet {
       background: #6d28d9;
@@ -119,8 +144,17 @@
       box-shadow: 0 3px 0 #4c1d95;
       transform: skewX(-6deg);
       transition: all 0.1s;
+      white-space: nowrap;
     }
     .btn-wallet:active { transform: skewX(-6deg) translateY(2px); box-shadow: 0 1px 0 #4c1d95; }
+    .btn-wallet.connected {
+      background: #059669;
+      box-shadow: 0 3px 0 #047857;
+    }
+    .btn-wallet.connected:hover {
+      background: #dc2626;
+      box-shadow: 0 3px 0 #991b1b;
+    }
 
     /* HERO */
     .hero {
@@ -266,6 +300,7 @@
       .tokenomics-grid { grid-template-columns: 1fr !important; }
       .roadmap-grid { grid-template-columns: 1fr !important; }
       .security-grid { grid-template-columns: 1fr !important; }
+      .wallet-container { width: 100%; justify-content: flex-end; }
     }
 
     .card-fighter {
@@ -560,7 +595,7 @@
       font-weight: 600;
     }
 
-    /* NEW: ADVANCED PROTOCOL SECURITY SECTION */
+    /* SECURITY SECTION */
     .security-section {
       background: var(--card-bg);
       border: 1.5px solid var(--border);
@@ -587,9 +622,7 @@
       flex-direction: column;
     }
 
-    .sec-card.verified {
-      border-top: 3px solid var(--green);
-    }
+    .sec-card.verified { border-top: 3px solid var(--green); }
 
     .sec-card-head {
       display: flex;
@@ -717,9 +750,7 @@
       box-shadow: 0 0 20px rgba(56, 189, 248, 0.12);
     }
 
-    .r-card.upcoming-phase {
-      border-top: 3px solid var(--purple);
-    }
+    .r-card.upcoming-phase { border-top: 3px solid var(--purple); }
 
     .r-phase-tag {
       display: inline-block;
@@ -799,7 +830,7 @@
 
     <!-- NAVBAR -->
     <nav>
-      <a href="https://www.bullarenaa.io/" class="brand">
+      <a href="https://www.bullarenaa.io/" class="brand notranslate">
         <div class="brand-icon">
           <!-- Geometric Bull Logo SVG -->
           <svg width="24" height="24" viewBox="0 0 120 100" fill="none">
@@ -810,18 +841,26 @@
             <circle cx="60" cy="80" r="7" fill="none" stroke="#f59e0b" stroke-width="2"/>
           </svg>
         </div>
-        <div class="brand-title">BULL<span>ROYALE</span></div>
+        <div class="brand-title notranslate">BULL<span>ROYALE</span></div>
       </a>
 
       <div class="nav-actions">
-        <a href="https://raydium.io" target="_blank" class="btn-buy">BUY $BULL</a>
-        <button id="btn-wallet" class="btn-wallet" onclick="conectarPhantom()">CONNECT PHANTOM</button>
+        <a href="https://raydium.io" target="_blank" class="btn-buy notranslate">BUY $BULL</a>
+        
+        <!-- WALLET CONTAINER WITH BALANCE PILL & CONNECT/DISCONNECT BUTTON -->
+        <div class="wallet-container">
+          <div id="wallet-balance-pill" class="wallet-balance-pill notranslate">
+            <span class="token-b"><strong id="val-bull">0</strong> $BULL</span>
+            <span style="color:#334155;">|</span>
+            <span class="sol-b"><strong id="val-sol">0.00</strong> SOL</span>
+          </div>
+          <button id="btn-wallet" class="btn-wallet notranslate" onclick="gerenciarCarteira()">CONNECT PHANTOM</button>
+        </div>
       </div>
     </nav>
 
     <!-- HERO SECTION WITH BULL EMBLEM -->
     <header class="hero">
-      <!-- Sculptural Cyber Bull Emblem in Header -->
       <svg class="hero-bull-emblem" viewBox="0 0 120 100">
         <defs>
           <linearGradient id="hornShine" x1="0%" y1="0%" x2="100%" y2="50%">
@@ -835,31 +874,22 @@
             <stop offset="100%" stop-color="#0c121e"/>
           </linearGradient>
         </defs>
-        <!-- Left Horn -->
         <path d="M 40 48 C 28 28, 18 12, 10 14 C 15 26, 28 40, 42 50 Z" fill="url(#hornShine)" stroke="#38bdf8" stroke-width="0.8"/>
-        <!-- Right Horn -->
         <path d="M 80 48 C 92 28, 102 12, 110 14 C 105 26, 92 40, 78 50 Z" fill="url(#hornShine)" stroke="#38bdf8" stroke-width="0.8"/>
-        <!-- Forehead Plate -->
         <polygon points="60,24 80,46 40,46" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
         <polygon points="60,30 70,46 50,46" fill="#38bdf8" opacity="0.9"/>
-        <!-- Cranial Structure -->
         <polygon points="60,84 78,48 42,48" fill="url(#armorPlate)" stroke="#334155" stroke-width="1"/>
-        <!-- Cheeks -->
         <polygon points="42,48 30,62 44,68" fill="#1e293b" stroke="#334155" stroke-width="0.6"/>
         <polygon points="78,48 90,62 76,68" fill="#1e293b" stroke="#334155" stroke-width="0.6"/>
-        <!-- Snout -->
         <polygon points="60,84 68,68 52,68" fill="#090d16" stroke="#1e293b" stroke-width="0.8"/>
-        <!-- Cyan Eyes -->
         <polygon points="49,53 54,55 49,57" fill="#38bdf8"/>
         <polygon points="71,53 66,55 71,57" fill="#38bdf8"/>
-        <!-- Gold Bull Ring -->
         <circle cx="60" cy="80" r="7" fill="none" stroke="#f59e0b" stroke-width="2"/>
       </svg>
 
-      <!-- Clean Slogan -->
-      <div class="badge-slogan">THE FINAL MEME STANDING</div>
+      <div class="badge-slogan notranslate">THE FINAL MEME STANDING</div>
 
-      <h1 class="hero-title">BULL <span>ROYALE</span></h1>
+      <h1 class="hero-title notranslate">BULL <span>ROYALE</span></h1>
       <p class="hero-sub">
         Predict the meme with highest 24h volume. Win $BULL. The Smart Contract burns 3% of supply every single round.
       </p>
@@ -869,15 +899,15 @@
     <section class="metrics-bar">
       <div class="metric-col">
         <div class="metric-label">DAILY POOL (ROUND #01)</div>
-        <div class="metric-num gold">1,420,000 $BULL (~$184,600)</div>
+        <div class="metric-num gold notranslate">1,420,000 $BULL (~$184,600)</div>
       </div>
       <div class="metric-col">
         <div class="metric-label">TOTAL $BULL BURNED 🔥</div>
-        <div class="metric-num pink">18,450,000 $BULL (DEFLATIONARY)</div>
+        <div class="metric-num pink notranslate">18,450,000 $BULL (DEFLATIONARY)</div>
       </div>
       <div class="metric-col">
         <div class="metric-label">NON-CUSTODIAL VAULT (PDA)</div>
-        <div class="metric-num cyan">100% ON-CHAIN SOLANA</div>
+        <div class="metric-num cyan notranslate">100% ON-CHAIN SOLANA</div>
       </div>
     </section>
 
@@ -885,80 +915,80 @@
     <main class="arena-box">
       <div class="arena-top">
         <span class="tag-tier">🔥 MAIN SHOWDOWN • HEAVYWEIGHT DIVISION</span>
-        <div class="timer-pill">⏳ CLOSES IN: <span id="relogio-timer">04h 18m 32s</span> (23:59 UTC)</div>
+        <div class="timer-pill notranslate">⏳ CLOSES IN: <span id="relogio-timer">04h 18m 32s</span> (23:59 UTC)</div>
       </div>
 
       <div class="battle-grid">
         <!-- CONTENDER 1: BONK -->
         <article class="card-fighter card-cyan">
           <div class="card-meta">
-            <span class="pill-rarity pill-cyan">MYTHIC</span>
+            <span class="pill-rarity pill-cyan notranslate">MYTHIC</span>
             <span style="color:var(--text-muted);">TIER 1</span>
           </div>
           <div class="avatar-wrap">
             <img src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="BONK">
           </div>
-          <h2 class="meme-title title-cyan">BONK</h2>
+          <h2 class="meme-title title-cyan notranslate">BONK</h2>
           <p class="meme-sub">The Dog King of Solana</p>
 
           <div class="stats-box">
             <div class="s-row">
               <span class="s-lbl">24h Volume (DexScreener)</span>
-              <span class="s-val">$54,820,000 <span style="color:var(--green); font-size:10px;">+18.4%</span></span>
+              <span class="s-val notranslate">$54,820,000 <span style="color:var(--green); font-size:10px;">+18.4%</span></span>
             </div>
             <div class="s-row">
               <span class="s-lbl">Total Staked</span>
-              <span class="s-val">823,600 $BULL (58%)</span>
+              <span class="s-val notranslate">823,600 $BULL (58%)</span>
             </div>
             <div class="s-row">
               <span class="s-lbl">Current Multiplier</span>
-              <span class="s-val gold">1.72x</span>
+              <span class="s-val gold notranslate">1.72x</span>
             </div>
           </div>
 
-          <button class="btn-arcade btn-arcade-cyan" onclick="apostar('BONK')">BET ON BONK</button>
+          <button class="btn-arcade btn-arcade-cyan notranslate" onclick="apostar('BONK')">BET ON BONK</button>
         </article>
 
         <!-- CENTER VS -->
         <div class="vs-wrap">
-          <div class="vs-badge"><span>VS</span></div>
-          <div class="vs-text">ORACLE<br><span>DexScreener</span><br>AUTO-SETTLE</div>
+          <div class="vs-badge notranslate"><span>VS</span></div>
+          <div class="vs-text notranslate">ORACLE<br><span>DexScreener</span><br>AUTO-SETTLE</div>
         </div>
 
         <!-- CONTENDER 2: WIF -->
         <article class="card-fighter card-purple">
           <div class="card-meta">
-            <span class="pill-rarity pill-purple">LEGENDARY</span>
+            <span class="pill-rarity pill-purple notranslate">LEGENDARY</span>
             <span style="color:var(--text-muted);">TIER 1</span>
           </div>
           <div class="avatar-wrap">
             <img src="https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg" alt="WIF">
           </div>
-          <h2 class="meme-title title-purple">WIF</h2>
-          <p class="meme-sub">dogwifhat • The Hat Phenomenon</p>
+          <h2 class="meme-title title-purple notranslate">WIF</h2>
+          <p class="meme-sub notranslate">dogwifhat • The Hat Phenomenon</p>
 
           <div class="stats-box">
             <div class="s-row">
               <span class="s-lbl">24h Volume (DexScreener)</span>
-              <span class="s-val">$49,150,000 <span style="color:var(--green); font-size:10px;">+11.2%</span></span>
+              <span class="s-val notranslate">$49,150,000 <span style="color:var(--green); font-size:10px;">+11.2%</span></span>
             </div>
             <div class="s-row">
               <span class="s-lbl">Total Staked</span>
-              <span class="s-val">596,400 $BULL (42%)</span>
+              <span class="s-val notranslate">596,400 $BULL (42%)</span>
             </div>
             <div class="s-row">
               <span class="s-lbl">Current Multiplier</span>
-              <span class="s-val gold">2.28x</span>
+              <span class="s-val gold notranslate">2.28x</span>
             </div>
           </div>
 
-          <button class="btn-arcade btn-arcade-purple" onclick="apostar('WIF')">BET ON WIF</button>
+          <button class="btn-arcade btn-arcade-purple notranslate" onclick="apostar('WIF')">BET ON WIF</button>
         </article>
       </div>
 
       <!-- TUG OF WAR BAR -->
       <div class="tug-zone">
-        <div class="tug-labels">
+        <div class="tug-labels notranslate">
           <span style="color:var(--cyan);">BONK DOMINANCE: 58% (823.6K $BULL)</span>
           <span style="color:var(--purple);">WIF DOMINANCE: 42% (596.4K $BULL)</span>
         </div>
@@ -971,8 +1001,8 @@
     <!-- PROTOCOL TOKENOMICS & VAULT MECHANICS -->
     <section class="tokenomics-section">
       <div class="sec-header">
-        <div class="sec-badge">SOLANA FAIR LAUNCH ARCHITECTURE</div>
-        <h2 class="sec-title">PROTOCOL <span>TOKENOMICS</span> & DAILY POT ENGINE</h2>
+        <div class="sec-badge notranslate">SOLANA FAIR LAUNCH ARCHITECTURE</div>
+        <h2 class="sec-title notranslate">PROTOCOL <span>TOKENOMICS</span> & DAILY POT ENGINE</h2>
         <p class="sec-sub">
           A 100% fair-launch token on Pump.fun powering an automated on-chain volume prediction arena.
         </p>
@@ -982,12 +1012,12 @@
         <!-- CARD 1: GLOBAL SUPPLY -->
         <div class="t-card">
           <div class="t-card-header">
-            <h3 class="t-title">PUMP.FUN SUPPLY ARCHITECTURE</h3>
-            <span class="t-tag tag-cyan">1,000,000,000 $BULL</span>
+            <h3 class="t-title notranslate">PUMP.FUN SUPPLY ARCHITECTURE</h3>
+            <span class="t-tag tag-cyan notranslate">1,000,000,000 $BULL</span>
           </div>
 
           <div class="t-item">
-            <div class="t-item-head">
+            <div class="t-item-head notranslate">
               <span style="color: var(--cyan);">PUMP.FUN BONDING CURVE</span>
               <span class="t-pct" style="color: var(--cyan);">80%</span>
             </div>
@@ -1000,7 +1030,7 @@
           </div>
 
           <div class="t-item">
-            <div class="t-item-head">
+            <div class="t-item-head notranslate">
               <span style="color: var(--purple);">RAYDIUM MIGRATION (LP LOCK)</span>
               <span class="t-pct" style="color: var(--purple);">20%</span>
             </div>
@@ -1013,7 +1043,7 @@
           </div>
 
           <div class="t-item">
-            <div class="t-item-head">
+            <div class="t-item-head notranslate">
               <span style="color: #cbd5e1;">DEX TRANSACTION TAX</span>
               <span class="t-pct" style="color: var(--green);">0% / 0%</span>
             </div>
@@ -1029,12 +1059,12 @@
         <!-- CARD 2: DAILY ARENA POT SETTLEMENT -->
         <div class="t-card">
           <div class="t-card-header">
-            <h3 class="t-title">DAILY ARENA SETTLEMENT (100% OF POT)</h3>
-            <span class="t-tag tag-gold">23:59 UTC AUTO-SETTLE</span>
+            <h3 class="t-title notranslate">DAILY ARENA SETTLEMENT (100% OF POT)</h3>
+            <span class="t-tag tag-gold notranslate">23:59 UTC AUTO-SETTLE</span>
           </div>
 
           <div class="t-item">
-            <div class="t-item-head">
+            <div class="t-item-head notranslate">
               <span style="color: var(--green);">WINNING STAKERS PAYOUT</span>
               <span class="t-pct" style="color: var(--green);">94%</span>
             </div>
@@ -1047,7 +1077,7 @@
           </div>
 
           <div class="t-item">
-            <div class="t-item-head">
+            <div class="t-item-head notranslate">
               <span style="color: var(--pink);">PERPETUAL DAILY SUPPLY BURN 🔥</span>
               <span class="t-pct" style="color: var(--pink);">3%</span>
             </div>
@@ -1060,7 +1090,7 @@
           </div>
 
           <div class="t-item">
-            <div class="t-item-head">
+            <div class="t-item-head notranslate">
               <span style="color: var(--gold);">PROTOCOL TREASURY & BUYBACK</span>
               <span class="t-pct" style="color: var(--gold);">3%</span>
             </div>
@@ -1078,20 +1108,19 @@
     <!-- PROTOCOL SECURITY & AUDIT INTEGRITY -->
     <section class="security-section">
       <div class="sec-header">
-        <div class="sec-badge" style="border-color: var(--green); color: var(--green);">VERIFIED SMART CONTRACT ARCHITECTURE</div>
-        <h2 class="sec-title">PROTOCOL <span>SECURITY</span> & TRUST AUDIT</h2>
+        <div class="sec-badge notranslate" style="border-color: var(--green); color: var(--green);">VERIFIED SMART CONTRACT ARCHITECTURE</div>
+        <h2 class="sec-title notranslate">PROTOCOL <span>SECURITY</span> & TRUST AUDIT</h2>
         <p class="sec-sub">
           Engineered for institutional-grade safety. Mathematical custody, decentralized oracle feeds, and zero admin backdoor access.
         </p>
       </div>
 
       <div class="security-grid">
-        <!-- SECURITY ITEM 1 -->
         <div class="sec-card verified">
           <div class="sec-card-head">
             <div class="sec-icon-wrap">🛡️</div>
             <div class="sec-title-box">
-              <h4>NON-CUSTODIAL PDA VAULT</h4>
+              <h4 class="notranslate">NON-CUSTODIAL PDA VAULT</h4>
               <span class="sec-status-chip">● PROGRAM CONTROLLED</span>
             </div>
           </div>
@@ -1100,12 +1129,11 @@
           </p>
         </div>
 
-        <!-- SECURITY ITEM 2 -->
         <div class="sec-card verified">
           <div class="sec-card-head">
             <div class="sec-icon-wrap">🚫</div>
             <div class="sec-title-box">
-              <h4>MINT & FREEZE REVOKED</h4>
+              <h4 class="notranslate">MINT & FREEZE REVOKED</h4>
               <span class="sec-status-chip">● PERMANENTLY IMMUTABLE</span>
             </div>
           </div>
@@ -1114,12 +1142,11 @@
           </p>
         </div>
 
-        <!-- SECURITY ITEM 3 -->
         <div class="sec-card verified">
           <div class="sec-card-head">
             <div class="sec-icon-wrap">🔥</div>
             <div class="sec-title-box">
-              <h4>100% LP BURN ON RAYDIUM</h4>
+              <h4 class="notranslate">100% LP BURN ON RAYDIUM</h4>
               <span class="sec-status-chip">● AUTO-BURN GUARANTEE</span>
             </div>
           </div>
@@ -1128,12 +1155,11 @@
           </p>
         </div>
 
-        <!-- SECURITY ITEM 4 -->
         <div class="sec-card verified">
           <div class="sec-card-head">
             <div class="sec-icon-wrap">📊</div>
             <div class="sec-title-box">
-              <h4>DEXSCREENER ORACLE SETTLE</h4>
+              <h4 class="notranslate">DEXSCREENER ORACLE SETTLE</h4>
               <span class="sec-status-chip">● TAMPER-PROOF DATA</span>
             </div>
           </div>
@@ -1142,12 +1168,11 @@
           </p>
         </div>
 
-        <!-- SECURITY ITEM 5 -->
         <div class="sec-card verified">
           <div class="sec-card-head">
             <div class="sec-icon-wrap">⚡</div>
             <div class="sec-title-box">
-              <h4>ANTI-SNIPE STAKE BUFFER</h4>
+              <h4 class="notranslate">ANTI-SNIPE STAKE BUFFER</h4>
               <span class="sec-status-chip">● FAIR PLAY ENGINE</span>
             </div>
           </div>
@@ -1156,12 +1181,11 @@
           </p>
         </div>
 
-        <!-- SECURITY ITEM 6 -->
         <div class="sec-card verified">
           <div class="sec-card-head">
             <div class="sec-icon-wrap">🔍</div>
             <div class="sec-title-box">
-              <h4>PUBLIC OPEN-SOURCE AUDIT</h4>
+              <h4 class="notranslate">PUBLIC OPEN-SOURCE AUDIT</h4>
               <span class="sec-status-chip">● VERIFIED ON SOLSCAN</span>
             </div>
           </div>
@@ -1173,31 +1197,30 @@
 
       <!-- AUDIT SUMMARY BAR -->
       <div class="audit-summary-bar">
-        <div class="audit-tag-group">
+        <div class="audit-tag-group notranslate">
           <div class="audit-pill">🛡️ RUGCHECK: <strong>PASSED (GOOD)</strong></div>
           <div class="audit-pill">🫧 BUBBLEMAPS: <strong>CLEAN CLUSTERS</strong></div>
           <div class="audit-pill">⚡ SPL CONTRACT: <strong>100% RENNOUNCED</strong></div>
         </div>
-        <a href="https://solscan.io" target="_blank" class="btn-verify-audit">VIEW ON SOLSCAN ↗</a>
+        <a href="https://solscan.io" target="_blank" class="btn-verify-audit notranslate">VIEW ON SOLSCAN ↗</a>
       </div>
     </section>
 
     <!-- STRATEGIC ROADMAP SECTION -->
     <section class="roadmap-section">
       <div class="sec-header">
-        <div class="sec-badge">SUSTAINABLE ECOSYSTEM GROWTH</div>
-        <h2 class="sec-title">PROTOCOL <span>ROADMAP</span></h2>
+        <div class="sec-badge notranslate">SUSTAINABLE ECOSYSTEM GROWTH</div>
+        <h2 class="sec-title notranslate">PROTOCOL <span>ROADMAP</span></h2>
         <p class="sec-sub">
           A continuous development pipeline engineered to scale user adoption, liquidity retention, and perpetual burning.
         </p>
       </div>
 
       <div class="roadmap-grid">
-        <!-- PHASE 1 -->
         <div class="r-card active-phase">
-          <span class="r-phase-tag" style="color: var(--green);">PHASE 01</span>
-          <span class="r-status status-live">IN EXECUTION</span>
-          <h3 class="r-title">GENESIS & LAUNCH</h3>
+          <span class="r-phase-tag notranslate" style="color: var(--green);">PHASE 01</span>
+          <span class="r-status status-live notranslate">IN EXECUTION</span>
+          <h3 class="r-title notranslate">GENESIS & LAUNCH</h3>
           <ul class="r-list">
             <li>Pump.fun Fair Launch (100% clean Block 0).</li>
             <li>Raydium LP migration & permanent LP burn.</li>
@@ -1207,11 +1230,10 @@
           </ul>
         </div>
 
-        <!-- PHASE 2 -->
         <div class="r-card active-phase">
-          <span class="r-phase-tag" style="color: var(--cyan);">PHASE 02</span>
-          <span class="r-status status-wip">UPCOMING Q4</span>
-          <h3 class="r-title">VIRAL ACTIONS & BOT</h3>
+          <span class="r-phase-tag notranslate" style="color: var(--cyan);">PHASE 02</span>
+          <span class="r-status status-wip notranslate">UPCOMING Q4</span>
+          <h3 class="r-title notranslate">VIRAL ACTIONS & BOT</h3>
           <ul class="r-list">
             <li>Solana Blinks integration (bet straight from X / Twitter feed).</li>
             <li>Telegram Royale Bet Bot for viral memecoin communities.</li>
@@ -1221,11 +1243,10 @@
           </ul>
         </div>
 
-        <!-- PHASE 3 -->
         <div class="r-card upcoming-phase">
-          <span class="r-phase-tag" style="color: var(--purple);">PHASE 03</span>
-          <span class="r-status status-queued">SCHEDULED</span>
-          <h3 class="r-title">STAKING & EXPANSION</h3>
+          <span class="r-phase-tag notranslate" style="color: var(--purple);">PHASE 03</span>
+          <span class="r-status status-queued notranslate">SCHEDULED</span>
+          <h3 class="r-title notranslate">STAKING & EXPANSION</h3>
           <ul class="r-list">
             <li>Royale Vault: Stake $BULL to earn a share of platform fees.</li>
             <li>First centralized exchange listing (Tier-2 CEX).</li>
@@ -1235,11 +1256,10 @@
           </ul>
         </div>
 
-        <!-- PHASE 4 -->
         <div class="r-card">
-          <span class="r-phase-tag" style="color: var(--gold);">PHASE 04</span>
-          <span class="r-status status-future">FUTURE VISION</span>
-          <h3 class="r-title">MEME ROYALE LEAGUE</h3>
+          <span class="r-phase-tag notranslate" style="color: var(--gold);">PHASE 04</span>
+          <span class="r-status status-future notranslate">FUTURE VISION</span>
+          <h3 class="r-title notranslate">MEME ROYALE LEAGUE</h3>
           <ul class="r-list">
             <li>Weekly Royale Cup Tournaments with tiered brackets.</li>
             <li>Cross-chain prediction oracles (Base & Ethereum volume).</li>
@@ -1253,8 +1273,8 @@
 
     <!-- FOOTER -->
     <footer>
-      <div>© 2026 Bull Royale Protocol (bullarenaa.io) • Built on Solana</div>
-      <div>
+      <div class="notranslate">© 2026 Bull Royale Protocol (bullarenaa.io) • Built on Solana</div>
+      <div class="notranslate">
         <a href="https://t.me" target="_blank">Telegram</a>
         <a href="https://x.com" target="_blank">Twitter / X</a>
         <a href="https://dexscreener.com" target="_blank">DexScreener</a>
@@ -1265,7 +1285,11 @@
   </div>
 
   <script>
-    // Synthesized Arcade Sound
+    // Endereço Mint oficial do $BULL (deixe vazio até lançar na Pump.fun)
+    const BULL_MINT_ADDRESS = ""; 
+    const SOLANA_RPC_URL = "https://api.mainnet-beta.solana.com";
+
+    // Áudio arcade sintetizado via Web Audio API
     function somArcade() {
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -1288,7 +1312,7 @@
       } catch (e) {}
     }
 
-    // Countdown Timer to 23:59:59 UTC
+    // Cronômetro até 23:59:59 UTC
     function atualizarRelogio() {
       const agora = new Date();
       const fecho = new Date();
@@ -1307,18 +1331,120 @@
     setInterval(atualizarRelogio, 1000);
     atualizarRelogio();
 
-    // Phantom Wallet Web3 Integration
+    // ESTADO DA CARTEIRA
     let carteiraConectada = false;
-    async function conectarPhantom() {
+    let chavePublicaAtual = null;
+
+    // CONSULTA SALDOS (SOL e $BULL via Solana JSON-RPC)
+    async function consultarSaldos(publicKeyStr) {
+      const pill = document.getElementById('wallet-balance-pill');
+      const solEl = document.getElementById('val-sol');
+      const bullEl = document.getElementById('val-bull');
+
+      try {
+        // 1. Consulta saldo em SOL
+        const respSol = await fetch(SOLANA_RPC_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: 1,
+            method: 'getBalance',
+            params: [publicKeyStr]
+          })
+        });
+        const dataSol = await respSol.json();
+        if (dataSol && dataSol.result) {
+          const sol = (dataSol.result.value / 1e9).toFixed(3);
+          solEl.innerText = sol;
+        }
+
+        // 2. Consulta saldo em $BULL (se o MINT estiver preenchido)
+        if (BULL_MINT_ADDRESS && BULL_MINT_ADDRESS.trim().length > 30) {
+          const respToken = await fetch(SOLANA_RPC_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              jsonrpc: '2.0',
+              id: 2,
+              method: 'getTokenAccountsByOwner',
+              params: [
+                publicKeyStr,
+                { mint: BULL_MINT_ADDRESS.trim() },
+                { encoding: 'jsonParsed' }
+              ]
+            })
+          });
+          const dataToken = await respToken.json();
+          if (dataToken?.result?.value?.length > 0) {
+            const amount = dataToken.result.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
+            bullEl.innerText = Number(amount).toLocaleString('en-US');
+          } else {
+            bullEl.innerText = '0';
+          }
+        } else {
+          bullEl.innerText = '0';
+        }
+
+        pill.style.display = 'flex';
+      } catch (err) {
+        console.warn('Erro ao consultar saldos on-chain:', err);
+      }
+    }
+
+    // CONECTAR / DESCONECTAR PHANTOM (TOGGLE)
+    async function gerenciarCarteira() {
+      somArcade();
       const btn = document.getElementById('btn-wallet');
+      const pill = document.getElementById('wallet-balance-pill');
+
+      // Se já estiver conectada, pergunta se deseja desconectar
+      if (carteiraConectada) {
+        const confirmar = confirm("Do you want to disconnect your Phantom wallet?");
+        if (confirmar) {
+          try {
+            if (window.solana) {
+              await window.solana.disconnect();
+            }
+          } catch (e) {}
+
+          carteiraConectada = false;
+          chavePublicaAtual = null;
+          btn.innerText = "CONNECT PHANTOM";
+          btn.classList.remove("connected");
+          btn.title = "";
+          pill.style.display = "none";
+        }
+        return;
+      }
+
+      // Se não estiver conectada, realiza a conexão
       if (window.solana && window.solana.isPhantom) {
         try {
           const resp = await window.solana.connect();
-          const pk = resp.publicKey.toString();
-          btn.innerText = `${pk.slice(0, 4)}...${pk.slice(-4)}`;
-          btn.style.background = "#059669";
+          chavePublicaAtual = resp.publicKey.toString();
           carteiraConectada = true;
-        } catch (e) {}
+
+          btn.innerText = `${chavePublicaAtual.slice(0, 4)}...${chavePublicaAtual.slice(-4)}`;
+          btn.classList.add("connected");
+          btn.title = "Click to Disconnect";
+
+          // Carrega saldos on-chain
+          consultarSaldos(chavePublicaAtual);
+
+          // Escuta evento de desconexão externa na Phantom
+          window.solana.on('disconnect', () => {
+            carteiraConectada = false;
+            chavePublicaAtual = null;
+            btn.innerText = "CONNECT PHANTOM";
+            btn.classList.remove("connected");
+            btn.title = "";
+            pill.style.display = "none";
+          });
+
+        } catch (e) {
+          console.warn("Conexão cancelada pelo usuário:", e);
+        }
       } else {
         alert("Phantom Wallet extension not detected. Please install at phantom.app");
         window.open("https://phantom.app/", "_blank");
@@ -1329,7 +1455,7 @@
       somArcade();
       if (!carteiraConectada) {
         alert("Please connect your Phantom Wallet before placing a stake!");
-        conectarPhantom();
+        gerenciarCarteira();
         return;
       }
       const valor = prompt(`How much $BULL do you want to stake on ${meme}?`, "1000");
