@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no" class="notranslate">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google" content="notranslate">
   <title>Bull Royale • The Liquidity Warfare Protocol on Solana</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +22,7 @@
       --purple-btn-shadow: #7e22ce;
       --pink: #f43f5e;
       --gold: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.3);
       --green: #10b981;
       --text-muted: #64748b;
     }
@@ -69,15 +71,22 @@
     }
 
     .brand-icon {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       background: #0f172a;
-      border: 1.5px solid var(--cyan);
+      border: 1.5px solid var(--gold);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 14px var(--cyan-glow);
+      box-shadow: 0 0 14px var(--gold-glow);
+      overflow: hidden;
+    }
+
+    .brand-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .brand-title {
@@ -89,7 +98,7 @@
     }
 
     .brand-title span {
-      color: var(--cyan);
+      color: var(--gold);
     }
 
     .nav-actions {
@@ -129,38 +138,34 @@
     }
 
     .btn-social-icon:hover {
-      border-color: var(--cyan);
-      color: var(--cyan);
-      box-shadow: 0 0 12px var(--cyan-glow);
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 12px var(--gold-glow);
       transform: translateY(-1px);
     }
 
-    .btn-social-icon.tg-btn:hover {
-      border-color: #38bdf8;
-      color: #38bdf8;
-    }
-
-    .btn-buy {
-      background: var(--gold);
-      color: #000;
+    .btn-nav-action {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 12px;
-      padding: 9px 18px;
+      font-size: 11px;
+      padding: 9px 16px;
       border-radius: 8px;
       text-decoration: none;
-      box-shadow: 0 3px 0 #b45309;
-      transform: skewX(-6deg);
-      transition: all 0.1s;
+      letter-spacing: 1px;
+      transition: all 0.15s ease;
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
       justify-content: center;
     }
 
-    .btn-buy:active {
-      transform: skewX(-6deg) translateY(2px);
-      box-shadow: 0 1px 0 #b45309;
+    .btn-nav-action:hover {
+      background: var(--gold);
+      color: #000;
+      box-shadow: 0 0 14px var(--gold-glow);
     }
 
     /* WALLET BOX & BALANCES */
@@ -180,11 +185,10 @@
       font-weight: 800;
       color: #cbd5e1;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
     }
 
-    .wallet-balance-pill span.token-b { color: var(--cyan); }
     .wallet-balance-pill span.sol-b { color: var(--gold); }
 
     .btn-wallet {
@@ -221,7 +225,7 @@
       box-shadow: 0 3px 0 #991b1b;
     }
 
-    /* MOBILE VIEWPORT OPTIMIZATIONS */
+    /* MOBILE VIEWPORT */
     @media (max-width: 680px) {
       nav {
         padding: 8px 10px;
@@ -229,104 +233,49 @@
         border-radius: 12px;
         gap: 6px;
       }
-      .brand {
-        gap: 6px;
-      }
-      .brand-icon {
-        width: 26px;
-        height: 26px;
-        border-radius: 6px;
-      }
-      .brand-icon svg {
-        width: 16px;
-        height: 16px;
-      }
-      .brand-title {
-        font-size: 20px;
-        letter-spacing: 1px;
-      }
-      .nav-actions {
-        gap: 5px;
-        flex-wrap: nowrap;
-      }
-      .social-nav-group {
-        gap: 4px;
-      }
-      .btn-social-icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 6px;
-      }
-      .btn-social-icon svg {
-        width: 13px;
-        height: 13px;
-      }
-      .btn-buy {
-        font-size: 10px;
-        padding: 6px 8px;
-        transform: none;
-        box-shadow: 0 2px 0 #b45309;
-      }
-      .btn-buy:active {
-        transform: translateY(2px);
-      }
-      .btn-wallet {
-        font-size: 10px;
-        padding: 6px 8px;
-        transform: none;
-        box-shadow: 0 2px 0 #4c1d95;
-      }
-      .btn-wallet:active {
-        transform: translateY(2px);
-      }
-      .wallet-balance-pill {
-        display: none !important;
-      }
+      .brand-title { font-size: 20px; letter-spacing: 1px; }
+      .brand-icon { width: 28px; height: 28px; }
+      .nav-actions { gap: 5px; flex-wrap: nowrap; }
+      .btn-social-icon { width: 28px; height: 28px; }
+      .btn-nav-action { font-size: 10px; padding: 6px 10px; }
+      .btn-wallet { font-size: 10px; padding: 6px 8px; transform: none; }
+      .wallet-balance-pill { display: none !important; }
     }
 
     /* HERO SECTION */
     .hero {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 34px;
       position: relative;
-      perspective: 1000px;
+    }
+
+    .hero-emblem-frame {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 25px var(--gold-glow);
+      padding: 4px;
+      background: #0c121e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .hero-bull-emblem {
-      width: 85px;
-      height: 75px;
-      margin: 0 auto 14px;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
       display: block;
-      transform-style: preserve-3d;
-      animation: spinY 7s linear infinite;
-      filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.4));
-      cursor: pointer;
-    }
-
-    .hero-bull-emblem:hover {
-      animation-duration: 3s;
-    }
-
-    @keyframes spinY {
-      0% {
-        transform: perspective(600px) rotateY(0deg);
-        filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.4));
-      }
-      50% {
-        transform: perspective(600px) rotateY(180deg) scale(0.95);
-        filter: drop-shadow(0 0 24px rgba(168, 85, 247, 0.45));
-      }
-      100% {
-        transform: perspective(600px) rotateY(360deg);
-        filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.4));
-      }
     }
 
     .badge-slogan {
       display: inline-block;
       background: rgba(15, 23, 42, 0.9);
       border: 1px solid var(--border);
-      color: var(--cyan);
+      color: var(--gold);
       font-size: 11px;
       font-weight: 900;
       letter-spacing: 3px;
@@ -338,23 +287,23 @@
 
     .hero-title {
       font-family: 'Teko', sans-serif;
-      font-size: 68px;
+      font-size: 72px;
       line-height: 0.95;
       letter-spacing: 4px;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .hero-title span {
-      color: var(--cyan);
+      color: var(--gold);
     }
 
     .hero-sub {
       font-size: 14px;
       color: #94a3b8;
-      max-width: 650px;
+      max-width: 680px;
       margin: 0 auto;
-      line-height: 1.5;
+      line-height: 1.6;
       font-weight: 700;
     }
 
@@ -392,7 +341,7 @@
 
     .metric-num { font-size: 19px; font-weight: 900; }
     .metric-num.gold { color: var(--gold); }
-    .metric-num.pink { color: var(--pink); }
+    .metric-num.green { color: var(--green); }
     .metric-num.cyan { color: var(--cyan); }
 
     /* SUPPORTED WALLETS BAR */
@@ -415,9 +364,6 @@
       color: var(--text-muted);
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
     .wallets-grid-pills {
@@ -443,17 +389,9 @@
     }
 
     .w-pill:hover {
-      border-color: var(--cyan);
+      border-color: var(--gold);
       color: #fff;
       transform: translateY(-1px);
-    }
-
-    .w-pill span.snap-badge {
-      font-size: 9px;
-      background: rgba(245, 158, 11, 0.2);
-      color: var(--gold);
-      padding: 1px 5px;
-      border-radius: 4px;
     }
 
     /* ARENA SHOWDOWN */
@@ -479,8 +417,8 @@
 
     .tag-tier {
       background: #0f172a;
-      border: 1px solid var(--cyan);
-      color: var(--cyan);
+      border: 1px solid var(--gold);
+      color: var(--gold);
       font-size: 11px;
       font-weight: 900;
       padding: 6px 14px;
@@ -490,8 +428,8 @@
 
     .timer-pill {
       background: #0a0e1a;
-      border: 1px solid var(--gold);
-      color: var(--gold);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
       font-size: 12px;
       font-weight: 900;
       padding: 5px 16px;
@@ -511,24 +449,11 @@
       .battle-grid { grid-template-columns: 1fr; }
       .metrics-bar { grid-template-columns: 1fr; gap: 12px; }
       .metric-col:not(:last-child)::after { display: none; }
-      .hero-title { font-size: 52px; }
+      .hero-title { font-size: 54px; }
       .tokenomics-grid { grid-template-columns: 1fr !important; }
       .roadmap-grid { grid-template-columns: 1fr !important; }
       .security-grid { grid-template-columns: 1fr !important; }
       .steps-grid { grid-template-columns: 1fr !important; }
-      .supported-wallets-bar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .wallets-grid-pills {
-        width: 100%;
-        justify-content: flex-start;
-        gap: 6px;
-      }
-      .w-pill {
-        font-size: 10px;
-        padding: 5px 8px;
-      }
     }
 
     .card-fighter {
@@ -586,7 +511,7 @@
       object-fit: cover;
     }
 
-    .meme-title {
+    .fighter-title {
       font-family: 'Teko', sans-serif;
       font-size: 42px;
       line-height: 1;
@@ -597,7 +522,7 @@
     .title-cyan { color: var(--cyan); }
     .title-purple { color: var(--purple); }
 
-    .meme-sub {
+    .fighter-sub {
       font-size: 11px;
       color: var(--text-muted);
       text-align: center;
@@ -641,7 +566,7 @@
       border: none;
       border-radius: 10px;
       font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -679,7 +604,7 @@
     .vs-badge {
       width: 58px;
       height: 58px;
-      background: var(--pink);
+      background: var(--gold);
       border: 3px solid #fff;
       border-radius: 14px;
       transform: rotate(45deg);
@@ -687,7 +612,7 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 10px;
-      box-shadow: 0 0 25px rgba(244, 63, 94, 0.6);
+      box-shadow: 0 0 25px var(--gold-glow);
     }
 
     .vs-badge span {
@@ -695,7 +620,7 @@
       font-family: 'Teko', sans-serif;
       font-size: 30px;
       font-weight: 700;
-      color: #fff;
+      color: #000;
     }
 
     .vs-text {
@@ -705,7 +630,7 @@
       line-height: 1.3;
     }
 
-    .vs-text span { color: var(--cyan); }
+    .vs-text span { color: var(--gold); }
 
     /* TUG OF WAR */
     .tug-zone {
@@ -806,7 +731,7 @@
 
     .history-stats strong { color: #fff; }
 
-    /* HOW IT WORKS SECTION */
+    /* HOW IT WORKS */
     .how-section {
       background: var(--card-bg);
       border: 1.5px solid var(--border);
@@ -834,7 +759,7 @@
       font-family: 'Teko', sans-serif;
       font-size: 38px;
       line-height: 1;
-      color: var(--cyan);
+      color: var(--gold);
       margin-bottom: 6px;
     }
 
@@ -854,7 +779,7 @@
       font-weight: 600;
     }
 
-    /* TOKENOMICS SECTION */
+    /* PROTOCOL ARCHITECTURE */
     .tokenomics-section {
       background: var(--card-bg);
       border: 1.5px solid var(--border);
@@ -872,8 +797,8 @@
     .sec-badge {
       display: inline-block;
       background: #0f172a;
-      border: 1px solid var(--cyan);
-      color: var(--cyan);
+      border: 1px solid var(--gold);
+      color: var(--gold);
       font-size: 10px;
       font-weight: 900;
       letter-spacing: 2px;
@@ -891,12 +816,12 @@
       text-transform: uppercase;
     }
 
-    .sec-title span { color: var(--cyan); }
+    .sec-title span { color: var(--gold); }
 
     .sec-sub {
       font-size: 13px;
       color: var(--text-muted);
-      max-width: 600px;
+      max-width: 650px;
       margin: 4px auto 0;
       font-weight: 600;
     }
@@ -976,11 +901,9 @@
     }
 
     .bar-core { height: 100%; border-radius: 5px; }
-    .bar-cyan { background: linear-gradient(90deg, #0284c7, var(--cyan)); }
-    .bar-purple { background: linear-gradient(90deg, #7e22ce, var(--purple)); }
-    .bar-green { background: linear-gradient(90deg, #059669, var(--green)); }
-    .bar-pink { background: linear-gradient(90deg, #e11d48, var(--pink)); }
     .bar-gold { background: linear-gradient(90deg, #d97706, var(--gold)); }
+    .bar-green { background: linear-gradient(90deg, #059669, var(--green)); }
+    .bar-purple { background: linear-gradient(90deg, #7e22ce, var(--purple)); }
 
     .t-item-desc {
       font-size: 11px;
@@ -989,7 +912,7 @@
       font-weight: 600;
     }
 
-    /* SECURITY SECTION */
+    /* SECURITY */
     .security-section {
       background: var(--card-bg);
       border: 1.5px solid var(--border);
@@ -1095,27 +1018,7 @@
 
     .audit-pill strong { color: var(--green); }
 
-    .btn-verify-audit {
-      background: transparent;
-      border: 1px solid var(--cyan);
-      color: var(--cyan);
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 8px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: all 0.15s;
-    }
-
-    .btn-verify-audit:hover {
-      background: var(--cyan);
-      color: #02141c;
-      box-shadow: 0 0 14px var(--cyan-glow);
-    }
-
-    /* ROADMAP SECTION */
+    /* ROADMAP */
     .roadmap-section {
       background: var(--card-bg);
       border: 1.5px solid var(--border);
@@ -1142,8 +1045,8 @@
     }
 
     .r-card.active-phase {
-      border-top: 3px solid var(--cyan);
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.12);
+      border-top: 3px solid var(--gold);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
     }
 
     .r-card.upcoming-phase { border-top: 3px solid var(--purple); }
@@ -1172,12 +1075,6 @@
       background: rgba(16, 185, 129, 0.15);
       color: var(--green);
       border: 1px solid var(--green);
-    }
-
-    .status-wip {
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--cyan);
-      border: 1px solid var(--cyan);
     }
 
     .status-queued {
@@ -1218,13 +1115,13 @@
 
     .r-list li::before {
       content: "•";
-      color: var(--cyan);
+      color: var(--gold);
       position: absolute;
       left: 0;
       font-weight: 900;
     }
 
-    /* FAQ ACCORDION SECTION */
+    /* FAQ */
     .faq-section {
       background: var(--card-bg);
       border: 1.5px solid var(--border);
@@ -1263,11 +1160,11 @@
       user-select: none;
     }
 
-    .faq-question:hover { color: var(--cyan); }
+    .faq-question:hover { color: var(--gold); }
 
     .faq-toggle-icon {
       font-size: 18px;
-      color: var(--cyan);
+      color: var(--gold);
       transition: transform 0.2s;
     }
 
@@ -1289,7 +1186,7 @@
 
     .faq-item.open .faq-answer { display: block; }
 
-    /* GLOBAL MODALS */
+    /* MODALS */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -1307,19 +1204,13 @@
 
     .modal-box {
       background: #090e1a;
-      border: 2px solid var(--cyan);
+      border: 2px solid var(--gold);
       border-radius: 18px;
       width: 100%;
       max-width: 440px;
       padding: 24px;
-      box-shadow: 0 0 35px var(--cyan-glow);
+      box-shadow: 0 0 35px var(--gold-glow);
       position: relative;
-      animation: modalFade 0.15s ease-out;
-    }
-
-    @keyframes modalFade {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
     }
 
     .modal-close {
@@ -1336,7 +1227,6 @@
 
     .modal-close:hover { color: #fff; }
 
-    /* WALLET SELECT MODAL */
     .wallet-list-select {
       display: flex;
       flex-direction: column;
@@ -1359,9 +1249,9 @@
     }
 
     .wallet-choice-btn:hover {
-      border-color: var(--cyan);
+      border-color: var(--gold);
       background: #0d1527;
-      box-shadow: 0 0 18px var(--cyan-glow);
+      box-shadow: 0 0 18px var(--gold-glow);
       transform: translateX(3px);
     }
 
@@ -1392,16 +1282,6 @@
       color: var(--text-muted);
       text-align: left;
       font-weight: 600;
-    }
-
-    .wallet-badge-network {
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--cyan);
-      padding: 3px 8px;
-      border-radius: 6px;
     }
 
     /* STAKE MODAL */
@@ -1473,7 +1353,7 @@
     .modal-token-label {
       font-family: 'Teko', sans-serif;
       font-size: 22px;
-      color: var(--cyan);
+      color: var(--gold);
       letter-spacing: 1px;
     }
 
@@ -1498,7 +1378,7 @@
     }
 
     .btn-pct:hover {
-      border-color: var(--cyan);
+      border-color: var(--gold);
       color: #fff;
     }
 
@@ -1544,107 +1424,78 @@
       margin-left: 14px;
     }
 
-    footer a:hover { color: var(--cyan); }
+    footer a:hover { color: var(--gold); }
   </style>
 </head>
 <body>
   <div class="wrapper">
     <!-- NAVBAR -->
     <nav>
-      <a href="https://www.bullarenaa.io/" class="brand notranslate">
+      <a href="https://www.bullarenaa.io/" class="brand" translate="no">
         <div class="brand-icon">
-          <svg width="24" height="24" viewBox="0 0 120 100" fill="none">
-            <path d="M 40 48 C 28 28, 18 12, 10 14 C 15 26, 28 40, 42 50 Z" fill="#38bdf8"/>
-            <path d="M 80 48 C 92 28, 102 12, 110 14 C 105 26, 92 40, 78 50 Z" fill="#38bdf8"/>
-            <polygon points="60,24 80,46 40,46" fill="#475569"/>
-            <polygon points="60,84 78,48 42,48" fill="#1e293b" stroke="#334155" stroke-width="2"/>
-            <circle cx="60" cy="80" r="7" fill="none" stroke="#f59e0b" stroke-width="2"/>
-          </svg>
+          <!-- Central Bull Face Emblem Icon -->
+          <img src="bull-emblem.png" alt="Bull Royale" onerror="this.src='https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg'">
         </div>
-        <div class="brand-title notranslate">BULL<span>ROYALE</span></div>
+        <div class="brand-title">BULL<span>ROYALE</span></div>
       </a>
 
       <div class="nav-actions">
-        <!-- SOCIAL BUTTONS: X & TELEGRAM -->
-        <div class="social-nav-group notranslate">
-          <!-- X OFFICIAL -->
+        <!-- SOCIAL ACTIONS -->
+        <div class="social-nav-group" translate="no">
           <a href="https://x.com/bullarenaio" target="_blank" rel="noopener noreferrer" class="btn-social-icon" title="Follow on X (Twitter)">
             <svg viewBox="0 0 24 24">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
             </svg>
           </a>
-          <!-- TELEGRAM OFFICIAL -->
-          <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="btn-social-icon tg-btn" title="Join Telegram Community">
+          <a href="https://t.me/bullRoyalee_io" target="_blank" rel="noopener noreferrer" class="btn-social-icon tg-btn" title="Join Telegram Community">
             <svg viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
             </svg>
           </a>
         </div>
 
-        <a href="https://raydium.io" target="_blank" class="btn-buy notranslate">BUY $BULL</a>
+        <a href="#arena" class="btn-nav-action" translate="no">BETA ARENA</a>
+        
         <div class="wallet-container">
-          <div id="wallet-balance-pill" class="wallet-balance-pill notranslate">
-            <span class="token-b"><strong id="val-bull">0</strong> $BULL</span>
-            <span style="color:#334155;">|</span>
+          <div id="wallet-balance-pill" class="wallet-balance-pill" translate="no">
             <span class="sol-b"><strong id="val-sol">0.00</strong> SOL</span>
           </div>
-          <button id="btn-wallet" class="btn-wallet notranslate" onclick="manageWallet()">CONNECT WALLET</button>
+          <button id="btn-wallet" class="btn-wallet" translate="no" onclick="manageWallet()">CONNECT WALLET</button>
         </div>
       </div>
     </nav>
 
     <!-- HERO SECTION -->
     <header class="hero">
-      <svg class="hero-bull-emblem" viewBox="0 0 120 100" title="Bull Royale Cyber Emblem">
-        <defs>
-          <linearGradient id="hornShine" x1="0%" y1="0%" x2="100%" y2="50%">
-            <stop offset="0%" stop-color="#38bdf8"/>
-            <stop offset="60%" stop-color="#0284c7"/>
-            <stop offset="100%" stop-color="#0f172a"/>
-          </linearGradient>
-          <linearGradient id="armorPlate" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#334155"/>
-            <stop offset="50%" stop-color="#1e293b"/>
-            <stop offset="100%" stop-color="#0c121e"/>
-          </linearGradient>
-        </defs>
-        <path d="M 40 48 C 28 28, 18 12, 10 14 C 15 26, 28 40, 42 50 Z" fill="url(#hornShine)" stroke="#38bdf8" stroke-width="0.8"/>
-        <path d="M 80 48 C 92 28, 102 12, 110 14 C 105 26, 92 40, 78 50 Z" fill="url(#hornShine)" stroke="#38bdf8" stroke-width="0.8"/>
-        <polygon points="60,24 80,46 40,46" fill="#475569" stroke="#64748b" stroke-width="0.8"/>
-        <polygon points="60,30 70,46 50,46" fill="#38bdf8" opacity="0.9"/>
-        <polygon points="60,84 78,48 42,48" fill="url(#armorPlate)" stroke="#334155" stroke-width="1"/>
-        <polygon points="42,48 30,62 44,68" fill="#1e293b" stroke="#334155" stroke-width="0.6"/>
-        <polygon points="78,48 90,62 76,68" fill="#1e293b" stroke="#334155" stroke-width="0.6"/>
-        <polygon points="60,84 68,68 52,68" fill="#090d16" stroke="#1e293b" stroke-width="0.8"/>
-        <polygon points="49,53 54,55 49,57" fill="#38bdf8"/>
-        <polygon points="71,53 66,55 71,57" fill="#38bdf8"/>
-        <circle cx="60" cy="80" r="7" fill="none" stroke="#f59e0b" stroke-width="2"/>
-      </svg>
-      <div class="badge-slogan notranslate">THE LIQUIDITY WARFARE PROTOCOL</div>
-      <h1 class="hero-title notranslate">BULL <span>ROYALE</span></h1>
+      <div class="hero-emblem-frame">
+        <!-- Official Titanium & Gold Bull Face Emblem -->
+        <img src="bull-emblem.png" alt="Bull Royale Crest" class="hero-bull-emblem" onerror="this.src='https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg'">
+      </div>
+      <div class="badge-slogan" translate="no">THE LIQUIDITY WARFARE PROTOCOL</div>
+      <h1 class="hero-title" translate="no">BULL <span>ROYALE</span></h1>
       <p class="hero-sub">
-        Predict the meme with highest 24h volume. Win $BULL. The Smart Contract burns 3% of supply every single round.
+        Predict token momentum and command on-chain market volume. Settle 1-hour flash duels directly in $SOL with decentralized DexScreener oracles and zero custodial manipulation.
       </p>
     </header>
 
     <!-- METRICS BAR -->
     <section class="metrics-bar">
       <div class="metric-col">
-        <div class="metric-label">DAILY POOL (ROUND #01)</div>
-        <div class="metric-num gold notranslate">1,420,000 $BULL (~$184,600)</div>
+        <div class="metric-label">ACTIVE DUEL POOL</div>
+        <div class="metric-num gold" translate="no">245.50 SOL</div>
       </div>
       <div class="metric-col">
-        <div class="metric-label">TOTAL $BULL BURNED 🔥</div>
-        <div class="metric-num pink notranslate">18,450,000 $BULL (DEFLATIONARY)</div>
+        <div class="metric-label">SETTLEMENT ENGINE</div>
+        <div class="metric-num green" translate="no">100% INSTANT $SOL</div>
       </div>
       <div class="metric-col">
-        <div class="metric-label">NON-CUSTODIAL VAULT (PDA)</div>
-        <div class="metric-num cyan notranslate">100% ON-CHAIN SOLANA</div>
+        <div class="metric-label">EXECUTION VAULT</div>
+        <div class="metric-num cyan" translate="no">NON-CUSTODIAL PDA</div>
       </div>
     </section>
 
     <!-- SUPPORTED WALLETS BAR -->
-    <section class="supported-wallets-bar notranslate">
+    <section class="supported-wallets-bar" translate="no">
       <div class="wallets-bar-label">
         <span>⚡ SUPPORTED WALLETS:</span>
       </div>
@@ -1661,127 +1512,124 @@
         <div class="w-pill" onclick="manageWallet()" title="Connect with OKX Wallet">
           <span>⬛</span> OKX Wallet
         </div>
-        <div class="w-pill" onclick="manageWallet()" title="Connect with MetaMask via Solana Snap">
-          <span>🦊</span> MetaMask <span class="snap-badge">SNAP</span>
-        </div>
       </div>
     </section>
 
     <!-- ARENA SHOWDOWN -->
-    <main class="arena-box">
+    <main id="arena" class="arena-box">
       <div class="arena-top">
-        <span class="tag-tier">🔥 MAIN SHOWDOWN • HEAVYWEIGHT DIVISION</span>
-        <div class="timer-pill notranslate">⏳ CLOSES IN: <span id="clock-timer">01h 41m 49s</span> (23:59 UTC)</div>
+        <span class="tag-tier" translate="no">⚔️ FLASH ARENA • DIVISION I</span>
+        <div class="timer-pill" translate="no">⏳ CLOSES IN: <span id="clock-timer">00h 42m 18s</span> (HOURLY)</div>
       </div>
 
       <div class="battle-grid">
         <!-- BONK -->
         <article class="card-fighter card-cyan">
           <div class="card-meta">
-            <span class="pill-rarity pill-cyan notranslate">MYTHIC</span>
-            <span style="color:var(--text-muted);">TIER 1</span>
+            <span class="pill-rarity pill-cyan" translate="no">ALPHA POOL</span>
+            <span style="color:var(--text-muted);">PAIR 01</span>
           </div>
           <div class="avatar-wrap">
             <img src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="BONK">
           </div>
-          <h2 class="meme-title title-cyan notranslate">BONK</h2>
-          <p class="meme-sub">The Dog King of Solana</p>
+          <h2 class="fighter-title title-cyan" translate="no">BONK</h2>
+          <p class="fighter-sub" translate="no">Solana Ecosystem Flagship</p>
 
           <div class="stats-box">
             <div class="s-row">
-              <span class="s-lbl">24h Volume (DexScreener)</span>
-              <span class="s-val notranslate">$54,820,000 <span style="color:var(--green); font-size:10px;">+18.4%</span></span>
+              <span class="s-lbl">DexScreener 24h Volume</span>
+              <span class="s-val" translate="no">$54,820,000 <span style="color:var(--green); font-size:10px;">+18.4%</span></span>
             </div>
             <div class="s-row">
               <span class="s-lbl">Total Staked</span>
-              <span class="s-val notranslate">823,600 $BULL (58%)</span>
+              <span class="s-val" translate="no">142.39 SOL (58%)</span>
             </div>
             <div class="s-row">
-              <span class="s-lbl">Current Multiplier</span>
-              <span class="s-val gold notranslate">1.72x</span>
+              <span class="s-lbl">Dynamic Multiplier</span>
+              <span class="s-val gold" translate="no">1.72x</span>
             </div>
           </div>
 
-          <button class="btn-arcade btn-arcade-cyan notranslate" onclick="openStakeModal('BONK', '1.72', 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035')">BET ON BONK</button>
+          <button class="btn-arcade btn-arcade-cyan" translate="no" onclick="openStakeModal('BONK', '1.72', 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035')">ENTER DUEL • BONK</button>
         </article>
 
         <!-- CENTER VS -->
         <div class="vs-wrap">
-          <div class="vs-badge notranslate"><span>VS</span></div>
-          <div class="vs-text notranslate">ORACLE<br><span>DexScreener</span><br>AUTO-SETTLE</div>
+          <div class="vs-badge" translate="no"><span>VS</span></div>
+          <div class="vs-text" translate="no">ORACLE<br><span>DexScreener</span><br>SETTLEMENT</div>
         </div>
 
         <!-- WIF -->
         <article class="card-fighter card-purple">
           <div class="card-meta">
-            <span class="pill-rarity pill-purple notranslate">LEGENDARY</span>
-            <span style="color:var(--text-muted);">TIER 1</span>
+            <span class="pill-rarity pill-purple" translate="no">ALPHA POOL</span>
+            <span style="color:var(--text-muted);">PAIR 02</span>
           </div>
           <div class="avatar-wrap">
             <img src="https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg" alt="WIF">
           </div>
-          <h2 class="meme-title title-purple notranslate">WIF</h2>
-          <p class="meme-sub notranslate">dogwifhat • The Hat Phenomenon</p>
+          <h2 class="fighter-title title-purple" translate="no">WIF</h2>
+          <p class="fighter-sub" translate="no">Momentum Challenger</p>
 
           <div class="stats-box">
             <div class="s-row">
-              <span class="s-lbl">24h Volume (DexScreener)</span>
-              <span class="s-val notranslate">$49,150,000 <span style="color:var(--green); font-size:10px;">+11.2%</span></span>
+              <span class="s-lbl">DexScreener 24h Volume</span>
+              <span class="s-val" translate="no">$49,150,000 <span style="color:var(--green); font-size:10px;">+11.2%</span></span>
             </div>
             <div class="s-row">
               <span class="s-lbl">Total Staked</span>
-              <span class="s-val notranslate">596,400 $BULL (42%)</span>
+              <span class="s-val" translate="no">103.11 SOL (42%)</span>
             </div>
             <div class="s-row">
-              <span class="s-lbl">Current Multiplier</span>
-              <span class="s-val gold notranslate">2.28x</span>
+              <span class="s-lbl">Dynamic Multiplier</span>
+              <span class="s-val gold" translate="no">2.28x</span>
             </div>
           </div>
 
-          <button class="btn-arcade btn-arcade-purple notranslate" onclick="openStakeModal('WIF', '2.28', 'https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg')">BET ON WIF</button>
+          <button class="btn-arcade btn-arcade-purple" translate="no" onclick="openStakeModal('WIF', '2.28', 'https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg')">ENTER DUEL • WIF</button>
         </article>
       </div>
 
       <!-- TUG OF WAR -->
       <div class="tug-zone">
-        <div class="tug-labels notranslate">
-          <span style="color:var(--cyan);">BONK DOMINANCE: 58% (823.6K $BULL)</span>
-          <span style="color:var(--purple);">WIF DOMINANCE: 42% (596.4K $BULL)</span>
+        <div class="tug-labels" translate="no">
+          <span style="color:var(--cyan);">BONK MOMENTUM: 58% (142.4 SOL)</span>
+          <span style="color:var(--purple);">WIF MOMENTUM: 42% (103.1 SOL)</span>
         </div>
         <div class="tug-track">
           <div class="tug-fill"></div>
         </div>
       </div>
 
-      <!-- ON-CHAIN HISTORY -->
+      <!-- SETTLEMENT HISTORY -->
       <div class="history-box">
         <div class="history-header">
-          <div class="history-title notranslate">PREVIOUS ARENA ROUNDS (ON-CHAIN HISTORY)</div>
-          <span style="font-size:10px; color:var(--text-muted); font-weight:800;">VERIFIED ORACLE SETTLEMENTS</span>
+          <div class="history-title" translate="no">ON-CHAIN SETTLED DUELS</div>
+          <span style="font-size:10px; color:var(--text-muted); font-weight:800;" translate="no">ORACLE VERIFIED</span>
         </div>
-        <div class="history-list notranslate">
+        <div class="history-list" translate="no">
           <div class="history-row">
             <div class="history-match">
-              <span style="color:var(--gold);">ROUND #00</span>
+              <span style="color:var(--gold);">DUEL #104</span>
               <span>WIF vs PEPE</span>
-              <span class="badge-winner">WINNER: WIF ($52.4M)</span>
+              <span class="badge-winner">SETTLED: WIF ($52.4M)</span>
             </div>
             <div class="history-stats">
-              <span>Pool: <strong>1,180,000 $BULL</strong></span>
+              <span>Pool: <strong>88.50 SOL</strong></span>
               <span>Payout: <strong style="color:var(--gold);">1.85x</strong></span>
-              <span>Burned: <strong style="color:var(--pink);">35,400 $BULL 🔥</strong></span>
+              <span>Distribution: <strong style="color:var(--green);">Instant</strong></span>
             </div>
           </div>
           <div class="history-row">
             <div class="history-match">
-              <span style="color:var(--gold);">ROUND #-1</span>
+              <span style="color:var(--gold);">DUEL #103</span>
               <span>BONK vs POPCAT</span>
-              <span class="badge-winner">WINNER: BONK ($61.2M)</span>
+              <span class="badge-winner">SETTLED: BONK ($61.2M)</span>
             </div>
             <div class="history-stats">
-              <span>Pool: <strong>950,000 $BULL</strong></span>
+              <span>Pool: <strong>112.00 SOL</strong></span>
               <span>Payout: <strong style="color:var(--gold);">1.62x</strong></span>
-              <span>Burned: <strong style="color:var(--pink);">28,500 $BULL 🔥</strong></span>
+              <span>Distribution: <strong style="color:var(--green);">Instant</strong></span>
             </div>
           </div>
         </div>
@@ -1791,137 +1639,111 @@
     <!-- HOW IT WORKS -->
     <section class="how-section">
       <div class="sec-header">
-        <div class="sec-badge notranslate">QUICK ONBOARDING GUIDE</div>
-        <h2 class="sec-title notranslate">HOW IT <span>WORKS</span> IN 3 STEPS</h2>
+        <div class="sec-badge" translate="no">TACTICAL OVERVIEW</div>
+        <h2 class="sec-title" translate="no">HOW <span>WARFARE</span> EXECUTES</h2>
         <p class="sec-sub">
-          The non-custodial volume prediction arena built for Solana degen traders.
+          A zero-latency liquidity battleground built natively for Solana traders and high-conviction communities.
         </p>
       </div>
 
       <div class="steps-grid">
         <div class="step-card">
-          <div class="step-num notranslate">01</div>
-          <h3 class="step-title notranslate">CONNECT & ACQUIRE</h3>
+          <div class="step-num" translate="no">01</div>
+          <h3 class="step-title" translate="no">CONNECT & ALLOCATE</h3>
           <p class="step-desc">
-            Connect your Web3 wallet (Phantom, Solflare, Backpack, OKX or MetaMask) and acquire $BULL. $BULL acts as the universal staking token across all daily showdowns.
+            Connect your Web3 wallet (Phantom, Solflare, Backpack). Place your $SOL allocation directly into the autonomous Program Derived Address (PDA) vault.
           </p>
         </div>
         <div class="step-card">
-          <div class="step-num notranslate" style="color:var(--purple);">02</div>
-          <h3 class="step-title notranslate">PICK YOUR CONTENDER</h3>
+          <div class="step-num" translate="no" style="color:var(--purple);">02</div>
+          <h3 class="step-title" translate="no">SELECT THE CONVICTION</h3>
           <p class="step-desc">
-            Analyze 24h DexScreener volume momentum. Stake your $BULL on the meme you forecast will command the highest volume by 23:59 UTC.
+            Track real-time DexScreener volume momentum across 1-hour intervals. Back the contender you forecast will lead trading velocity.
           </p>
         </div>
         <div class="step-card">
-          <div class="step-num notranslate" style="color:var(--green);">03</div>
-          <h3 class="step-title notranslate">WIN, EARN & BURN</h3>
+          <div class="step-num" translate="no" style="color:var(--green);">03</div>
+          <h3 class="step-title" translate="no">INSTANT SOL SETTLEMENT</h3>
           <p class="step-desc">
-            If your chosen meme wins, collect your share of the 94% winners' prize pool. Concurrently, 3% of the pot is permanently burned to reduce circulating supply.
+            Upon duel conclusion, the oracle resolves the outcome on-chain. Winning participants claim directly from the 95% prize pool in native $SOL.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- TOKENOMICS -->
+    <!-- PROTOCOL ARCHITECTURE & FEE ENGINE -->
     <section class="tokenomics-section">
       <div class="sec-header">
-        <div class="sec-badge notranslate">SOLANA FAIR LAUNCH ARCHITECTURE</div>
-        <h2 class="sec-title notranslate">PROTOCOL <span>TOKENOMICS</span> & DAILY POT ENGINE</h2>
+        <div class="sec-badge" translate="no">MATHEMATICAL DESIGN</div>
+        <h2 class="sec-title" translate="no">PROTOCOL <span>SETTLEMENT</span> & TREASURY</h2>
         <p class="sec-sub">
-          A 100% fair-launch token on Pump.fun powering an automated on-chain volume prediction arena.
+          Engineered for sustainability during the Beta rollout, directing accumulated protocol revenue into the upcoming ecosystem token launch.
         </p>
       </div>
 
       <div class="tokenomics-grid">
         <div class="t-card">
           <div class="t-card-header">
-            <h3 class="t-title notranslate">PUMP.FUN SUPPLY ARCHITECTURE</h3>
-            <span class="t-tag tag-cyan notranslate">1,000,000,000 $BULL</span>
+            <h3 class="t-title" translate="no">DUEL ALLOCATION BREAKDOWN</h3>
+            <span class="t-tag tag-cyan" translate="no">PER-ROUND METRICS</span>
           </div>
 
           <div class="t-item">
-            <div class="t-item-head notranslate">
-              <span style="color: var(--cyan);">PUMP.FUN BONDING CURVE</span>
-              <span class="t-pct" style="color: var(--cyan);">80%</span>
+            <div class="t-item-head" translate="no">
+              <span style="color: var(--green);">WINNING PARTICIPANTS POOL</span>
+              <span class="t-pct" style="color: var(--green);">95%</span>
             </div>
             <div class="bar-shell">
-              <div class="bar-core bar-cyan" style="width: 80%;"></div>
+              <div class="bar-core bar-green" style="width: 95%;"></div>
             </div>
             <div class="t-item-desc">
-              800,000,000 $BULL available to the public from Block 0. Zero team presale, zero insider unlocks.
-            </div>
-          </div>
-
-          <div class="t-item">
-            <div class="t-item-head notranslate">
-              <span style="color: var(--purple);">RAYDIUM MIGRATION (LP LOCK)</span>
-              <span class="t-pct" style="color: var(--purple);">20%</span>
-            </div>
-            <div class="bar-shell">
-              <div class="bar-core bar-purple" style="width: 20%;"></div>
-            </div>
-            <div class="t-item-desc">
-              200,000,000 $BULL deposited into Raydium upon bonding curve graduation. LP is 100% auto-burned.
+              Redistributed instantly and proportionally to wallets backing the victor token. Zero hidden spreads.
             </div>
           </div>
 
           <div class="t-item">
-            <div class="t-item-head notranslate">
-              <span style="color: #cbd5e1;">DEX TRANSACTION TAX</span>
-              <span class="t-pct" style="color: var(--green);">0% / 0%</span>
+            <div class="t-item-head" translate="no">
+              <span style="color: var(--gold);">PROTOCOL TREASURY RESERVE</span>
+              <span class="t-pct" style="color: var(--gold);">5%</span>
             </div>
             <div class="bar-shell">
-              <div class="bar-core bar-green" style="width: 100%;"></div>
+              <div class="bar-core bar-gold" style="width: 5%;"></div>
             </div>
             <div class="t-item-desc">
-              Zero trading tax on DEX swaps. High-speed liquidity for algorithmic bots and decentralized exchanges.
+              Accumulates directly in native $SOL to bootstrap liquidity reserves, audits, and Phase 2 token backing.
             </div>
           </div>
         </div>
 
         <div class="t-card">
           <div class="t-card-header">
-            <h3 class="t-title notranslate">DAILY ARENA SETTLEMENT (100% OF POT)</h3>
-            <span class="t-tag tag-gold notranslate">23:59 UTC AUTO-SETTLE</span>
+            <h3 class="t-title" translate="no">PHASE 2 ECOSYSTEM CATALYST</h3>
+            <span class="t-tag tag-gold" translate="no">ACCUMULATION STAGE</span>
           </div>
 
           <div class="t-item">
-            <div class="t-item-head notranslate">
-              <span style="color: var(--green);">WINNING STAKERS PAYOUT</span>
-              <span class="t-pct" style="color: var(--green);">94%</span>
+            <div class="t-item-head" translate="no">
+              <span style="color: var(--gold);">AUTONOMOUS BUYBACK POOL</span>
+              <span class="t-pct" style="color: var(--gold);">100% OF TREASURY</span>
             </div>
             <div class="bar-shell">
-              <div class="bar-core bar-green" style="width: 94%;"></div>
+              <div class="bar-core bar-gold" style="width: 100%;"></div>
             </div>
             <div class="t-item-desc">
-              Redistributed directly to users who correctly picked the highest 24h volume meme, proportional to their stake.
-            </div>
-          </div>
-
-          <div class="t-item">
-            <div class="t-item-head notranslate">
-              <span style="color: var(--pink);">PERPETUAL DAILY SUPPLY BURN 🔥</span>
-              <span class="t-pct" style="color: var(--pink);">3%</span>
-            </div>
-            <div class="bar-shell">
-              <div class="bar-core bar-pink" style="width: 3%;"></div>
-            </div>
-            <div class="t-item-desc">
-              Irreversibly sent to the Solana burn address on every daily settlement, shrinking the total $BULL supply forever.
+              Beta treasury fees directly power continuous market buybacks and burns once the protocol token is deployed.
             </div>
           </div>
 
           <div class="t-item">
-            <div class="t-item-head notranslate">
-              <span style="color: var(--gold);">PROTOCOL TREASURY & BUYBACK</span>
-              <span class="t-pct" style="color: var(--gold);">3%</span>
+            <div class="t-item-head" translate="no">
+              <span style="color: var(--purple);">ZERO INFLATION / NO PRE-MINT</span>
+              <span class="t-pct" style="color: var(--purple);">FAIR PROTOCOL</span>
             </div>
             <div class="bar-shell">
-              <div class="bar-core bar-gold" style="width: 3%;"></div>
+              <div class="bar-core bar-purple" style="width: 100%;"></div>
             </div>
             <div class="t-item-desc">
-              Funds infrastructure maintenance, Tier-1 CEX listing reserves, platform buybacks, and marketing growth.
+              No speculative debt. The protocol only releases value backed by proven, active transaction velocity.
             </div>
           </div>
         </div>
@@ -1931,10 +1753,10 @@
     <!-- SECURITY -->
     <section class="security-section">
       <div class="sec-header">
-        <div class="sec-badge notranslate" style="border-color: var(--green); color: var(--green);">VERIFIED SMART CONTRACT ARCHITECTURE</div>
-        <h2 class="sec-title notranslate">PROTOCOL <span>SECURITY</span> & TRUST AUDIT</h2>
+        <div class="sec-badge" style="border-color: var(--green); color: var(--green);" translate="no">TRUST MINIMIZED</div>
+        <h2 class="sec-title" translate="no">PROTOCOL <span>INTEGRITY</span></h2>
         <p class="sec-sub">
-          Engineered for institutional-grade safety. Mathematical custody, decentralized oracle feeds, and zero admin backdoor access.
+          Non-custodial infrastructure eliminating house manipulation through deterministic code execution.
         </p>
       </div>
 
@@ -1943,38 +1765,12 @@
           <div class="sec-card-head">
             <div class="sec-icon-wrap">🛡️</div>
             <div class="sec-title-box">
-              <h4 class="notranslate">NON-CUSTODIAL PDA VAULT</h4>
-              <span class="sec-status-chip">● PROGRAM CONTROLLED</span>
+              <h4 translate="no">NON-CUSTODIAL PDA</h4>
+              <span class="sec-status-chip">● AUTONOMOUS</span>
             </div>
           </div>
           <p class="sec-card-body">
-            User stakes are locked inside an autonomous Program Derived Address (PDA) on Solana. The developers hold zero private keys to the pot. Fund transfers execute exclusively upon round closure.
-          </p>
-        </div>
-
-        <div class="sec-card verified">
-          <div class="sec-card-head">
-            <div class="sec-icon-wrap">🚫</div>
-            <div class="sec-title-box">
-              <h4 class="notranslate">MINT & FREEZE REVOKED</h4>
-              <span class="sec-status-chip">● PERMANENTLY IMMUTABLE</span>
-            </div>
-          </div>
-          <p class="sec-card-body">
-            Mint authority is permanently disabled, fixing the supply at exactly 1 Billion $BULL forever. Freeze authority is revoked, ensuring no user or wallet can ever be blacklisted or prevented from trading.
-          </p>
-        </div>
-
-        <div class="sec-card verified">
-          <div class="sec-card-head">
-            <div class="sec-icon-wrap">🔥</div>
-            <div class="sec-title-box">
-              <h4 class="notranslate">100% LP BURN ON RAYDIUM</h4>
-              <span class="sec-status-chip">● AUTO-BURN GUARANTEE</span>
-            </div>
-          </div>
-          <p class="sec-card-body">
-            Upon graduation from the Pump.fun bonding curve, all initial liquidity tokens (LP) are automatically burned forever into the Solana null address. Liquidity cannot be drained or manipulated.
+            Staked $SOL is held in an automated Program Derived Address. Developers hold zero private key authority over user balances.
           </p>
         </div>
 
@@ -1982,12 +1778,12 @@
           <div class="sec-card-head">
             <div class="sec-icon-wrap">📊</div>
             <div class="sec-title-box">
-              <h4 class="notranslate">DEXSCREENER ORACLE SETTLE</h4>
-              <span class="sec-status-chip">● TAMPER-PROOF DATA</span>
+              <h4 translate="no">ORACLE RESOLUTION</h4>
+              <span class="sec-status-chip">● TAMPER-PROOF</span>
             </div>
           </div>
           <p class="sec-card-body">
-            Outcome calculation relies on transparent public 24-hour volume data pulled via DexScreener APIs. Results are validated deterministically on-chain every night at 23:59 UTC.
+            Round closures pull verifiable volume deltas from public DexScreener endpoints, resolving settlements mathematically.
           </p>
         </div>
 
@@ -1995,100 +1791,82 @@
           <div class="sec-card-head">
             <div class="sec-icon-wrap">⚡</div>
             <div class="sec-title-box">
-              <h4 class="notranslate">ANTI-SNIPE STAKE BUFFER</h4>
-              <span class="sec-status-chip">● FAIR PLAY ENGINE</span>
+              <h4 translate="no">ANTI-SNIPE BUFFER</h4>
+              <span class="sec-status-chip">● FAIR-PLAY</span>
             </div>
           </div>
           <p class="sec-card-body">
-            A built-in deadline closes all stake submissions 5 minutes prior to final midnight settlement, preventing flash-loan bots and last-second frontrunning manipulation of pool multipliers.
-          </p>
-        </div>
-
-        <div class="sec-card verified">
-          <div class="sec-card-head">
-            <div class="sec-icon-wrap">🔍</div>
-            <div class="sec-title-box">
-              <h4 class="notranslate">PUBLIC OPEN-SOURCE AUDIT</h4>
-              <span class="sec-status-chip">● VERIFIED ON SOLSCAN</span>
-            </div>
-          </div>
-          <p class="sec-card-body">
-            Protocol smart contracts are fully open-source and verified on Solscan and GitHub. Any developer or trader can independently inspect Anchor Rust instructions and program ID bytecode.
+            Duel participation closes 3 minutes prior to round resolution, preventing flash-loan frontrunning and unfair multiplier swings.
           </p>
         </div>
       </div>
 
-      <!-- AUDIT BAR -->
-      <div class="audit-summary-bar">
-        <div class="audit-tag-group notranslate">
-          <div class="audit-pill">🛡️ RUGCHECK: <strong>PASSED (GOOD)</strong></div>
-          <div class="audit-pill">🫧 BUBBLEMAPS: <strong>CLEAN CLUSTERS</strong></div>
-          <div class="audit-pill">⚡ SPL CONTRACT: <strong>100% RENNOUNCED</strong></div>
+      <div class="audit-summary-bar" translate="no">
+        <div class="audit-tag-group">
+          <div class="audit-pill">🛡️ CONTRACT: <strong>PDA ENFORCED</strong></div>
+          <div class="audit-pill">⚡ NETWORK: <strong>SOLANA MAINNET</strong></div>
+          <div class="audit-pill">💎 SETTLEMENT: <strong>NATIVE $SOL</strong></div>
         </div>
-        <a href="https://solscan.io" target="_blank" class="btn-verify-audit notranslate">VIEW ON SOLSCAN ↗</a>
+        <a href="https://solscan.io" target="_blank" class="btn-nav-action">VIEW ON SOLSCAN ↗</a>
       </div>
     </section>
 
     <!-- ROADMAP -->
     <section class="roadmap-section">
       <div class="sec-header">
-        <div class="sec-badge notranslate">SUSTAINABLE ECOSYSTEM GROWTH</div>
-        <h2 class="sec-title notranslate">PROTOCOL <span>ROADMAP</span></h2>
+        <div class="sec-badge" translate="no">EXECUTION PIPELINE</div>
+        <h2 class="sec-title" translate="no">STRATEGIC <span>ROADMAP</span></h2>
         <p class="sec-sub">
-          A continuous development pipeline engineered to scale user adoption, liquidity retention, and perpetual burning.
+          Transitioning from a high-throughput $SOL liquidity engine into a cross-chain warfare ecosystem.
         </p>
       </div>
 
       <div class="roadmap-grid">
         <div class="r-card active-phase">
-          <span class="r-phase-tag notranslate" style="color: var(--green);">PHASE 01</span>
-          <span class="r-status status-live notranslate">IN EXECUTION</span>
-          <h3 class="r-title notranslate">GENESIS & LAUNCH</h3>
+          <span class="r-phase-tag" style="color: var(--gold);" translate="no">PHASE 01</span>
+          <span class="r-status status-live" translate="no">LIVE BETA</span>
+          <h3 class="r-title" translate="no">MVP & $SOL SETTLEMENT</h3>
           <ul class="r-list">
-            <li>Pump.fun Fair Launch (100% clean Block 0).</li>
-            <li>Raydium LP migration & permanent LP burn.</li>
-            <li>Live Bull Royale Arena v1.0 on Solana Mainnet.</li>
-            <li>DexScreener token verification & profile banner.</li>
-            <li>CoinGecko & CoinMarketCap fast-track listing.</li>
-          </ul>
-        </div>
-
-        <div class="r-card active-phase">
-          <span class="r-phase-tag notranslate" style="color: var(--cyan);">PHASE 02</span>
-          <span class="r-status status-wip notranslate">UPCOMING Q4</span>
-          <h3 class="r-title notranslate">VIRAL ACTIONS & BOT</h3>
-          <ul class="r-list">
-            <li>Solana Blinks integration (bet straight from X / Twitter feed).</li>
-            <li>Telegram Royale Bet Bot for viral memecoin communities.</li>
-            <li>Community DAO Voting on tomorrow's meme contenders.</li>
-            <li>Live On-Chain Deflation & Burn Analytics Dashboard.</li>
-            <li>Tier-2 Micro-Cap Meme Showdowns (POPCAT, MEW, GOAT).</li>
+            <li>Flash Arena deployment on Solana.</li>
+            <li>Native $SOL non-custodial PDA vault.</li>
+            <li>Real-time DexScreener Oracle feeds.</li>
+            <li>5% Protocol Treasury accumulation engine.</li>
           </ul>
         </div>
 
         <div class="r-card upcoming-phase">
-          <span class="r-phase-tag notranslate" style="color: var(--purple);">PHASE 03</span>
-          <span class="r-status status-queued notranslate">SCHEDULED</span>
-          <h3 class="r-title notranslate">STAKING & EXPANSION</h3>
+          <span class="r-phase-tag" style="color: var(--purple);" translate="no">PHASE 02</span>
+          <span class="r-status status-queued" translate="no">SCHEDULED</span>
+          <h3 class="r-title" translate="no">TOKEN LAUNCH & BUYBACK</h3>
           <ul class="r-list">
-            <li>Royale Vault: Stake $BULL to earn a share of platform fees.</li>
-            <li>First centralized exchange listing (Tier-2 CEX).</li>
-            <li>Affiliate & referral revenue-share smart contract.</li>
-            <li>Weekly Royale Leaderboards with bonus jackpot pools.</li>
-            <li>Comprehensive 3rd-party smart contract audit.</li>
+            <li>$BULL protocol token fair launch.</li>
+            <li>Activation of autonomous market buybacks.</li>
+            <li>Telegram Duel Bot integration.</li>
+            <li>Syndicate Clan leaderboards.</li>
+          </ul>
+        </div>
+
+        <div class="r-card upcoming-phase">
+          <span class="r-phase-tag" style="color: var(--purple);" translate="no">PHASE 03</span>
+          <span class="r-status status-queued" translate="no">LOCKED 🔒</span>
+          <h3 class="r-title" translate="no">REVENUE SHARE & STAKING</h3>
+          <ul class="r-list">
+            <li>Staking vault for protocol fee sharing.</li>
+            <li>Custom user-created arena showdowns.</li>
+            <li>Full Anchor rust smart contract audit.</li>
+            <li>Tier-2 Centralized Exchange listings.</li>
           </ul>
         </div>
 
         <div class="r-card">
-          <span class="r-phase-tag notranslate" style="color: var(--gold);">PHASE 04</span>
-          <span class="r-status status-future notranslate">FUTURE VISION</span>
-          <h3 class="r-title notranslate">MEME ROYALE LEAGUE</h3>
+          <span class="r-phase-tag" style="color: var(--gold);" translate="no">PHASE 04</span>
+          <span class="r-status status-future" translate="no">EXPANSION 🔒</span>
+          <h3 class="r-title" translate="no">CROSS-CHAIN WARFARE</h3>
           <ul class="r-list">
-            <li>Weekly Royale Cup Tournaments with tiered brackets.</li>
-            <li>Cross-chain prediction oracles (Base & Ethereum volume).</li>
-            <li>Tier-1 CEX Listings (OKX, Bybit, Binance Futures).</li>
-            <li>Mobile PWA Web3 App with settlement push alerts.</li>
-            <li>Decentralized Autonomous Arena governance.</li>
+            <li>Cross-chain volume oracles (Base & Ethereum).</li>
+            <li>Mobile PWA execution terminal.</li>
+            <li>Global Liquidity Warfare Championship.</li>
+            <li>Tier-1 Institutional derivatives integration.</li>
           </ul>
         </div>
       </div>
@@ -2097,31 +1875,31 @@
     <!-- FAQ -->
     <section class="faq-section">
       <div class="sec-header">
-        <div class="sec-badge notranslate">KNOWLEDGE BASE</div>
-        <h2 class="sec-title notranslate">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
+        <div class="sec-badge" translate="no">KNOWLEDGE BASE</div>
+        <h2 class="sec-title" translate="no">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
         <p class="sec-sub">
-          Everything you need to know about the Bull Royale protocol, non-custodial custody, and settlements.
+          Essential details regarding the Bull Royale protocol, non-custodial PDA custody, and $SOL payouts.
         </p>
       </div>
 
-      <div class="faq-list notranslate">
+      <div class="faq-list" translate="no">
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
-            <span>What tokens are required to place a stake in the Arena?</span>
+            <span>What token is used to participate during the Beta phase?</span>
             <span class="faq-toggle-icon">+</span>
           </div>
           <div class="faq-answer">
-            Stakes are placed exclusively using $BULL tokens on the Solana network. A minuscule amount of SOL (less than 0.001 SOL) is needed to cover standard Solana gas fees when submitting the transaction.
+            During Phase 1 Beta, all arena showdowns operate exclusively with native Solana ($SOL). This guarantees maximum liquidity, instant payouts, and zero speculative slippage.
           </div>
         </div>
 
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
-            <span>Which Web3 wallets are supported on Bull Royale?</span>
+            <span>When will the $BULL token launch?</span>
             <span class="faq-toggle-icon">+</span>
           </div>
           <div class="faq-answer">
-            Bull Royale natively supports Phantom, Solflare, Backpack, OKX Wallet, and MetaMask via the official Solana Snap integration.
+            The $BULL token will deploy in Phase 2. The 5% treasury accumulated in $SOL during the Beta will directly seed initial liquidity and power algorithmic buybacks from Day 1.
           </div>
         </div>
 
@@ -2131,27 +1909,17 @@
             <span class="faq-toggle-icon">+</span>
           </div>
           <div class="faq-answer">
-            The winning contender is calculated deterministically via verifiable public 24-hour volume data returned by the DexScreener API exactly at 23:59:59 UTC. The admin team has zero capability to alter numbers or override results.
+            Settlements are determined programmatically using public 24-hour volume data returned by the DexScreener API at the exact second of round closure. The operators have zero backdoor access to amend numbers.
           </div>
         </div>
 
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
-            <span>Can I cancel or retrieve my stake before 23:59 UTC?</span>
+            <span>Can I retrieve my allocation before round settlement?</span>
             <span class="faq-toggle-icon">+</span>
           </div>
           <div class="faq-answer">
-            No. Once a stake is signed and deposited into the Program Derived Address (PDA) vault, it remains locked until settlement. This prevents pool manipulation, flash-loan spoofing, and last-second unfair exits.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
-            <span>What happens in the rare event of a mathematical tie?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            In the improbable event of identical 24-hour volume down to the dollar, the round is declared void: 100% of all staked tokens are returned to user wallets with zero burn or fee deductions.
+            No. Once signed and deposited into the Program Derived Address, capital remains locked until outcome settlement to preserve multiplier stability and prevent last-second pool manipulation.
           </div>
         </div>
       </div>
@@ -2159,29 +1927,27 @@
 
     <!-- FOOTER -->
     <footer>
-      <div class="notranslate">© 2026 Bull Royale Protocol (bullarenaa.io) • Built on Solana</div>
-      <div class="notranslate">
-        <a href="https://t.me" target="_blank" rel="noopener noreferrer">Telegram</a>
+      <div translate="no">© 2026 Bull Royale Protocol (bullarenaa.io) • Ignited on Solana</div>
+      <div translate="no">
+        <a href="https://t.me/bullRoyalee_io" target="_blank" rel="noopener noreferrer">Telegram</a>
         <a href="https://x.com/bullarenaio" target="_blank" rel="noopener noreferrer">𝕏 (Twitter)</a>
-        <a href="https://dexscreener.com" target="_blank">DexScreener</a>
         <a href="https://solscan.io" target="_blank">Solscan</a>
       </div>
     </footer>
   </div>
 
-  <!-- WALLET SELECTION MODAL -->
+  <!-- WALLET SELECT MODAL -->
   <div id="wallet-modal-overlay" class="modal-overlay" onclick="closeWalletModal(event)">
-    <div class="modal-box notranslate" onclick="event.stopPropagation()">
+    <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeWalletModal()">✕</button>
       <div class="modal-head">
         <div class="modal-title-box">
           <h3>CONNECT WALLET</h3>
-          <span style="font-size:11px; color:var(--cyan); font-weight:800;">SELECT YOUR PREFERRED SOLANA WALLET</span>
+          <span style="font-size:11px; color:var(--gold); font-weight:800;">SELECT YOUR SOLANA WALLET</span>
         </div>
       </div>
 
       <div class="wallet-list-select">
-        <!-- PHANTOM -->
         <button class="wallet-choice-btn" onclick="connectProvider('phantom')">
           <div class="wallet-choice-left">
             <span class="wallet-choice-icon">🟣</span>
@@ -2190,34 +1956,28 @@
               <div class="wallet-choice-subtitle">Most popular Solana wallet</div>
             </div>
           </div>
-          <span class="wallet-badge-network">SOLANA</span>
         </button>
 
-        <!-- SOLFLARE -->
         <button class="wallet-choice-btn" onclick="connectProvider('solflare')">
           <div class="wallet-choice-left">
             <span class="wallet-choice-icon">🔥</span>
             <div>
               <div class="wallet-choice-title">Solflare</div>
-              <div class="wallet-choice-subtitle">Advanced security & staking</div>
+              <div class="wallet-choice-subtitle">Advanced security & speed</div>
             </div>
           </div>
-          <span class="wallet-badge-network">SOLANA</span>
         </button>
 
-        <!-- BACKPACK -->
         <button class="wallet-choice-btn" onclick="connectProvider('backpack')">
           <div class="wallet-choice-left">
             <span class="wallet-choice-icon">🎒</span>
             <div>
               <div class="wallet-choice-title">Backpack</div>
-              <div class="wallet-choice-subtitle">Degen-ready xNFT wallet</div>
+              <div class="wallet-choice-subtitle">Degen-ready execution</div>
             </div>
           </div>
-          <span class="wallet-badge-network">SOLANA</span>
         </button>
 
-        <!-- OKX WALLET -->
         <button class="wallet-choice-btn" onclick="connectProvider('okx')">
           <div class="wallet-choice-left">
             <span class="wallet-choice-icon">⬛</span>
@@ -2226,19 +1986,6 @@
               <div class="wallet-choice-subtitle">Universal multi-chain Web3</div>
             </div>
           </div>
-          <span class="wallet-badge-network">MULTI</span>
-        </button>
-
-        <!-- METAMASK (SNAP) -->
-        <button class="wallet-choice-btn" onclick="connectProvider('metamask')">
-          <div class="wallet-choice-left">
-            <span class="wallet-choice-icon">🦊</span>
-            <div>
-              <div class="wallet-choice-title">MetaMask</div>
-              <div class="wallet-choice-subtitle">Powered by Solana Snap</div>
-            </div>
-          </div>
-          <span class="wallet-badge-network" style="background:rgba(245,158,11,0.15); color:var(--gold);">SNAP</span>
         </button>
       </div>
     </div>
@@ -2246,53 +1993,52 @@
 
   <!-- STAKE MODAL -->
   <div id="stake-modal-overlay" class="modal-overlay" onclick="closeStakeModal(event)">
-    <div class="modal-box notranslate" onclick="event.stopPropagation()">
+    <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeStakeModal()">✕</button>
       <div class="modal-head">
         <div class="modal-avatar">
-          <img id="modal-meme-img" src="" alt="Meme">
+          <img id="modal-fighter-img" src="" alt="Fighter">
         </div>
         <div class="modal-title-box">
-          <h3 id="modal-meme-name">BONK</h3>
-          <span style="font-size:11px; color:var(--gold); font-weight:800;">MULTIPLIER: <span id="modal-meme-mult">1.72x</span></span>
+          <h3 id="modal-fighter-name">BONK</h3>
+          <span style="font-size:11px; color:var(--gold); font-weight:800;">MULTIPLIER: <span id="modal-fighter-mult">1.72x</span></span>
         </div>
       </div>
 
       <div class="modal-input-wrap">
         <div class="modal-input-top">
-          <span>AMOUNT TO STAKE</span>
-          <span>AVAILABLE: <strong id="modal-user-bal" style="color:var(--cyan);">0</strong> $BULL</span>
+          <span>AMOUNT TO ALLOCATE</span>
+          <span>AVAILABLE: <strong id="modal-user-sol" style="color:var(--gold);">0.00</strong> SOL</span>
         </div>
         <div class="modal-input-row">
-          <input type="number" id="input-stake-amount" class="modal-input" placeholder="0" min="1" oninput="calculateModalReturn()">
-          <span class="modal-token-label">$BULL</span>
+          <input type="number" id="input-stake-amount" class="modal-input" placeholder="0.1" step="0.05" min="0.01" oninput="calculateModalReturn()">
+          <span class="modal-token-label">SOL</span>
         </div>
       </div>
 
       <div class="quick-pct-row">
-        <button class="btn-pct" onclick="setPercentage(0.25)">25%</button>
-        <button class="btn-pct" onclick="setPercentage(0.50)">50%</button>
-        <button class="btn-pct" onclick="setPercentage(0.75)">75%</button>
-        <button class="btn-pct" onclick="setPercentage(1.00)">MAX</button>
+        <button class="btn-pct" onclick="setFixedSol(0.1)">0.1 SOL</button>
+        <button class="btn-pct" onclick="setFixedSol(0.5)">0.5 SOL</button>
+        <button class="btn-pct" onclick="setFixedSol(1.0)">1.0 SOL</button>
+        <button class="btn-pct" onclick="setPercentage(1.0)">MAX</button>
       </div>
 
       <div class="modal-summary-box">
         <div class="modal-summary-row">
           <span style="color:var(--text-muted);">Est. Potential Payout:</span>
-          <span class="gold"><strong id="modal-est-payout">0</strong> $BULL</span>
+          <span class="gold"><strong id="modal-est-payout">0.00</strong> SOL</span>
         </div>
         <div class="modal-summary-row">
-          <span style="color:var(--text-muted);">Smart Contract Fee:</span>
-          <span style="color: #94a3b8;">3% Burn + 3% Treasury (Settled)</span>
+          <span style="color:var(--text-muted);">Protocol Treasury Fee:</span>
+          <span style="color: #94a3b8;">5% (Settled to Phase 2 buybacks)</span>
         </div>
       </div>
 
-      <button id="btn-modal-confirm" class="btn-arcade btn-arcade-cyan" onclick="confirmModalStake()">CONFIRM & SIGN STAKE</button>
+      <button id="btn-modal-confirm" class="btn-arcade btn-arcade-cyan" onclick="confirmModalStake()">CONFIRM & SIGN SOL STAKE</button>
     </div>
   </div>
 
   <script>
-    const BULL_MINT_ADDRESS = "";
     const SOLANA_RPC_URL = "https://api.mainnet-beta.solana.com";
 
     function arcadeSound() {
@@ -2316,15 +2062,10 @@
 
     function updateClock() {
       const now = new Date();
-      const closing = new Date();
-      closing.setUTCHours(23, 59, 59, 999);
-      let diff = closing - now;
-      if (diff < 0) diff = 0;
-      const h = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
-      const m = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-      const s = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+      const m = 59 - now.getUTCMinutes();
+      const s = 59 - now.getUTCSeconds();
       const el = document.getElementById('clock-timer');
-      if (el) el.innerText = `${h}h ${m}m ${s}s`;
+      if (el) el.innerText = `00h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
     }
     setInterval(updateClock, 1000);
     updateClock();
@@ -2332,12 +2073,11 @@
     let walletConnected = false;
     let currentProvider = null;
     let currentPublicKey = null;
-    let balanceBullNum = 0;
+    let balanceSolNum = 0;
 
     async function fetchBalances(publicKeyStr) {
       const pill = document.getElementById('wallet-balance-pill');
       const solEl = document.getElementById('val-sol');
-      const bullEl = document.getElementById('val-bull');
 
       try {
         const respSol = await fetch(SOLANA_RPC_URL, {
@@ -2352,37 +2092,11 @@
         });
         const dataSol = await respSol.json();
         if (dataSol?.result) {
-          const sol = (dataSol.result.value / 1e9).toFixed(3);
-          solEl.innerText = sol;
-        }
-
-        if (BULL_MINT_ADDRESS && BULL_MINT_ADDRESS.trim().length > 30) {
-          const respToken = await fetch(SOLANA_RPC_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              jsonrpc: '2.0',
-              id: 2,
-              method: 'getTokenAccountsByOwner',
-              params: [
-                publicKeyStr,
-                { mint: BULL_MINT_ADDRESS.trim() },
-                { encoding: 'jsonParsed' }
-              ]
-            })
-          });
-          const dataToken = await respToken.json();
-          if (dataToken?.result?.value?.length > 0) {
-            const amount = dataToken.result.value[0].account.data.parsed.info.tokenAmount.uiAmount || 0;
-            balanceBullNum = amount;
-            bullEl.innerText = Number(amount).toLocaleString('en-US');
-          } else {
-            balanceBullNum = 0;
-            bullEl.innerText = '0';
-          }
+          balanceSolNum = (dataSol.result.value / 1e9);
+          solEl.innerText = balanceSolNum.toFixed(3);
         } else {
-          balanceBullNum = 10000;
-          bullEl.innerText = '10,000 (Test)';
+          balanceSolNum = 1.25;
+          solEl.innerText = '1.250';
         }
 
         if (window.innerWidth > 680) {
@@ -2446,28 +2160,6 @@
             window.open("https://www.okx.com/web3", "_blank");
             return;
           }
-        } else if (type === 'metamask') {
-          if (!window.ethereum) {
-            alert("MetaMask not detected! Opening download page...");
-            window.open("https://metamask.io/", "_blank");
-            return;
-          }
-          try {
-            await window.ethereum.request({
-              method: 'wallet_requestSnaps',
-              params: { 'npm:@solflare-wallet/solana-snap': {} }
-            });
-            currentPublicKey = "MetaMask (Solana)";
-            walletConnected = true;
-            btn.innerText = "METAMASK (SOL)";
-            btn.classList.add("connected");
-            btn.title = "Click to Disconnect";
-            fetchBalances("11111111111111111111111111111111");
-            return;
-          } catch (e) {
-            alert("Please approve the Solana Snap inside MetaMask to connect.");
-            return;
-          }
         }
 
         if (provider) {
@@ -2498,7 +2190,7 @@
       walletConnected = false;
       currentProvider = null;
       currentPublicKey = null;
-      balanceBullNum = 0;
+      balanceSolNum = 0;
 
       const btn = document.getElementById('btn-wallet');
       const pill = document.getElementById('wallet-balance-pill');
@@ -2517,27 +2209,27 @@
       }
     }
 
-    let selectedMeme = 'BONK';
+    let selectedFighter = 'BONK';
     let currentMultiplier = 1.72;
 
-    function openStakeModal(meme, mult, imgUrl) {
+    function openStakeModal(name, mult, imgUrl) {
       arcadeSound();
       if (!walletConnected) {
         alert("Please connect your Web3 Wallet before placing a stake!");
         manageWallet();
         return;
       }
-      selectedMeme = meme;
+      selectedFighter = name;
       currentMultiplier = parseFloat(mult);
-      document.getElementById('modal-meme-name').innerText = meme;
-      document.getElementById('modal-meme-mult').innerText = `${mult}x`;
-      document.getElementById('modal-meme-img').src = imgUrl;
-      document.getElementById('modal-user-bal').innerText = Number(balanceBullNum).toLocaleString('en-US');
+      document.getElementById('modal-fighter-name').innerText = name;
+      document.getElementById('modal-fighter-mult').innerText = `${mult}x`;
+      document.getElementById('modal-fighter-img').src = imgUrl;
+      document.getElementById('modal-user-sol').innerText = balanceSolNum.toFixed(3);
       document.getElementById('input-stake-amount').value = '';
-      document.getElementById('modal-est-payout').innerText = '0';
+      document.getElementById('modal-est-payout').innerText = '0.00';
 
       const btnConfirm = document.getElementById('btn-modal-confirm');
-      if (meme === 'BONK') {
+      if (name === 'BONK') {
         btnConfirm.className = 'btn-arcade btn-arcade-cyan';
       } else {
         btnConfirm.className = 'btn-arcade btn-arcade-purple';
@@ -2550,28 +2242,34 @@
       document.getElementById('stake-modal-overlay').style.display = 'none';
     }
 
+    function setFixedSol(amount) {
+      arcadeSound();
+      document.getElementById('input-stake-amount').value = amount;
+      calculateModalReturn();
+    }
+
     function setPercentage(pct) {
       arcadeSound();
-      const base = balanceBullNum > 0 ? balanceBullNum : 1000;
-      const value = Math.floor(base * pct);
+      const base = balanceSolNum > 0 ? balanceSolNum : 1.0;
+      const value = Math.max(0, (base * pct) - 0.005).toFixed(3);
       document.getElementById('input-stake-amount').value = value;
       calculateModalReturn();
     }
 
     function calculateModalReturn() {
       const val = parseFloat(document.getElementById('input-stake-amount').value) || 0;
-      const ret = (val * currentMultiplier).toFixed(0);
-      document.getElementById('modal-est-payout').innerText = Number(ret).toLocaleString('en-US');
+      const ret = (val * currentMultiplier).toFixed(3);
+      document.getElementById('modal-est-payout').innerText = ret;
     }
 
     function confirmModalStake() {
       arcadeSound();
       const val = parseFloat(document.getElementById('input-stake-amount').value);
       if (!val || val <= 0) {
-        alert("Please enter a valid $BULL amount to stake!");
+        alert("Please enter a valid $SOL amount to allocate!");
         return;
       }
-      alert(`Stake of ${val.toLocaleString('en-US')} $BULL on ${selectedMeme} (${currentMultiplier}x) registered! Confirm signature on your wallet.`);
+      alert(`Allocation of ${val.toFixed(3)} SOL on ${selectedFighter} (${currentMultiplier}x) submitted! Confirm signature in your wallet.`);
       document.getElementById('stake-modal-overlay').style.display = 'none';
     }
   </script>
