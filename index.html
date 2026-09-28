@@ -96,12 +96,13 @@
     }
 
     .splash-emblem-wrap {
-      width: 100px;
-      height: 100px;
-      border-radius: 14px;
+      width: 120px;
+      height: 120px;
+      border-radius: 16px;
       border: 1.5px solid var(--gold);
-      background: #0f172a;
-      box-shadow: 0 0 25px var(--gold-glow);
+      background: #090e1a;
+      box-shadow: 0 0 35px var(--gold-glow);
+      padding: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -112,18 +113,18 @@
     @keyframes pulseSplash {
       0% {
         transform: scale(0.96);
-        box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+        box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
       }
       100% {
         transform: scale(1.04);
-        box-shadow: 0 0 40px rgba(245, 158, 11, 0.5);
+        box-shadow: 0 0 50px rgba(245, 158, 11, 0.55);
       }
     }
 
     .splash-emblem-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
     }
 
@@ -207,12 +208,13 @@
       justify-content: center;
       box-shadow: 0 0 16px var(--gold-glow);
       overflow: hidden;
+      padding: 4px;
     }
 
     .brand-icon img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .brand-title {
@@ -346,25 +348,26 @@
       position: relative;
     }
 
-    /* BRASÃO CENTRAL: QUADRADO COM CANTOS ARREDONDADOS E ESTÁTICO (IGUAL AO DA INTERFACE) */
+    /* BRASÃO CENTRAL: QUADRADO ARREDONDADO COM FOLGA INTERNA (OBJECT-FIT CONTAIN) PARA EXIBIR OS CHIFRES INTEIROS */
     .hero-emblem-frame {
-      width: 95px;
-      height: 95px;
+      width: 125px;
+      height: 125px;
       margin: 0 auto 18px;
       background: #0f172a;
       border: 2px solid var(--gold);
-      border-radius: 14px;
+      border-radius: 18px;
+      padding: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 25px var(--gold-glow);
+      box-shadow: 0 0 30px var(--gold-glow);
       overflow: hidden;
     }
 
     .hero-bull-emblem {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
     }
 
