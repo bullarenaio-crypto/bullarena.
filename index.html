@@ -73,7 +73,7 @@
     }
 
     /* ============================================================
-       INTRO SPLASH SCREEN (METAMASK STYLE)
+       INTRO SPLASH SCREEN
        ============================================================ */
     #splash-screen {
       position: fixed;
@@ -235,7 +235,6 @@
       flex-wrap: wrap;
     }
 
-    /* PAINEL DE CRÉDITO DE TESTE (FAKE) */
     .fake-credits-pill {
       display: inline-flex;
       align-items: center;
@@ -1868,6 +1867,17 @@
         </div>
       </div>
 
+      <!-- MY ACTIVE WAGERS (TRANSPARÊNCIA TOTAL DO USUÁRIO) -->
+      <div id="my-wagers-box" style="background: rgba(16, 185, 129, 0.08); border: 1.5px solid var(--green); border-radius: 12px; padding: 14px 18px; margin-bottom: 22px; display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span style="font-size: 11px; font-weight: 900; color: var(--green); letter-spacing: 1.5px; text-transform: uppercase;">
+            ✅ YOUR ACTIVE WAGERS IN THIS ROUND
+          </span>
+          <span style="font-size: 10px; color: #94a3b8; font-weight: 800; letter-spacing: 1px;">ON-CHAIN VALIDATED</span>
+        </div>
+        <div id="my-wagers-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+      </div>
+
       <!-- SETTLEMENT HISTORY -->
       <div class="history-box">
         <div class="history-header">
@@ -1938,7 +1948,7 @@
       </div>
     </section>
 
-    <!-- TOKENOMICS & PROTOCOL TREASURY (FASE 1 vs FASE 2) -->
+    <!-- TOKENOMICS & PROTOCOL TREASURY -->
     <section class="content-card-section">
       <div class="sec-header">
         <div class="sec-badge" translate="no">DEFLATIONARY DESIGN</div>
@@ -2118,7 +2128,7 @@
           </ul>
         </div>
 
-        <!-- PHASE 03 (COMPACT REDACTED) -->
+        <!-- PHASE 03 -->
         <div class="r-card locked-phase">
           <span class="r-phase-tag" style="color: #94a3b8;" translate="no">PHASE 03</span>
           <span class="r-status status-locked" translate="no">LOCKED 🔒</span>
@@ -2141,7 +2151,7 @@
           </div>
         </div>
 
-        <!-- PHASE 04 (COMPACT REDACTED) -->
+        <!-- PHASE 04 -->
         <div class="r-card locked-phase">
           <span class="r-phase-tag" style="color: #94a3b8;" translate="no">PHASE 04</span>
           <span class="r-status status-locked" translate="no">RESTRICTED 🔒</span>
@@ -2361,11 +2371,15 @@
     });
 
     // ============================================================
-    // CRÉDITOS FAKE (STORAGE LOCAL PARA TESTES)
+    // CRÉDITOS FAKE & APOSTAS ATIVAS (STORAGE LOCAL)
     // ============================================================
     let fakeCredits = localStorage.getItem('bull_fake_credits')
       ? parseFloat(localStorage.getItem('bull_fake_credits'))
       : 1000.00;
+
+    let myActiveWagers = localStorage.getItem('bull_my_wagers')
+      ? JSON.parse(localStorage.getItem('bull_my_wagers'))
+      : [];
 
     function renderFakeBalance() {
       const el = document.getElementById('fake-balance-val');
@@ -2383,9 +2397,42 @@
     function resetFakeCredits() {
       arcadeSound();
       fakeCredits = 1000.00;
+      myActiveWagers = [];
       localStorage.setItem('bull_fake_credits', fakeCredits);
+      localStorage.setItem('bull_my_wagers', JSON.stringify(myActiveWagers));
       renderFakeBalance();
-      alert(`🔄 Saldo resetado para 1,000.00 PTS!`);
+      renderMyWagers();
+      alert(`🔄 Saldo resetado para 1,000.00 PTS e apostas ativas limpas!`);
+    }
+
+    function renderMyWagers() {
+      const box = document.getElementById('my-wagers-box');
+      const list = document.getElementById('my-wagers-list');
+      if (!box || !list) return;
+
+      const currentSt = pipelineState[currentArenaMode][currentPipelineRoom];
+      const relevantWagers = myActiveWagers.filter(w => w.roundId === currentSt.roundId && w.mode === currentArenaMode);
+
+      if (relevantWagers.length === 0) {
+        box.style.display = 'none';
+        return;
+      }
+
+      box.style.display = 'block';
+      list.innerHTML = relevantWagers.map(w => `
+        <div style="background: #050813; border: 1px solid #141c2c; border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="padding: 2px 8px; border-radius: 4px; font-weight: 900; font-size: 11px; background: ${w.fighter === 'BONK' ? 'var(--cyan)' : 'var(--purple)'}; color: ${w.fighter === 'BONK' ? '#000' : '#fff'};">
+              ${w.fighter}
+            </span>
+            <span style="color: #cbd5e1; font-weight: 700;">Wager: <strong style="color:#fff;">${w.amount.toFixed(2)} PTS</strong></span>
+          </div>
+          <div style="display: flex; gap: 14px; align-items: center;">
+            <span style="color: #94a3b8; font-weight: 600;">Multiplier: <strong style="color:#fff;">${w.mult}x</strong></span>
+            <span style="color: var(--gold); font-weight: 900; font-size: 13px;">Est. Win: +${(w.amount * w.mult).toFixed(2)} PTS</span>
+          </div>
+        </div>
+      `).join('');
     }
 
     // ============================================================
@@ -2490,6 +2537,7 @@
       document.getElementById('history-header-title').innerText = mode === '1h' ? '1H ON-CHAIN SETTLED DUELS' : '24H DAILY ROYALE SETTLEMENTS';
 
       renderHistory();
+      renderMyWagers();
       updateArenaMath();
       updateEngineTimer();
     }
@@ -2501,6 +2549,7 @@
       document.getElementById('room-active').classList.toggle('active-room', room === 'active');
       document.getElementById('room-next').classList.toggle('active-room', room === 'next');
 
+      renderMyWagers();
       updateArenaMath();
       updateEngineTimer();
     }
@@ -2640,6 +2689,28 @@
       const totalPool = (st.stakedBonk + st.stakedWif).toFixed(2);
       const mult = winner === 'BONK' ? ((totalPool * 0.95) / st.stakedBonk).toFixed(2) : ((totalPool * 0.95) / st.stakedWif).toFixed(2);
 
+      // Verificação de vitórias para o usuário
+      let totalWinnings = 0;
+      myActiveWagers.forEach(w => {
+        if (w.roundId === st.roundId && w.mode === mode) {
+          if (w.fighter === winner) {
+            totalWinnings += (w.amount * parseFloat(mult));
+          }
+        }
+      });
+
+      if (totalWinnings > 0) {
+        fakeCredits += totalWinnings;
+        localStorage.setItem('bull_fake_credits', fakeCredits);
+        renderFakeBalance();
+        alert(`🏆 PARABÉNS! Você venceu o duelo #${st.roundId} com ${winner}!\nPrêmio adicionado ao seu saldo: +${totalWinnings.toFixed(2)} PTS!`);
+      }
+
+      // Remove apostas finalizadas
+      myActiveWagers = myActiveWagers.filter(w => !(w.roundId === st.roundId && w.mode === mode));
+      localStorage.setItem('bull_my_wagers', JSON.stringify(myActiveWagers));
+      renderMyWagers();
+
       const banner = document.getElementById('round-announcement-banner');
       const bannerText = document.getElementById('round-winner-text');
       bannerText.innerText = `🏆 ${st.title} #${st.roundId} SETTLED! VICTOR: ${winner} (Δ +${winnerDelta}% DEX VELOCITY) • TREASURY & BURN EXECUTED!`;
@@ -2661,6 +2732,7 @@
 
       if (currentArenaMode === mode) {
         renderHistory();
+        renderMyWagers();
         updateArenaMath();
       }
       fetchDexScreenerOracle();
@@ -2863,29 +2935,44 @@
         return;
       }
       
-      // Validação usando os créditos de teste fake
+      // Validação de saldo de teste
       if (val > fakeCredits) {
-        alert(`Saldo de teste insuficiente! Você tem ${fakeCredits.toFixed(2)} PTS. Use o botão +500 FAKE no topo para recarregar.`);
+        alert(`Saldo de teste insuficiente! Você tem ${fakeCredits.toFixed(2)} PTS. Use o botão '+500 FAKE' no topo para recarregar.`);
         return;
       }
 
-      // Desconta dos créditos fake
+      // 1. Debita o saldo de teste
       fakeCredits -= val;
       localStorage.setItem('bull_fake_credits', fakeCredits);
       renderFakeBalance();
 
-      // Atualiza os dados matemáticos da Arena (simulação viva)
-      const st = pipelineState[currentArenaMode][currentPipelineRoom];
-      if (selectedFighter === 'BONK') st.stakedBonk += val;
-      else st.stakedWif += val;
+      // 2. Registra na lista de apostas ativas
+      const currentSt = pipelineState[currentArenaMode][currentPipelineRoom];
+      myActiveWagers.push({
+        fighter: selectedFighter,
+        amount: val,
+        mult: currentMultiplier,
+        roundId: currentSt.roundId,
+        mode: currentArenaMode
+      });
+      localStorage.setItem('bull_my_wagers', JSON.stringify(myActiveWagers));
+      renderMyWagers();
+
+      // 3. Atualiza os dados matemáticos da Arena (simulação viva)
+      if (selectedFighter === 'BONK') currentSt.stakedBonk += val;
+      else currentSt.stakedWif += val;
       updateArenaMath();
 
-      alert(`✅ [TEST MODE] Allocation of ${val.toFixed(2)} PTS on ${selectedFighter} (${st.title}) registered with success!`);
+      // Fecha o modal
       document.getElementById('stake-modal-overlay').style.display = 'none';
+
+      // 4. Feedback visual detalhado
+      alert(`🎯 APOSTA CONFIRMADA COM SUCESSO!\n\nLutador: ${selectedFighter}\nValor: ${val.toFixed(2)} PTS\nMultiplicador: ${currentMultiplier}x\nRetorno Estimado: +${(val * currentMultiplier).toFixed(2)} PTS\n\nSua aposta já está visível no painel "YOUR ACTIVE WAGERS"!`);
     }
 
-    // Inicialização do documento
+    // Inicialização da interface
     renderFakeBalance();
+    renderMyWagers();
     renderHistory();
     updateEngineTimer();
     updateArenaMath();
