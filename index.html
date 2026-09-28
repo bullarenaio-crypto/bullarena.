@@ -348,7 +348,6 @@
       position: relative;
     }
 
-    /* BRASÃO CENTRAL: QUADRADO ARREDONDADO COM OBJETIVO DE EXIBIR O NOVO LOGO TRANSPARENTE INTEIRO */
     .hero-emblem-frame {
       width: 125px;
       height: 125px;
@@ -490,7 +489,6 @@
       transform: translateY(-1px);
     }
 
-    /* ESTEIRA DE SALAS (DUAL-ROUND PIPELINE TABS) */
     .arena-pipeline-bar {
       display: flex;
       justify-content: center;
@@ -1687,7 +1685,7 @@
 
     <!-- ARENA SHOWDOWN -->
     <main id="arena" class="arena-box">
-      <!-- ARENA PIPELINE TABS (DUAL ROUND ESTEIRA & DURATION) -->
+      <!-- ARENA PIPELINE TABS -->
       <div class="arena-pipeline-bar" translate="no">
         <button id="room-active" class="btn-pipeline-tab active-room" onclick="switchPipelineRoom('active')">
           <span>🟢 LIVE ROOM • DUEL #105 (CLOSING SOON)</span>
@@ -1870,13 +1868,13 @@
       </div>
     </section>
 
-    <!-- TOKENOMICS & PROTOCOL TREASURY (BUYBACK & BURN) -->
+    <!-- TOKENOMICS & PROTOCOL TREASURY (FASE 1 vs FASE 2) -->
     <section class="content-card-section">
       <div class="sec-header">
         <div class="sec-badge" translate="no">DEFLATIONARY DESIGN</div>
-        <h2 class="sec-title" translate="no">PROTOCOL <span>SETTLEMENT</span> & BUYBACK ENGINE</h2>
+        <h2 class="sec-title" translate="no">PROTOCOL <span>SETTLEMENT</span> & FEE ENGINE</h2>
         <p class="sec-sub">
-          Every wager placed inside Bull Royale triggers an automated market buyback and permanent burn of the $BULL token, shrinking supply forever.
+          Every wager placed inside Bull Royale ensures robust winner payouts while funding sustainable protocol growth and future token buybacks.
         </p>
       </div>
 
@@ -1902,14 +1900,15 @@
 
           <div class="t-item">
             <div class="t-item-head" translate="no">
-              <span style="color: var(--gold);">AUTONOMOUS BUYBACK & BURN FEE</span>
+              <span style="color: var(--gold);">PROTOCOL OPERATIONS & TREASURY</span>
               <span class="t-pct" style="color: var(--gold);">5%</span>
             </div>
             <div class="bar-shell">
               <div class="bar-core bar-gold" style="width: 5%;"></div>
             </div>
             <div class="t-item-desc">
-              Accumulates directly in $SOL and continuously executes market buybacks of $BULL, sending purchased tokens to the Solana incinerator address.
+              <strong>Fase 1 (Beta):</strong> 5% allocated to infrastructure, RPC maintenance, and liquidity bootstrapping.<br>
+              <strong>Fase 2+:</strong> Splits evenly into <strong>2.5% Treasury</strong> and <strong>2.5% $BULL Buyback & Burn</strong>.
             </div>
           </div>
         </div>
@@ -1917,19 +1916,19 @@
         <div class="t-card">
           <div class="t-card-header">
             <h3 class="t-title" translate="no">HYPER-DEFLATIONARY FLYWHEEL</h3>
-            <span class="t-tag tag-gold" translate="no">CONSTANT BUY-PRESSURE</span>
+            <span class="t-tag tag-gold" translate="no">PHASE 2 UPGRADE</span>
           </div>
 
           <div class="t-item">
             <div class="t-item-head" translate="no">
-              <span style="color: var(--gold);">PERPETUAL BURN VELOCITY</span>
-              <span class="t-pct" style="color: var(--gold);">100% OF TREASURY</span>
+              <span style="color: var(--gold);">$BULL BUYBACK & BURN VELOCITY</span>
+              <span class="t-pct" style="color: var(--gold);">2.5% PER DUEL</span>
             </div>
             <div class="bar-shell">
-              <div class="bar-core bar-gold" style="width: 100%;"></div>
+              <div class="bar-core bar-gold" style="width: 50%;"></div>
             </div>
             <div class="t-item-desc">
-              More wager volume equals more buy-pressure. The protocol creates constant organic bid liquidity backed by active duel turnover.
+              Upon the official $BULL fair launch in Phase 2, half of the protocol fee continuously executes market buybacks and permanent token burns.
             </div>
           </div>
 
@@ -1942,7 +1941,7 @@
               <div class="bar-core bar-purple" style="width: 100%;"></div>
             </div>
             <div class="t-item-desc">
-              No artificial inflation or unlock cliffs. Token supply reduces automatically on every completed 1-hour and 24-hour round.
+              No artificial inflation or unlock cliffs. Vaults operate on deterministic code execution backed by active duel turnover.
             </div>
           </div>
         </div>
@@ -2044,7 +2043,7 @@
             <li>$BULL official fair launch on Solana (Raydium / Meteora).</li>
             <li><strong>Live Candle Propulsion:</strong> Swaps route via Raydium SDK, printing green buy candles directly on charts.</li>
             <li><strong>1-Click Social Execution:</strong> Solana Blinks (Actions) on X feeds + Telegram Duel Bot.</li>
-            <li><strong>Automated Buyback & Burn:</strong> 100% of duel fees buy and burn $BULL.</li>
+            <li><strong>Split Fee Activation:</strong> Transition to 2.5% Treasury and 2.5% $BULL Buyback & Burn.</li>
             <li>Leaderboard Syndicate rankings & High-Roller arenas.</li>
           </ul>
         </div>
@@ -2114,6 +2113,16 @@
       <div class="faq-list" translate="no">
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
+            <span>How are protocol fees distributed across Phase 1 and Phase 2?</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            During Phase 1 Beta, the 5% protocol fee funds essential operations, RPC nodes, and liquidity growth. Starting in Phase 2 with the official $BULL token launch, this fee splits evenly into 2.5% for protocol treasury operations and 2.5% dedicated entirely to automated $BULL market buybacks and permanent token burns.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
             <span>Can I bet on the next round while the current one is closing?</span>
             <span class="faq-toggle-icon">+</span>
           </div>
@@ -2129,16 +2138,6 @@
           </div>
           <div class="faq-answer">
             Through Solana Blinks (Actions), any Bull Royale duel link shared on X (Twitter) embeds as an interactive transaction card directly in the user's timeline. Followers can back their contender with 1 click directly inside X. Similarly, our Telegram Duel Bot allows full duel participation inside groups and channels.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
-            <span>How does the Candle Propulsion & Buyback mechanism work?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            Every round deducts a 5% fee from the loser pool. 100% of this fee in native $SOL is programmatically used to buy back the $BULL token on decentralized exchanges and instantly burn it. Simultaneously, live market routing forces real buy volume on the token being backed, physically pumping candles on DexScreener.
           </div>
         </div>
 
@@ -2269,7 +2268,7 @@
         </div>
         <div class="modal-summary-row">
           <span style="color:var(--text-muted);">Protocol Treasury Fee:</span>
-          <span style="color: #94a3b8;">5% (100% Executed to $BULL Buyback & Burn)</span>
+          <span style="color: #94a3b8;">5% (Phase 2+: 2.5% Treasury / 2.5% Buyback & Burn)</span>
         </div>
       </div>
 
@@ -2545,7 +2544,7 @@
 
       const banner = document.getElementById('round-announcement-banner');
       const bannerText = document.getElementById('round-winner-text');
-      bannerText.innerText = `🏆 ${st.title} #${st.roundId} SETTLED! VICTOR: ${winner} (Δ +${winnerDelta}% DEX VELOCITY) • BUYBACK & BURN EXECUTED!`;
+      bannerText.innerText = `🏆 ${st.title} #${st.roundId} SETTLED! VICTOR: ${winner} (Δ +${winnerDelta}% DEX VELOCITY) • TREASURY & BURN EXECUTED!`;
       banner.style.display = 'block';
 
       historyData[mode].unshift({
