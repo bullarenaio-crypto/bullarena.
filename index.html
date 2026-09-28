@@ -96,16 +96,16 @@
     }
 
     .splash-emblem-wrap {
-      width: 130px;
-      height: 130px;
+      width: 135px;
+      height: 135px;
       border-radius: 50%;
       border: 2px solid var(--gold);
-      background-image: url('https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png');
-      background-size: 175%;
-      background-position: center 42%;
-      background-repeat: no-repeat;
+      padding: 8px;
+      background: #090e1a;
       box-shadow: 0 0 40px var(--gold-glow);
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       animation: pulseSplash 1.8s ease-in-out infinite alternate;
     }
 
@@ -118,6 +118,13 @@
         transform: scale(1.04);
         box-shadow: 0 0 55px rgba(245, 158, 11, 0.6);
       }
+    }
+
+    .splash-emblem-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .splash-title {
@@ -339,21 +346,27 @@
       position: relative;
     }
 
-    /* BRASÃO CENTRAL 3D */
+    /* BRASÃO CENTRAL 3D COM 100% DE FOLGA PARA NÃO CORTAR OS CHIFRES */
     .hero-emblem-frame {
-      width: 135px;
-      height: 135px;
+      width: 140px;
+      height: 140px;
       margin: 0 auto 18px;
       border-radius: 50%;
       border: 2px solid var(--gold);
       box-shadow: 0 0 35px var(--gold-glow);
-      background-image: url('https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png');
-      background-size: 175%;
-      background-position: center 42%;
-      background-repeat: no-repeat;
-      background-color: #0c121e;
-      position: relative;
+      padding: 10px;
+      background: #0c121e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       perspective: 1000px;
+    }
+
+    .hero-bull-emblem {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
       animation: rotateEmblem 12s linear infinite;
     }
 
@@ -1586,7 +1599,9 @@
 
   <!-- INTRO SPLASH SCREEN -->
   <div id="splash-screen" translate="no">
-    <div class="splash-emblem-wrap"></div>
+    <div class="splash-emblem-wrap">
+      <img src="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png" alt="Bull Royale Emblem" fetchpriority="high">
+    </div>
     <div class="splash-title">BULL<span>ROYALE</span></div>
     <div class="splash-loader-bar">
       <div class="splash-loader-fill"></div>
@@ -1627,7 +1642,9 @@
 
     <!-- HERO SECTION -->
     <header class="hero">
-      <div class="hero-emblem-frame"></div>
+      <div class="hero-emblem-frame">
+        <img src="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png" alt="Bull Royale Crest" class="hero-bull-emblem" fetchpriority="high">
+      </div>
       <div class="badge-slogan" translate="no">THE LIQUIDITY WARFARE PROTOCOL</div>
       <h1 class="hero-title" translate="no">BULL <span>ROYALE</span></h1>
       <p class="hero-sub">
@@ -2290,7 +2307,6 @@
     let currentArenaMode = '1h'; // '1h' ou '24h'
     let currentPipelineRoom = 'active'; // 'active' (Sala Atual) ou 'next' (Próxima Sala Antecipada)
 
-    // Estados independentes para cada modo e sala da esteira
     const pipelineState = {
       '1h': {
         active: {
@@ -2366,9 +2382,6 @@
       } catch (e) {}
     }
 
-    // ============================================================
-    // 2. SWITCHERS (ARENA MODE & PIPELINE ROOM)
-    // ============================================================
     function switchArenaMode(mode) {
       arcadeSound();
       currentArenaMode = mode;
@@ -2399,9 +2412,6 @@
       updateEngineTimer();
     }
 
-    // ============================================================
-    // 3. DEXSCREENER ORACLE FETCHER
-    // ============================================================
     async function fetchDexScreenerOracle() {
       try {
         const response = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${BONK_MINT},${WIF_MINT}`);
@@ -2443,9 +2453,6 @@
       elWif.innerHTML = `$${wifFmt}M <span style="color:${wifChange24h >= 0 ? 'var(--green)' : 'var(--pink)'}; font-size:10px;">${wifSign}${wifChange24h}%</span>`;
     }
 
-    // ============================================================
-    // 4. DYNAMIC ODDS & TUG-OF-WAR CALCULATION
-    // ============================================================
     function updateArenaMath() {
       const st = pipelineState[currentArenaMode][currentPipelineRoom];
       const totalPool = st.stakedBonk + st.stakedWif;
@@ -2467,9 +2474,6 @@
       document.getElementById('tug-fill-bar').style.width = `${bonkPct}%`;
     }
 
-    // ============================================================
-    // 5. TIMERS & DUAL-ROOM PIPELINE ENGINE
-    // ============================================================
     function updateEngineTimer() {
       const now = new Date();
       const timerEl = document.getElementById('clock-timer');
@@ -2480,7 +2484,6 @@
       const btnWif = document.getElementById('btn-enter-wif');
 
       if (currentPipelineRoom === 'next') {
-        // A próxima sala fica sempre aberta com tempo cheio até a virada
         timerLabel.innerText = 'OPENS IN:';
         timerEl.innerText = currentArenaMode === '1h' ? '58m 20s' : '23h 45m 00s';
         timerBox.classList.remove('buffer-active');
@@ -2558,7 +2561,6 @@
         payout: `${mult}x`
       });
 
-      // Rola a esteira: A sala 'next' vira a 'active', e criamos uma nova 'next'
       st.roundId++;
       st.stakedBonk = mode === '1h' ? 50.0 : 300.0;
       st.stakedWif = mode === '1h' ? 50.0 : 300.0;
@@ -2593,9 +2595,6 @@
     setInterval(updateEngineTimer, 1000);
     setInterval(fetchDexScreenerOracle, 30000);
 
-    // ============================================================
-    // 6. WEB3 & WALLET MANAGEMENT
-    // ============================================================
     let walletConnected = false;
     let currentProvider = null;
     let currentPublicKey = null;
@@ -2709,9 +2708,6 @@
       if (!isOpen) el.classList.add('open');
     }
 
-    // ============================================================
-    // 7. STAKE MODAL & TRANSACTION EXECUTION
-    // ============================================================
     let selectedFighter = 'BONK';
     let currentMultiplier = 1.72;
 
