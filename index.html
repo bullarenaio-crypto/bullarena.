@@ -17,14 +17,14 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.bullarenaa.io/">
   <meta property="og:title" content="Bull Royale • Liquidity Warfare Protocol">
-  <meta property="og:description" content="1-Hour Flash Duels & 24-Hour Daily Royales settled in native $SOL. Powered by autonomous PDA vaults, buyback-burn engines, and DexScreener oracles.">
+  <meta property="og:description" content="1-Hour Flash Duels & 24-Hour Daily Royales settled in native $SOL. Powered by Solana Blinks on X, Telegram Bot, autonomous PDA vaults, and DexScreener oracles.">
   <meta property="og:image" content="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png">
 
   <!-- TWITTER CARDS -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@bullarenaio">
   <meta name="twitter:title" content="Bull Royale • Liquidity Warfare on Solana">
-  <meta name="twitter:description" content="Predict token velocity, ignite on-chain market candles, battle across 1h and 24h rounds, and claim instant $SOL payouts.">
+  <meta name="twitter:description" content="Predict token velocity, ignite on-chain market candles, execute directly via X Blinks and Telegram, and claim instant $SOL payouts.">
   <meta name="twitter:image" content="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png">
 
   <!-- FONTS -->
@@ -1879,7 +1879,7 @@
       </div>
     </section>
 
-    <!-- STRATEGIC ROADMAP (AUTHENTIC REDACTED CENSORSHIP) -->
+    <!-- STRATEGIC ROADMAP (WITH 1-CLICK X BLINKS & TELEGRAM BOT) -->
     <section class="content-card-section">
       <div class="sec-header">
         <div class="sec-badge" translate="no">EXECUTION PIPELINE</div>
@@ -1911,9 +1911,9 @@
           <h3 class="r-title" translate="no">TOKEN & CANDLE WARFARE</h3>
           <ul class="r-list">
             <li>$BULL official fair launch on Solana (Raydium / Meteora).</li>
-            <li><strong>Live Candle Propulsion:</strong> Dynamic routing via Raydium SDK that automatically prints green buy candles on target token charts.</li>
+            <li><strong>Live Candle Propulsion:</strong> Swaps route via Raydium SDK, printing green buy candles directly on DexScreener charts.</li>
+            <li><strong>1-Click Social Execution:</strong> Solana Blinks (Actions) for 1-click wagers directly on X (Twitter) feeds + Telegram Duel Bot.</li>
             <li><strong>Automated Buyback & Burn:</strong> 100% of duel fees buy and burn $BULL.</li>
-            <li>Telegram 1-Click Liquidity Warfare Duel Bot.</li>
             <li>Leaderboard Syndicate rankings & High-Roller VIP arenas.</li>
           </ul>
         </div>
@@ -1974,6 +1974,16 @@
       </div>
 
       <div class="faq-list" translate="no">
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>How does 1-click betting work on X (Twitter) and Telegram?</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Through Solana Blinks (Actions), any Bull Royale duel link shared on X (Twitter) embeds as an interactive transaction card directly in the user's timeline. Followers can back their contender with 1 click directly inside X. Similarly, our Telegram Duel Bot allows full duel participation inside groups and channels.
+          </div>
+        </div>
+
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
             <span>How does the Candle Propulsion & Buyback mechanism work?</span>
@@ -2309,7 +2319,7 @@
         const h = 23 - now.getUTCHours();
         const m = 59 - now.getUTCMinutes();
         const s = 59 - now.getUTCSeconds();
-        timerEl.innerText = `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+        timerEl.innerText = `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}s`;
 
         isBufferActive = (h === 0 && m < 15);
 
