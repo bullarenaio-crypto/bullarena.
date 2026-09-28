@@ -49,24 +49,24 @@ async function postAnnouncement() {
 }
 
 // ============================================================
-// 2. LISTAS TEMÁTICAS DE TOKENS
+// 2. LISTAS TEMÁTICAS DE TOKENS (LOGOS DIRETOS CDN SEM BLOQUEIO)
 // ============================================================
 const TOKENS_BY_CATEGORY = {
   MEMES: [
     { name: 'BONK', symbol: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', icon: 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035', sub: 'Solana Ecosystem Flagship' },
-    { name: 'dogwifhat', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', icon: 'https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg', sub: 'Momentum Challenger' },
-    { name: 'POPCAT', symbol: 'POPCAT', mint: '7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr', icon: 'https://assets.coingecko.com/coins/images/33760/standard/popcat.png', sub: 'Viral Cat Sensation' },
-    { name: 'cat in a dogs world', symbol: 'MEW', mint: 'MEW1gQWJ3nEXg2qgEriKu7FAFj79PHvQVREQUzScPP5', icon: 'https://assets.coingecko.com/coins/images/36440/standard/mew.png', sub: 'Canine Nemesis' },
-    { name: 'BOOK OF MEME', symbol: 'BOME', mint: 'ukHH6c7mMyiWCf1b9pnWe25TSpkDDt3H5pQZgZ74J82', icon: 'https://assets.coingecko.com/coins/images/36071/standard/bome.png', sub: 'Immortalized Ledger' },
-    { name: 'PONKE', symbol: 'PONKE', mint: '5z3eqYQo9rGHdrUWVoQQvu5MY852whPrT9HypTDpump', icon: 'https://assets.coingecko.com/coins/images/34009/standard/ponke.png', sub: 'Solana Degens Monkey' }
+    { name: 'dogwifhat', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', icon: 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035', sub: 'Momentum Challenger' },
+    { name: 'POPCAT', symbol: 'POPCAT', mint: '7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr', icon: 'https://cryptologos.cc/logos/popcat-sol-popcat-logo.png?v=035', sub: 'Viral Cat Sensation' },
+    { name: 'cat in a dogs world', symbol: 'MEW', mint: 'MEW1gQWJ3nEXg2qgEriKu7FAFj79PHvQVREQUzScPP5', icon: 'https://cryptologos.cc/logos/cat-in-a-dogs-world-mew-logo.png?v=035', sub: 'Canine Nemesis' },
+    { name: 'BOOK OF MEME', symbol: 'BOME', mint: 'ukHH6c7mMyiWCf1b9pnWe25TSpkDDt3H5pQZgZ74J82', icon: 'https://cryptologos.cc/logos/book-of-meme-bome-logo.png?v=035', sub: 'Immortalized Ledger' },
+    { name: 'PONKE', symbol: 'PONKE', mint: '5z3eqYQo9rGHdrUWVoQQvu5MY852whPrT9HypTDpump', icon: 'https://cryptologos.cc/logos/ponke-ponke-logo.png?v=035', sub: 'Solana Degens Monkey' }
   ],
   DEFI: [
-    { name: 'Jupiter', symbol: 'JUP', mint: 'JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN', icon: 'https://assets.coingecko.com/coins/images/34188/standard/jup.png', sub: 'Solana Liquidity Aggregator' },
-    { name: 'Raydium', symbol: 'RAY', mint: '4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R', icon: 'https://cryptologos.cc/logos/raydium-ray-logo.png', sub: 'AMM & Yield Engine' }
+    { name: 'Jupiter', symbol: 'JUP', mint: 'JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN', icon: 'https://cryptologos.cc/logos/jupiter-ag-jup-logo.png?v=035', sub: 'Solana Liquidity Aggregator' },
+    { name: 'Raydium', symbol: 'RAY', mint: '4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R', icon: 'https://cryptologos.cc/logos/raydium-ray-logo.png?v=035', sub: 'AMM & Yield Engine' }
   ],
   ORACLES: [
-    { name: 'Pyth Network', symbol: 'PYTH', mint: 'HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3', icon: 'https://assets.coingecko.com/coins/images/31924/standard/pyth.png', sub: 'Next-Gen Financial Oracle' },
-    { name: 'Chainlink', symbol: 'LINK', mint: '2wp3DvCBduaUBCSGdNxHgphxcAYcpvPvTTBy7YJLgTpx', icon: 'https://cryptologos.cc/logos/chainlink-link-logo.png', sub: 'Decentralized Oracle Standard' }
+    { name: 'Pyth Network', symbol: 'PYTH', mint: 'HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3', icon: 'https://cryptologos.cc/logos/pyth-network-pyth-logo.png?v=035', sub: 'Next-Gen Financial Oracle' },
+    { name: 'Chainlink', symbol: 'LINK', mint: '2wp3DvCBduaUBCSGdNxHgphxcAYcpvPvTTBy7YJLgTpx', icon: 'https://cryptologos.cc/logos/chainlink-link-logo.png?v=035', sub: 'Decentralized Oracle Standard' }
   ]
 };
 
@@ -103,7 +103,7 @@ async function fetchBatchVolumes(mintAddresses) {
 
 // Verifica se a diferença de volume respeita a margem de 60%
 function isBalancedVolume(volA, volB, maxGapRatio = MAX_VOLUME_GAP_RATIO) {
-  if (volA <= 0 || volB <= 0) return true; // Se volume for zero ou indetectável, não barra
+  if (volA <= 0 || volB <= 0) return true;
   const max = Math.max(volA, volB);
   const diff = Math.abs(volA - volB);
   return (diff / max) <= maxGapRatio;
@@ -133,7 +133,6 @@ async function fetchTrendingRadarTokens() {
 
     if (validPairs.length < 2) return null;
 
-    // Procura dois pares com diferença de volume <= 60%
     for (let i = 0; i < validPairs.length - 1; i++) {
       const pairA = validPairs[i];
       const pairB = validPairs[i + 1];
@@ -146,14 +145,14 @@ async function fetchTrendingRadarTokens() {
             name: pairA.baseToken.name,
             symbol: pairA.baseToken.symbol,
             mint: pairA.baseToken.address,
-            icon: pairA.info?.imageUrl || 'https://cryptologos.cc/logos/solana-sol-logo.png',
+            icon: pairA.info?.imageUrl || 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035',
             sub: `Radar Vol: $${(volA / 1e6).toFixed(2)}M`
           },
           fighterB: {
             name: pairB.baseToken.name,
             symbol: pairB.baseToken.symbol,
             mint: pairB.baseToken.address,
-            icon: pairB.info?.imageUrl || 'https://cryptologos.cc/logos/solana-sol-logo.png',
+            icon: pairB.info?.imageUrl || 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035',
             sub: `Radar Vol: $${(volB / 1e6).toFixed(2)}M`
           }
         };
@@ -229,7 +228,6 @@ async function rotateNextRound() {
   let selectedFighterA = null;
   let selectedFighterB = null;
 
-  // Embaralha pares vizinhos para garantir variação
   const candidateIndices = [];
   for (let i = 0; i < tokensWithVol.length - 1; i++) {
     candidateIndices.push(i);
@@ -249,7 +247,6 @@ async function rotateNextRound() {
     }
   }
 
-  // Fallback seguro caso os volumes não estejam disponíveis
   if (!selectedFighterA || !selectedFighterB) {
     const shuffled = [...tokenList].sort(() => 0.5 - Math.random());
     selectedFighterA = shuffled[0];
