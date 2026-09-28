@@ -1058,7 +1058,7 @@
 
     .audit-pill strong { color: var(--green); }
 
-    /* ROADMAP */
+    /* ROADMAP STYLES */
     .roadmap-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1070,6 +1070,7 @@
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 20px 16px;
+      position: relative;
     }
 
     .r-card.active-phase {
@@ -1077,7 +1078,8 @@
       box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
     }
 
-    .r-card.upcoming-phase { border-top: 3px solid var(--purple); }
+    .r-card.upcoming-phase { border-top: 3px solid var(--cyan); }
+    .r-card.locked-phase { border-top: 3px solid #475569; opacity: 0.88; }
 
     .r-phase-tag {
       font-size: 10px;
@@ -1105,9 +1107,15 @@
     }
 
     .status-queued {
-      background: rgba(168, 85, 247, 0.15);
-      color: var(--purple);
-      border: 1px solid var(--purple);
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--cyan);
+      border: 1px solid var(--cyan);
+    }
+
+    .status-locked {
+      background: rgba(148, 163, 184, 0.12);
+      color: #94a3b8;
+      border: 1px solid #475569;
     }
 
     .r-title {
@@ -1140,6 +1148,31 @@
       position: absolute;
       left: 0;
       font-weight: 900;
+    }
+
+    /* CLASSIFIED / REDACTED UI EFFECT */
+    .classified-badge {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px dashed #475569;
+      border-radius: 6px;
+      padding: 6px 10px;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #94a3b8;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+
+    .classified-badge span.redacted {
+      background: #1e293b;
+      color: #475569;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-family: monospace;
     }
 
     /* FAQ */
@@ -1487,7 +1520,7 @@
       <div class="badge-slogan" translate="no">THE LIQUIDITY WARFARE PROTOCOL</div>
       <h1 class="hero-title" translate="no">BULL <span>ROYALE</span></h1>
       <p class="hero-sub">
-        Predict token momentum and command on-chain trading velocity. Settle 1-hour flash duels and 24-hour daily royales directly in $SOL with decentralized DexScreener oracles, anti-snipe vaults, and zero custodial interference.
+        Predict token momentum and command on-chain trading velocity. Settle 1-hour flash duels and 24-hour daily royales directly in $SOL with decentralized DexScreener oracles, autonomous PDA vaults, and automated buyback-burn mechanics.
       </p>
     </header>
 
@@ -1643,7 +1676,7 @@
         <div class="history-list" id="history-container" translate="no">
           <div class="history-row">
             <div class="history-match">
-              <span style="color:var(--gold);">DUEL #104</span>
+              <span style="color:var(--gold);">ROUND #104</span>
               <span>WIF vs PEPE</span>
               <span class="badge-winner">SETTLED: WIF (Δ +14.2%)</span>
             </div>
@@ -1655,7 +1688,7 @@
           </div>
           <div class="history-row">
             <div class="history-match">
-              <span style="color:var(--gold);">DUEL #103</span>
+              <span style="color:var(--gold);">ROUND #103</span>
               <span>BONK vs POPCAT</span>
               <span class="badge-winner">SETTLED: BONK (Δ +18.9%)</span>
             </div>
@@ -1704,13 +1737,13 @@
       </div>
     </section>
 
-    <!-- TOKENOMICS & PROTOCOL TREASURY -->
+    <!-- TOKENOMICS & PROTOCOL TREASURY (BUYBACK & BURN) -->
     <section class="content-card-section">
       <div class="sec-header">
-        <div class="sec-badge" translate="no">MATHEMATICAL DESIGN</div>
-        <h2 class="sec-title" translate="no">PROTOCOL <span>SETTLEMENT</span> & TREASURY</h2>
+        <div class="sec-badge" translate="no">DEFLATIONARY DESIGN</div>
+        <h2 class="sec-title" translate="no">PROTOCOL <span>SETTLEMENT</span> & BUYBACK ENGINE</h2>
         <p class="sec-sub">
-          Engineered for long-term sustainability during the Beta rollout, accumulating native $SOL reserves to power Phase 2 token buybacks.
+          Every single wager placed inside Bull Royale triggers an automated market buyback and permanent burn of the $BULL token, shrinking supply forever.
         </p>
       </div>
 
@@ -1730,53 +1763,53 @@
               <div class="bar-core bar-green" style="width: 95%;"></div>
             </div>
             <div class="t-item-desc">
-              Redistributed instantly and proportionally to wallets backing the victor token. Zero hidden spreads.
+              Redistributed instantly and proportionally in native $SOL to wallets backing the victor token. Zero hidden spreads.
             </div>
           </div>
 
           <div class="t-item">
             <div class="t-item-head" translate="no">
-              <span style="color: var(--gold);">PROTOCOL TREASURY RESERVE</span>
+              <span style="color: var(--gold);">AUTONOMOUS BUYBACK & BURN FEE</span>
               <span class="t-pct" style="color: var(--gold);">5%</span>
             </div>
             <div class="bar-shell">
               <div class="bar-core bar-gold" style="width: 5%;"></div>
             </div>
             <div class="t-item-desc">
-              Accumulates directly in native $SOL to bootstrap liquidity reserves, security audits, and Phase 2 token backing.
+              Accumulates directly in $SOL and continuously executes market buybacks of $BULL, sending purchased tokens to the Solana incinerator address.
             </div>
           </div>
         </div>
 
         <div class="t-card">
           <div class="t-card-header">
-            <h3 class="t-title" translate="no">PHASE 2 ECOSYSTEM CATALYST</h3>
-            <span class="t-tag tag-gold" translate="no">ACCUMULATION STAGE</span>
+            <h3 class="t-title" translate="no">HYPER-DEFLATIONARY FLYWHEEL</h3>
+            <span class="t-tag tag-gold" translate="no">CONSTANT BUY-PRESSURE</span>
           </div>
 
           <div class="t-item">
             <div class="t-item-head" translate="no">
-              <span style="color: var(--gold);">AUTONOMOUS BUYBACK POOL</span>
+              <span style="color: var(--gold);">PERPETUAL BURN VELOCITY</span>
               <span class="t-pct" style="color: var(--gold);">100% OF TREASURY</span>
             </div>
             <div class="bar-shell">
               <div class="bar-core bar-gold" style="width: 100%;"></div>
             </div>
             <div class="t-item-desc">
-              Beta treasury fees directly fuel algorithmic market buybacks and burns once the protocol token is deployed.
+              More wager volume equals more buy-pressure. The protocol creates constant organic bid liquidity backed by active duel turnover.
             </div>
           </div>
 
           <div class="t-item">
             <div class="t-item-head" translate="no">
-              <span style="color: var(--purple);">ZERO INFLATION / NO PRE-MINT</span>
-              <span class="t-pct" style="color: var(--purple);">FAIR PROTOCOL</span>
+              <span style="color: var(--purple);">ZERO SPECULATIVE DEBT</span>
+              <span class="t-pct" style="color: var(--purple);">100% HARD $SOL BACKED</span>
             </div>
             <div class="bar-shell">
               <div class="bar-core bar-purple" style="width: 100%;"></div>
             </div>
             <div class="t-item-desc">
-              No speculative debt or arbitrary token issuance. Value is strictly backed by proven on-chain transaction velocity.
+              No artificial inflation or unlock cliffs. Token supply reduces automatically on every completed 1-hour and 24-hour round.
             </div>
           </div>
         </div>
@@ -1844,63 +1877,78 @@
       </div>
     </section>
 
-    <!-- ROADMAP -->
+    <!-- STRATEGIC ROADMAP (UPDATED & CLASSIFIED) -->
     <section class="content-card-section">
       <div class="sec-header">
         <div class="sec-badge" translate="no">EXECUTION PIPELINE</div>
         <h2 class="sec-title" translate="no">STRATEGIC <span>ROADMAP</span></h2>
         <p class="sec-sub">
-          Transitioning from a high-throughput $SOL liquidity engine into a cross-chain warfare ecosystem.
+          From high-throughput $SOL liquidity engine into a fully professional, self-sustaining Solana derivatives ecosystem.
         </p>
       </div>
 
       <div class="roadmap-grid">
+        <!-- PHASE 01 -->
         <div class="r-card active-phase">
           <span class="r-phase-tag" style="color: var(--gold);" translate="no">PHASE 01</span>
           <span class="r-status status-live" translate="no">LIVE BETA</span>
-          <h3 class="r-title" translate="no">MVP & $SOL SETTLEMENT</h3>
+          <h3 class="r-title" translate="no">PROTOCOL GENESIS</h3>
           <ul class="r-list">
-            <li>Flash Arena (1H) & Daily Royale (24H) deployment.</li>
-            <li>Native $SOL non-custodial PDA vault.</li>
-            <li>Real-time DexScreener Oracle feeds.</li>
+            <li>Dual Arenas: Flash (1H) & Daily Royale (24H).</li>
+            <li>Native $SOL non-custodial PDA vault integration.</li>
+            <li>Real-time DexScreener Oracle momentum feeds.</li>
+            <li>Automated 3-min and 15-min Anti-Snipe buffers.</li>
             <li>5% Protocol Treasury accumulation engine.</li>
           </ul>
         </div>
 
+        <!-- PHASE 02 -->
         <div class="r-card upcoming-phase">
-          <span class="r-phase-tag" style="color: var(--purple);" translate="no">PHASE 02</span>
+          <span class="r-phase-tag" style="color: var(--cyan);" translate="no">PHASE 02</span>
           <span class="r-status status-queued" translate="no">SCHEDULED</span>
-          <h3 class="r-title" translate="no">TOKEN LAUNCH & BUYBACK</h3>
+          <h3 class="r-title" translate="no">TOKEN & BUYBACK ENGINE</h3>
           <ul class="r-list">
-            <li>$BULL protocol token fair launch.</li>
-            <li>Activation of autonomous market buybacks.</li>
-            <li>Telegram Duel Bot integration.</li>
-            <li>Syndicate Clan leaderboards.</li>
+            <li>$BULL official fair launch on Solana (Raydium / Meteora).</li>
+            <li><strong>Automated Buyback & Burn:</strong> 100% of duel fees buy and burn $BULL.</li>
+            <li>Telegram 1-Click Liquidity Warfare Duel Bot.</li>
+            <li>Leaderboard Syndicate rankings & High-Roller VIP arenas.</li>
+            <li>Community custom duel room creations.</li>
           </ul>
         </div>
 
-        <div class="r-card upcoming-phase">
-          <span class="r-phase-tag" style="color: var(--purple);" translate="no">PHASE 03</span>
-          <span class="r-status status-queued" translate="no">LOCKED 🔒</span>
-          <h3 class="r-title" translate="no">REVENUE SHARE & STAKING</h3>
+        <!-- PHASE 03 -->
+        <div class="r-card locked-phase">
+          <span class="r-phase-tag" style="color: #94a3b8;" translate="no">PHASE 03</span>
+          <span class="r-status status-locked" translate="no">LOCKED 🔒</span>
+          <h3 class="r-title" translate="no">PRO PLATFORM</h3>
           <ul class="r-list">
-            <li>Staking vault for protocol fee sharing.</li>
-            <li>Custom user-created arena showdowns.</li>
-            <li>Full Anchor Rust smart contract audit.</li>
-            <li>Tier-2 Centralized Exchange listings.</li>
+            <li>Full smart contract Rust Anchor formal security audit.</li>
+            <li>Multi-pair cross-warfare (SOL, ETH, BTC, Memes).</li>
+            <li>Staking vault for protocol revenue dividend splits.</li>
           </ul>
+          <div class="classified-badge" translate="no">
+            <span>DIRECTIVE:</span>
+            <span class="redacted">CLASSIFIED PROTOCOL FEATURE</span>
+          </div>
         </div>
 
-        <div class="r-card">
-          <span class="r-phase-tag" style="color: var(--gold);" translate="no">PHASE 04</span>
-          <span class="r-status" style="background: rgba(245, 158, 11, 0.15); color: var(--gold); border: 1px solid var(--gold);" translate="no">EXPANSION 🔒</span>
-          <h3 class="r-title" translate="no">CROSS-CHAIN WARFARE</h3>
+        <!-- PHASE 04 -->
+        <div class="r-card locked-phase">
+          <span class="r-phase-tag" style="color: #94a3b8;" translate="no">PHASE 04</span>
+          <span class="r-status status-locked" translate="no">TOP SECRET 🔒</span>
+          <h3 class="r-title" translate="no">WARFARE SUPREMACY</h3>
           <ul class="r-list">
-            <li>Cross-chain volume oracles (Base & Ethereum).</li>
-            <li>Mobile PWA execution terminal.</li>
-            <li>Global Liquidity Warfare Championship.</li>
-            <li>Institutional liquidity derivatives.</li>
+            <li>Tier-1 Centralized Exchange listings (CEX).</li>
+            <li>Cross-chain oracle settlement (Base, Arbitrum).</li>
           </ul>
+          <div class="classified-badge" translate="no">
+            <span>RESTRICTED:</span>
+            <span class="redacted">CONFIDENTIAL PROTOCOL EXPANSION</span>
+          </div>
+          <div class="classified-badge" translate="no">
+            <span>RESTRICTED:</span>
+            <span class="redacted">HIGH-FREQUENCY DERIVATIVE ENGINE</span>
+          </div>
         </div>
       </div>
     </section>
@@ -1916,6 +1964,16 @@
       </div>
 
       <div class="faq-list" translate="no">
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>How does the Buyback and Burn mechanism work?</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Every round deducts a 5% fee from the loser pool. 100% of this fee in native $SOL is programmatically used to buy back the $BULL token on decentralized exchanges and instantly burn it, creating permanent deflation and constant upward buying pressure.
+          </div>
+        </div>
+
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
             <span>What is the difference between Flash Arena (1H) and Daily Royale (24H)?</span>
@@ -1938,31 +1996,11 @@
 
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
-            <span>When will the $BULL token launch?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            The $BULL token will deploy in Phase 2. The 5% treasury accumulated in $SOL during the Beta will directly seed initial liquidity and power algorithmic buybacks from Day 1.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
             <span>How does the DexScreener Oracle prevent human tampering?</span>
             <span class="faq-toggle-icon">+</span>
           </div>
           <div class="faq-answer">
             Settlements are determined programmatically using public 24-hour volume data returned by the DexScreener API at the exact second of round closure. The operators have zero backdoor access to amend numbers.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
-            <span>Can I retrieve my allocation before round settlement?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            No. Once signed and deposited into the Program Derived Address, capital remains locked until outcome settlement to preserve multiplier stability and prevent last-second pool manipulation.
           </div>
         </div>
       </div>
@@ -2073,7 +2111,7 @@
         </div>
         <div class="modal-summary-row">
           <span style="color:var(--text-muted);">Protocol Treasury Fee:</span>
-          <span style="color: #94a3b8;">5% (Settled to Phase 2 buybacks)</span>
+          <span style="color: #94a3b8;">5% (100% Executed to $BULL Buyback & Burn)</span>
         </div>
       </div>
 
@@ -2085,18 +2123,14 @@
     // ============================================================
     // 1. PROTOCOL CONFIGURATION & TOKEN CONTRACT ADDRESSES
     // ============================================================
-    // Substitua pelo endereço da carteira que receberá as alocações em SOL:
     const PROTOCOL_TREASURY_ADDRESS = "BullRoyale111111111111111111111111111111111"; 
     const SOLANA_RPC_URL = "https://api.mainnet-beta.solana.com";
 
-    // Endereços oficiais Solana dos tokens para o Oráculo DexScreener
     const BONK_MINT = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
     const WIF_MINT = "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm";
 
-    // Modos de Arena: '1h' (Flash) ou '24h' (Daily)
     let currentArenaMode = '1h';
 
-    // Estados isolados para cada modo
     const arenaState = {
       '1h': {
         roundId: 105,
@@ -2126,13 +2160,11 @@
 
     let isBufferActive = false;
 
-    // Dados do Oráculo DexScreener
     let bonkVolume = 54820000;
     let bonkChange24h = 18.4;
     let wifVolume = 49150000;
     let wifChange24h = 11.2;
 
-    // Sintetizador Web Audio API
     function arcadeSound() {
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -2159,11 +2191,9 @@
       arcadeSound();
       currentArenaMode = mode;
 
-      // Atualiza botões das abas
       document.getElementById('tab-1h').classList.toggle('active-tab', mode === '1h');
       document.getElementById('tab-24h').classList.toggle('active-tab', mode === '24h');
 
-      // Atualiza tags de pool
       const poolTagText = mode === '1h' ? 'FLASH POOL' : 'DAILY ROYALE';
       document.getElementById('bonk-pool-tag').innerText = poolTagText;
       document.getElementById('wif-pool-tag').innerText = poolTagText;
@@ -2230,18 +2260,15 @@
       const bonkPct = Math.round((current.stakedBonk / totalPool) * 100);
       const wifPct = 100 - bonkPct;
 
-      // Odds com 95% redistribution / 5% treasury fee
       const multBonk = ((totalPool * 0.95) / current.stakedBonk).toFixed(2);
       const multWif = ((totalPool * 0.95) / current.stakedWif).toFixed(2);
 
-      // Render Multipliers & Pools
       document.getElementById('metric-total-pool').innerText = `${totalPool.toFixed(2)} SOL`;
       document.getElementById('bonk-staked-val').innerText = `${current.stakedBonk.toFixed(2)} SOL (${bonkPct}%)`;
       document.getElementById('wif-staked-val').innerText = `${current.stakedWif.toFixed(2)} SOL (${wifPct}%)`;
       document.getElementById('bonk-multiplier-val').innerText = `${multBonk}x`;
       document.getElementById('wif-multiplier-val').innerText = `${multWif}x`;
 
-      // Tug of war bar
       document.getElementById('tug-label-bonk').innerText = `BONK MOMENTUM: ${bonkPct}% (${current.stakedBonk.toFixed(1)} SOL)`;
       document.getElementById('tug-label-wif').innerText = `WIF MOMENTUM: ${wifPct}% (${current.stakedWif.toFixed(1)} SOL)`;
       document.getElementById('tug-fill-bar').style.width = `${bonkPct}%`;
@@ -2259,25 +2286,21 @@
       const btnWif = document.getElementById('btn-enter-wif');
 
       if (currentArenaMode === '1h') {
-        // Modo 1H: fecha no minuto :00
         const m = 59 - now.getUTCMinutes();
         const s = 59 - now.getUTCSeconds();
         timerEl.innerText = `00h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
 
-        // Anti-Snipe: últimos 3 minutos da hora
         isBufferActive = (m < 3);
 
         if (m === 0 && s === 0) {
           settleRound('1h');
         }
       } else {
-        // Modo 24H: fecha às 00:00 UTC
         const h = 23 - now.getUTCHours();
         const m = 59 - now.getUTCMinutes();
         const s = 59 - now.getUTCSeconds();
         timerEl.innerText = `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
 
-        // Anti-Snipe: últimos 15 minutos do dia (23:45 UTC em diante)
         isBufferActive = (h === 0 && m < 15);
 
         if (h === 0 && m === 0 && s === 0) {
@@ -2285,7 +2308,6 @@
         }
       }
 
-      // Aplica trava na interface se o buffer estiver ativo
       if (isBufferActive) {
         timerBox.classList.add('buffer-active');
         bufferBadge.style.display = 'inline';
@@ -2313,13 +2335,11 @@
       const totalPool = (current.stakedBonk + current.stakedWif).toFixed(2);
       const mult = winner === 'BONK' ? ((totalPool * 0.95) / current.stakedBonk).toFixed(2) : ((totalPool * 0.95) / current.stakedWif).toFixed(2);
 
-      // Exibe banner
       const banner = document.getElementById('round-announcement-banner');
       const bannerText = document.getElementById('round-winner-text');
-      bannerText.innerText = `🏆 ${current.title} #${current.roundId} SETTLED! VICTOR: ${winner} (Δ +${winnerDelta}% DEX VELOCITY) • PAYOUTS RELEASED!`;
+      bannerText.innerText = `🏆 ${current.title} #${current.roundId} SETTLED! VICTOR: ${winner} (Δ +${winnerDelta}% DEX VELOCITY) • BUYBACK & BURN EXECUTED!`;
       banner.style.display = 'block';
 
-      // Adiciona no histórico
       current.history.unshift({
         round: current.roundId,
         pair: "BONK vs WIF",
@@ -2329,7 +2349,6 @@
         payout: `${mult}x`
       });
 
-      // Incrementa rodada e reinicia saldo base
       current.roundId++;
       current.division = mode === '1h' ? `⚔️ FLASH ARENA • DUEL #${current.roundId}` : `🏆 DAILY ROYALE • ROUND #${current.roundId}`;
       current.stakedBonk = mode === '1h' ? 50.0 : 300.0;
@@ -2583,7 +2602,6 @@
           const signed = await currentProvider.signAndSendTransaction(transaction);
           alert(`Transaction submitted! Signature: ${signed.signature.slice(0, 10)}... Backed ${selectedFighter} with ${val} SOL.`);
           
-          // Aloca no modo atual
           const current = arenaState[currentArenaMode];
           if (selectedFighter === 'BONK') current.stakedBonk += val;
           else current.stakedWif += val;
@@ -2599,7 +2617,6 @@
         }
       }
 
-      // Demonstração local
       const current = arenaState[currentArenaMode];
       if (selectedFighter === 'BONK') current.stakedBonk += val;
       else current.stakedWif += val;
@@ -2608,7 +2625,6 @@
       document.getElementById('stake-modal-overlay').style.display = 'none';
     }
 
-    // Inicialização da interface
     renderHistory();
     updateEngineTimer();
     updateArenaMath();
