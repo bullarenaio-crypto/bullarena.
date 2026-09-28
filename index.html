@@ -96,34 +96,34 @@
     }
 
     .splash-emblem-wrap {
-      width: 135px;
-      height: 135px;
-      border-radius: 50%;
-      border: 2px solid var(--gold);
-      padding: 8px;
-      background: #090e1a;
-      box-shadow: 0 0 40px var(--gold-glow);
+      width: 100px;
+      height: 100px;
+      border-radius: 14px;
+      border: 1.5px solid var(--gold);
+      background: #0f172a;
+      box-shadow: 0 0 25px var(--gold-glow);
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
       animation: pulseSplash 1.8s ease-in-out infinite alternate;
     }
 
     @keyframes pulseSplash {
       0% {
         transform: scale(0.96);
-        box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
       }
       100% {
         transform: scale(1.04);
-        box-shadow: 0 0 55px rgba(245, 158, 11, 0.6);
+        box-shadow: 0 0 40px rgba(245, 158, 11, 0.5);
       }
     }
 
     .splash-emblem-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
     }
 
@@ -346,33 +346,26 @@
       position: relative;
     }
 
-    /* BRASÃO CENTRAL 3D COM 100% DE FOLGA PARA NÃO CORTAR OS CHIFRES */
+    /* BRASÃO CENTRAL: QUADRADO COM CANTOS ARREDONDADOS E ESTÁTICO (IGUAL AO DA INTERFACE) */
     .hero-emblem-frame {
-      width: 140px;
-      height: 140px;
+      width: 95px;
+      height: 95px;
       margin: 0 auto 18px;
-      border-radius: 50%;
+      background: #0f172a;
       border: 2px solid var(--gold);
-      box-shadow: 0 0 35px var(--gold-glow);
-      padding: 10px;
-      background: #0c121e;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      perspective: 1000px;
+      box-shadow: 0 0 25px var(--gold-glow);
+      overflow: hidden;
     }
 
     .hero-bull-emblem {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
-      animation: rotateEmblem 12s linear infinite;
-    }
-
-    @keyframes rotateEmblem {
-      0% { transform: rotateY(0deg); }
-      100% { transform: rotateY(360deg); }
     }
 
     .badge-slogan {
