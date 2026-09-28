@@ -100,8 +100,10 @@
       height: 130px;
       border-radius: 50%;
       border: 2px solid var(--gold);
-      padding: 5px;
-      background: #090e1a;
+      background-image: url('https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png');
+      background-size: 175%;
+      background-position: center 42%;
+      background-repeat: no-repeat;
       box-shadow: 0 0 40px var(--gold-glow);
       position: relative;
       animation: pulseSplash 1.8s ease-in-out infinite alternate;
@@ -116,14 +118,6 @@
         transform: scale(1.04);
         box-shadow: 0 0 55px rgba(245, 158, 11, 0.6);
       }
-    }
-
-    .splash-emblem-wrap img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
     }
 
     .splash-title {
@@ -345,7 +339,7 @@
       position: relative;
     }
 
-    /* BRASÃO CENTRAL COM ANIMAÇÃO DE ROTAÇÃO 3D E SEM CORTAR OS CHIFRES */
+    /* BRASÃO CENTRAL 3D */
     .hero-emblem-frame {
       width: 135px;
       height: 135px;
@@ -353,19 +347,13 @@
       border-radius: 50%;
       border: 2px solid var(--gold);
       box-shadow: 0 0 35px var(--gold-glow);
-      padding: 10px;
-      background: #0c121e;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background-image: url('https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png');
+      background-size: 175%;
+      background-position: center 42%;
+      background-repeat: no-repeat;
+      background-color: #0c121e;
+      position: relative;
       perspective: 1000px;
-    }
-
-    .hero-bull-emblem {
-      width: 100%;
-      height: 100%;
-      object-fit: contain; /* Garante que a imagem inteira apareça sem zoom ou cortes */
-      display: block;
       animation: rotateEmblem 12s linear infinite;
     }
 
@@ -493,10 +481,48 @@
       transform: translateY(-1px);
     }
 
+    /* ESTEIRA DE SALAS (DUAL-ROUND PIPELINE TABS) */
+    .arena-pipeline-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-pipeline-tab {
+      background: #0a0e1a;
+      border: 1.5px solid var(--border);
+      color: #94a3b8;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-pipeline-tab:hover {
+      color: #fff;
+      border-color: #334155;
+    }
+
+    .btn-pipeline-tab.active-room {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+
     .arena-tabs-wrap {
       display: flex;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 20px;
     }
 
@@ -505,28 +531,19 @@
       border: 1.5px solid var(--border);
       color: #94a3b8;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 13px;
-      padding: 12px 24px;
-      border-radius: 12px;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 10px;
       cursor: pointer;
       letter-spacing: 1px;
       transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-arena-tab:hover {
-      color: #fff;
-      border-color: #334155;
     }
 
     .btn-arena-tab.active-tab {
-      background: rgba(245, 158, 11, 0.12);
-      border-color: var(--gold);
-      color: var(--gold);
-      box-shadow: 0 0 20px var(--gold-glow);
+      background: #1e293b;
+      border-color: var(--cyan);
+      color: var(--cyan);
     }
 
     .arena-box {
@@ -1569,9 +1586,7 @@
 
   <!-- INTRO SPLASH SCREEN -->
   <div id="splash-screen" translate="no">
-    <div class="splash-emblem-wrap">
-      <img src="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png" alt="Bull Royale Emblem" fetchpriority="high">
-    </div>
+    <div class="splash-emblem-wrap"></div>
     <div class="splash-title">BULL<span>ROYALE</span></div>
     <div class="splash-loader-bar">
       <div class="splash-loader-fill"></div>
@@ -1612,9 +1627,7 @@
 
     <!-- HERO SECTION -->
     <header class="hero">
-      <div class="hero-emblem-frame">
-        <img src="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png" alt="Bull Royale Crest" class="hero-bull-emblem" fetchpriority="high">
-      </div>
+      <div class="hero-emblem-frame"></div>
       <div class="badge-slogan" translate="no">THE LIQUIDITY WARFARE PROTOCOL</div>
       <h1 class="hero-title" translate="no">BULL <span>ROYALE</span></h1>
       <p class="hero-sub">
@@ -1625,7 +1638,7 @@
     <!-- METRICS BAR -->
     <section class="metrics-bar">
       <div class="metric-col">
-        <div class="metric-label" id="metric-pool-label">ACTIVE 1H DUEL POOL</div>
+        <div class="metric-label" id="metric-pool-label">ACTIVE DUEL POOL</div>
         <div class="metric-num gold" id="metric-total-pool" translate="no">245.50 SOL</div>
       </div>
       <div class="metric-col">
@@ -1661,7 +1674,16 @@
 
     <!-- ARENA SHOWDOWN -->
     <main id="arena" class="arena-box">
-      <!-- ARENA MODE SELECTOR TABS -->
+      <!-- ARENA PIPELINE TABS (DUAL ROUND ESTEIRA & DURATION) -->
+      <div class="arena-pipeline-bar" translate="no">
+        <button id="room-active" class="btn-pipeline-tab active-room" onclick="switchPipelineRoom('active')">
+          <span>🟢 LIVE ROOM • DUEL #105 (CLOSING SOON)</span>
+        </button>
+        <button id="room-next" class="btn-pipeline-tab" onclick="switchPipelineRoom('next')">
+          <span>🚀 NEXT ROOM • DUEL #106 (OPEN FOR WAGERS)</span>
+        </button>
+      </div>
+
       <div class="arena-tabs-wrap" translate="no">
         <button id="tab-1h" class="btn-arena-tab active-tab" onclick="switchArenaMode('1h')">
           <span>⚡ FLASH ARENA (1H)</span>
@@ -1680,7 +1702,7 @@
         <span class="tag-tier" id="arena-division-tag" translate="no">⚔️ FLASH ARENA • DUEL #105</span>
         <div class="timer-pill" id="timer-pill-box" translate="no">
           <span id="timer-icon">⏳</span>
-          <span>CLOSES IN:</span>
+          <span id="timer-label-text">CLOSES IN:</span>
           <span id="clock-timer">00h 00m 00s</span>
           <span id="buffer-badge" style="display:none; font-size:10px; color:var(--pink); font-weight:900;">[BUFFER ACTIVE]</span>
         </div>
@@ -1822,7 +1844,7 @@
           <div class="step-num" translate="no" style="color:var(--purple);">02</div>
           <h3 class="step-title" translate="no">SELECT THE CONVICTION</h3>
           <p class="step-desc">
-            Track real-time DexScreener volume momentum across 1-hour flash intervals or 24-hour daily trends. Back the contender forecasted to lead trading velocity.
+            Track real-time DexScreener volume momentum across active or upcoming room pipelines. Back the contender forecasted to lead trading velocity.
           </p>
         </div>
         <div class="step-card">
@@ -2079,6 +2101,16 @@
       <div class="faq-list" translate="no">
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
+            <span>Can I bet on the next round while the current one is closing?</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Yes! Through our Dual-Round Pipeline, when the Live Room enters its final minutes (Anti-Snipe buffer), you can switch to the Next Room (Upcoming Round) and place your wagers in advance with zero interruption.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
             <span>How does 1-click betting work on X (Twitter) and Telegram?</span>
             <span class="faq-toggle-icon">+</span>
           </div>
@@ -2109,21 +2141,11 @@
 
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
-            <span>What token is used to participate during the Beta phase?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            During Phase 1 Beta, all arena showdowns operate exclusively with native Solana ($SOL). This guarantees maximum liquidity, instant payouts, and zero speculative slippage.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
             <span>How does the DexScreener Oracle prevent human tampering?</span>
             <span class="faq-toggle-icon">+</span>
           </div>
           <div class="faq-answer">
-            Settlements are determined programmatically using public 24-hour volume data returned by the DexScreener API at the exact second of round closure. The operators have zero backdoor access to amend numbers.
+            Settlements are determined programmatically using public volume data returned by the DexScreener API at the exact second of round closure. The operators have zero backdoor access to amend numbers.
           </div>
         </div>
       </div>
@@ -2244,7 +2266,7 @@
 
   <script>
     // ============================================================
-    // 0. SPLASH SCREEN CONTROLLER (METAMASK STYLE)
+    // 0. SPLASH SCREEN CONTROLLER
     // ============================================================
     window.addEventListener('load', () => {
       setTimeout(() => {
@@ -2253,7 +2275,7 @@
           splash.classList.add('fade-out');
           setTimeout(() => splash.remove(), 650);
         }
-      }, 1400); // 1.4s de transição suave
+      }, 1400);
     });
 
     // ============================================================
@@ -2265,37 +2287,61 @@
     const BONK_MINT = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
     const WIF_MINT = "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm";
 
-    let currentArenaMode = '1h';
+    let currentArenaMode = '1h'; // '1h' ou '24h'
+    let currentPipelineRoom = 'active'; // 'active' (Sala Atual) ou 'next' (Próxima Sala Antecipada)
 
-    const arenaState = {
+    // Estados independentes para cada modo e sala da esteira
+    const pipelineState = {
       '1h': {
-        roundId: 105,
-        title: "FLASH ARENA",
-        division: "⚔️ FLASH ARENA • DUEL #105",
-        stakedBonk: 142.39,
-        stakedWif: 103.11,
-        historyHeader: "1H ON-CHAIN SETTLED DUELS",
-        history: [
-          { round: 104, pair: "WIF vs PEPE", winner: "WIF", delta: "+14.2%", pool: "88.50 SOL", payout: "1.85x" },
-          { round: 103, pair: "BONK vs POPCAT", winner: "BONK", delta: "+18.9%", pool: "112.00 SOL", payout: "1.62x" }
-        ]
+        active: {
+          roundId: 105,
+          title: "FLASH ARENA (LIVE)",
+          division: "⚔️ FLASH ARENA • DUEL #105",
+          stakedBonk: 142.39,
+          stakedWif: 103.11,
+          isLocked: false
+        },
+        next: {
+          roundId: 106,
+          title: "FLASH ARENA (NEXT)",
+          division: "⚔️ FLASH ARENA • DUEL #106 (OPEN)",
+          stakedBonk: 12.50,
+          stakedWif: 8.00,
+          isLocked: false
+        }
       },
       '24h': {
-        roundId: 18,
-        title: "DAILY ROYALE",
-        division: "🏆 DAILY ROYALE • ROUND #18",
-        stakedBonk: 840.50,
-        stakedWif: 615.20,
-        historyHeader: "24H DAILY ROYALE SETTLEMENTS",
-        history: [
-          { round: 17, pair: "BONK vs WIF", winner: "BONK", delta: "+28.4%", pool: "1,240.00 SOL", payout: "1.74x" },
-          { round: 16, pair: "WIF vs PEPE", winner: "WIF", delta: "+34.1%", pool: "980.50 SOL", payout: "1.92x" }
-        ]
+        active: {
+          roundId: 18,
+          title: "DAILY ROYALE (LIVE)",
+          division: "🏆 DAILY ROYALE • ROUND #18",
+          stakedBonk: 840.50,
+          stakedWif: 615.20,
+          isLocked: false
+        },
+        next: {
+          roundId: 19,
+          title: "DAILY ROYALE (NEXT)",
+          division: "🏆 DAILY ROYALE • ROUND #19 (OPEN)",
+          stakedBonk: 140.00,
+          stakedWif: 95.00,
+          isLocked: false
+        }
       }
     };
 
-    let isBufferActive = false;
+    let historyData = {
+      '1h': [
+        { round: 104, pair: "WIF vs PEPE", winner: "WIF", delta: "+14.2%", pool: "88.50 SOL", payout: "1.85x" },
+        { round: 103, pair: "BONK vs POPCAT", winner: "BONK", delta: "+18.9%", pool: "112.00 SOL", payout: "1.62x" }
+      ],
+      '24h': [
+        { round: 17, pair: "BONK vs WIF", winner: "BONK", delta: "+28.4%", pool: "1,240.00 SOL", payout: "1.74x" },
+        { round: 16, pair: "WIF vs PEPE", winner: "WIF", delta: "+34.1%", pool: "980.50 SOL", payout: "1.92x" }
+      ]
+    };
 
+    let isBufferActive = false;
     let bonkVolume = 54820000;
     let bonkChange24h = 18.4;
     let wifVolume = 49150000;
@@ -2321,7 +2367,7 @@
     }
 
     // ============================================================
-    // 2. SWITCH ARENA MODE (1H vs 24H)
+    // 2. SWITCHERS (ARENA MODE & PIPELINE ROOM)
     // ============================================================
     function switchArenaMode(mode) {
       arcadeSound();
@@ -2334,17 +2380,27 @@
       document.getElementById('bonk-pool-tag').innerText = poolTagText;
       document.getElementById('wif-pool-tag').innerText = poolTagText;
 
-      document.getElementById('metric-pool-label').innerText = mode === '1h' ? 'ACTIVE 1H DUEL POOL' : 'ACTIVE 24H GRAND POOL';
-      document.getElementById('arena-division-tag').innerText = arenaState[mode].division;
-      document.getElementById('history-header-title').innerText = arenaState[mode].historyHeader;
+      document.getElementById('metric-pool-label').innerText = mode === '1h' ? 'ACTIVE DUEL POOL' : 'ACTIVE GRAND POOL';
+      document.getElementById('history-header-title').innerText = mode === '1h' ? '1H ON-CHAIN SETTLED DUELS' : '24H DAILY ROYALE SETTLEMENTS';
 
       renderHistory();
       updateArenaMath();
       updateEngineTimer();
     }
 
+    function switchPipelineRoom(room) {
+      arcadeSound();
+      currentPipelineRoom = room;
+
+      document.getElementById('room-active').classList.toggle('active-room', room === 'active');
+      document.getElementById('room-next').classList.toggle('active-room', room === 'next');
+
+      updateArenaMath();
+      updateEngineTimer();
+    }
+
     // ============================================================
-    // 3. DEXSCREENER LIVE ORACLE FETCHER
+    // 3. DEXSCREENER ORACLE FETCHER
     // ============================================================
     async function fetchDexScreenerOracle() {
       try {
@@ -2391,35 +2447,52 @@
     // 4. DYNAMIC ODDS & TUG-OF-WAR CALCULATION
     // ============================================================
     function updateArenaMath() {
-      const current = arenaState[currentArenaMode];
-      const totalPool = current.stakedBonk + current.stakedWif;
-      const bonkPct = Math.round((current.stakedBonk / totalPool) * 100);
+      const st = pipelineState[currentArenaMode][currentPipelineRoom];
+      const totalPool = st.stakedBonk + st.stakedWif;
+      const bonkPct = Math.round((st.stakedBonk / totalPool) * 100);
       const wifPct = 100 - bonkPct;
 
-      const multBonk = ((totalPool * 0.95) / current.stakedBonk).toFixed(2);
-      const multWif = ((totalPool * 0.95) / current.stakedWif).toFixed(2);
+      const multBonk = ((totalPool * 0.95) / st.stakedBonk).toFixed(2);
+      const multWif = ((totalPool * 0.95) / st.stakedWif).toFixed(2);
 
+      document.getElementById('arena-division-tag').innerText = st.division;
       document.getElementById('metric-total-pool').innerText = `${totalPool.toFixed(2)} SOL`;
-      document.getElementById('bonk-staked-val').innerText = `${current.stakedBonk.toFixed(2)} SOL (${bonkPct}%)`;
-      document.getElementById('wif-staked-val').innerText = `${current.stakedWif.toFixed(2)} SOL (${wifPct}%)`;
+      document.getElementById('bonk-staked-val').innerText = `${st.stakedBonk.toFixed(2)} SOL (${bonkPct}%)`;
+      document.getElementById('wif-staked-val').innerText = `${st.stakedWif.toFixed(2)} SOL (${wifPct}%)`;
       document.getElementById('bonk-multiplier-val').innerText = `${multBonk}x`;
       document.getElementById('wif-multiplier-val').innerText = `${multWif}x`;
 
-      document.getElementById('tug-label-bonk').innerText = `BONK MOMENTUM: ${bonkPct}% (${current.stakedBonk.toFixed(1)} SOL)`;
-      document.getElementById('tug-label-wif').innerText = `WIF MOMENTUM: ${wifPct}% (${current.stakedWif.toFixed(1)} SOL)`;
+      document.getElementById('tug-label-bonk').innerText = `BONK MOMENTUM: ${bonkPct}% (${st.stakedBonk.toFixed(1)} SOL)`;
+      document.getElementById('tug-label-wif').innerText = `WIF MOMENTUM: ${wifPct}% (${st.stakedWif.toFixed(1)} SOL)`;
       document.getElementById('tug-fill-bar').style.width = `${bonkPct}%`;
     }
 
     // ============================================================
-    // 5. TIMERS & DUAL-ARENA ENGINE (1H & 24H)
+    // 5. TIMERS & DUAL-ROOM PIPELINE ENGINE
     // ============================================================
     function updateEngineTimer() {
       const now = new Date();
       const timerEl = document.getElementById('clock-timer');
       const timerBox = document.getElementById('timer-pill-box');
       const bufferBadge = document.getElementById('buffer-badge');
+      const timerLabel = document.getElementById('timer-label-text');
       const btnBonk = document.getElementById('btn-enter-bonk');
       const btnWif = document.getElementById('btn-enter-wif');
+
+      if (currentPipelineRoom === 'next') {
+        // A próxima sala fica sempre aberta com tempo cheio até a virada
+        timerLabel.innerText = 'OPENS IN:';
+        timerEl.innerText = currentArenaMode === '1h' ? '58m 20s' : '23h 45m 00s';
+        timerBox.classList.remove('buffer-active');
+        bufferBadge.style.display = 'none';
+        btnBonk.classList.remove('btn-locked');
+        btnWif.classList.remove('btn-locked');
+        btnBonk.innerText = 'ENTER PRE-STAKE • BONK';
+        btnWif.innerText = 'ENTER PRE-STAKE • WIF';
+        return;
+      }
+
+      timerLabel.innerText = 'CLOSES IN:';
 
       if (currentArenaMode === '1h') {
         const m = 59 - now.getUTCMinutes();
@@ -2451,8 +2524,8 @@
         
         btnBonk.classList.add('btn-locked');
         btnWif.classList.add('btn-locked');
-        btnBonk.innerText = '🔒 ROUND LOCKED';
-        btnWif.innerText = '🔒 ROUND LOCKED';
+        btnBonk.innerText = '🔒 ROUND LOCKED (USE NEXT ROOM)';
+        btnWif.innerText = '🔒 ROUND LOCKED (USE NEXT ROOM)';
       } else {
         timerBox.classList.remove('buffer-active');
         bufferBadge.style.display = 'none';
@@ -2465,19 +2538,19 @@
     }
 
     function settleRound(mode) {
-      const current = arenaState[mode];
+      const st = pipelineState[mode].active;
       const winner = (bonkChange24h >= wifChange24h) ? 'BONK' : 'WIF';
       const winnerDelta = (winner === 'BONK' ? bonkChange24h : wifChange24h).toFixed(1);
-      const totalPool = (current.stakedBonk + current.stakedWif).toFixed(2);
-      const mult = winner === 'BONK' ? ((totalPool * 0.95) / current.stakedBonk).toFixed(2) : ((totalPool * 0.95) / current.stakedWif).toFixed(2);
+      const totalPool = (st.stakedBonk + st.stakedWif).toFixed(2);
+      const mult = winner === 'BONK' ? ((totalPool * 0.95) / st.stakedBonk).toFixed(2) : ((totalPool * 0.95) / st.stakedWif).toFixed(2);
 
       const banner = document.getElementById('round-announcement-banner');
       const bannerText = document.getElementById('round-winner-text');
-      bannerText.innerText = `🏆 ${current.title} #${current.roundId} SETTLED! VICTOR: ${winner} (Δ +${winnerDelta}% DEX VELOCITY) • BUYBACK & BURN EXECUTED!`;
+      bannerText.innerText = `🏆 ${st.title} #${st.roundId} SETTLED! VICTOR: ${winner} (Δ +${winnerDelta}% DEX VELOCITY) • BUYBACK & BURN EXECUTED!`;
       banner.style.display = 'block';
 
-      current.history.unshift({
-        round: current.roundId,
+      historyData[mode].unshift({
+        round: st.roundId,
         pair: "BONK vs WIF",
         winner: winner,
         delta: `+${winnerDelta}%`,
@@ -2485,13 +2558,13 @@
         payout: `${mult}x`
       });
 
-      current.roundId++;
-      current.division = mode === '1h' ? `⚔️ FLASH ARENA • DUEL #${current.roundId}` : `🏆 DAILY ROYALE • ROUND #${current.roundId}`;
-      current.stakedBonk = mode === '1h' ? 50.0 : 300.0;
-      current.stakedWif = mode === '1h' ? 50.0 : 300.0;
+      // Rola a esteira: A sala 'next' vira a 'active', e criamos uma nova 'next'
+      st.roundId++;
+      st.stakedBonk = mode === '1h' ? 50.0 : 300.0;
+      st.stakedWif = mode === '1h' ? 50.0 : 300.0;
+      st.division = mode === '1h' ? `⚔️ FLASH ARENA • DUEL #${st.roundId}` : `🏆 DAILY ROYALE • ROUND #${st.roundId}`;
 
       if (currentArenaMode === mode) {
-        document.getElementById('arena-division-tag').innerText = current.division;
         renderHistory();
         updateArenaMath();
       }
@@ -2499,9 +2572,9 @@
     }
 
     function renderHistory() {
-      const current = arenaState[currentArenaMode];
+      const list = historyData[currentArenaMode];
       const container = document.getElementById('history-container');
-      container.innerHTML = current.history.map(item => `
+      container.innerHTML = list.map(item => `
         <div class="history-row">
           <div class="history-match">
             <span style="color:var(--gold);">ROUND #${item.round}</span>
@@ -2644,9 +2717,8 @@
 
     function openStakeModal(name) {
       arcadeSound();
-      if (isBufferActive) {
-        const bufferTime = currentArenaMode === '1h' ? '3 minutes' : '15 minutes';
-        alert(`⚠️ Round is currently locked! The Anti-Snipe buffer is active for the final ${bufferTime} of this round to prevent pool manipulation.`);
+      if (isBufferActive && currentPipelineRoom === 'active') {
+        alert("⚠️ Live room is currently locked by the Anti-Snipe buffer! Switch to the 'NEXT ROOM' above to place your wagers for the upcoming round.");
         return;
       }
       if (!walletConnected) {
@@ -2656,12 +2728,12 @@
       }
       selectedFighter = name;
       
-      const current = arenaState[currentArenaMode];
-      const totalPool = current.stakedBonk + current.stakedWif;
-      currentMultiplier = parseFloat(name === 'BONK' ? ((totalPool * 0.95) / current.stakedBonk).toFixed(2) : ((totalPool * 0.95) / current.stakedWif).toFixed(2));
+      const st = pipelineState[currentArenaMode][currentPipelineRoom];
+      const totalPool = st.stakedBonk + st.stakedWif;
+      currentMultiplier = parseFloat(name === 'BONK' ? ((totalPool * 0.95) / st.stakedBonk).toFixed(2) : ((totalPool * 0.95) / st.stakedWif).toFixed(2));
       const imgUrl = name === 'BONK' ? 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035' : 'https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg';
 
-      document.getElementById('modal-fighter-name').innerText = `${name} (${current.title})`;
+      document.getElementById('modal-fighter-name').innerText = `${name} (${st.title})`;
       document.getElementById('modal-fighter-mult').innerText = `${currentMultiplier}x`;
       document.getElementById('modal-fighter-img').src = imgUrl;
       document.getElementById('modal-user-sol').innerText = balanceSolNum.toFixed(3);
@@ -2738,9 +2810,9 @@
           const signed = await currentProvider.signAndSendTransaction(transaction);
           alert(`Transaction submitted! Signature: ${signed.signature.slice(0, 10)}... Backed ${selectedFighter} with ${val} SOL.`);
           
-          const current = arenaState[currentArenaMode];
-          if (selectedFighter === 'BONK') current.stakedBonk += val;
-          else current.stakedWif += val;
+          const st = pipelineState[currentArenaMode][currentPipelineRoom];
+          if (selectedFighter === 'BONK') st.stakedBonk += val;
+          else st.stakedWif += val;
           updateArenaMath();
 
           document.getElementById('stake-modal-overlay').style.display = 'none';
@@ -2753,11 +2825,11 @@
         }
       }
 
-      const current = arenaState[currentArenaMode];
-      if (selectedFighter === 'BONK') current.stakedBonk += val;
-      else current.stakedWif += val;
+      const st = pipelineState[currentArenaMode][currentPipelineRoom];
+      if (selectedFighter === 'BONK') st.stakedBonk += val;
+      else st.stakedWif += val;
       updateArenaMath();
-      alert(`Allocation of ${val.toFixed(3)} SOL on ${selectedFighter} (${arenaState[currentArenaMode].title}) registered!`);
+      alert(`Allocation of ${val.toFixed(3)} SOL on ${selectedFighter} (${st.title}) registered!`);
       document.getElementById('stake-modal-overlay').style.display = 'none';
     }
 
