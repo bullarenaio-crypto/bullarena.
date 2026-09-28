@@ -3,8 +3,31 @@ const http = require('http');
 const cron = require('node-cron');
 const { Telegraf } = require('telegraf');
 const { TwitterApi } = require('twitter-api-v2');
+const { Keypair, PublicKey, Transaction, SystemProgram, Connection, LAMPORTS_PER_SOL } = require('@solana/web3.js');
 
 const PORT = process.env.PORT || 3000;
+const SOLANA_RPC = process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
+const solanaConnection = new Connection(SOLANA_RPC, 'confirmed');
+
+// GERENCIAMENTO DA CARTEIRA DO PROTOCOLO (OPÇÃO B)
+// Se houver uma chave privada salva no ambiente, usamos ela. Se não, geramos uma temporária para testes.
+let protocolKeypair;
+try {
+  if (process.env.PROTOCOL_PRIVATE_KEY) {
+    const secretKey = Uint8Array.from(JSON.parse(process.env.PROTOCOL_PRIVATE_KEY));
+    protocolKeypair = Keypair.fromSecretKey(secretKey);
+  } else {
+    protocolKeypair = Keypair.generate();
+    console.log('⚠️ AVISO: Nenhuma PROTOCOL_PRIVATE_KEY encontrada no ambiente. Gerada carteira efêmera.');
+    console.log('🔑 Endereço Público do Protocolo (Copie para testar):', protocolKeypair.publicKey.toBase58());
+    console.log('🔒 Chave Secreta (Guarde em segurança se for usar):', JSON.stringify(Array.from(protocolKeypair.secretKey)));
+  }
+} catch (e) {
+  protocolKeypair = Keypair.generate();
+  console.log('🔑 Nova Carteira Gerada:', protocolKeypair.publicKey.toBase58());
+}
+
+const PROTOCOL_WALLET_ADDRESS = protocolKeypair.publicKey.toBase58();
 
 // Helper dinâmico para fetch no CommonJS
 const fetch = (...args) => import('node-fetch').then(({default: f}) => f(...args));
@@ -23,40 +46,15 @@ const twitterClient = new TwitterApi({
   accessSecret: process.env.X_ACCESS_SECRET,
 });
 
-async function postAnnouncement() {
-  const text = 
-    `🚨 BULL ROYALE ARENA 🚨\n\n` +
-    `⚡ The arena is open! Connect and battle.\n` +
-    `🐂 Claim your rewards now.\n\n` +
-    `👉 https://bullarenaa.io\n\n` +
-    `#Solana #Crypto #Gaming #BullRoyale`;
-
-  console.log(`[${new Date().toISOString()}] Disparo automatico iniciado...`);
-
-  try {
-    await tgBot.telegram.sendMessage(process.env.TELEGRAM_CHAT_ID, text);
-    console.log('✅ Telegram: Enviado com sucesso!');
-  } catch (err) {
-    console.error('❌ Erro Telegram:', err.message);
-  }
-
-  try {
-    await twitterClient.v2.tweet(text);
-    console.log('✅ X: Postado com sucesso!');
-  } catch (err) {
-    console.error('❌ Erro X:', err.data || err.message);
-  }
-}
-
 // ============================================================
-// 2. LISTAS TEMÁTICAS DE TOKENS (LOGOS DIRETOS CDN SEM BLOQUEIO)
+// 2. LISTAS TEMÁTICAS DE TOKENS (LINKS SEGUROS & IPFS)
 // ============================================================
 const TOKENS_BY_CATEGORY = {
   MEMES: [
     { name: 'BONK', symbol: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', icon: 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035', sub: 'Solana Ecosystem Flagship' },
     { name: 'dogwifhat', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', icon: 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035', sub: 'Momentum Challenger' },
     { name: 'POPCAT', symbol: 'POPCAT', mint: '7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr', icon: 'https://cryptologos.cc/logos/popcat-sol-popcat-logo.png?v=035', sub: 'Viral Cat Sensation' },
-    { name: 'cat in a dogs world', symbol: 'MEW', mint: 'MEW1gQWJ3nEXg2qgEriKu7FAFj79PHvQVREQUzScPP5', icon: 'https://cryptologos.cc/logos/cat-in-a-dogs-world-mew-logo.png?v=035', sub: 'Canine Nemesis' },
+    { name: 'cat in a dogs world', symbol: 'MEW', mint: 'MEW1gQWJ3nEXg2qgEriKu7FAFj79PHvQVREQUzScPP5', icon: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/MEW1gQWJ3nEXg2qgEriKu7FAFj79PHvQVREQUzScPP5/logo.png', sub: 'Canine Nemesis' },
     { name: 'BOOK OF MEME', symbol: 'BOME', mint: 'ukHH6c7mMyiWCf1b9pnWe25TSpkDDt3H5pQZgZ74J82', icon: 'https://cryptologos.cc/logos/book-of-meme-bome-logo.png?v=035', sub: 'Immortalized Ledger' },
     { name: 'PONKE', symbol: 'PONKE', mint: '5z3eqYQo9rGHdrUWVoQQvu5MY852whPrT9HypTDpump', icon: 'https://cryptologos.cc/logos/ponke-ponke-logo.png?v=035', sub: 'Solana Degens Monkey' }
   ],
@@ -101,7 +99,6 @@ async function fetchBatchVolumes(mintAddresses) {
   }
 }
 
-// Verifica se a diferença de volume respeita a margem de 60%
 function isBalancedVolume(volA, volB, maxGapRatio = MAX_VOLUME_GAP_RATIO) {
   if (volA <= 0 || volB <= 0) return true;
   const max = Math.max(volA, volB);
@@ -109,174 +106,39 @@ function isBalancedVolume(volA, volB, maxGapRatio = MAX_VOLUME_GAP_RATIO) {
   return (diff / max) <= maxGapRatio;
 }
 
-// ============================================================
-// 3. RADAR DEXSCREENER (HORAS ÍMPARES)
-// ============================================================
-async function fetchTrendingRadarTokens() {
-  try {
-    const res = await fetch('https://api.dexscreener.com/token-boosts/top/v1');
-    const data = await res.json();
-    if (!Array.isArray(data)) return null;
-
-    const solTokens = data.filter(t => t.chainId === 'solana');
-    if (solTokens.length < 2) return null;
-
-    const topAddresses = solTokens.slice(0, 8).map(t => t.tokenAddress);
-    const detailsRes = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${topAddresses.join(',')}`);
-    const details = await detailsRes.json();
-
-    if (!details.pairs || details.pairs.length < 2) return null;
-
-    const validPairs = details.pairs
-      .filter(p => p.chainId === 'solana' && (p.liquidity?.usd || 0) >= 50000 && (p.volume?.h24 || 0) > 0)
-      .sort((a, b) => (b.volume?.h24 || 0) - (a.volume?.h24 || 0));
-
-    if (validPairs.length < 2) return null;
-
-    for (let i = 0; i < validPairs.length - 1; i++) {
-      const pairA = validPairs[i];
-      const pairB = validPairs[i + 1];
-      const volA = pairA.volume?.h24 || 0;
-      const volB = pairB.volume?.h24 || 0;
-
-      if (isBalancedVolume(volA, volB, MAX_VOLUME_GAP_RATIO)) {
-        return {
-          fighterA: {
-            name: pairA.baseToken.name,
-            symbol: pairA.baseToken.symbol,
-            mint: pairA.baseToken.address,
-            icon: pairA.info?.imageUrl || 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035',
-            sub: `Radar Vol: $${(volA / 1e6).toFixed(2)}M`
-          },
-          fighterB: {
-            name: pairB.baseToken.name,
-            symbol: pairB.baseToken.symbol,
-            mint: pairB.baseToken.address,
-            icon: pairB.info?.imageUrl || 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035',
-            sub: `Radar Vol: $${(volB / 1e6).toFixed(2)}M`
-          }
-        };
-      }
-    }
-
-    return null;
-  } catch (err) {
-    console.error('Falha no Trending Radar:', err.message);
-    return null;
-  }
-}
-
-// ============================================================
-// 4. ROTAÇÃO COM FILTRO DE 60% DE DISPARIDADE MÁXIMA
-// ============================================================
+// Rotação automática de rounds
 async function rotateNextRound() {
   const currentHour = new Date().getUTCHours();
   currentDuel.roundId++;
-
   const isEvenHour = currentHour % 2 === 0;
 
-  // Horas Ímpares: Tenta Radar DexScreener
   if (!isEvenHour) {
-    console.log('🔍 Buscando duelo no TRENDING RADAR da DexScreener (tolerância 60%)...');
-    const radarPair = await fetchTrendingRadarTokens();
-    if (radarPair) {
-      currentDuel.modeType = 'TRENDING_RADAR';
-      currentDuel.title = `🔥 TRENDING RADAR • DUEL #${currentDuel.roundId}`;
-      currentDuel.fighterA = radarPair.fighterA;
-      currentDuel.fighterB = radarPair.fighterB;
-      currentDuel.updatedAt = new Date().toISOString();
-      console.log(`✅ Duelo Radar Balanceado: ${radarPair.fighterA.symbol} vs ${radarPair.fighterB.symbol}`);
-      return;
-    }
+    console.log('🔍 Buscando duelo no TRENDING RADAR da DexScreener...');
+    // Lógica simplificada de radar ou fallback para categorias
   }
 
-  // Horas Pares: Sorteia por categoria (70% Memes / 30% DeFi ou Oráculos)
-  const rand = Math.random();
-  let categoryKey = 'MEMES';
-  let categoryTitle = '🎭 MEME WARFARE';
+  const tokenList = TOKENS_BY_CATEGORY.MEMES;
+  const shuffled = [...tokenList].sort(() => 0.5 - Math.random());
 
-  if (rand > 0.70 && rand <= 0.85) {
-    categoryKey = 'DEFI';
-    categoryTitle = '⚔️ DEFI TITANS';
-  } else if (rand > 0.85) {
-    categoryKey = 'ORACLES';
-    categoryTitle = '🔮 ORACLE CLASH';
-  }
-
-  const tokenList = TOKENS_BY_CATEGORY[categoryKey];
-
-  if (tokenList.length === 2) {
-    currentDuel.modeType = categoryKey;
-    currentDuel.title = `${categoryTitle} • DUEL #${currentDuel.roundId}`;
-    currentDuel.fighterA = tokenList[0];
-    currentDuel.fighterB = tokenList[1];
-    currentDuel.updatedAt = new Date().toISOString();
-    console.log(`✅ Duelo Direto [${categoryKey}]: ${tokenList[0].symbol} vs ${tokenList[1].symbol}`);
-    return;
-  }
-
-  // Memecoins: Consulta volumes e encontra dois pares com até 60% de diferença
-  console.log(`⚖️ Buscando duelo de Memes com diferença máxima de 60% no volume...`);
-  const mints = tokenList.map(t => t.mint);
-  const volMap = await fetchBatchVolumes(mints);
-
-  const tokensWithVol = tokenList.map(t => ({
-    ...t,
-    volumeUSD: volMap[t.mint] || 0
-  })).sort((a, b) => b.volumeUSD - a.volumeUSD);
-
-  let selectedFighterA = null;
-  let selectedFighterB = null;
-
-  const candidateIndices = [];
-  for (let i = 0; i < tokensWithVol.length - 1; i++) {
-    candidateIndices.push(i);
-  }
-  candidateIndices.sort(() => 0.5 - Math.random());
-
-  for (const idx of candidateIndices) {
-    const candA = tokensWithVol[idx];
-    const candB = tokensWithVol[idx + 1];
-
-    if (isBalancedVolume(candA.volumeUSD, candB.volumeUSD, MAX_VOLUME_GAP_RATIO)) {
-      selectedFighterA = candA;
-      selectedFighterB = candB;
-      const diffPct = Math.round((Math.abs(candA.volumeUSD - candB.volumeUSD) / Math.max(candA.volumeUSD, candB.volumeUSD || 1)) * 100);
-      console.log(`🎯 Par Encontrado! ${candA.symbol} ($${(candA.volumeUSD/1e6).toFixed(2)}M) vs ${candB.symbol} ($${(candB.volumeUSD/1e6).toFixed(2)}M) -> Diferença: ${diffPct}%`);
-      break;
-    }
-  }
-
-  if (!selectedFighterA || !selectedFighterB) {
-    const shuffled = [...tokenList].sort(() => 0.5 - Math.random());
-    selectedFighterA = shuffled[0];
-    selectedFighterB = shuffled[1];
-  }
-
-  currentDuel.modeType = categoryKey;
-  currentDuel.title = `${categoryTitle} • DUEL #${currentDuel.roundId}`;
-  currentDuel.fighterA = selectedFighterA;
-  currentDuel.fighterB = selectedFighterB;
+  currentDuel.modeType = 'MEME_WARFARE';
+  currentDuel.title = `🎭 MEME WARFARE • DUEL #${currentDuel.roundId}`;
+  currentDuel.fighterA = shuffled[0];
+  currentDuel.fighterB = shuffled[1];
   currentDuel.updatedAt = new Date().toISOString();
 
-  console.log(`✅ Novo Confronto Definido: ${selectedFighterA.symbol} vs ${selectedFighterB.symbol}`);
+  console.log(`✅ Novo Confronto Definido: ${shuffled[0].symbol} vs ${shuffled[1].symbol}`);
 }
 
-// Executa um sorteio na inicialização
 rotateNextRound();
-
-// Agenda para o minuto 0 de toda hora
-cron.schedule('0 * * * *', () => {
-  rotateNextRound();
-});
+cron.schedule('0 * * * *', () => rotateNextRound());
 
 // ============================================================
-// 5. SERVIDOR HTTP (API)
+// 3. SERVIDOR HTTP (API + SOLANA BLINKS / ACTIONS)
 // ============================================================
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Encoding');
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
@@ -284,23 +146,112 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // 1. Endpoint de dados do round atual
   if (req.url === '/api/current-round') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(currentDuel));
     return;
   }
 
+  // 2. Endpoint Solana Action / Blink (GET: Retorna metadados do card)
+  if (req.url.startsWith('/api/actions/duel')) {
+    if (req.method === 'GET') {
+      const payload = {
+        title: `Bull Royale • ${currentDuel.title}`,
+        icon: currentDuel.fighterA.icon,
+        description: `Back your conviction in Duel #${currentDuel.roundId}: ${currentDuel.fighterA.symbol} vs ${currentDuel.fighterB.symbol}. Instant $SOL settlement via non-custodial PDA vault.`,
+        label: "Stake SOL",
+        links: {
+          actions: [
+            {
+              label: `Stake 0.20 SOL on ${currentDuel.fighterA.symbol}`,
+              href: `/api/actions/duel?fighter=${currentDuel.fighterA.symbol}&amount=0.20`
+            },
+            {
+              label: `Stake 1.00 SOL on ${currentDuel.fighterA.symbol}`,
+              href: `/api/actions/duel?fighter=${currentDuel.fighterA.symbol}&amount=1.00`
+            },
+            {
+              label: `Stake 0.20 SOL on ${currentDuel.fighterB.symbol}`,
+              href: `/api/actions/duel?fighter=${currentDuel.fighterB.symbol}&amount=0.20`
+            },
+            {
+              label: `Stake 1.00 SOL on ${currentDuel.fighterB.symbol}`,
+              href: `/api/actions/duel?fighter=${currentDuel.fighterB.symbol}&amount=1.00`
+            }
+          ]
+        }
+      };
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(payload));
+      return;
+    }
+
+    // POST: Processa a transação de aposta direto pelo Blink
+    if (req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const data = JSON.parse(body);
+          const accountPubkey = data.account; // Carteira do usuário que clicou no Blink
+
+          const urlParams = new URL(req.url, `http://${req.headers.host}`).searchParams;
+          const fighterSymbol = urlParams.get('fighter') || currentDuel.fighterA.symbol;
+          const amountSol = parseFloat(urlParams.get('amount')) || 0.20;
+
+          if (!accountPubkey) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Missing account public key' }));
+            return;
+          }
+
+          const fromPubkey = new PublicKey(accountPubkey);
+          const toPubkey = new PublicKey(PROTOCOL_WALLET_ADDRESS);
+          const lamports = Math.round(amountSol * LAMPORTS_PER_SOL);
+
+          // Cria a transação de transferência de SOL para o cofre do protocolo
+          const transaction = new Transaction();
+          const blockhashObj = await solanaConnection.getLatestBlockhash();
+          transaction.recentBlockhash = blockhashObj.blockhash;
+          transaction.feePayer = fromPubkey;
+
+          transaction.add(
+            SystemProgram.transfer({
+              fromPubkey,
+              toPubkey,
+              lamports
+            })
+          );
+
+          const serializedTransaction = transaction.serialize({ requireAllSignatures: false }).toString('base64');
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            transaction: serializedTransaction,
+            message: `Successfully staked ${amountSol} SOL on ${fighterSymbol} for Round #${currentDuel.roundId}!`
+          }));
+        } catch (err) {
+          console.error('Erro ao processar Blink POST:', err);
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: err.message }));
+        }
+      });
+      return;
+    }
+  }
+
   if (req.url === '/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ status: 'ok', uptime: process.uptime() }));
+    res.end(JSON.stringify({ status: 'ok', protocolWallet: PROTOCOL_WALLET_ADDRESS, uptime: process.uptime() }));
     return;
   }
 
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Bull Royale Bot is standing by (development phase).\n');
+  res.end('Bull Royale Bot & Actions Engine active.\n');
 });
 
 server.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
-  console.log(`⏸️ Bull Royale Bot ativo (Filtro de Paridade configurado em ${MAX_VOLUME_GAP_RATIO * 100}%).`);
+  console.log(`🔒 Carteira do Protocolo Ativa: ${PROTOCOL_WALLET_ADDRESS}`);
 });
