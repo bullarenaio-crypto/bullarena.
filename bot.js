@@ -9,6 +9,9 @@ const PORT = process.env.PORT || 3000;
 // Helper dinâmico para fetch no CommonJS
 const fetch = (...args) => import('node-fetch').then(({default: f}) => f(...args));
 
+// Tolerância máxima de diferença de volume entre os lutadores (60%)
+const MAX_VOLUME_GAP_RATIO = 0.60;
+
 // ============================================================
 // 1. CONFIGURAÇÃO DOS BOTS (TELEGRAM & X / TWITTER)
 // ============================================================
@@ -46,7 +49,7 @@ async function postAnnouncement() {
 }
 
 // ============================================================
-// 2. CATEGORIAS DE TOKENS
+// 2. LISTAS TEMÁTICAS DE TOKENS
 // ============================================================
 const TOKENS_BY_CATEGORY = {
   MEMES: [
@@ -67,73 +70,77 @@ const TOKENS_BY_CATEGORY = {
   ]
 };
 
-// Estado atual mantido em memória
 let currentDuel = {
   roundId: 105,
   modeType: 'MEME_WARFARE',
   title: '🎭 MEME WARFARE • DUEL #105',
-  fighterA: TOKENS_BY_CATEGORY.MEMES[0],
-  fighterB: TOKENS_BY_CATEGORY.MEMES[1],
+  fighterA: TOKENS_BY_CATEGORY.MEMES[2], // POPCAT
+  fighterB: TOKENS_BY_CATEGORY.MEMES[3], // MEW
   updatedAt: new Date().toISOString()
 };
 
-// ============================================================
-// 3. CONSULTA DE VOLUME PARA CHECAGEM DE PARIDADE
-// ============================================================
-async function fetchTokenVolumeUSD(mintAddress) {
+// Checa lote de volumes na DexScreener
+async function fetchBatchVolumes(mintAddresses) {
   try {
-    const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${mintAddress}`);
+    const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${mintAddresses.join(',')}`);
     const data = await res.json();
-    if (!data.pairs || data.pairs.length === 0) return 0;
-    const solPairs = data.pairs.filter(p => p.chainId === 'solana');
-    if (solPairs.length === 0) return data.pairs[0].volume?.h24 || 0;
-    return solPairs.reduce((acc, p) => acc + (p.volume?.h24 || 0), 0);
+    const volMap = {};
+
+    if (data.pairs) {
+      data.pairs.forEach(p => {
+        if (p.chainId === 'solana') {
+          const addr = p.baseToken.address;
+          volMap[addr] = (volMap[addr] || 0) + (p.volume?.h24 || 0);
+        }
+      });
+    }
+    return volMap;
   } catch (err) {
-    console.warn(`Erro ao consultar volume de ${mintAddress}:`, err.message);
-    return 0;
+    console.warn('Erro ao consultar lote de volumes:', err.message);
+    return {};
   }
 }
 
-// Verifica se a diferença percentual entre os volumes é menor ou igual a 30%
-function isBalancedVolume(volA, volB, maxGapRatio = 0.30) {
-  if (volA <= 0 || volB <= 0) return false;
+// Verifica se a diferença de volume respeita a margem de 60%
+function isBalancedVolume(volA, volB, maxGapRatio = MAX_VOLUME_GAP_RATIO) {
+  if (volA <= 0 || volB <= 0) return true; // Se volume for zero ou indetectável, não barra
   const max = Math.max(volA, volB);
   const diff = Math.abs(volA - volB);
   return (diff / max) <= maxGapRatio;
 }
 
 // ============================================================
-// 4. RADAR DEXSCREENER (COM FILTRO DE PARIDADE)
+// 3. RADAR DEXSCREENER (HORAS ÍMPARES)
 // ============================================================
 async function fetchTrendingRadarTokens() {
   try {
     const res = await fetch('https://api.dexscreener.com/token-boosts/top/v1');
     const data = await res.json();
-
     if (!Array.isArray(data)) return null;
 
     const solTokens = data.filter(t => t.chainId === 'solana');
     if (solTokens.length < 2) return null;
 
-    for (let i = 0; i < Math.min(solTokens.length - 1, 5); i++) {
-      const tokenAAddr = solTokens[i].tokenAddress;
-      const tokenBAddr = solTokens[i + 1].tokenAddress;
+    const topAddresses = solTokens.slice(0, 8).map(t => t.tokenAddress);
+    const detailsRes = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${topAddresses.join(',')}`);
+    const details = await detailsRes.json();
 
-      const detailsRes = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${tokenAAddr},${tokenBAddr}`);
-      const details = await detailsRes.json();
+    if (!details.pairs || details.pairs.length < 2) return null;
 
-      if (!details.pairs || details.pairs.length < 2) continue;
+    const validPairs = details.pairs
+      .filter(p => p.chainId === 'solana' && (p.liquidity?.usd || 0) >= 50000 && (p.volume?.h24 || 0) > 0)
+      .sort((a, b) => (b.volume?.h24 || 0) - (a.volume?.h24 || 0));
 
-      const pairA = details.pairs.find(p => p.baseToken.address === tokenAAddr);
-      const pairB = details.pairs.find(p => p.baseToken.address === tokenBAddr);
+    if (validPairs.length < 2) return null;
 
-      if (!pairA || !pairB) continue;
-
+    // Procura dois pares com diferença de volume <= 60%
+    for (let i = 0; i < validPairs.length - 1; i++) {
+      const pairA = validPairs[i];
+      const pairB = validPairs[i + 1];
       const volA = pairA.volume?.h24 || 0;
       const volB = pairB.volume?.h24 || 0;
 
-      // Exige liquidez mínima e gap de no máximo 30% de volume
-      if ((pairA.liquidity?.usd || 0) >= 50000 && (pairB.liquidity?.usd || 0) >= 50000 && isBalancedVolume(volA, volB, 0.30)) {
+      if (isBalancedVolume(volA, volB, MAX_VOLUME_GAP_RATIO)) {
         return {
           fighterA: {
             name: pairA.baseToken.name,
@@ -153,16 +160,15 @@ async function fetchTrendingRadarTokens() {
       }
     }
 
-    console.log('⚠️ Nenhum par no Radar com paridade de volume <= 30%. Usando fallback da lista.');
     return null;
   } catch (err) {
-    console.error('Falha ao consultar DexScreener Radar:', err.message);
+    console.error('Falha no Trending Radar:', err.message);
     return null;
   }
 }
 
 // ============================================================
-// 5. ROTAÇÃO COM FILTRO ELETIVO DE PARIDADE (MAX 30% DIFERENÇA)
+// 4. ROTAÇÃO COM FILTRO DE 60% DE DISPARIDADE MÁXIMA
 // ============================================================
 async function rotateNextRound() {
   const currentHour = new Date().getUTCHours();
@@ -170,9 +176,9 @@ async function rotateNextRound() {
 
   const isEvenHour = currentHour % 2 === 0;
 
-  // Horas Ímpares: Tenta Radar balanceado
+  // Horas Ímpares: Tenta Radar DexScreener
   if (!isEvenHour) {
-    console.log('🔍 Buscando duelo balanceado no TRENDING RADAR da DexScreener...');
+    console.log('🔍 Buscando duelo no TRENDING RADAR da DexScreener (tolerância 60%)...');
     const radarPair = await fetchTrendingRadarTokens();
     if (radarPair) {
       currentDuel.modeType = 'TRENDING_RADAR';
@@ -185,7 +191,7 @@ async function rotateNextRound() {
     }
   }
 
-  // Horas Pares: Sorteia par dentro da mesma categoria com teste de volume parelho
+  // Horas Pares: Sorteia por categoria (70% Memes / 30% DeFi ou Oráculos)
   const rand = Math.random();
   let categoryKey = 'MEMES';
   let categoryTitle = '🎭 MEME WARFARE';
@@ -200,48 +206,66 @@ async function rotateNextRound() {
 
   const tokenList = TOKENS_BY_CATEGORY[categoryKey];
 
-  let selectedPair = null;
-  let attempts = 0;
+  if (tokenList.length === 2) {
+    currentDuel.modeType = categoryKey;
+    currentDuel.title = `${categoryTitle} • DUEL #${currentDuel.roundId}`;
+    currentDuel.fighterA = tokenList[0];
+    currentDuel.fighterB = tokenList[1];
+    currentDuel.updatedAt = new Date().toISOString();
+    console.log(`✅ Duelo Direto [${categoryKey}]: ${tokenList[0].symbol} vs ${tokenList[1].symbol}`);
+    return;
+  }
 
-  console.log(`⚖️ Buscando par equilibrado em [${categoryKey}] (Diferença max 30% de volume)...`);
+  // Memecoins: Consulta volumes e encontra dois pares com até 60% de diferença
+  console.log(`⚖️ Buscando duelo de Memes com diferença máxima de 60% no volume...`);
+  const mints = tokenList.map(t => t.mint);
+  const volMap = await fetchBatchVolumes(mints);
 
-  // Tenta até 6 combinações aleatórias para encontrar um gap de volume <= 30%
-  while (!selectedPair && attempts < 6) {
-    attempts++;
-    const shuffled = [...tokenList].sort(() => 0.5 - Math.random());
-    const candidateA = shuffled[0];
-    const candidateB = shuffled[1];
+  const tokensWithVol = tokenList.map(t => ({
+    ...t,
+    volumeUSD: volMap[t.mint] || 0
+  })).sort((a, b) => b.volumeUSD - a.volumeUSD);
 
-    const volA = await fetchTokenVolumeUSD(candidateA.mint);
-    const volB = await fetchTokenVolumeUSD(candidateB.mint);
+  let selectedFighterA = null;
+  let selectedFighterB = null;
 
-    const diffPct = Math.round((Math.abs(volA - volB) / Math.max(volA, volB || 1)) * 100);
-    console.log(`Tentativa ${attempts}: ${candidateA.symbol} ($${(volA/1e6).toFixed(2)}M) vs ${candidateB.symbol} ($${(volB/1e6).toFixed(2)}M) -> Gap: ${diffPct}%`);
+  // Embaralha pares vizinhos para garantir variação
+  const candidateIndices = [];
+  for (let i = 0; i < tokensWithVol.length - 1; i++) {
+    candidateIndices.push(i);
+  }
+  candidateIndices.sort(() => 0.5 - Math.random());
 
-    if (isBalancedVolume(volA, volB, 0.30)) {
-      selectedPair = [candidateA, candidateB];
-      console.log(`🎯 Par Aprovado com paridade! Gap de apenas ${diffPct}%.`);
+  for (const idx of candidateIndices) {
+    const candA = tokensWithVol[idx];
+    const candB = tokensWithVol[idx + 1];
+
+    if (isBalancedVolume(candA.volumeUSD, candB.volumeUSD, MAX_VOLUME_GAP_RATIO)) {
+      selectedFighterA = candA;
+      selectedFighterB = candB;
+      const diffPct = Math.round((Math.abs(candA.volumeUSD - candB.volumeUSD) / Math.max(candA.volumeUSD, candB.volumeUSD || 1)) * 100);
+      console.log(`🎯 Par Encontrado! ${candA.symbol} ($${(candA.volumeUSD/1e6).toFixed(2)}M) vs ${candB.symbol} ($${(candB.volumeUSD/1e6).toFixed(2)}M) -> Diferença: ${diffPct}%`);
+      break;
     }
   }
 
-  // Se nenhuma combinação tiver gap < 30%, pega o par padrão de memecoins mais balanceadas
-  if (!selectedPair) {
-    console.log('⚠️ Sem match estrito de 30% após tentativas, usando par padrão de alta liquidez.');
-    selectedPair = [TOKENS_BY_CATEGORY.MEMES[0], TOKENS_BY_CATEGORY.MEMES[1]]; // BONK vs WIF
-    categoryKey = 'MEMES';
-    categoryTitle = '🎭 MEME WARFARE';
+  // Fallback seguro caso os volumes não estejam disponíveis
+  if (!selectedFighterA || !selectedFighterB) {
+    const shuffled = [...tokenList].sort(() => 0.5 - Math.random());
+    selectedFighterA = shuffled[0];
+    selectedFighterB = shuffled[1];
   }
 
   currentDuel.modeType = categoryKey;
   currentDuel.title = `${categoryTitle} • DUEL #${currentDuel.roundId}`;
-  currentDuel.fighterA = selectedPair[0];
-  currentDuel.fighterB = selectedPair[1];
+  currentDuel.fighterA = selectedFighterA;
+  currentDuel.fighterB = selectedFighterB;
   currentDuel.updatedAt = new Date().toISOString();
 
-  console.log(`✅ Novo Duelo Definido: ${selectedPair[0].symbol} vs ${selectedPair[1].symbol}`);
+  console.log(`✅ Novo Confronto Definido: ${selectedFighterA.symbol} vs ${selectedFighterB.symbol}`);
 }
 
-// Executa um sorteio logo ao ligar para aplicar o filtro imediatamente
+// Executa um sorteio na inicialização
 rotateNextRound();
 
 // Agenda para o minuto 0 de toda hora
@@ -250,7 +274,7 @@ cron.schedule('0 * * * *', () => {
 });
 
 // ============================================================
-// 6. SERVIDOR HTTP (API DO BULL ROYALE)
+// 5. SERVIDOR HTTP (API)
 // ============================================================
 const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -281,5 +305,5 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
-  console.log('⏸️ Bull Royale Bot online com algoritmo de paridade de volume.');
+  console.log(`⏸️ Bull Royale Bot ativo (Filtro de Paridade configurado em ${MAX_VOLUME_GAP_RATIO * 100}%).`);
 });
