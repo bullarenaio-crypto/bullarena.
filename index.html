@@ -232,6 +232,67 @@
       align-items: center;
       gap: 10px;
       flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    /* PAINEL DE CRÉDITO DE TESTE (FAKE) */
+    .fake-credits-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #090e1a;
+      border: 1.5px dashed var(--gold);
+      border-radius: 10px;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+    }
+
+    .fake-credits-pill span.lbl {
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .fake-credits-pill span.val {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .btn-fake-action {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-fake-action:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .btn-fake-reset {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 10px;
+      padding: 4px 6px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-fake-reset:hover {
+      background: var(--pink);
+      color: #fff;
     }
 
     .social-nav-group {
@@ -1586,6 +1647,7 @@
       .arena-tabs-wrap { flex-direction: column; width: 100%; }
       .btn-arena-tab { justify-content: center; }
       .roadmap-grid { grid-template-columns: 1fr !important; }
+      .fake-credits-pill { width: 100%; justify-content: space-between; }
     }
   </style>
 </head>
@@ -1614,6 +1676,14 @@
       </a>
 
       <div class="nav-actions">
+        <!-- PAINEL DE CRÉDITO FAKE (DEBUG / TESTES) -->
+        <div class="fake-credits-pill" translate="no">
+          <span class="lbl">TEST PTS:</span>
+          <span class="val" id="fake-balance-val">1,000.00</span>
+          <button type="button" class="btn-fake-action" onclick="addFakeCredits(500)" title="Adicionar 500 créditos">+500 FAKE</button>
+          <button type="button" class="btn-fake-reset" onclick="resetFakeCredits()" title="Resetar para 1000">RESET</button>
+        </div>
+
         <div class="social-nav-group" translate="no">
           <a href="https://x.com/bullarenaio" target="_blank" rel="noopener noreferrer" class="btn-social-icon" title="Follow on X (Twitter)">
             <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -2246,25 +2316,25 @@
       <div class="modal-input-wrap">
         <div class="modal-input-top">
           <span>AMOUNT TO ALLOCATE</span>
-          <span>AVAILABLE: <strong id="modal-user-sol" style="color:var(--gold);">0.00</strong> SOL</span>
+          <span>AVAILABLE TEST SALDO: <strong id="modal-user-sol" style="color:var(--gold);">1000.00</strong> PTS</span>
         </div>
         <div class="modal-input-row">
-          <input type="number" id="input-stake-amount" class="modal-input" placeholder="0.1" step="0.05" min="0.01" oninput="calculateModalReturn()">
-          <span class="modal-token-label">SOL</span>
+          <input type="number" id="input-stake-amount" class="modal-input" placeholder="10" step="5" min="1" oninput="calculateModalReturn()">
+          <span class="modal-token-label">PTS</span>
         </div>
       </div>
 
       <div class="quick-pct-row">
-        <button class="btn-pct" onclick="setFixedSol(0.1)">0.1 SOL</button>
-        <button class="btn-pct" onclick="setFixedSol(0.5)">0.5 SOL</button>
-        <button class="btn-pct" onclick="setFixedSol(1.0)">1.0 SOL</button>
+        <button class="btn-pct" onclick="setFixedSol(10)">10 PTS</button>
+        <button class="btn-pct" onclick="setFixedSol(50)">50 PTS</button>
+        <button class="btn-pct" onclick="setFixedSol(100)">100 PTS</button>
         <button class="btn-pct" onclick="setPercentage(1.0)">MAX</button>
       </div>
 
       <div class="modal-summary-box">
         <div class="modal-summary-row">
           <span style="color:var(--text-muted);">Est. Potential Payout:</span>
-          <span class="gold"><strong id="modal-est-payout">0.00</strong> SOL</span>
+          <span class="gold"><strong id="modal-est-payout">0.00</strong> PTS</span>
         </div>
         <div class="modal-summary-row">
           <span style="color:var(--text-muted);">Protocol Treasury Fee:</span>
@@ -2291,6 +2361,34 @@
     });
 
     // ============================================================
+    // CRÉDITOS FAKE (STORAGE LOCAL PARA TESTES)
+    // ============================================================
+    let fakeCredits = localStorage.getItem('bull_fake_credits')
+      ? parseFloat(localStorage.getItem('bull_fake_credits'))
+      : 1000.00;
+
+    function renderFakeBalance() {
+      const el = document.getElementById('fake-balance-val');
+      if (el) el.innerText = fakeCredits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function addFakeCredits(amount = 500) {
+      arcadeSound();
+      fakeCredits += amount;
+      localStorage.setItem('bull_fake_credits', fakeCredits);
+      renderFakeBalance();
+      alert(`🎉 +${amount} Créditos Fake adicionados com sucesso!`);
+    }
+
+    function resetFakeCredits() {
+      arcadeSound();
+      fakeCredits = 1000.00;
+      localStorage.setItem('bull_fake_credits', fakeCredits);
+      renderFakeBalance();
+      alert(`🔄 Saldo resetado para 1,000.00 PTS!`);
+    }
+
+    // ============================================================
     // 1. PROTOCOL CONFIGURATION & TOKEN CONTRACT ADDRESSES
     // ============================================================
     const PROTOCOL_TREASURY_ADDRESS = "BullRoyale111111111111111111111111111111111"; 
@@ -2300,7 +2398,7 @@
     const WIF_MINT = "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm";
 
     let currentArenaMode = '1h'; // '1h' ou '24h'
-    let currentPipelineRoom = 'active'; // 'active' (Sala Atual) ou 'next' (Próxima Sala Antecipada)
+    let currentPipelineRoom = 'active'; // 'active' ou 'next'
 
     const pipelineState = {
       '1h': {
@@ -2712,11 +2810,7 @@
         alert("⚠️ Live room is currently locked by the Anti-Snipe buffer! Switch to the 'NEXT ROOM' above to place your wagers for the upcoming round.");
         return;
       }
-      if (!walletConnected) {
-        alert("Please connect your Web3 Wallet before placing a stake!");
-        manageWallet();
-        return;
-      }
+      
       selectedFighter = name;
       
       const st = pipelineState[currentArenaMode][currentPipelineRoom];
@@ -2727,7 +2821,7 @@
       document.getElementById('modal-fighter-name').innerText = `${name} (${st.title})`;
       document.getElementById('modal-fighter-mult').innerText = `${currentMultiplier}x`;
       document.getElementById('modal-fighter-img').src = imgUrl;
-      document.getElementById('modal-user-sol').innerText = balanceSolNum.toFixed(3);
+      document.getElementById('modal-user-sol').innerText = fakeCredits.toFixed(2);
       document.getElementById('input-stake-amount').value = '';
       document.getElementById('modal-est-payout').innerText = '0.00';
 
@@ -2749,15 +2843,15 @@
 
     function setPercentage(pct) {
       arcadeSound();
-      const base = balanceSolNum > 0 ? balanceSolNum : 0;
-      const value = Math.max(0, (base * pct) - 0.005).toFixed(3);
+      const base = fakeCredits > 0 ? fakeCredits : 0;
+      const value = Math.max(0, Math.floor(base * pct));
       document.getElementById('input-stake-amount').value = value > 0 ? value : 0;
       calculateModalReturn();
     }
 
     function calculateModalReturn() {
       const val = parseFloat(document.getElementById('input-stake-amount').value) || 0;
-      const ret = (val * currentMultiplier).toFixed(3);
+      const ret = (val * currentMultiplier).toFixed(2);
       document.getElementById('modal-est-payout').innerText = ret;
     }
 
@@ -2765,65 +2859,33 @@
       arcadeSound();
       const val = parseFloat(document.getElementById('input-stake-amount').value);
       if (!val || val <= 0) {
-        alert("Please enter a valid $SOL amount to allocate!");
+        alert("Please enter a valid amount to allocate!");
         return;
       }
-      if (val > balanceSolNum) {
-        alert("Insufficient SOL balance in your wallet!");
+      
+      // Validação usando os créditos de teste fake
+      if (val > fakeCredits) {
+        alert(`Saldo de teste insuficiente! Você tem ${fakeCredits.toFixed(2)} PTS. Use o botão +500 FAKE no topo para recarregar.`);
         return;
       }
 
-      if (window.solanaWeb3 && currentProvider) {
-        try {
-          const connection = new solanaWeb3.Connection(SOLANA_RPC_URL, "confirmed");
-          const fromPubkey = new solanaWeb3.PublicKey(currentPublicKey);
-          
-          let targetPubkey;
-          try {
-            targetPubkey = new solanaWeb3.PublicKey(PROTOCOL_TREASURY_ADDRESS);
-          } catch(e) {
-            targetPubkey = fromPubkey;
-          }
+      // Desconta dos créditos fake
+      fakeCredits -= val;
+      localStorage.setItem('bull_fake_credits', fakeCredits);
+      renderFakeBalance();
 
-          const lamports = Math.floor(val * solanaWeb3.LAMPORTS_PER_SOL);
-          const transaction = new solanaWeb3.Transaction().add(
-            solanaWeb3.SystemProgram.transfer({
-              fromPubkey: fromPubkey,
-              toPubkey: targetPubkey,
-              lamports: lamports,
-            })
-          );
-
-          const { blockhash } = await connection.getLatestBlockhash();
-          transaction.recentBlockhash = blockhash;
-          transaction.feePayer = fromPubkey;
-
-          const signed = await currentProvider.signAndSendTransaction(transaction);
-          alert(`Transaction submitted! Signature: ${signed.signature.slice(0, 10)}... Backed ${selectedFighter} with ${val} SOL.`);
-          
-          const st = pipelineState[currentArenaMode][currentPipelineRoom];
-          if (selectedFighter === 'BONK') st.stakedBonk += val;
-          else st.stakedWif += val;
-          updateArenaMath();
-
-          document.getElementById('stake-modal-overlay').style.display = 'none';
-          fetchBalances(currentPublicKey);
-          return;
-        } catch (txErr) {
-          console.warn("Transaction failed or rejected:", txErr);
-          alert("Transaction was cancelled or rejected by user.");
-          return;
-        }
-      }
-
+      // Atualiza os dados matemáticos da Arena (simulação viva)
       const st = pipelineState[currentArenaMode][currentPipelineRoom];
       if (selectedFighter === 'BONK') st.stakedBonk += val;
       else st.stakedWif += val;
       updateArenaMath();
-      alert(`Allocation of ${val.toFixed(3)} SOL on ${selectedFighter} (${st.title}) registered!`);
+
+      alert(`✅ [TEST MODE] Allocation of ${val.toFixed(2)} PTS on ${selectedFighter} (${st.title}) registered with success!`);
       document.getElementById('stake-modal-overlay').style.display = 'none';
     }
 
+    // Inicialização do documento
+    renderFakeBalance();
     renderHistory();
     updateEngineTimer();
     updateArenaMath();
