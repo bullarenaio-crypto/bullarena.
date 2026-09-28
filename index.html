@@ -7,7 +7,7 @@
   
   <!-- SEO & SOCIAL SHARING (OPEN GRAPH / TWITTER CARDS) -->
   <title>Bull Royale • The Liquidity Warfare Protocol on Solana</title>
-  <meta name="description" content="Predict token momentum and command on-chain market volume. Settle 1-hour flash duels directly in $SOL with decentralized DexScreener oracles.">
+  <meta name="description" content="Predict token momentum and command on-chain market volume. Settle 1-hour flash duels and 24-hour daily royales directly in $SOL with decentralized DexScreener oracles.">
   
   <!-- FAVICON -->
   <link rel="icon" type="image/png" href="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png">
@@ -16,15 +16,15 @@
   <!-- OPEN GRAPH / TELEGRAM / WHATSAPP -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.bullarenaa.io/">
-  <meta property="og:title" content="Bull Royale • The Liquidity Warfare Protocol">
-  <meta property="og:description" content="1-Hour Flash Duels settled in native $SOL. Powered by autonomous PDA vaults and public DexScreener oracles.">
+  <meta property="og:title" content="Bull Royale • Liquidity Warfare Protocol">
+  <meta property="og:description" content="1-Hour Flash Duels & 24-Hour Daily Royales settled in native $SOL. Powered by autonomous PDA vaults and public DexScreener oracles.">
   <meta property="og:image" content="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png">
 
   <!-- TWITTER CARDS -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@bullarenaio">
   <meta name="twitter:title" content="Bull Royale • Liquidity Warfare on Solana">
-  <meta name="twitter:description" content="Predict token velocity, battle across 1-hour rounds and claim instant $SOL payouts.">
+  <meta name="twitter:description" content="Predict token velocity, battle across 1h and 24h rounds, and claim instant $SOL payouts.">
   <meta name="twitter:image" content="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png">
 
   <!-- FONTS -->
@@ -396,6 +396,43 @@
       border-color: var(--gold);
       color: #fff;
       transform: translateY(-1px);
+    }
+
+    /* ARENA MODE SWITCHER (TABS) */
+    .arena-tabs-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .btn-arena-tab {
+      background: #0a0e1a;
+      border: 1.5px solid var(--border);
+      color: #94a3b8;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 13px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-arena-tab:hover {
+      color: #fff;
+      border-color: #334155;
+    }
+
+    .btn-arena-tab.active-tab {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 20px var(--gold-glow);
     }
 
     /* ARENA */
@@ -1405,6 +1442,8 @@
       .btn-nav-action { font-size: 10px; padding: 6px 10px; }
       .btn-wallet { font-size: 10px; padding: 7px 10px; transform: none; }
       .wallet-balance-pill { display: none !important; }
+      .arena-tabs-wrap { flex-direction: column; width: 100%; }
+      .btn-arena-tab { justify-content: center; }
     }
   </style>
 </head>
@@ -1448,14 +1487,14 @@
       <div class="badge-slogan" translate="no">THE LIQUIDITY WARFARE PROTOCOL</div>
       <h1 class="hero-title" translate="no">BULL <span>ROYALE</span></h1>
       <p class="hero-sub">
-        Predict token momentum and command on-chain trading velocity. Settle 1-hour flash duels directly in $SOL with decentralized DexScreener oracles, anti-snipe vaults, and zero custodial interference.
+        Predict token momentum and command on-chain trading velocity. Settle 1-hour flash duels and 24-hour daily royales directly in $SOL with decentralized DexScreener oracles, anti-snipe vaults, and zero custodial interference.
       </p>
     </header>
 
     <!-- METRICS BAR -->
     <section class="metrics-bar">
       <div class="metric-col">
-        <div class="metric-label">ACTIVE DUEL POOL</div>
+        <div class="metric-label" id="metric-pool-label">ACTIVE 1H DUEL POOL</div>
         <div class="metric-num gold" id="metric-total-pool" translate="no">245.50 SOL</div>
       </div>
       <div class="metric-col">
@@ -1491,6 +1530,16 @@
 
     <!-- ARENA SHOWDOWN -->
     <main id="arena" class="arena-box">
+      <!-- ARENA MODE SELECTOR TABS -->
+      <div class="arena-tabs-wrap" translate="no">
+        <button id="tab-1h" class="btn-arena-tab active-tab" onclick="switchArenaMode('1h')">
+          <span>⚡ FLASH ARENA (1H)</span>
+        </button>
+        <button id="tab-24h" class="btn-arena-tab" onclick="switchArenaMode('24h')">
+          <span>🏆 DAILY ROYALE (24H)</span>
+        </button>
+      </div>
+
       <!-- WINNER ANNOUNCEMENT NOTIFICATION -->
       <div id="round-announcement-banner">
         <strong id="round-winner-text" style="color:var(--green); font-size:14px; text-transform:uppercase;"></strong>
@@ -1510,7 +1559,7 @@
         <!-- BONK -->
         <article class="card-fighter card-cyan">
           <div class="card-meta">
-            <span class="pill-rarity pill-cyan" translate="no">ALPHA POOL</span>
+            <span class="pill-rarity pill-cyan" id="bonk-pool-tag" translate="no">FLASH POOL</span>
             <span style="color:var(--text-muted);" id="bonk-oracle-status">LIVE ORACLE</span>
           </div>
           <div class="avatar-wrap">
@@ -1546,7 +1595,7 @@
         <!-- WIF -->
         <article class="card-fighter card-purple">
           <div class="card-meta">
-            <span class="pill-rarity pill-purple" translate="no">ALPHA POOL</span>
+            <span class="pill-rarity pill-purple" id="wif-pool-tag" translate="no">FLASH POOL</span>
             <span style="color:var(--text-muted);" id="wif-oracle-status">LIVE ORACLE</span>
           </div>
           <div class="avatar-wrap">
@@ -1588,7 +1637,7 @@
       <!-- SETTLEMENT HISTORY -->
       <div class="history-box">
         <div class="history-header">
-          <div class="history-title" translate="no">ON-CHAIN SETTLED DUELS</div>
+          <div class="history-title" id="history-header-title" translate="no">1H ON-CHAIN SETTLED DUELS</div>
           <span style="font-size:10px; color:var(--text-muted); font-weight:800;" translate="no">ORACLE VERIFIED</span>
         </div>
         <div class="history-list" id="history-container" translate="no">
@@ -1626,7 +1675,7 @@
         <div class="sec-badge" translate="no">TACTICAL OVERVIEW</div>
         <h2 class="sec-title" translate="no">HOW <span>WARFARE</span> EXECUTES</h2>
         <p class="sec-sub">
-          A high-precision, liquidity duel arena built natively for Solana traders and high-conviction communities.
+          A high-precision, liquidity duel arena built natively for Solana traders and high-conviction communities across 1-hour fast flashes and 24-hour grand royales.
         </p>
       </div>
 
@@ -1642,7 +1691,7 @@
           <div class="step-num" translate="no" style="color:var(--purple);">02</div>
           <h3 class="step-title" translate="no">SELECT THE CONVICTION</h3>
           <p class="step-desc">
-            Track real-time DexScreener volume momentum across 1-hour intervals. Back the contender forecasted to lead trading velocity.
+            Track real-time DexScreener volume momentum across 1-hour flash intervals or 24-hour daily trends. Back the contender forecasted to lead trading velocity.
           </p>
         </div>
         <div class="step-card">
@@ -1780,7 +1829,7 @@
             </div>
           </div>
           <p class="sec-card-body">
-            Duel participation closes 3 minutes prior to round resolution, preventing flash-loan frontrunning and unfair multiplier swings.
+            Flash rounds lock 3 minutes prior to closure (15 minutes on Daily Royales), preventing flash-loan frontrunning and unfair multiplier swings.
           </p>
         </div>
       </div>
@@ -1811,7 +1860,7 @@
           <span class="r-status status-live" translate="no">LIVE BETA</span>
           <h3 class="r-title" translate="no">MVP & $SOL SETTLEMENT</h3>
           <ul class="r-list">
-            <li>Flash Arena deployment on Solana.</li>
+            <li>Flash Arena (1H) & Daily Royale (24H) deployment.</li>
             <li>Native $SOL non-custodial PDA vault.</li>
             <li>Real-time DexScreener Oracle feeds.</li>
             <li>5% Protocol Treasury accumulation engine.</li>
@@ -1867,6 +1916,16 @@
       </div>
 
       <div class="faq-list" translate="no">
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>What is the difference between Flash Arena (1H) and Daily Royale (24H)?</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            The Flash Arena (1H) operates on fast momentum bursts and closes at the top of every hour with a 3-minute anti-snipe buffer. The Daily Royale (24H) accumulates a much larger macro liquidity pool, settling once per day at 00:00 UTC with a 15-minute buffer.
+          </div>
+        </div>
+
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
             <span>What token is used to participate during the Beta phase?</span>
@@ -2026,27 +2085,54 @@
     // ============================================================
     // 1. PROTOCOL CONFIGURATION & TOKEN CONTRACT ADDRESSES
     // ============================================================
-    // Insira sua carteira Solana que receberá os fundos das rodadas:
+    // Substitua pelo endereço da carteira que receberá as alocações em SOL:
     const PROTOCOL_TREASURY_ADDRESS = "BullRoyale111111111111111111111111111111111"; 
     const SOLANA_RPC_URL = "https://api.mainnet-beta.solana.com";
 
-    // Endereços oficiais Solana para o Oráculo DexScreener
+    // Endereços oficiais Solana dos tokens para o Oráculo DexScreener
     const BONK_MINT = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
     const WIF_MINT = "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm";
 
-    // Estado da Arena
-    let currentRoundId = 105;
-    let stakedBonk = 142.39;
-    let stakedWif = 103.11;
+    // Modos de Arena: '1h' (Flash) ou '24h' (Daily)
+    let currentArenaMode = '1h';
+
+    // Estados isolados para cada modo
+    const arenaState = {
+      '1h': {
+        roundId: 105,
+        title: "FLASH ARENA",
+        division: "⚔️ FLASH ARENA • DUEL #105",
+        stakedBonk: 142.39,
+        stakedWif: 103.11,
+        historyHeader: "1H ON-CHAIN SETTLED DUELS",
+        history: [
+          { round: 104, pair: "WIF vs PEPE", winner: "WIF", delta: "+14.2%", pool: "88.50 SOL", payout: "1.85x" },
+          { round: 103, pair: "BONK vs POPCAT", winner: "BONK", delta: "+18.9%", pool: "112.00 SOL", payout: "1.62x" }
+        ]
+      },
+      '24h': {
+        roundId: 18,
+        title: "DAILY ROYALE",
+        division: "🏆 DAILY ROYALE • ROUND #18",
+        stakedBonk: 840.50,
+        stakedWif: 615.20,
+        historyHeader: "24H DAILY ROYALE SETTLEMENTS",
+        history: [
+          { round: 17, pair: "BONK vs WIF", winner: "BONK", delta: "+28.4%", pool: "1,240.00 SOL", payout: "1.74x" },
+          { round: 16, pair: "WIF vs PEPE", winner: "WIF", delta: "+34.1%", pool: "980.50 SOL", payout: "1.92x" }
+        ]
+      }
+    };
+
     let isBufferActive = false;
 
-    // Dados do Oráculo
+    // Dados do Oráculo DexScreener
     let bonkVolume = 54820000;
     let bonkChange24h = 18.4;
     let wifVolume = 49150000;
     let wifChange24h = 11.2;
 
-    // Web Audio FX
+    // Sintetizador Web Audio API
     function arcadeSound() {
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -2067,7 +2153,32 @@
     }
 
     // ============================================================
-    // 2. DEXSCREENER ORACLE FETCHER
+    // 2. SWITCH ARENA MODE (1H vs 24H)
+    // ============================================================
+    function switchArenaMode(mode) {
+      arcadeSound();
+      currentArenaMode = mode;
+
+      // Atualiza botões das abas
+      document.getElementById('tab-1h').classList.toggle('active-tab', mode === '1h');
+      document.getElementById('tab-24h').classList.toggle('active-tab', mode === '24h');
+
+      // Atualiza tags de pool
+      const poolTagText = mode === '1h' ? 'FLASH POOL' : 'DAILY ROYALE';
+      document.getElementById('bonk-pool-tag').innerText = poolTagText;
+      document.getElementById('wif-pool-tag').innerText = poolTagText;
+
+      document.getElementById('metric-pool-label').innerText = mode === '1h' ? 'ACTIVE 1H DUEL POOL' : 'ACTIVE 24H GRAND POOL';
+      document.getElementById('arena-division-tag').innerText = arenaState[mode].division;
+      document.getElementById('history-header-title').innerText = arenaState[mode].historyHeader;
+
+      renderHistory();
+      updateArenaMath();
+      updateEngineTimer();
+    }
+
+    // ============================================================
+    // 3. DEXSCREENER LIVE ORACLE FETCHER
     // ============================================================
     async function fetchDexScreenerOracle() {
       try {
@@ -2075,7 +2186,6 @@
         const data = await response.json();
 
         if (data && data.pairs && data.pairs.length > 0) {
-          // Achar os pares de maior liquidez no Raydium/Orca
           const bonkPairs = data.pairs.filter(p => p.baseToken.address === BONK_MINT);
           const wifPairs = data.pairs.filter(p => p.baseToken.address === WIF_MINT);
 
@@ -2112,58 +2222,80 @@
     }
 
     // ============================================================
-    // 3. DYNAMIC ODDS & TUG-OF-WAR CALCULATION
+    // 4. DYNAMIC ODDS & TUG-OF-WAR CALCULATION
     // ============================================================
     function updateArenaMath() {
-      const totalPool = stakedBonk + stakedWif;
-      const bonkPct = Math.round((stakedBonk / totalPool) * 100);
+      const current = arenaState[currentArenaMode];
+      const totalPool = current.stakedBonk + current.stakedWif;
+      const bonkPct = Math.round((current.stakedBonk / totalPool) * 100);
       const wifPct = 100 - bonkPct;
 
       // Odds com 95% redistribution / 5% treasury fee
-      const multBonk = ((totalPool * 0.95) / stakedBonk).toFixed(2);
-      const multWif = ((totalPool * 0.95) / stakedWif).toFixed(2);
+      const multBonk = ((totalPool * 0.95) / current.stakedBonk).toFixed(2);
+      const multWif = ((totalPool * 0.95) / current.stakedWif).toFixed(2);
 
       // Render Multipliers & Pools
       document.getElementById('metric-total-pool').innerText = `${totalPool.toFixed(2)} SOL`;
-      document.getElementById('bonk-staked-val').innerText = `${stakedBonk.toFixed(2)} SOL (${bonkPct}%)`;
-      document.getElementById('wif-staked-val').innerText = `${stakedWif.toFixed(2)} SOL (${wifPct}%)`;
+      document.getElementById('bonk-staked-val').innerText = `${current.stakedBonk.toFixed(2)} SOL (${bonkPct}%)`;
+      document.getElementById('wif-staked-val').innerText = `${current.stakedWif.toFixed(2)} SOL (${wifPct}%)`;
       document.getElementById('bonk-multiplier-val').innerText = `${multBonk}x`;
       document.getElementById('wif-multiplier-val').innerText = `${multWif}x`;
 
       // Tug of war bar
-      document.getElementById('tug-label-bonk').innerText = `BONK MOMENTUM: ${bonkPct}% (${stakedBonk.toFixed(1)} SOL)`;
-      document.getElementById('tug-label-wif').innerText = `WIF MOMENTUM: ${wifPct}% (${stakedWif.toFixed(1)} SOL)`;
+      document.getElementById('tug-label-bonk').innerText = `BONK MOMENTUM: ${bonkPct}% (${current.stakedBonk.toFixed(1)} SOL)`;
+      document.getElementById('tug-label-wif').innerText = `WIF MOMENTUM: ${wifPct}% (${current.stakedWif.toFixed(1)} SOL)`;
       document.getElementById('tug-fill-bar').style.width = `${bonkPct}%`;
     }
 
     // ============================================================
-    // 4. 1-HOUR FLASH ARENA ENGINE & ANTI-SNIPE BUFFER
+    // 5. TIMERS & DUAL-ARENA ENGINE (1H & 24H)
     // ============================================================
-    function updateHourlyEngine() {
+    function updateEngineTimer() {
       const now = new Date();
-      const m = 59 - now.getUTCMinutes();
-      const s = 59 - now.getUTCSeconds();
-
       const timerEl = document.getElementById('clock-timer');
       const timerBox = document.getElementById('timer-pill-box');
       const bufferBadge = document.getElementById('buffer-badge');
       const btnBonk = document.getElementById('btn-enter-bonk');
       const btnWif = document.getElementById('btn-enter-wif');
 
-      timerEl.innerText = `00h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+      if (currentArenaMode === '1h') {
+        // Modo 1H: fecha no minuto :00
+        const m = 59 - now.getUTCMinutes();
+        const s = 59 - now.getUTCSeconds();
+        timerEl.innerText = `00h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
 
-      // Anti-Snipe Buffer: últimos 3 minutos da hora (m < 3)
-      if (m < 3) {
-        isBufferActive = true;
+        // Anti-Snipe: últimos 3 minutos da hora
+        isBufferActive = (m < 3);
+
+        if (m === 0 && s === 0) {
+          settleRound('1h');
+        }
+      } else {
+        // Modo 24H: fecha às 00:00 UTC
+        const h = 23 - now.getUTCHours();
+        const m = 59 - now.getUTCMinutes();
+        const s = 59 - now.getUTCSeconds();
+        timerEl.innerText = `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+
+        // Anti-Snipe: últimos 15 minutos do dia (23:45 UTC em diante)
+        isBufferActive = (h === 0 && m < 15);
+
+        if (h === 0 && m === 0 && s === 0) {
+          settleRound('24h');
+        }
+      }
+
+      // Aplica trava na interface se o buffer estiver ativo
+      if (isBufferActive) {
         timerBox.classList.add('buffer-active');
         bufferBadge.style.display = 'inline';
+        bufferBadge.innerText = currentArenaMode === '1h' ? '[3M BUFFER]' : '[15M BUFFER]';
         
         btnBonk.classList.add('btn-locked');
         btnWif.classList.add('btn-locked');
         btnBonk.innerText = '🔒 ROUND LOCKED';
         btnWif.innerText = '🔒 ROUND LOCKED';
       } else {
-        isBufferActive = false;
         timerBox.classList.remove('buffer-active');
         bufferBadge.style.display = 'none';
 
@@ -2172,58 +2304,69 @@
         btnBonk.innerText = 'ENTER DUEL • BONK';
         btnWif.innerText = 'ENTER DUEL • WIF';
       }
-
-      // Rollover no minuto 00:00 (Fim de 1 hora)
-      if (m === 0 && s === 0) {
-        settleAndRolloverRound();
-      }
     }
 
-    function settleAndRolloverRound() {
-      // Determina o vencedor com base no momentum
+    function settleRound(mode) {
+      const current = arenaState[mode];
       const winner = (bonkChange24h >= wifChange24h) ? 'BONK' : 'WIF';
       const winnerDelta = (winner === 'BONK' ? bonkChange24h : wifChange24h).toFixed(1);
-      const totalPool = (stakedBonk + stakedWif).toFixed(2);
-      const mult = winner === 'BONK' ? ((totalPool * 0.95) / stakedBonk).toFixed(2) : ((totalPool * 0.95) / stakedWif).toFixed(2);
+      const totalPool = (current.stakedBonk + current.stakedWif).toFixed(2);
+      const mult = winner === 'BONK' ? ((totalPool * 0.95) / current.stakedBonk).toFixed(2) : ((totalPool * 0.95) / current.stakedWif).toFixed(2);
 
-      // Exibe banner de anúncio
+      // Exibe banner
       const banner = document.getElementById('round-announcement-banner');
       const bannerText = document.getElementById('round-winner-text');
-      bannerText.innerText = `🏆 ROUND #${currentRoundId} SETTLED! VICTOR: ${winner} (Δ +${winnerDelta}% DEX VELOCITY) • PAYOUTS RELEASED!`;
+      bannerText.innerText = `🏆 ${current.title} #${current.roundId} SETTLED! VICTOR: ${winner} (Δ +${winnerDelta}% DEX VELOCITY) • PAYOUTS RELEASED!`;
       banner.style.display = 'block';
 
-      // Prende na lista de histórico
-      const historyContainer = document.getElementById('history-container');
-      const newRow = document.createElement('div');
-      newRow.className = 'history-row';
-      newRow.innerHTML = `
-        <div class="history-match">
-          <span style="color:var(--gold);">DUEL #${currentRoundId}</span>
-          <span>BONK vs WIF</span>
-          <span class="badge-winner">SETTLED: ${winner} (Δ +${winnerDelta}%)</span>
-        </div>
-        <div class="history-stats">
-          <span>Pool: <strong>${totalPool} SOL</strong></span>
-          <span>Payout: <strong style="color:var(--gold);">${mult}x</strong></span>
-          <span>Distribution: <strong style="color:var(--green);">Instant</strong></span>
-        </div>
-      `;
-      historyContainer.prepend(newRow);
+      // Adiciona no histórico
+      current.history.unshift({
+        round: current.roundId,
+        pair: "BONK vs WIF",
+        winner: winner,
+        delta: `+${winnerDelta}%`,
+        pool: `${totalPool} SOL`,
+        payout: `${mult}x`
+      });
 
-      // Reinicia próxima rodada
-      currentRoundId++;
-      stakedBonk = 50.0;
-      stakedWif = 50.0;
-      document.getElementById('arena-division-tag').innerText = `⚔️ FLASH ARENA • DUEL #${currentRoundId}`;
-      updateArenaMath();
+      // Incrementa rodada e reinicia saldo base
+      current.roundId++;
+      current.division = mode === '1h' ? `⚔️ FLASH ARENA • DUEL #${current.roundId}` : `🏆 DAILY ROYALE • ROUND #${current.roundId}`;
+      current.stakedBonk = mode === '1h' ? 50.0 : 300.0;
+      current.stakedWif = mode === '1h' ? 50.0 : 300.0;
+
+      if (currentArenaMode === mode) {
+        document.getElementById('arena-division-tag').innerText = current.division;
+        renderHistory();
+        updateArenaMath();
+      }
       fetchDexScreenerOracle();
     }
 
-    setInterval(updateHourlyEngine, 1000);
-    setInterval(fetchDexScreenerOracle, 30000); // Atualiza oráculo a cada 30 segundos
+    function renderHistory() {
+      const current = arenaState[currentArenaMode];
+      const container = document.getElementById('history-container');
+      container.innerHTML = current.history.map(item => `
+        <div class="history-row">
+          <div class="history-match">
+            <span style="color:var(--gold);">ROUND #${item.round}</span>
+            <span>${item.pair}</span>
+            <span class="badge-winner">SETTLED: ${item.winner} (Δ ${item.delta})</span>
+          </div>
+          <div class="history-stats">
+            <span>Pool: <strong>${item.pool}</strong></span>
+            <span>Payout: <strong style="color:var(--gold);">${item.payout}</strong></span>
+            <span>Distribution: <strong style="color:var(--green);">Instant</strong></span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    setInterval(updateEngineTimer, 1000);
+    setInterval(fetchDexScreenerOracle, 30000);
 
     // ============================================================
-    // 5. WEB3 & WALLET MANAGEMENT
+    // 6. WEB3 & WALLET MANAGEMENT
     // ============================================================
     let walletConnected = false;
     let currentProvider = null;
@@ -2339,7 +2482,7 @@
     }
 
     // ============================================================
-    // 6. STAKE MODAL & TRANSACTION EXECUTION
+    // 7. STAKE MODAL & TRANSACTION EXECUTION
     // ============================================================
     let selectedFighter = 'BONK';
     let currentMultiplier = 1.72;
@@ -2347,7 +2490,8 @@
     function openStakeModal(name) {
       arcadeSound();
       if (isBufferActive) {
-        alert("⚠️ Round is currently locked! The Anti-Snipe buffer is active for the final 3 minutes of this hour. Please wait for next round rollover.");
+        const bufferTime = currentArenaMode === '1h' ? '3 minutes' : '15 minutes';
+        alert(`⚠️ Round is currently locked! The Anti-Snipe buffer is active for the final ${bufferTime} of this round to prevent pool manipulation.`);
         return;
       }
       if (!walletConnected) {
@@ -2357,11 +2501,12 @@
       }
       selectedFighter = name;
       
-      const totalPool = stakedBonk + stakedWif;
-      currentMultiplier = parseFloat(name === 'BONK' ? ((totalPool * 0.95) / stakedBonk).toFixed(2) : ((totalPool * 0.95) / stakedWif).toFixed(2));
+      const current = arenaState[currentArenaMode];
+      const totalPool = current.stakedBonk + current.stakedWif;
+      currentMultiplier = parseFloat(name === 'BONK' ? ((totalPool * 0.95) / current.stakedBonk).toFixed(2) : ((totalPool * 0.95) / current.stakedWif).toFixed(2));
       const imgUrl = name === 'BONK' ? 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035' : 'https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg';
 
-      document.getElementById('modal-fighter-name').innerText = name;
+      document.getElementById('modal-fighter-name').innerText = `${name} (${current.title})`;
       document.getElementById('modal-fighter-mult').innerText = `${currentMultiplier}x`;
       document.getElementById('modal-fighter-img').src = imgUrl;
       document.getElementById('modal-user-sol').innerText = balanceSolNum.toFixed(3);
@@ -2438,9 +2583,10 @@
           const signed = await currentProvider.signAndSendTransaction(transaction);
           alert(`Transaction submitted! Signature: ${signed.signature.slice(0, 10)}... Backed ${selectedFighter} with ${val} SOL.`);
           
-          // Atualiza as odds em tempo real
-          if (selectedFighter === 'BONK') stakedBonk += val;
-          else stakedWif += val;
+          // Aloca no modo atual
+          const current = arenaState[currentArenaMode];
+          if (selectedFighter === 'BONK') current.stakedBonk += val;
+          else current.stakedWif += val;
           updateArenaMath();
 
           document.getElementById('stake-modal-overlay').style.display = 'none';
@@ -2453,16 +2599,18 @@
         }
       }
 
-      // Fallback de demonstração
-      if (selectedFighter === 'BONK') stakedBonk += val;
-      else stakedWif += val;
+      // Demonstração local
+      const current = arenaState[currentArenaMode];
+      if (selectedFighter === 'BONK') current.stakedBonk += val;
+      else current.stakedWif += val;
       updateArenaMath();
-      alert(`Allocation of ${val.toFixed(3)} SOL on ${selectedFighter} successfully placed!`);
+      alert(`Allocation of ${val.toFixed(3)} SOL on ${selectedFighter} (${arenaState[currentArenaMode].title}) registered!`);
       document.getElementById('stake-modal-overlay').style.display = 'none';
     }
 
-    // Inicialização
-    updateHourlyEngine();
+    // Inicialização da interface
+    renderHistory();
+    updateEngineTimer();
     updateArenaMath();
     fetchDexScreenerOracle();
   </script>
