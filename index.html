@@ -2534,7 +2534,6 @@
       } catch (e) {}
     }
 
-    // RESOLVE URL DA IMAGEM COM LINKS DIRETOS E CDN PÚBLICO
     function resolveFighterIcon(fighter) {
       const defaultIcon = 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035';
       const cdnMap = {
@@ -2729,7 +2728,6 @@
         const s = 59 - now.getUTCSeconds();
         timerEl.innerText = `00h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
 
-        // BUFFER ANTI-SNIPE DE 15 MINUTOS
         isBufferActive = (m < 15);
 
         if (m === 0 && s === 0) {
@@ -2845,7 +2843,7 @@
 
     setInterval(updateEngineTimer, 1000);
     setInterval(fetchDexScreenerOracle, 30000);
-    setInterval(syncDuelFromBot, 60000); // Consulta o Render a cada 1 minuto
+    setInterval(syncDuelFromBot, 60000);
 
     let walletConnected = false;
     let currentProvider = null;
