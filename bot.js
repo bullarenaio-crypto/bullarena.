@@ -1,9 +1,18 @@
 require('dotenv').config();
 const cron = require('node-cron');
+const http = require('http');
 const { Telegraf } = require('telegraf');
 const { TwitterApi } = require('twitter-api-v2');
 
-// Inicialização
+// Mantem o servico ativo no Render sem enviar nada
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Bull Royale Bot is standing by (development phase).\n');
+});
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+
+// Configuracao dos Bots
 const tgBot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 const twitterClient = new TwitterApi({
   appKey: process.env.X_API_KEY,
@@ -20,9 +29,9 @@ async function postAnnouncement() {
     `👉 https://bullroyale.io\n\n` +
     `#Solana #Crypto #Gaming #BullRoyale`;
 
-  console.log(`[${new Date().toISOString()}] Executando disparo automático...`);
+  console.log(`[${new Date().toISOString()}] Disparo automatico iniciado...`);
 
-  // Disparo Telegram
+  // Telegram
   try {
     await tgBot.telegram.sendMessage(process.env.TELEGRAM_CHAT_ID, text);
     console.log('✅ Telegram: Enviado com sucesso!');
@@ -30,7 +39,7 @@ async function postAnnouncement() {
     console.error('❌ Erro Telegram:', err.message);
   }
 
-  // Disparo X (Twitter)
+  // X (Twitter)
   try {
     await twitterClient.v2.tweet(text);
     console.log('✅ X: Postado com sucesso!');
@@ -39,12 +48,14 @@ async function postAnnouncement() {
   }
 }
 
-// Executa no momento do arranque
-postAnnouncement();
+// ==========================================
+// COMANDOS TRAVADOS (EM DESENVOLVIMENTO)
+// ==========================================
 
-// Agenda para rodar no minuto 0 de cada hora (ex: 09:00, 10:00, 11:00...)
-cron.schedule('0 * * * *', () => {
-  postAnnouncement();
-});
+// postAnnouncement();
 
-console.log('🚀 Bull Royale Bot iniciado e rodando 24/7!');
+// cron.schedule('0 * * * *', () => {
+//   postAnnouncement();
+// });
+
+console.log('⏸️ Bull Royale Bot pausado com sucesso. Nenhum disparo sera feito.');
