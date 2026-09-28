@@ -2451,7 +2451,7 @@
       name: 'dogwifhat',
       symbol: 'WIF',
       mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm',
-      icon: 'https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg',
+      icon: 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035',
       sub: 'Momentum Challenger'
     };
 
@@ -2534,6 +2534,27 @@
       } catch (e) {}
     }
 
+    // RESOLVE URL DA IMAGEM COM LINKS DIRETOS E CDN PÚBLICO
+    function resolveFighterIcon(fighter) {
+      const defaultIcon = 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035';
+      const cdnMap = {
+        'MEW': 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/MEW1gQWJ3nEXg2qgEriKu7FAFj79PHvQVREQUzScPP5/logo.png',
+        'BONK': 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035',
+        'WIF': 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035',
+        'POPCAT': 'https://cryptologos.cc/logos/popcat-sol-popcat-logo.png?v=035',
+        'BOME': 'https://cryptologos.cc/logos/book-of-meme-bome-logo.png?v=035',
+        'PONKE': 'https://cryptologos.cc/logos/ponke-ponke-logo.png?v=035',
+        'JUP': 'https://cryptologos.cc/logos/jupiter-ag-jup-logo.png?v=035',
+        'RAY': 'https://cryptologos.cc/logos/raydium-ray-logo.png?v=035',
+        'PYTH': 'https://cryptologos.cc/logos/pyth-network-pyth-logo.png?v=035',
+        'LINK': 'https://cryptologos.cc/logos/chainlink-link-logo.png?v=035'
+      };
+
+      if (cdnMap[fighter.symbol]) return cdnMap[fighter.symbol];
+      if (fighter.icon && !fighter.icon.includes('coingecko.com')) return fighter.icon;
+      return defaultIcon;
+    }
+
     // SINCRONIZAÇÃO AUTOMÁTICA COM O RENDER
     async function syncDuelFromBot() {
       try {
@@ -2558,14 +2579,27 @@
     }
 
     function updateFightersUI() {
+      const defaultIcon = 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035';
+
+      const imgA = document.getElementById('fighter-a-img');
+      const imgB = document.getElementById('fighter-b-img');
+
+      imgA.onerror = function() {
+        if (this.src !== defaultIcon) this.src = defaultIcon;
+      };
+      imgB.onerror = function() {
+        if (this.src !== defaultIcon) this.src = defaultIcon;
+      };
+
+      imgA.src = resolveFighterIcon(fighterA);
+      imgB.src = resolveFighterIcon(fighterB);
+
       document.getElementById('fighter-a-name').innerText = fighterA.symbol;
       document.getElementById('fighter-a-sub').innerText = fighterA.sub || fighterA.name;
-      document.getElementById('fighter-a-img').src = fighterA.icon;
       document.getElementById('btn-enter-fighter-a').innerText = `ENTER DUEL • ${fighterA.symbol}`;
 
       document.getElementById('fighter-b-name').innerText = fighterB.symbol;
       document.getElementById('fighter-b-sub').innerText = fighterB.sub || fighterB.name;
-      document.getElementById('fighter-b-img').src = fighterB.icon;
       document.getElementById('btn-enter-fighter-b').innerText = `ENTER DUEL • ${fighterB.symbol}`;
 
       document.getElementById('tab-label-active').innerText = `🟢 LIVE ROOM • DUEL #${pipelineState[currentArenaMode].active.roundId} (CLOSING SOON)`;
@@ -2945,7 +2979,12 @@
 
       document.getElementById('modal-fighter-name').innerText = `${fighter.symbol} (${st.title})`;
       document.getElementById('modal-fighter-mult').innerText = `${currentMultiplier}x`;
-      document.getElementById('modal-fighter-img').src = fighter.icon;
+      
+      const modalImg = document.getElementById('modal-fighter-img');
+      const defaultIcon = 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035';
+      modalImg.onerror = function() { this.src = defaultIcon; };
+      modalImg.src = resolveFighterIcon(fighter);
+
       document.getElementById('modal-user-sol').innerText = fakeCredits.toFixed(2);
       document.getElementById('input-stake-amount').value = '0.20';
       calculateModalReturn();
