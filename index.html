@@ -7,7 +7,7 @@
   
   <!-- SEO & SOCIAL SHARING (OPEN GRAPH / TWITTER CARDS) -->
   <title>Bull Royale • The Liquidity Warfare Protocol on Solana</title>
-  <meta name="description" content="Predict token momentum and command on-chain market volume. Settle 1-hour flash duels and 24-hour daily royales directly in $SOL with decentralized DexScreener oracles.">
+  <meta name="description" content="Predict token momentum, command on-chain volume and ignite live candles. Settle 1-hour flash duels and 24-hour daily royales directly in $SOL with DexScreener oracles.">
   
   <!-- FAVICON -->
   <link rel="icon" type="image/png" href="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png">
@@ -17,14 +17,14 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.bullarenaa.io/">
   <meta property="og:title" content="Bull Royale • Liquidity Warfare Protocol">
-  <meta property="og:description" content="1-Hour Flash Duels & 24-Hour Daily Royales settled in native $SOL. Powered by autonomous PDA vaults and public DexScreener oracles.">
+  <meta property="og:description" content="1-Hour Flash Duels & 24-Hour Daily Royales settled in native $SOL. Powered by autonomous PDA vaults, buyback-burn engines, and DexScreener oracles.">
   <meta property="og:image" content="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png">
 
   <!-- TWITTER CARDS -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@bullarenaio">
   <meta name="twitter:title" content="Bull Royale • Liquidity Warfare on Solana">
-  <meta name="twitter:description" content="Predict token velocity, battle across 1h and 24h rounds, and claim instant $SOL payouts.">
+  <meta name="twitter:description" content="Predict token velocity, ignite on-chain market candles, battle across 1h and 24h rounds, and claim instant $SOL payouts.">
   <meta name="twitter:image" content="https://i.postimg.cc/VLMnn4B6/bull-emblem-png.png">
 
   <!-- FONTS -->
@@ -1079,7 +1079,7 @@
     }
 
     .r-card.upcoming-phase { border-top: 3px solid var(--cyan); }
-    .r-card.locked-phase { border-top: 3px solid #475569; opacity: 0.88; }
+    .r-card.locked-phase { border-top: 3px solid #334155; }
 
     .r-phase-tag {
       font-size: 10px;
@@ -1150,29 +1150,31 @@
       font-weight: 900;
     }
 
-    /* CLASSIFIED / REDACTED UI EFFECT */
-    .classified-badge {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px dashed #475569;
-      border-radius: 6px;
-      padding: 6px 10px;
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #94a3b8;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1px;
+    /* REDACTED CENSOR BAR STYLING (MILITARY CLASSIFIED) */
+    .censor-block {
+      display: inline-block;
+      background: #000000;
+      color: transparent;
       user-select: none;
+      border-radius: 3px;
+      padding: 1px 6px;
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.9);
+      border: 1px solid #1e293b;
+      vertical-align: middle;
+      cursor: not-allowed;
+      line-height: 1.2;
     }
 
-    .classified-badge span.redacted {
-      background: #1e293b;
-      color: #475569;
-      padding: 1px 6px;
-      border-radius: 3px;
-      font-family: monospace;
+    .censor-tag {
+      font-size: 8px;
+      color: var(--pink);
+      border: 1px solid var(--pink);
+      border-radius: 4px;
+      padding: 1px 5px;
+      margin-left: 6px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     /* FAQ */
@@ -1520,7 +1522,7 @@
       <div class="badge-slogan" translate="no">THE LIQUIDITY WARFARE PROTOCOL</div>
       <h1 class="hero-title" translate="no">BULL <span>ROYALE</span></h1>
       <p class="hero-sub">
-        Predict token momentum and command on-chain trading velocity. Settle 1-hour flash duels and 24-hour daily royales directly in $SOL with decentralized DexScreener oracles, autonomous PDA vaults, and automated buyback-burn mechanics.
+        Predict token momentum, command on-chain trading velocity, and ignite live market candles. Settle 1-hour flash duels and 24-hour daily royales directly in $SOL with DexScreener oracles, anti-snipe vaults, and automated buyback-burn propulsion.
       </p>
     </header>
 
@@ -1743,7 +1745,7 @@
         <div class="sec-badge" translate="no">DEFLATIONARY DESIGN</div>
         <h2 class="sec-title" translate="no">PROTOCOL <span>SETTLEMENT</span> & BUYBACK ENGINE</h2>
         <p class="sec-sub">
-          Every single wager placed inside Bull Royale triggers an automated market buyback and permanent burn of the $BULL token, shrinking supply forever.
+          Every wager placed inside Bull Royale triggers an automated market buyback and permanent burn of the $BULL token, shrinking supply forever.
         </p>
       </div>
 
@@ -1877,7 +1879,7 @@
       </div>
     </section>
 
-    <!-- STRATEGIC ROADMAP (UPDATED & CLASSIFIED) -->
+    <!-- STRATEGIC ROADMAP (AUTHENTIC REDACTED CENSORSHIP) -->
     <section class="content-card-section">
       <div class="sec-header">
         <div class="sec-badge" translate="no">EXECUTION PIPELINE</div>
@@ -1906,33 +1908,37 @@
         <div class="r-card upcoming-phase">
           <span class="r-phase-tag" style="color: var(--cyan);" translate="no">PHASE 02</span>
           <span class="r-status status-queued" translate="no">SCHEDULED</span>
-          <h3 class="r-title" translate="no">TOKEN & BUYBACK ENGINE</h3>
+          <h3 class="r-title" translate="no">TOKEN & CANDLE WARFARE</h3>
           <ul class="r-list">
             <li>$BULL official fair launch on Solana (Raydium / Meteora).</li>
+            <li><strong>Live Candle Propulsion:</strong> Dynamic routing via Raydium SDK that automatically prints green buy candles on target token charts.</li>
             <li><strong>Automated Buyback & Burn:</strong> 100% of duel fees buy and burn $BULL.</li>
             <li>Telegram 1-Click Liquidity Warfare Duel Bot.</li>
             <li>Leaderboard Syndicate rankings & High-Roller VIP arenas.</li>
-            <li>Community custom duel room creations.</li>
           </ul>
         </div>
 
-        <!-- PHASE 03 -->
+        <!-- PHASE 03 (REDACTED & CENSORED) -->
         <div class="r-card locked-phase">
           <span class="r-phase-tag" style="color: #94a3b8;" translate="no">PHASE 03</span>
           <span class="r-status status-locked" translate="no">LOCKED 🔒</span>
           <h3 class="r-title" translate="no">PRO PLATFORM</h3>
           <ul class="r-list">
-            <li>Full smart contract Rust Anchor formal security audit.</li>
+            <li>Full Anchor Rust smart contract formal security audit.</li>
             <li>Multi-pair cross-warfare (SOL, ETH, BTC, Memes).</li>
             <li>Staking vault for protocol revenue dividend splits.</li>
+            <li>
+              <span class="censor-block">████████████████████████████</span>
+              <span class="censor-tag">CLASSIFIED</span>
+            </li>
+            <li>
+              <span class="censor-block">██████████████████████████</span>
+              <span class="censor-tag">RESTRICTED</span>
+            </li>
           </ul>
-          <div class="classified-badge" translate="no">
-            <span>DIRECTIVE:</span>
-            <span class="redacted">CLASSIFIED PROTOCOL FEATURE</span>
-          </div>
         </div>
 
-        <!-- PHASE 04 -->
+        <!-- PHASE 04 (REDACTED & CENSORED) -->
         <div class="r-card locked-phase">
           <span class="r-phase-tag" style="color: #94a3b8;" translate="no">PHASE 04</span>
           <span class="r-status status-locked" translate="no">TOP SECRET 🔒</span>
@@ -1940,15 +1946,19 @@
           <ul class="r-list">
             <li>Tier-1 Centralized Exchange listings (CEX).</li>
             <li>Cross-chain oracle settlement (Base, Arbitrum).</li>
+            <li>
+              <span class="censor-block">████████████████████████████████</span>
+              <span class="censor-tag">LEVEL 5</span>
+            </li>
+            <li>
+              <span class="censor-block">████████████████████████</span>
+              <span class="censor-tag">TOP SECRET</span>
+            </li>
+            <li>
+              <span class="censor-block">██████████████████████████████████</span>
+              <span class="censor-tag">CONFIDENTIAL</span>
+            </li>
           </ul>
-          <div class="classified-badge" translate="no">
-            <span>RESTRICTED:</span>
-            <span class="redacted">CONFIDENTIAL PROTOCOL EXPANSION</span>
-          </div>
-          <div class="classified-badge" translate="no">
-            <span>RESTRICTED:</span>
-            <span class="redacted">HIGH-FREQUENCY DERIVATIVE ENGINE</span>
-          </div>
         </div>
       </div>
     </section>
@@ -1966,11 +1976,11 @@
       <div class="faq-list" translate="no">
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
-            <span>How does the Buyback and Burn mechanism work?</span>
+            <span>How does the Candle Propulsion & Buyback mechanism work?</span>
             <span class="faq-toggle-icon">+</span>
           </div>
           <div class="faq-answer">
-            Every round deducts a 5% fee from the loser pool. 100% of this fee in native $SOL is programmatically used to buy back the $BULL token on decentralized exchanges and instantly burn it, creating permanent deflation and constant upward buying pressure.
+            Every round deducts a 5% fee from the loser pool. 100% of this fee in native $SOL is programmatically used to buy back the $BULL token on decentralized exchanges and instantly burn it. Simultaneously, live market routing forces real buy volume on the token being backed, physically pumping candles on DexScreener.
           </div>
         </div>
 
