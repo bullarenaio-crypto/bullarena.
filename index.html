@@ -2,7 +2,7 @@
 <html lang="en" translate="no" class="notranslate">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="google" content="notranslate">
   
   <!-- PRELOAD IMAGEM DO BRASÃO (PRIORIDADE MÁXIMA) -->
@@ -1419,6 +1419,7 @@
 
     footer a:hover { color: var(--gold); }
 
+    /* MODAL BASE STYLING (PC / DESKTOP DEFAULT) */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -1428,7 +1429,8 @@
       z-index: 9999;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
+      box-sizing: border-box;
     }
 
     .modal-box {
@@ -1440,6 +1442,20 @@
       padding: 24px;
       box-shadow: 0 0 40px var(--gold-glow);
       position: relative;
+      box-sizing: border-box;
+      max-height: 90vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) #090e1a;
+    }
+
+    .modal-box::-webkit-scrollbar {
+      width: 5px;
+    }
+    .modal-box::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 4px;
     }
 
     .modal-close {
@@ -1451,6 +1467,8 @@
       font-size: 22px;
       color: #64748b;
       cursor: pointer;
+      padding: 4px;
+      line-height: 1;
     }
 
     .modal-close:hover { color: #fff; }
@@ -1518,6 +1536,7 @@
       border: 2px solid #fff;
       overflow: hidden;
       background: #141c2e;
+      flex-shrink: 0;
     }
 
     .modal-avatar img {
@@ -1548,6 +1567,7 @@
       color: var(--text-muted);
       font-weight: 800;
       margin-bottom: 6px;
+      gap: 6px;
     }
 
     .modal-input-row {
@@ -1612,6 +1632,7 @@
       display: flex;
       justify-content: space-between;
       padding: 4px 0;
+      gap: 8px;
     }
 
     .modal-summary-row span.gold {
@@ -1620,6 +1641,7 @@
       font-weight: 900;
     }
 
+    /* RESPONSIVIDADE GERAL & TELAS MENORES */
     @media (max-width: 768px) {
       .battle-grid { grid-template-columns: 1fr; }
       .metrics-bar { grid-template-columns: 1fr; gap: 12px; }
@@ -1643,6 +1665,96 @@
       .btn-arena-tab { justify-content: center; }
       .roadmap-grid { grid-template-columns: 1fr !important; }
       .fake-credits-pill { width: 100%; justify-content: space-between; }
+    }
+
+    /* OTIMIZAÇÃO EXCLUSIVA DE MODAIS EM CELULARES (MOBILE FRIENDLY) */
+    @media (max-width: 480px) {
+      .modal-overlay {
+        padding: 12px;
+      }
+
+      .modal-box {
+        max-width: 96%;
+        padding: 18px 14px;
+        border-radius: 14px;
+        max-height: 88vh;
+      }
+
+      .modal-close {
+        top: 12px;
+        right: 14px;
+        font-size: 20px;
+      }
+
+      .modal-head {
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        gap: 10px;
+      }
+
+      .modal-avatar {
+        width: 40px;
+        height: 40px;
+      }
+
+      .modal-title-box h3 {
+        font-size: 24px;
+      }
+
+      .modal-input-wrap {
+        padding: 10px 12px;
+        margin-bottom: 10px;
+      }
+
+      .modal-input-top {
+        font-size: 10px;
+      }
+
+      .modal-input {
+        font-size: 18px;
+      }
+
+      .modal-token-label {
+        font-size: 18px;
+      }
+
+      .quick-pct-row {
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+
+      .btn-pct {
+        font-size: 10px;
+        padding: 5px 2px;
+      }
+
+      .modal-summary-box {
+        padding: 8px 10px;
+        font-size: 10px;
+        margin-bottom: 14px;
+      }
+
+      .modal-summary-row span.gold {
+        font-size: 13px;
+      }
+
+      #btn-modal-confirm {
+        padding: 12px 10px;
+        font-size: 12px;
+        transform: none !important;
+      }
+
+      .wallet-choice-btn {
+        padding: 10px 12px;
+      }
+
+      .wallet-choice-title {
+        font-size: 13px;
+      }
+
+      .wallet-choice-subtitle {
+        font-size: 9px;
+      }
     }
   </style>
 </head>
