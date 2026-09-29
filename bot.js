@@ -42,7 +42,7 @@ try {
   houseKeypair = Keypair.generate();
 }
 
-// Maintenance Mode Configuration
+// Global & Secure Production Mode (False = Public Live Arena)
 const IS_MAINTENANCE = false;
 
 // Round Settings: 1 Hour duration, 15 minutes lock time before closing
@@ -105,7 +105,7 @@ bot.use(async (ctx, next) => {
   return next();
 });
 
-// Start Command with User Registration & Welcome
+// Start Command with User Registration & Wallet Setup Prompt
 bot.start(async (ctx) => {
   const user = ctx.from;
   
@@ -121,8 +121,11 @@ bot.start(async (ctx) => {
   }
 
   await ctx.reply(
-    '🚨 **BULL ROYALE ARENA - LIVE ROUNDS** 🚨\n\n' +
-    '⚡ Welcome! Automated rounds run every hour. Place your bets below:',
+    '🚨 **BULL ROYALE ARENA - LIVE PUBLIC LAUNCH** 🚨\n\n' +
+    '⚡ Welcome to the ultimate Solana prediction battle!\n\n' +
+    '📥 **Step 1:** Link your Solana payout wallet first using:\n' +
+    '`/wallet SEU_ENDERECO_SOLANA`\n\n' +
+    'Or jump straight into the active hourly rounds below:',
     {
       parse_mode: 'Markdown',
       ...Markup.inlineKeyboard([
@@ -137,6 +140,43 @@ bot.start(async (ctx) => {
       ])
     }
   );
+});
+
+// Command to Register User's Payout Solana Wallet
+bot.command('wallet', async (ctx) => {
+  const text = ctx.message.text;
+  const parts = text.split(' ');
+  const telegramId = ctx.from.id;
+
+  if (parts.length < 2) {
+    return ctx.reply(
+      '⚠️ **Invalid Format!**\n\n' +
+      'Please provide your Solana public address. Example:\n' +
+      '`/wallet SuaCarteiraSolanaAqui...`',
+      { parse_mode: 'Markdown' }
+    );
+  }
+
+  const walletAddress = parts[1].trim();
+
+  try {
+    // Validate if it's a valid Solana public key string
+    new PublicKey(walletAddress);
+
+    await supabase.from('users').update({
+      solana_wallet: walletAddress,
+      updated_at: new Date()
+    }).eq('telegram_id', telegramId);
+
+    await ctx.reply(
+      `✅ **Solana Wallet Linked Successfully!**\n\n` +
+      `🔑 Address: \`${walletAddress}\`\n\n` +
+      `_You are now fully set up to receive automated payouts when you win rounds!_`,
+      { parse_mode: 'Markdown' }
+    );
+  } catch (err) {
+    await ctx.reply('❌ **Invalid Solana Wallet Address.** Please check and try again.', { parse_mode: 'Markdown' });
+  }
 });
 
 // Admin Command: /stats
@@ -159,12 +199,12 @@ bot.command('stats', async (ctx) => {
     });
 
     await ctx.reply(
-      `📊 **BULL ROYALE - SECURE VAULT STATS** 📊\n\n` +
+      `📊 **BULL ROYALE - GLOBAL VAULT STATS** 📊\n\n` +
       `🔐 **House Wallet Address:** \`${houseKeypair.publicKey.toBase58()}\`\n` +
       `🔒 **House Vault (5% Revenue):** \`${totalHouseVault.toFixed(4)} SOL\`\n` +
       `💰 **Active Round Pool:** \`${activePool.toFixed(4)} SOL\`\n` +
       `🏁 **Completed Rounds:** \`${closedRoundsCount}\`\n\n` +
-      `_Status: Secure & Synced with Solana Blockchain._`,
+      `_Status: Public & Secured on Blockchain._`,
       { parse_mode: 'Markdown' }
     );
   } catch (err) {
@@ -182,6 +222,22 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
   const split = calculateBetSplit(amount);
 
   try {
+    // Check if user has registered a payout wallet
+    const { data: userRecord } = await supabase
+      .from('users')
+      .select('solana_wallet')
+      .eq('telegram_id', telegramId)
+      .single();
+
+    if (!userRecord || !userRecord.solana_wallet) {
+      await ctx.answerCbQuery('⚠️ Link your payout wallet first!');
+      return ctx.reply(
+        '⚠️ **Action Required:** Before placing bets, please link your Solana receiving wallet using the command:\n\n' +
+        '`/wallet SEU_ENDERECO_SOLANA`',
+        { parse_mode: 'Markdown' }
+      );
+    }
+
     let { data: round } = await supabase
       .from('rounds')
       .select('*')
@@ -286,7 +342,6 @@ setInterval(async () => {
 
     // Strict 15-Minute Lock Notification (Runs ONLY ONCE per round)
     if (timeLeft <= LOCK_TIME_MS && timeLeft > 0 && !round.notified_lock) {
-      // Atualiza imediatamente na base de dados para blockar duplicações caso o worker corra em paralelo
       await supabase.from('rounds').update({ notified_lock: true }).eq('id', round.id);
       
       console.log(`⏰ Automated Worker: Round ${round.id} entered lock period. Sending single notification.`);
@@ -364,7 +419,7 @@ setInterval(async () => {
               `🏆 **YOU WON THE BULL ROYALE ROUND!** 🏆\n\n` +
               `🎯 Winning Side: \`${winningChoice.toUpperCase()}\`\n` +
               `💰 Your Payout Share (95% Pool): \`${payoutShare.toFixed(4)} SOL\`\n\n` +
-              `_Transferred securely from Escrow Vault to your wallet._`,
+              `_Transferred securely from Escrow Vault to your registered wallet._`,
               { parse_mode: 'Markdown' }
             );
           } catch (err) {}
@@ -437,7 +492,7 @@ setInterval(async () => {
 
 bot.launch()
   .then(() => {
-    console.log('🚀 Bull Royale Bot running with Single-Lock Notification Guard!');
+    console.log('🚀 Bull Royale Global Public Bot running successfully!');
   })
   .catch((err) => {
     console.error('Error starting the bot:', err);
@@ -445,7 +500,7 @@ bot.launch()
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Bull Royale Single-Lock Engine is running!\n');
+  res.end('Bull Royale Public Arena Engine is running!\n');
 });
 
 const PORT = process.env.PORT || 3000;
