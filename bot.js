@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { Telegraf } = require('telegraf');
+const http = require('http');
 
 // Validação da chave do Telegram
 const botToken = process.env.BOT_TOKEN;
@@ -31,6 +32,23 @@ tgBot.launch()
     console.error('Erro ao iniciar o bot:', err);
   });
 
+// Mini servidor HTTP para satisfazer a exigência de porta do Web Service gratuito do Render
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Bull Royale Bot is running!\n');
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`🌐 Servidor HTTP web ativo na porta ${PORT}`);
+});
+
 // Encerramento limpo
-process.once('SIGINT', () => tgBot.stop('SIGINT'));
-process.once('SIGTERM', () => tgBot.stop('SIGTERM'));
+process.once('SIGINT', () => {
+  server.close();
+  tgBot.stop('SIGINT');
+});
+process.once('SIGTERM', () => {
+  server.close();
+  tgBot.stop('SIGTERM');
+});
