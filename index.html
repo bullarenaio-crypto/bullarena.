@@ -3936,6 +3936,19 @@
 
 
           <button id="btn-enter-fighter-b" class="btn-arcade btn-arcade-purple" translate="no" onclick="openStakeModal('B')">ENTER DUEL • WIF</button>
+          <!-- DEXSCREENER LIVE CHART (FIGHTER B) -->
+          <div class="dex-embed-wrapper" style="margin-top: 14px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #000;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 10px; background:#070a12; font-size:10px; font-weight:800; color:var(--purple); border-bottom:1px solid #141c2c;">
+              <span>📊 LIVE DEXSCREENER ORACLE</span>
+              <a id="fighter-b-dex-link" href="https://dexscreener.com/solana/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm" target="_blank" rel="noopener noreferrer" style="color:var(--purple); text-decoration:none;">EXPAND ↗</a>
+            </div>
+            <iframe 
+              id="fighter-b-dex-iframe"
+              src="https://dexscreener.com/solana/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm?embed=1&theme=dark&trades=0&info=0" 
+              style="width: 100%; height: 260px; border: none; display: block;"
+              loading="lazy">
+            </iframe>
+          </div>
 
         </article>
 
