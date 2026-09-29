@@ -150,7 +150,7 @@ bot.command('wallet', async (ctx) => {
 
   if (parts.length < 2) {
     return ctx.reply(
-      '⚠️️ **Invalid Format!**\n\n' +
+      '⚠️ **Invalid Format!**\n\n' +
       'Please provide your Solana public address. Example:\n' +
       '`/wallet SuaCarteiraSolanaAqui...`',
       { parse_mode: 'Markdown' }
@@ -308,7 +308,7 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
   }
 });
 
-// Background Worker: Automated Round Manager, Blockchain Settlements & Strict Single Notifications
+// Background Worker: Automated Round Manager with Atomic Lock Guard against any duplication
 setInterval(async () => {
   try {
     let { data: round } = await supabase
@@ -361,6 +361,20 @@ setInterval(async () => {
 
     // Round Expiration (1 Hour Reached -> Settlement & Solana Payouts)
     if (elapsed >= ROUND_DURATION_MS) {
+      // ATOMIC LOCK: Tenta fechar imediatamente na base de dados. Se outra thread/worker tentar ao mesmo tempo, falha e evita duplicar.
+      const { data: lockedRound, error: lockErr } = await supabase
+        .from('rounds')
+        .update({ status: 'settling' })
+        .eq('id', round.id)
+        .eq('status', 'open')
+        .select()
+        .single();
+
+      if (lockErr || !lockedRound) {
+        // A ronda já está a ser processada por outro ciclo, ignoramos para evitar duplicados.
+        return;
+      }
+
       const { data: bets } = await supabase
         .from('bets')
         .select('*')
@@ -378,6 +392,7 @@ setInterval(async () => {
 
       const winningChoice = bullTotal >= bearTotal ? 'bull' : 'bear';
 
+      // Atualiza para 'closed' definitivo
       await supabase.from('rounds').update({ 
         status: 'closed',
         winner_choice: winningChoice 
@@ -390,7 +405,6 @@ setInterval(async () => {
         const winningPool = Number(round.winner_payout || 0);
         const totalWinningVolume = winningBets.reduce((sum, b) => sum + Number(b.amount), 0);
 
-        // Group winnings per unique user to ensure exactly ONE payout and ONE notification per user
         const userWinnings = {};
         winningBets.forEach(wb => {
           if (!userWinnings[wb.telegram_id]) {
@@ -417,7 +431,6 @@ setInterval(async () => {
             await sendSolTransfer(userData.solana_wallet, userPayoutShare);
           }
 
-          // Mark user's winning bets as won
           for (const bId of data.betIds) {
             await supabase.from('bets').update({
               status: 'won',
@@ -425,7 +438,6 @@ setInterval(async () => {
             }).eq('id', bId);
           }
 
-          // Send SINGLE clean alert message to the winner
           try {
             await bot.telegram.sendMessage(
               telegramId,
@@ -438,7 +450,6 @@ setInterval(async () => {
           } catch (err) {}
         }
 
-        // Handle losers (SINGLE message per loser)
         const losingBets = bets.filter(b => b.choice !== winningChoice);
         const losingUserIds = [...new Set(losingBets.map(lb => lb.telegram_id))];
 
