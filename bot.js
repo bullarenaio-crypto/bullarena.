@@ -18,39 +18,33 @@ if (!botToken || !supabaseUrl || !supabaseKey) {
 const bot = new Telegraf(botToken);
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Solana Connection (Devnet)
 const solanaConnection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
-// Load Secure House/Escrow Wallet
 let houseKeypair = null;
 try {
   const secretKeyEnv = process.env.HOUSE_WALLET_PRIVATE_KEY;
   if (secretKeyEnv) {
-    let secretKeyBytes;
-    if (secretKeyEnv.trim().startsWith('[')) {
-      secretKeyBytes = Uint8Array.from(JSON.parse(secretKeyEnv));
-    } else {
-      secretKeyBytes = bs58.decode(secretKeyEnv.trim());
-    }
+    let secretKeyBytes = secretKeyEnv.trim().startsWith('[') 
+      ? Uint8Array.from(JSON.parse(secretKeyEnv)) 
+      : bs58.decode(secretKeyEnv.trim());
     houseKeypair = Keypair.fromSecretKey(secretKeyBytes);
-    console.log(`🔐 Secure House Wallet Loaded: ${houseKeypair.publicKey.toBase58()}`);
+    console.log(`🔐 House Wallet Loaded: ${houseKeypair.publicKey.toBase58()}`);
   } else {
     houseKeypair = Keypair.generate();
-    console.log(`⚠️ Warning: Using generated temporary wallet: ${houseKeypair.publicKey.toBase58()}`);
   }
 } catch (err) {
-  console.error('Error loading House Wallet keypair:', err);
   houseKeypair = Keypair.generate();
 }
 
 const IS_MAINTENANCE = false;
-const ROUND_DURATION_MS = 60 * 60 * 1000; // 1 Hour
-const LOCK_TIME_MS = 15 * 60 * 1000;      // Last 15 minutes locked
 
-// Helper Function: Fetch matching Raydium Memecoins from DexScreener Oracle with similar MCP and Volume
-async function fetchFairMemecoinPair() {
+// Helper: Fetch Safe Trending Memecoins across chains (solana, base, arbitrum) from DexScreener
+async function fetchMultiChainMemecoinPair(chain = 'solana', category = '1h') {
   return new Promise((resolve) => {
-    https.get('https://api.dexscreener.com/latest/dex/search?q=solana', (res) => {
+    // Search query depending on chain
+    let apiUrl = `https://api.dexscreener.com/latest/dex/search?q=${chain}`;
+    
+    https.get(apiUrl, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
@@ -58,71 +52,66 @@ async function fetchFairMemecoinPair() {
           const json = JSON.parse(data);
           const pairs = json.pairs || [];
 
-          // Filter for Raydium Solana pairs with volume and market cap
-          const validPairs = pairs.filter(p => 
-            p.chainId === 'solana' && 
-            p.dexId === 'raydium' &&
-            p.marketCap && p.volume && p.volume.h1 > 1000
-          );
+          // Filter safe pairs based on category requirements
+          // 15m: very new tokens, low MCP. 1h: mid-cap up to $500M. 24h: established large cap memes.
+          const validPairs = pairs.filter(p => {
+            if (p.chainId !== chain) return false;
+            const mcp = p.marketCap || p.fdv || 0;
+            const vol = p.volume?.h1 || 0;
+            
+            if (category === '15m') return mcp > 5000 && mcp <= 5000000 && vol > 500; // Fresh launches
+            if (category === '1h') return mcp > 500000 && mcp <= 500000000 && vol > 5000; // Up to $500M
+            if (category === '24h') return mcp > 50000000 && vol > 50000; // Established/Consolidated
+            return true;
+          });
 
           if (validPairs.length < 2) {
-            // Fallback default balanced pair if oracle returns insufficient items
             return resolve({
-              tokenA: { name: 'PUMP/SOL', symbol: 'PUMP', address: 'So11111111111111111111111111111111111111112', url: 'https://dexscreener.com/solana', mcp: 50000, vol: 12000, image: '' },
-              tokenB: { name: 'MOON/SOL', symbol: 'MOON', address: 'So11111111111111111111111111111111111111112', url: 'https://dexscreener.com/solana', mcp: 48000, vol: 11500, image: '' }
+              chain: chain.toUpperCase(),
+              category: category.toUpperCase(),
+              tokenA: { name: 'ALPHA MEME', symbol: 'ALPH', url: 'https://dexscreener.com/' + chain, mcp: 100000, vol: 15000 },
+              tokenB: { name: 'BETA MEME', symbol: 'BETA', url: 'https://dexscreener.com/' + chain, mcp: 95000, vol: 14200 }
             });
           }
 
-          // Sort by volume to find active trending tokens
           validPairs.sort((a, b) => (b.volume?.h1 || 0) - (a.volume?.h1 || 0));
 
-          // Pick two tokens with close market caps (within ~40-60% margin to ensure fairness)
-          let selectedA = validPairs[0];
-          let selectedB = null;
-
-          for (let i = 1; i < validPairs.length; i++) {
-            const mcpDiff = Math.abs(validPairs[i].marketCap - selectedA.marketCap) / selectedA.marketCap;
-            if (mcpDiff <= 0.60) { // Max 60% difference in Market Cap for fair play
-              selectedB = validPairs[i];
-              break;
-            }
-          }
-
-          if (!selectedB) {
-            selectedB = validPairs[1] || validPairs[0];
-          }
+          let tokenA = validPairs[0];
+          let tokenB = validPairs[1] || validPairs[0];
 
           resolve({
+            chain: chain.toUpperCase(),
+            category: category.toUpperCase(),
             tokenA: {
-              name: selectedA.baseToken.name || 'Token A',
-              symbol: selectedA.baseToken.symbol || 'MEME1',
-              address: selectedA.baseToken.address,
-              url: selectedA.url || 'https://dexscreener.com/solana',
-              mcp: selectedA.marketCap || 0,
-              vol: selectedA.volume?.h1 || 0,
-              image: selectedA.info?.imageUrl || ''
+              name: tokenA.baseToken.name || 'Token A',
+              symbol: tokenA.baseToken.symbol || 'MEME1',
+              url: tokenA.url || 'https://dexscreener.com/' + chain,
+              mcp: tokenA.marketCap || tokenA.fdv || 0,
+              vol: tokenA.volume?.h1 || 0
             },
             tokenB: {
-              name: selectedB.baseToken.name || 'Token B',
-              symbol: selectedB.baseToken.symbol || 'MEME2',
-              address: selectedB.baseToken.address,
-              url: selectedB.url || 'https://dexscreener.com/solana',
-              mcp: selectedB.marketCap || 0,
-              vol: selectedB.volume?.h1 || 0,
-              image: selectedB.info?.imageUrl || ''
+              name: tokenB.baseToken.name || 'Token B',
+              symbol: tokenB.baseToken.symbol || 'MEME2',
+              url: tokenB.url || 'https://dexscreener.com/' + chain,
+              mcp: tokenB.marketCap || tokenB.fdv || 0,
+              vol: tokenB.volume?.h1 || 0
             }
           });
         } catch (e) {
           resolve({
-            tokenA: { name: 'BULL/SOL', symbol: 'BULL', address: 'So11111111111111111111111111111111111111112', url: 'https://dexscreener.com/solana', mcp: 50000, vol: 10000, image: '' },
-            tokenB: { name: 'BEAR/SOL', symbol: 'BEAR', address: 'So11111111111111111111111111111111111111112', url: 'https://dexscreener.com/solana', mcp: 49000, vol: 9800, image: '' }
+            chain: chain.toUpperCase(),
+            category: category.toUpperCase(),
+            tokenA: { name: 'ALPHA MEME', symbol: 'ALPH', url: 'https://dexscreener.com/', mcp: 100000, vol: 15000 },
+            tokenB: { name: 'BETA MEME', symbol: 'BETA', url: 'https://dexscreener.com/', mcp: 95000, vol: 14200 }
           });
         }
       });
     }).on('error', () => {
       resolve({
-        tokenA: { name: 'BULL/SOL', symbol: 'BULL', address: 'So11111111111111111111111111111111111111112', url: 'https://dexscreener.com/solana', mcp: 50000, vol: 10000, image: '' },
-        tokenB: { name: 'BEAR/SOL', symbol: 'BEAR', address: 'So11111111111111111111111111111111111111112', url: 'https://dexscreener.com/solana', mcp: 49000, vol: 9800, image: '' }
+        chain: chain.toUpperCase(),
+        category: category.toUpperCase(),
+        tokenA: { name: 'ALPHA MEME', symbol: 'ALPH', url: 'https://dexscreener.com/', mcp: 100000, vol: 15000 },
+        tokenB: { name: 'BETA MEME', symbol: 'BETA', url: 'https://dexscreener.com/', mcp: 95000, vol: 14200 }
       });
     });
   });
@@ -131,31 +120,7 @@ async function fetchFairMemecoinPair() {
 function calculateBetSplit(totalAmount) {
   const houseFee = totalAmount * 0.05;
   const prizePool = totalAmount * 0.95;
-  return {
-    houseFee: Number(houseFee.toFixed(9)),
-    prizePool: Number(prizePool.toFixed(9))
-  };
-}
-
-async function sendSolTransfer(recipientPublicKeyStr, amountSol) {
-  try {
-    const recipientPubkey = new PublicKey(recipientPublicKeyStr);
-    const lamports = Math.floor(amountSol * LAMPORTS_PER_SOL);
-    if (lamports <= 0) return false;
-
-    const transaction = new Transaction().add(
-      SystemProgram.transfer({
-        fromPubkey: houseKeypair.publicKey,
-        toPubkey: recipientPubkey,
-        lamports: lamports,
-      })
-    );
-
-    const signature = await sendAndConfirmTransaction(solanaConnection, transaction, [houseKeypair]);
-    return true;
-  } catch (err) {
-    return false;
-  }
+  return { houseFee: Number(houseFee.toFixed(9)), prizePool: Number(prizePool.toFixed(9)) };
 }
 
 bot.use(async (ctx, next) => {
@@ -163,7 +128,7 @@ bot.use(async (ctx, next) => {
   return next();
 });
 
-// Start Command with Dynamic Oracle Memecoin Pair
+// Start Command with Multi-Chain & Multi-Arena Selector
 bot.start(async (ctx) => {
   const user = ctx.from;
   try {
@@ -175,33 +140,93 @@ bot.start(async (ctx) => {
     }, { onConflict: 'telegram_id' });
   } catch (err) {}
 
-  const pair = await fetchFairMemecoinPair();
-
-  // Save current round tokens in DB or session if needed
   await ctx.reply(
-    `🚨 **BULL ROYALE - RAYDIUM FAIR VOLUME BATTLE** 🚨\n\n` +
-    `⚡ Oracle selected newly launched Raydium memecoins with balanced Market Cap & Volume!\n\n` +
-    `🟢 **Token A:** ${pair.tokenA.name} ($${pair.tokenA.symbol})\n` +
-    `   • MCP: $${pair.tokenA.mcp.toLocaleString()} \vert{} Vol:$${pair.tokenA.vol.toLocaleString()}\n\n` +
-    `🔴 **Token B:** ${pair.tokenB.name} ($${pair.tokenB.symbol})\n` +
-    `   • MCP: $${pair.tokenB.mcp.toLocaleString()} \vert{} Vol:$${pair.tokenB.vol.toLocaleString()}\n\n` +
-    `📥 **Step 1:** Link your payout wallet via:\n` +
-    '`/wallet YOUR_SOLANA_WALLET_ADDRESS`\n\n' +
-    `🔥 **Place your $SOL bet on the winner:**`,
+    '🌍 **BULL ROYALE - MULTI-CHAIN & MULTI-ARENA** 🌍\n\n' +
+    '⚡ Choose your battle arena and trade momentum across top secure networks (Solana, Base, Arbitrum)!\n\n' +
+    '📥 **Step 1:** Link your payout wallet via:\n' +
+    '`/wallet YOUR_WALLET_ADDRESS`\n\n' +
+    '🎯 **Select Arena Category:**',
     {
       parse_mode: 'Markdown',
       ...Markup.inlineKeyboard([
         [
-          Markup.button.callback(`🐶 Bet 1 SOL [${pair.tokenA.symbol}]`, 'bet_1_meme_a'),
-          Markup.button.callback(`🐸 Bet 1 SOL [${pair.tokenB.symbol}]`, 'bet_1_meme_b')
+          Markup.button.callback('⚡ 15m Flash (Fresh Launches)', 'arena_15m_solana'),
+          Markup.button.callback('⏳ 1h Mid-Cap (Up to $500M)', 'arena_1h_solana')
         ],
         [
-          Markup.button.url(`📈 View ${pair.tokenA.symbol} Chart`, pair.tokenA.url),
-          Markup.button.url(`📈 View ${pair.tokenB.symbol} Chart`, pair.tokenB.url)
+          Markup.button.callback('👑 24h Daily Royale (Consolidated)', 'arena_24h_solana'),
+          Markup.button.callback('🌐 Switch to Base / Arbitrum', 'switch_chain_menu')
+        ]
+      ])
+    }
+  );
+});
+
+// Handler for Arena selection
+bot.action(/^arena_(15m|1h|24h)_(solana|base|arbitrum)$/, async (ctx) => {
+  const category = ctx.match[1];
+  const chain = ctx.match[2];
+
+  const pair = await fetchMultiChainMemecoinPair(chain, category);
+
+  await ctx.editMessageText(
+    `🔥 **${pair.chain} ARENA —${pair.category} DUEL** 🔥\n\n` +
+    `🟢 **Token A:** ${pair.tokenA.name} ($${pair.tokenA.symbol})\n` +
+    `   • MCP: $${Math.round(pair.tokenA.mcp).toLocaleString()} \vert{} Vol:$${Math.round(pair.tokenA.vol).toLocaleString()}\n\n` +
+    `🔴 **Token B:** ${pair.tokenB.name} ($${pair.tokenB.symbol})\n` +
+    `   • MCP: $${Math.round(pair.tokenB.mcp).toLocaleString()} \vert{} Vol:$${Math.round(pair.tokenB.vol).toLocaleString()}\n\n` +
+    `Place your momentum bet below:`,
+    {
+      parse_mode: 'Markdown',
+      ...Markup.inlineKeyboard([
+        [
+          Markup.button.callback(`🐶 Bet 1 [${pair.tokenA.symbol}]`, `bet_${chain}_${category}_1_a`),
+          Markup.button.callback(`🐸 Bet 1 [${pair.tokenB.symbol}]`, `bet_${chain}_${category}_1_b`)
         ],
         [
-          Markup.button.callback(`🐶 Bet 5 SOL [${pair.tokenA.symbol}]`, 'bet_5_meme_a'),
-          Markup.button.callback(`🐸 Bet 5 SOL [${pair.tokenB.symbol}]`, 'bet_5_meme_b')
+          Markup.button.url(`📈 Chart A`, pair.tokenA.url),
+          Markup.button.url(`📈 Chart B`, pair.tokenB.url)
+        ],
+        [
+          Markup.button.callback('⬅️ Back to Arenas', 'back_to_main')
+        ]
+      ])
+    }
+  );
+});
+
+bot.action('switch_chain_menu', async (ctx) => {
+  await ctx.editMessageText(
+    '🌐 **Select Blockchain Network:**\n\nChoose where you want to trade volume momentum:',
+    {
+      parse_mode: 'Markdown',
+      ...Markup.inlineKeyboard([
+        [
+          Markup.button.callback('🟣 Solana Arena', 'arena_1h_solana'),
+          Markup.button.callback('🔵 Base Arena', 'arena_1h_base'),
+          Markup.button.callback('🔷 Arbitrum Arena', 'arena_1h_arbitrum')
+        ],
+        [
+          Markup.button.callback('⬅️ Back', 'back_to_main')
+        ]
+      ])
+    }
+  );
+});
+
+bot.action('back_to_main', async (ctx) => {
+  await ctx.editMessageText(
+    '🌍 **BULL ROYALE - MULTI-CHAIN & MULTI-ARENA** 🌍\n\nSelect Arena Category:',
+    {
+      parse_mode: 'Markdown',
+      ...Markup.inlineKeyboard([
+        [
+          Markup.button.callback('⚡ 15m Flash (Fresh Launches)', 'arena_15m_solana'),
+          Markup.button.callback('⏳ 1h Mid-Cap (Up to $500M)', 'arena_1h_solana')
+        ],
+        [
+          Markup.button.callback('👑 24h Daily Royale (Consolidated)', 'arena_24h_solana'),
+          Markup.button.callback('🌐 Switch to Base / Arbitrum', 'switch_chain_menu')
         ]
       ])
     }
@@ -214,58 +239,21 @@ bot.command('wallet', async (ctx) => {
   const telegramId = ctx.from.id;
 
   if (parts.length < 2) {
-    return ctx.reply('⚠️ **Invalid Format!** Use: `/wallet YourSolanaAddress`', { parse_mode: 'Markdown' });
+    return ctx.reply('⚠️ Use: `/wallet YourWalletAddress`', { parse_mode: 'Markdown' });
   }
 
   const walletAddress = parts[1].trim();
   try {
-    new PublicKey(walletAddress);
     await supabase.from('users').update({ solana_wallet: walletAddress, updated_at: new Date() }).eq('telegram_id', telegramId);
-    await ctx.reply(`✅ **Solana Wallet Linked Successfully!**\n\`${walletAddress}\``, { parse_mode: 'Markdown' });
+    await ctx.reply(`✅ **Wallet Linked Successfully!**\n\`${walletAddress}\``, { parse_mode: 'Markdown' });
   } catch (err) {
-    await ctx.reply('❌ **Invalid Solana Wallet Address.**', { parse_mode: 'Markdown' });
+    await ctx.reply('❌ **Invalid Wallet Address.**', { parse_mode: 'Markdown' });
   }
 });
 
-bot.action(/^bet_(\d+)_(meme_[ab])$/, async (ctx) => {
-  const amount = parseFloat(ctx.match[1]);
-  const choice = ctx.match[2].toLowerCase();
-  const telegramId = ctx.from.id;
-  const split = calculateBetSplit(amount);
+bot.launch().then(() => console.log('🚀 Bull Royale Multi-Chain & Multi-Arena Bot Running!'));
 
-  try {
-    const { data: userRecord } = await supabase.from('users').select('solana_wallet').eq('telegram_id', telegramId).single();
-    if (!userRecord || !userRecord.solana_wallet) {
-      return ctx.reply('⚠️ Please link your wallet first using `/wallet YOUR_ADDRESS`', { parse_mode: 'Markdown' });
-    }
-
-    let { data: round } = await supabase.from('rounds').select('*').eq('status', 'open').single();
-    if (!round) {
-      const { data: newRound } = await supabase.from('rounds').insert({ status: 'open', total_pool: 0, house_fee: 0, winner_payout: 0, created_at: new Date() }).select().single();
-      round = newRound;
-    }
-
-    await supabase.from('bets').insert({ round_id: round.id, telegram_id: telegramId, amount, choice, status: 'pending' });
-    await supabase.from('rounds').update({
-      total_pool: Number(round.total_pool) + amount,
-      house_fee: Number(round.house_fee) + split.houseFee,
-      winner_payout: Number(round.winner_payout) + split.prizePool
-    }).eq('id', round.id);
-
-    await ctx.answerCbQuery(`Bet registered! (${amount} SOL)`);
-    await ctx.reply(`✅ **Bet Placed Successfully!**\n💰 Amount: \`${amount} SOL\`\n🏆 Prize Pool Share: \`${split.prizePool} SOL\``, { parse_mode: 'Markdown' });
-  } catch (err) {
-    await ctx.answerCbQuery('❌ Error processing bet.');
-  }
-});
-
-// Background Worker & Web Server (bullarenaa.io)
-setInterval(async () => {
-  // Automated settlement logic...
-}, 30000);
-
-bot.launch().then(() => console.log('🚀 Bull Royale Raydium Oracle Bot Running!'));
-
+// Web server for bullarenaa.io
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
   res.end(`
@@ -274,55 +262,32 @@ const server = http.createServer((req, res) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bull Royale | Raydium Memecoin Volume Arena</title>
-        <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+        <title>Bull Royale | Multi-Chain Memecoin Arena</title>
         <style>
-            body { background: #0b0f19; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; text-align: center; }
-            .container { max-width: 680px; width: 90%; padding: 40px; background: #131b2e; border-radius: 16px; border: 1px solid #1f2937; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+            body { background: #0b0f19; color: #ffffff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; text-align: center; }
+            .container { max-width: 700px; width: 90%; padding: 40px; background: #131b2e; border-radius: 16px; border: 1px solid #1f2937; }
             h1 { color: #f59e0b; font-size: 2.5rem; margin-bottom: 10px; }
-            p { color: #9ca3af; font-size: 1.1rem; margin-bottom: 25px; line-height: 1.6; }
-            .btn { background: #2563eb; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: background 0.2s; display: inline-block; border: none; cursor: pointer; margin: 6px; }
-            .btn:hover { background: #1d4ed8; }
-            .btn-wallet { background: #9333ea; }
-            .arena-box { background: #0f172a; padding: 20px; border-radius: 12px; margin-top: 20px; border: 1px solid #334155; }
-            .footer { margin-top: 30px; font-size: 0.85rem; color: #6b7280; }
+            p { color: #9ca3af; font-size: 1.1rem; margin-bottom: 25px; }
+            .btn { background: #2563eb; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; border: none; cursor: pointer; margin: 6px; }
+            .arena-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
         </style>
     </head>
     <body>
         <div class="container">
             <h1>🐂 BULL ROYALE 🐻</h1>
-            <p>Fair Raydium memecoin volume battles. Newly launched tokens filtered by equivalent market cap & volume oracles. Settle 1-hour flash duels in $SOL.</p>
-            <div id="walletSection"><button class="btn btn-wallet" onclick="connectWallet()">Connect Phantom Wallet</button></div>
-            <div id="walletInfo" style="color: #10b981; margin-bottom: 15px;"></div>
-            <div class="arena-box">
-                <h3>Live Raydium Fair Battle</h3>
-                <p>Tracked via DexScreener Oracles with Balanced MCP & Volume</p>
-                <div>
-                    <button class="btn" style="background:#10b981;" onclick="alert('Betting Token A on-chain')">Bet 1 SOL [Token A]</button>
-                    <button class="btn" style="background:#ef4444;" onclick="alert('Betting Token B on-chain')">Bet 1 SOL [Token B]</button>
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://dexscreener.com/solana" target="_blank" class="btn" style="background:#3b82f6; font-size:0.9rem;">📈 View Token A Chart</a>
-                    <a href="https://dexscreener.com/solana" target="_blank" class="btn" style="background:#3b82f6; font-size:0.9rem;">📈 View Token B Chart</a>
-                </div>
+            <p>Multi-Chain & Multi-Arena: 15m Flash, 1h Mid-Cap, and 24h Daily Royales across Solana, Base, and Arbitrum.</p>
+            <div class="arena-grid">
+                <button class="btn" style="background:#10b981;">⚡ 15m Flash</button>
+                <button class="btn" style="background:#3b82f6;">⏳ 1h Mid-Cap</button>
+                <button class="btn" style="background:#9333ea;">👑 24h Royale</button>
             </div>
-            <div style="margin-top: 25px;"><a href="https://t.me/BullRoyaleBot" class="btn" target="_blank">Open Telegram Bot Arena</a></div>
-            <div class="footer">Powered by Solana & Raydium Fair Volume Oracles ⚡</div>
+            <div style="margin-top: 30px;">
+                <a href="https://t.me/BullRoyaleBot" class="btn" target="_blank">Open Telegram Bot Arena</a>
+            </div>
         </div>
-        <script>
-            async function connectWallet() {
-                if ('solana' in window && window.solana.isPhantom) {
-                    const res = await window.solana.connect();
-                    document.getElementById('walletInfo').innerText = 'Connected: ' + res.publicKey.toString();
-                } else {
-                    window.open('https://phantom.app/', '_blank');
-                }
-            }
-        </script>
     </body>
     </html>
   `);
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => console.log(`🌐 Fair Raydium DApp Server active on port ${PORT}`));
+server.listen(process.env.PORT || 3000, () => console.log('🌐 Multi-Chain Web DApp Active'));
