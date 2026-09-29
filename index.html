@@ -5368,6 +5368,16 @@
       document.getElementById('fighter-b-sub').innerText = fighterB.sub || fighterB.name;
 
       document.getElementById('btn-enter-fighter-b').innerText = `ENTER DUEL • ${fighterB.symbol}`;
+      // Atualiza os iframes e links do DexScreener em tempo real
+      const iframeA = document.getElementById('fighter-a-dex-iframe');
+      const iframeB = document.getElementById('fighter-b-dex-iframe');
+      const linkA = document.getElementById('fighter-a-dex-link');
+      const linkB = document.getElementById('fighter-b-dex-link');
+
+      if (iframeA && fighterA.mint) iframeA.src = `https://dexscreener.com/solana/${fighterA.mint}?embed=1&theme=dark&trades=0&info=0`;
+      if (iframeB && fighterB.mint) iframeB.src = `https://dexscreener.com/solana/${fighterB.mint}?embed=1&theme=dark&trades=0&info=0`;
+      if (linkA && fighterA.mint) linkA.href = `https://dexscreener.com/solana/${fighterA.mint}`;
+      if (linkB && fighterB.mint) linkB.href = `https://dexscreener.com/solana/${fighterB.mint}`;
 
 
 
