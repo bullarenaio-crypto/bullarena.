@@ -95,7 +95,6 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
   const split = calculateBetSplit(amount);
 
   try {
-    // Find active open round
     let { data: round } = await supabase
       .from('rounds')
       .select('*')
@@ -103,7 +102,6 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
       .single();
 
     if (!round) {
-      // Create new round if none exists
       const { data: newRound, error: roundErr } = await supabase
         .from('rounds')
         .insert({ 
@@ -119,7 +117,6 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
       round = newRound;
     }
 
-    // Check if round is in the last 15 minutes (locked)
     const createdAt = new Date(round.created_at).getTime();
     const now = Date.now();
     const elapsed = now - createdAt;
@@ -130,7 +127,6 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
       return ctx.reply('⚠️ **Bets Closed:** This round is in its final 15-minute lock period. Please wait for the next round!', { parse_mode: 'Markdown' });
     }
 
-    // Register bet in Supabase
     const { error: betErr } = await supabase.from('bets').insert({
       round_id: round.id,
       telegram_id: telegramId,
@@ -141,7 +137,6 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
 
     if (betErr) throw betErr;
 
-    // Update round total pool and fees
     const newTotalPool = Number(round.total_pool) + amount;
     const newHouseFee = Number(round.house_fee) + split.houseFee;
     const newWinnerPayout = Number(round.winner_payout) + split.prizePool;
@@ -171,7 +166,7 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
   }
 });
 
-// Background Worker: Automated Round Manager (Checks every 30 seconds)
+// Background Worker: Automated Round Manager & Notifications (Checks every 30 seconds)
 setInterval(async () => {
   try {
     let { data: round } = await supabase
@@ -181,25 +176,63 @@ setInterval(async () => {
       .single();
 
     if (!round) {
-      // If no open round exists, create one automatically
-      await supabase.from('rounds').insert({ 
+      const { data: newRound, error: newRoundErr } = await supabase.from('rounds').insert({ 
         status: 'open', 
         total_pool: 0, 
         house_fee: 0, 
         winner_payout: 0,
+        notified_lock: false,
         created_at: new Date()
-      });
-      console.log('🔄 Automated Worker: New round initialized.');
+      }).select().single();
+      
+      if (!newRoundErr && newRound) {
+        console.log('🔄 Automated Worker: New round initialized.');
+      }
       return;
     }
 
     const createdAt = new Date(round.created_at).getTime();
     const now = Date.now();
     const elapsed = now - createdAt;
+    const timeLeft = ROUND_DURATION_MS - elapsed;
+
+    // Check if we reached the 15-minute mark and haven't notified yet
+    if (timeLeft <= LOCK_TIME_MS && timeLeft > 0 && !round.notified_lock) {
+      console.log(`⏰ Automated Worker: Round ${round.id} entered the 15-minute lock period.`);
+
+      // Mark as notified in database so it only sends once per round
+      await supabase.from('rounds').update({ notified_lock: true }).eq('id', round.id);
+
+      // Fetch all registered users to broadcast the notification and next round link/buttons
+      const { data: users } = await supabase.from('users').select('telegram_id');
+
+      if (users && users.length > 0) {
+        for (const user of users) {
+          try {
+            await bot.telegram.sendMessage(
+              user.telegram_id,
+              '🔒 **BULL ROYALE - BETS LOCKED!** 🔒\n\n' +
+              '⚡ The current round has entered its final 15 minutes. Betting is now closed for this cycle.\n\n' +
+              '🚀 *The next round is preparing automatically. Get ready to place your bets!*',
+              {
+                parse_mode: 'Markdown',
+                ...Markup.inlineKeyboard([
+                  [
+                    Markup.button.callback('🐂 Bet 1.0 SOL [BULL]', 'bet_1_bull'),
+                    Markup.button.callback('🐻 Bet 1.0 SOL [BEAR]', 'bet_1_bear')
+                  ]
+                ])
+              }
+            );
+          } catch (err) {
+            // User might have blocked the bot, safe to ignore per user
+          }
+        }
+      }
+    }
 
     // Check if round time has expired (1 Hour)
     if (elapsed >= ROUND_DURATION_MS) {
-      // Close current round
       await supabase.from('rounds').update({ status: 'closed' }).eq('id', round.id);
       console.log(`🔒 Automated Worker: Round ${round.id} closed after 1 hour.`);
 
@@ -211,13 +244,43 @@ setInterval(async () => {
           total_pool: 0, 
           house_fee: 0, 
           winner_payout: 0,
+          notified_lock: false,
           created_at: new Date()
         })
         .select()
         .single();
 
-      if (!newRoundErr) {
+      if (!newRoundErr && newRound) {
         console.log(`🚀 Automated Worker: New round ${newRound.id} opened automatically!`);
+        
+        // Notify users about the brand new round
+        const { data: users } = await supabase.from('users').select('telegram_id');
+        if (users && users.length > 0) {
+          for (const user of users) {
+            try {
+              await bot.telegram.sendMessage(
+                user.telegram_id,
+                '🔥 **NEW BULL ROYALE ROUND IS LIVE!** 🔥\n\n' +
+                '⚡ A fresh hourly cycle has just started. Place your bets instantly below:',
+                {
+                  parse_mode: 'Markdown',
+                  ...Markup.inlineKeyboard([
+                    [
+                      Markup.button.callback('🐂 Bet 1.0 SOL [BULL]', 'bet_1_bull'),
+                      Markup.button.callback('🐻 Bet 1.0 SOL [BEAR]', 'bet_1_bear')
+                    ],
+                    [
+                      Markup.button.callback('🐂 Bet 5.0 SOL [BULL]', 'bet_5_bull'),
+                      Markup.button.callback('🐻 Bet 5.0 SOL [BEAR]', 'bet_5_bear')
+                    ]
+                  ])
+                }
+              );
+            } catch (err) {
+              // Ignore blocked chats
+            }
+          }
+        }
       }
     }
   } catch (err) {
@@ -227,7 +290,7 @@ setInterval(async () => {
 
 bot.launch()
   .then(() => {
-    console.log('🚀 Bull Royale Bot running with Automated Real-Time Round Engine!');
+    console.log('🚀 Bull Royale Bot running with Automated Rounds & Notifications!');
   })
   .catch((err) => {
     console.error('Error starting the bot:', err);
@@ -236,7 +299,7 @@ bot.launch()
 // HTTP server for Render health checks
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Bull Royale Bot Engine with Automated Rounds is running!\n');
+  res.end('Bull Royale Bot Engine with Automated Rounds & Notifications is running!\n');
 });
 
 const PORT = process.env.PORT || 3000;
