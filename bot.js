@@ -19,8 +19,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // Solana Connection (Devnet)
 const solanaConnection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
-// Maintenance Mode Configuration (True = locked down, safe for development)
-const IS_MAINTENANCE = true;
+// Maintenance Mode Configuration (False = Open for testing/beta)
+const IS_MAINTENANCE = false;
 
 // Helper Function: Automatic 5% House Fee & 95% Prize Split Calculator
 function calculateBetSplit(totalAmount) {
@@ -32,10 +32,9 @@ function calculateBetSplit(totalAmount) {
   };
 }
 
-// Maintenance middleware (Blocks public interaction safely)
+// Maintenance middleware (Disabled for testing)
 bot.use(async (ctx, next) => {
   if (IS_MAINTENANCE) {
-    // Se for o comando start de teste interno, podemos deixar passar ou mostrar aviso blindado
     if (ctx.message && ctx.message.text && ctx.message.text.startsWith('/start')) {
       return next();
     }
@@ -65,9 +64,9 @@ bot.start(async (ctx) => {
   }
 
   await ctx.reply(
-    '🚨 **BULL ROYALE ARENA - PRIVATE BETA** 🚨\n\n' +
-    '⚡ Welcome to the core engine. You are registered in the secure database.\n' +
-    '🔒 *Status:* Maintenance mode active. Arena doors are closed to the public.',
+    '🚨 **BULL ROYALE ARENA - TESTING MODE** 🚨\n\n' +
+    '⚡ Welcome! Maintenance is disabled. You can test `/bet [amount] [choice]` freely.\n' +
+    'Example: `/bet 1.0 bull`',
     { parse_mode: 'Markdown' }
   );
 });
@@ -75,7 +74,6 @@ bot.start(async (ctx) => {
 // Direct Telegram Bet Command Engine (e.g., /bet 1.5 bull)
 bot.command('bet', async (ctx) => {
   const args = ctx.message.text.split(' ');
-  // args[1] = amount, args[2] = choice (e.g. bull / bear)
   
   if (args.length < 3) {
     return ctx.reply(
@@ -93,11 +91,9 @@ bot.command('bet', async (ctx) => {
     return ctx.reply('❌ Please enter a valid bet amount.');
   }
 
-  // Calculate 5% house fee and 95% prize pool split
   const split = calculateBetSplit(amount);
 
   try {
-    // Find active open round or create one if none exists
     let { data: round } = await supabase
       .from('rounds')
       .select('*')
@@ -114,7 +110,6 @@ bot.command('bet', async (ctx) => {
       round = newRound;
     }
 
-    // Register bet in Supabase
     const { error: betErr } = await supabase.from('bets').insert({
       round_id: round.id,
       telegram_id: ctx.from.id,
@@ -125,7 +120,6 @@ bot.command('bet', async (ctx) => {
 
     if (betErr) throw betErr;
 
-    // Update round total pool and fees
     const newTotalPool = Number(round.total_pool) + amount;
     const newHouseFee = Number(round.house_fee) + split.houseFee;
     const newWinnerPayout = Number(round.winner_payout) + split.prizePool;
@@ -154,7 +148,7 @@ bot.command('bet', async (ctx) => {
 
 bot.launch()
   .then(() => {
-    console.log('🚀 Bull Royale Bot, Supabase, and Bet Engine running securely!');
+    console.log('🚀 Bull Royale Bot running in testing mode (Maintenance = false)!');
   })
   .catch((err) => {
     console.error('Error starting the bot:', err);
@@ -163,7 +157,7 @@ bot.launch()
 // HTTP server for Render health checks
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Bull Royale Bot Engine is running securely under maintenance!\n');
+  res.end('Bull Royale Bot Engine is running in testing mode!\n');
 });
 
 const PORT = process.env.PORT || 3000;
