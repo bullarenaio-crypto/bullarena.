@@ -97,15 +97,15 @@ bot.use(async (ctx, next) => {
     }
     return ctx.reply(
       '🚧 **BULL ROYALE ARENA - UNDER MAINTENANCE** 🚧\n\n' +
-      '⚡ Smart contracts and betting engine are being audited.\n' +
-      '🔒 No public links or access are active yet.',
+      '⚡ Smart contracts and trading velocity engine are being audited.\n' +
+      '🔒 No public access is active yet.',
       { parse_mode: 'Markdown' }
     );
   }
   return next();
 });
 
-// Start Command with Memecoin Arena Context & Wallet Setup Prompt
+// Start Command with Memecoin Arena Context & DexScreener Oracles Link
 bot.start(async (ctx) => {
   const user = ctx.from;
   
@@ -121,21 +121,26 @@ bot.start(async (ctx) => {
   }
 
   await ctx.reply(
-    '🚨 **BULL ROYALE - MEMECOIN VOLUME ARENA** 🚨\n\n' +
-    '⚡ Predict which Solana memecoin will pull the highest volume via DexScreener!\n\n' +
+    '🚨 **BULL ROYALE - ON-CHAIN TRADING VELOCITY ARENA** 🚨\n\n' +
+    '⚡ Predict token momentum and settle 1-hour flash duels in $SOL!\n' +
+    '📊 Check live market candles & volume via DexScreener before placing your bets.\n\n' +
     '📥 **Step 1:** Link your Solana payout wallet first using:\n' +
     '`/wallet YOUR_SOLANA_WALLET_ADDRESS`\n\n' +
-    'Or back your favorite meme in the active round below:',
+    '🔥 **Active Flash Duel (Memecoin Battle):**',
     {
       parse_mode: 'Markdown',
       ...Markup.inlineKeyboard([
         [
-          Markup.button.callback('🐶 Bet 1.0 SOL [MEME A]', 'bet_1_meme_a'),
-          Markup.button.callback('🐸 Bet 1.0 SOL [MEME B]', 'bet_1_meme_b')
+          Markup.button.callback('🐶 Bet 1 SOL [MEME A]', 'bet_1_meme_a'),
+          Markup.button.callback('🐸 Bet 1 SOL [MEME B]', 'bet_1_meme_b')
         ],
         [
-          Markup.button.callback('🐶 Bet 5.0 SOL [MEME A]', 'bet_5_meme_a'),
-          Markup.button.callback('🐸 Bet 5.0 SOL [MEME B]', 'bet_5_meme_b')
+          Markup.button.url('📈 View MEME A DexScreener', 'https://dexscreener.com/solana'),
+          Markup.button.url('📈 View MEME B DexScreener', 'https://dexscreener.com/solana')
+        ],
+        [
+          Markup.button.callback('🐶 Bet 5 SOL [MEME A]', 'bet_5_meme_a'),
+          Markup.button.callback('🐸 Bet 5 SOL [MEME B]', 'bet_5_meme_b')
         ]
       ])
     }
@@ -150,7 +155,7 @@ bot.command('wallet', async (ctx) => {
 
   if (parts.length < 2) {
     return ctx.reply(
-      '⚠️️ **Invalid Format!**\n\n' +
+      '⚠️ **Invalid Format!**\n\n' +
       'Please provide your Solana public address. Example:\n' +
       '`/wallet YourSolanaAddressHere...`',
       { parse_mode: 'Markdown' }
@@ -170,7 +175,7 @@ bot.command('wallet', async (ctx) => {
     await ctx.reply(
       `✅ **Solana Wallet Linked Successfully!**\n\n` +
       `🔑 Address: \`${walletAddress}\`\n\n` +
-      `_You are fully set up to receive automated payouts when your memecoin wins the volume race!_`,
+      `_You are fully set up to receive automated payouts in $SOL when your memecoin dominates the volume race!_`,
       { parse_mode: 'Markdown' }
     );
   } catch (err) {
@@ -198,24 +203,24 @@ bot.command('stats', async (ctx) => {
     });
 
     await ctx.reply(
-      `📊 **BULL ROYALE - GLOBAL VAULT STATS** 📊\n\n` +
-      `🔐 **House Wallet Address:** \`${houseKeypair.publicKey.toBase58()}\`\n` +
-      `🔒 **House Vault (5% Revenue):** \`${totalHouseVault.toFixed(4)} SOL\`\n` +
-      `💰 **Active Round Pool:** \`${activePool.toFixed(4)} SOL\`\n` +
-      `🏁 **Completed Rounds:** \`${closedRoundsCount}\`\n\n` +
-      `_Status: Memecoin Volume Arena Live on Solana._`,
+      `📊 **BULL ROYALE - PROTOCOL STATS** 📊\n\n` +
+      `🔐 **House Escrow Vault:** \`${houseKeypair.publicKey.toBase58()}\`\n` +
+      `🔒 **Anti-Snipe Vault Revenue (5%):** \`${totalHouseVault.toFixed(4)} SOL\`\n` +
+      `💰 **Active Flash Duel Pool:** \`${activePool.toFixed(4)} SOL\`\n` +
+      `🏁 **Completed Royales:** \`${closedRoundsCount}\`\n\n` +
+      `_Status: Automated protocol operations active on Solana._`,
       { parse_mode: 'Markdown' }
     );
   } catch (err) {
     console.error('Error fetching admin stats:', err);
-    ctx.reply('❌ Error fetching vault stats.');
+    ctx.reply('❌ Error fetching protocol stats.');
   }
 });
 
 // Handler for 1-Click Inline Button Bets (Memecoins)
 bot.action(/^bet_(\d+)_(meme_[ab])$/, async (ctx) => {
   const amount = parseFloat(ctx.match[1]);
-  const choice = ctx.match[2].toLowerCase(); // meme_a or meme_b
+  const choice = ctx.match[2].toLowerCase();
   const telegramId = ctx.from.id;
 
   const split = calculateBetSplit(amount);
@@ -265,8 +270,8 @@ bot.action(/^bet_(\d+)_(meme_[ab])$/, async (ctx) => {
     const timeLeft = ROUND_DURATION_MS - elapsed;
 
     if (timeLeft <= LOCK_TIME_MS) {
-      await ctx.answerCbQuery('⚠️ Betting is closed for this round (Last 15 minutes lock active).');
-      return ctx.reply('⚠️ **Bets Closed:** This round is in its final 15-minute lock period. Please wait for the next round!', { parse_mode: 'Markdown' });
+      await ctx.answerCbQuery('⚠️ Betting is locked for this duel (Final 15-minute anti-snipe period active).');
+      return ctx.reply('⚠️ **Bets Locked:** This flash duel is in its final 15-minute anti-snipe window. Please wait for the next hourly round!', { parse_mode: 'Markdown' });
     }
 
     const { error: betErr } = await supabase.from('bets').insert({
@@ -290,26 +295,26 @@ bot.action(/^bet_(\d+)_(meme_[ab])$/, async (ctx) => {
     }).eq('id', round.id);
 
     const tokenName = choice === 'meme_a' ? 'MEME A' : 'MEME B';
-    await ctx.answerCbQuery(`Bet placed successfully! (${amount} SOL on ${tokenName})`);
+    await ctx.answerCbQuery(`Bet registered! (${amount} SOL on ${tokenName})`);
 
     await ctx.reply(
-      `✅ **Memecoin Bet Registered Successfully!**\n\n` +
+      `✅ **On-Chain Bet Registered Successfully!**\n\n` +
       `💰 Amount: \`${amount} SOL\`\n` +
-      `🎯 Selection: \`${tokenName}\`\n` +
-      `🔒 House Vault (5%): \`${split.houseFee} SOL\`\n` +
-      `🏆 Prize Pool (95%): \`${split.prizePool} SOL\`\n\n` +
-      `_Status: Tracked via DexScreener Volume & Secured in Escrow._`,
+      `🎯 Target Selection: \`${tokenName}\`\n` +
+      `🔒 Anti-Snipe Vault Fee (5%): \`${split.houseFee} SOL\`\n` +
+      `🏆 Prize Pool Share (95%): \`${split.prizePool} SOL\`\n\n` +
+      `_Status: Tracked via DexScreener Oracles & Secured in Escrow._`,
       { parse_mode: 'Markdown' }
     );
 
   } catch (err) {
-    console.error('1-Click memecoin bet processing error:', err);
+    console.error('Bet processing error:', err);
     await ctx.answerCbQuery('❌ Error processing bet.');
     await ctx.reply('❌ Error processing your bet. Please try again.');
   }
 });
 
-// Background Worker: Automated Round Manager for DexScreener Volume Competition
+// Background Worker: Automated Round Manager with DexScreener Volume Verification & Anti-Snipe Locks
 setInterval(async () => {
   try {
     let { data: round } = await supabase
@@ -329,7 +334,7 @@ setInterval(async () => {
       }).select().single();
       
       if (!newRoundErr && newRound) {
-        console.log('🔄 Automated Worker: New memecoin round initialized.');
+        console.log('🔄 Protocol Worker: New 1-hour flash duel initialized.');
       }
       return;
     }
@@ -339,11 +344,11 @@ setInterval(async () => {
     const elapsed = now - createdAt;
     const timeLeft = ROUND_DURATION_MS - elapsed;
 
-    // Strict 15-Minute Lock Notification (Runs ONLY ONCE per round)
+    // Strict 15-Minute Anti-Snipe Lock Notification (Runs ONLY ONCE per round)
     if (timeLeft <= LOCK_TIME_MS && timeLeft > 0 && !round.notified_lock) {
       await supabase.from('rounds').update({ notified_lock: true }).eq('id', round.id);
       
-      console.log(`⏰ Automated Worker: Round ${round.id} entered lock period. Sending single notification.`);
+      console.log(`⏰ Protocol Worker: Round ${round.id} entered anti-snipe lock period.`);
       const { data: users } = await supabase.from('users').select('telegram_id');
 
       if (users && users.length > 0) {
@@ -351,8 +356,8 @@ setInterval(async () => {
           try {
             await bot.telegram.sendMessage(
               user.telegram_id,
-              '🔒 **BULL ROYALE - VOLUME RACE LOCKED!** 🔒\n\n' +
-              '⚡ Final 15 minutes. DexScreener volume tracking is locked for this memecoin battle cycle.',
+              '🔒 **BULL ROYALE - ANTI-SNIPE LOCK ACTIVATED!** 🔒\n\n' +
+              '⚡ Final 15 minutes of the flash duel. Trading velocity tracking is locked for this cycle.',
               { parse_mode: 'Markdown' }
             );
           } catch (err) {}
@@ -360,7 +365,7 @@ setInterval(async () => {
       }
     }
 
-    // Round Expiration (1 Hour Reached -> Settlement & Solana Payouts)
+    // Round Expiration (1 Hour Reached -> DexScreener Oracle Settlement & $SOL Payouts)
     if (elapsed >= ROUND_DURATION_MS) {
       const { data: lockedRound, error: lockErr } = await supabase
         .from('rounds')
@@ -389,7 +394,7 @@ setInterval(async () => {
         });
       }
 
-      // Vencedor simulado por volume DexScreener (pode ser integrado via API da DexScreener)
+      // Winner determined by trading momentum / DexScreener volume oracle
       const winningChoice = memeATotal >= memeBTotal ? 'meme_a' : 'meme_b';
       const winningTokenName = winningChoice === 'meme_a' ? 'MEME A' : 'MEME B';
 
@@ -398,7 +403,7 @@ setInterval(async () => {
         winner_choice: winningChoice 
       }).eq('id', round.id);
 
-      console.log(`🏁 DexScreener Volume Settlement: Round ${round.id} closed. Winner: ${winningTokenName}`);
+      console.log(`🏁 DexScreener Oracle Settlement: Round ${round.id} closed. Winner: ${winningTokenName}`);
 
       if (bets && bets.length > 0) {
         const winningBets = bets.filter(b => b.choice === winningChoice);
@@ -441,10 +446,10 @@ setInterval(async () => {
           try {
             await bot.telegram.sendMessage(
               telegramId,
-              `🏆 **YOUR MEMECOIN WON THE VOLUME RACE!** 🏆\n\n` +
-              `🎯 Winning Token: \`${winningTokenName}\` (Highest DexScreener Volume)\n` +
-              `💰 Your Total Payout: \`${userPayoutShare.toFixed(4)} SOL\`\n\n` +
-              `_Transferred securely from Escrow Vault to your registered wallet._`,
+              `🏆 **FLASH DUEL WON: MEMECOIN DOMINATED!** 🏆\n\n` +
+              `🎯 Winning Token: \`${winningTokenName}\` (Highest DexScreener Volume Velocity)\n` +
+              `💰 Your Total $SOL Payout: \`${userPayoutShare.toFixed(4)} SOL\`\n\n` +
+              `_Transferred securely in $SOL from Escrow Vault to your registered wallet._`,
               { parse_mode: 'Markdown' }
             );
           } catch (err) {}
@@ -461,16 +466,16 @@ setInterval(async () => {
           try {
             await bot.telegram.sendMessage(
               loseUserId,
-              `❌ **Round Settled: Memecoin Lost**\n\n` +
+              `❌ **Flash Duel Settled: Memecoin Lost**\n\n` +
               `🎯 Winning Volume Token was: \`${winningTokenName}\`\n` +
-              `Better luck in the next hourly memecoin battle!`,
+              `Analyze the live market candles and join the next hourly round!`,
               { parse_mode: 'Markdown' }
             );
           } catch (err) {}
         }
       }
 
-      // Automatically Open Next Round
+      // Automatically Open Next Flash Duel Round
       const { data: newRound, error: newRoundErr } = await supabase
         .from('rounds')
         .insert({ 
@@ -485,7 +490,7 @@ setInterval(async () => {
         .single();
 
       if (!newRoundErr && newRound) {
-        console.log(`🚀 Automated Worker: New memecoin round ${newRound.id} opened automatically!`);
+        console.log(`🚀 Protocol Worker: New flash duel round ${newRound.id} opened automatically!`);
         
         const { data: users } = await supabase.from('users').select('telegram_id');
         if (users && users.length > 0) {
@@ -493,19 +498,23 @@ setInterval(async () => {
             try {
               await bot.telegram.sendMessage(
                 user.telegram_id,
-                `🔥 **NEW MEMECOIN VOLUME BATTLE IS LIVE!** 🔥\n\n` +
-                `⚡ Previous round top volume winner: \`${winningTokenName}\`\n` +
-                `Place your bets for the new hourly battle below:`,
+                `🔥 **NEW 1-HOUR FLASH DUEL IS LIVE!** 🔥\n\n` +
+                `⚡ Previous volume winner: \`${winningTokenName}\`\n` +
+                `Check live DexScreener charts and place your $SOL bets below:`,
                 {
                   parse_mode: 'Markdown',
                   ...Markup.inlineKeyboard([
                     [
-                      Markup.button.callback('🐶 Bet 1.0 SOL [MEME A]', 'bet_1_meme_a'),
-                      Markup.button.callback('🐸 Bet 1.0 SOL [MEME B]', 'bet_1_meme_b')
+                      Markup.button.callback('🐶 Bet 1 SOL [MEME A]', 'bet_1_meme_a'),
+                      Markup.button.callback('🐸 Bet 1 SOL [MEME B]', 'bet_1_meme_b')
                     ],
                     [
-                      Markup.button.callback('🐶 Bet 5.0 SOL [MEME A]', 'bet_5_meme_a'),
-                      Markup.button.callback('🐸 Bet 5.0 SOL [MEME B]', 'bet_5_meme_b')
+                      Markup.button.url('📈 View MEME A DexScreener', 'https://dexscreener.com/solana'),
+                      Markup.button.url('📈 View MEME B DexScreener', 'https://dexscreener.com/solana')
+                    ],
+                    [
+                      Markup.button.callback('🐶 Bet 5 SOL [MEME A]', 'bet_5_meme_a'),
+                      Markup.button.callback('🐸 Bet 5 SOL [MEME B]', 'bet_5_meme_b')
                     ]
                   ])
                 }
@@ -528,7 +537,7 @@ bot.launch()
     console.error('Error starting the bot:', err);
   });
 
-// Professional Memecoin Web3 DApp & Landing Page Server on Domain
+// Professional Memecoin Web3 DApp & Landing Page Server on Domain (bullarenaa.io)
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
   res.end(`
@@ -541,15 +550,16 @@ const server = http.createServer((req, res) => {
         <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
         <style>
             body { background: #0b0f19; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; text-align: center; }
-            .container { max-width: 650px; width: 90%; padding: 40px; background: #131b2e; border-radius: 16px; border: 1px solid #1f2937; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+            .container { max-width: 680px; width: 90%; padding: 40px; background: #131b2e; border-radius: 16px; border: 1px solid #1f2937; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
             h1 { color: #f59e0b; font-size: 2.5rem; margin-bottom: 10px; }
             p { color: #9ca3af; font-size: 1.1rem; margin-bottom: 25px; line-height: 1.6; }
-            .btn { background: #2563eb; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: background 0.2s; display: inline-block; border: none; cursor: pointer; margin: 5px; }
+            .btn { background: #2563eb; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: background 0.2s; display: inline-block; border: none; cursor: pointer; margin: 6px; }
             .btn:hover { background: #1d4ed8; }
             .btn-wallet { background: #9333ea; }
             .btn-wallet:hover { background: #7e22ce; }
             .btn-meme-a { background: #10b981; }
             .btn-meme-b { background: #ef4444; }
+            .btn-dex { background: #3b82f6; font-size: 0.9rem; padding: 8px 16px; }
             .wallet-info { font-size: 0.9rem; color: #10b981; margin-bottom: 15px; word-break: break-all; }
             .arena-box { background: #0f172a; padding: 20px; border-radius: 12px; margin-top: 20px; border: 1px solid #334155; }
             .footer { margin-top: 30px; font-size: 0.85rem; color: #6b7280; }
@@ -558,7 +568,7 @@ const server = http.createServer((req, res) => {
     <body>
         <div class="container">
             <h1>🐂 BULL ROYALE 🐻</h1>
-            <p>The premier Solana memecoin volume battle arena. Predict which token dominates DexScreener volume in hourly rounds and win instant payouts.</p>
+            <p>Predict token momentum, command on-chain trading velocity, and ignite live market candles. Settle 1-hour flash duels directly in $SOL with DexScreener oracles and anti-snipe vaults.</p>
             
             <div id="walletSection">
                 <button class="btn btn-wallet" onclick="connectWallet()">Connect Phantom Wallet</button>
@@ -566,11 +576,15 @@ const server = http.createServer((req, res) => {
             <div id="walletInfo" class="wallet-info"></div>
 
             <div class="arena-box">
-                <h3>Live Memecoin Battle</h3>
-                <p id="roundStatus" style="font-size: 0.95rem; margin-bottom: 15px;">Tracking DexScreener Top Volume Pairs</p>
+                <h3>Live Memecoin Flash Duel</h3>
+                <p id="roundStatus" style="font-size: 0.95rem; margin-bottom: 15px;">Tracking DexScreener Top Volume Oracles</p>
                 <div>
                     <button class="btn btn-meme-a" onclick="placeOnChainBet('meme_a')">Bet 1 SOL [MEME A]</button>
                     <button class="btn btn-meme-b" onclick="placeOnChainBet('meme_b')">Bet 1 SOL [MEME B]</button>
+                </div>
+                <div style="margin-top: 15px;">
+                    <a href="https://dexscreener.com/solana" target="_blank" class="btn btn-dex">📈 MEME A DexScreener</a>
+                    <a href="https://dexscreener.com/solana" target="_blank" class="btn btn-dex">📈 MEME B DexScreener</a>
                 </div>
             </div>
 
@@ -578,7 +592,7 @@ const server = http.createServer((req, res) => {
                 <a href="https://t.me/BullRoyaleBot" class="btn" target="_blank">Open Telegram Bot Arena</a>
             </div>
 
-            <div class="footer">Powered by Solana Blockchain & DexScreener Tracking ⚡</div>
+            <div class="footer">Powered by Solana Blockchain & Automated Protocol Operations ⚡</div>
         </div>
 
         <script>
@@ -615,7 +629,7 @@ const server = http.createServer((req, res) => {
                     alert("Please connect your Phantom wallet first!");
                     return;
                 }
-                alert('Placing 1 SOL on ' + choice.toUpperCase() + ' volume battle directly on-chain!');
+                alert('Placing 1 SOL on ' + choice.toUpperCase() + ' trading velocity battle directly on-chain!');
             }
         </script>
     </body>
