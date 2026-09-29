@@ -4939,7 +4939,21 @@
 
       ? JSON.parse(localStorage.getItem('bull_my_wagers'))
 
-      : [];
+      : [];// BATTLE XP ENGINE (1 SOL = 1 XP | WIN = +20% XP)
+    let userBattleXP = localStorage.getItem('bull_user_xp')
+      ? parseFloat(localStorage.getItem('bull_user_xp'))
+      : 0.00;
+
+    function renderBattleXP() {
+      const el = document.getElementById('user-battle-xp');
+      if (el) el.innerText = userBattleXP.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function addBattleXP(amount, isVictoryBonus = false) {
+      userBattleXP += amount;
+      localStorage.setItem('bull_user_xp', userBattleXP);
+      renderBattleXP();
+    }
 
 
 
