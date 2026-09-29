@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { Telegraf } = require('telegraf');
 const { createClient } = require('@supabase/supabase-js');
+const { Connection, PublicKey, clusterApiUrl } = require('@solana/web3.js');
 const http = require('http');
 
 const botToken = process.env.BOT_TOKEN;
@@ -15,15 +16,28 @@ if (!botToken || !supabaseUrl || !supabaseKey) {
 const bot = new Telegraf(botToken);
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Solana Connection (Using Devnet for beta safety, ready to switch to Mainnet later)
+const solanaConnection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+
 // Maintenance Mode Configuration
 const IS_MAINTENANCE = true;
+
+// Helper Function: Automatic 5% House Fee & 95% Prize Split Calculator
+function calculateBetSplit(totalAmount) {
+  const houseFee = totalAmount * 0.05;      // 5% for the House/Vault
+  const prizePool = totalAmount * 0.95;     // 95% for the Winners
+  return {
+    houseFee: Number(houseFee.toFixed(9)),
+    prizePool: Number(prizePool.toFixed(9))
+  };
+}
 
 // Maintenance middleware
 bot.use(async (ctx, next) => {
   if (IS_MAINTENANCE) {
     return ctx.reply(
       '🚧 **BULL ROYALE ARENA - UNDER MAINTENANCE** 🚧\n\n' +
-      '⚡ Our betting arena is currently being prepared.\n' +
+      '⚡ Solana smart contracts and vault integration in progress.\n' +
       '🐂 The official launch will be announced soon!',
       { parse_mode: 'Markdown' }
     );
@@ -47,14 +61,14 @@ bot.start(async (ctx) => {
 
   await ctx.reply(
     '🚨 **BULL ROYALE ARENA** 🚨\n\n' +
-    '⚡ Arena is currently under maintenance mode. Game logic and betting engine are being calibrated.',
+    '⚡ Connected to Solana Devnet & Supabase. Preparing final beta features.',
     { parse_mode: 'Markdown' }
   );
 });
 
 bot.launch()
   .then(() => {
-    console.log('🚀 Bull Royale Betting Engine & Bot running successfully!');
+    console.log('🚀 Bull Royale Bot, Supabase, and Solana Engine running successfully!');
   })
   .catch((err) => {
     console.error('Error starting the bot:', err);
@@ -63,7 +77,7 @@ bot.launch()
 // HTTP server for Render health checks
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Bull Royale Bot Engine is running!\n');
+  res.end('Bull Royale Bot Engine & Solana Module are running!\n');
 });
 
 const PORT = process.env.PORT || 3000;
