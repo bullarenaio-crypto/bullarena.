@@ -150,7 +150,7 @@ bot.command('wallet', async (ctx) => {
 
   if (parts.length < 2) {
     return ctx.reply(
-      '⚠️ **Invalid Format!**\n\n' +
+      '⚠️️ **Invalid Format!**\n\n' +
       'Please provide your Solana public address. Example:\n' +
       '`/wallet SuaCarteiraSolanaAqui...`',
       { parse_mode: 'Markdown' }
@@ -160,7 +160,6 @@ bot.command('wallet', async (ctx) => {
   const walletAddress = parts[1].trim();
 
   try {
-    // Validate if it's a valid Solana public key string
     new PublicKey(walletAddress);
 
     await supabase.from('users').update({
@@ -222,7 +221,6 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
   const split = calculateBetSplit(amount);
 
   try {
-    // Check if user has registered a payout wallet
     const { data: userRecord } = await supabase
       .from('users')
       .select('solana_wallet')
@@ -310,7 +308,7 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
   }
 });
 
-// Background Worker: Automated Round Manager, Blockchain Settlements & Strict Single Lock Notification
+// Background Worker: Automated Round Manager, Blockchain Settlements & Strict Single Notifications
 setInterval(async () => {
   try {
     let { data: round } = await supabase
@@ -392,45 +390,66 @@ setInterval(async () => {
         const winningPool = Number(round.winner_payout || 0);
         const totalWinningVolume = winningBets.reduce((sum, b) => sum + Number(b.amount), 0);
 
-        for (const winBet of winningBets) {
-          let payoutShare = 0;
+        // Group winnings per unique user to ensure exactly ONE payout and ONE notification per user
+        const userWinnings = {};
+        winningBets.forEach(wb => {
+          if (!userWinnings[wb.telegram_id]) {
+            userWinnings[wb.telegram_id] = { totalBet: 0, betIds: [] };
+          }
+          userWinnings[wb.telegram_id].totalBet += Number(wb.amount);
+          userWinnings[wb.telegram_id].betIds.push(wb.id);
+        });
+
+        for (const [telegramIdStr, data] of Object.entries(userWinnings)) {
+          const telegramId = Number(telegramIdStr);
+          let userPayoutShare = 0;
           if (totalWinningVolume > 0) {
-            payoutShare = (Number(winBet.amount) / totalWinningVolume) * winningPool;
+            userPayoutShare = (data.totalBet / totalWinningVolume) * winningPool;
           }
 
           const { data: userData } = await supabase
             .from('users')
             .select('solana_wallet')
-            .eq('telegram_id', winBet.telegram_id)
+            .eq('telegram_id', telegramId)
             .single();
 
-          if (userData && userData.solana_wallet && payoutShare > 0) {
-            await sendSolTransfer(userData.solana_wallet, payoutShare);
+          if (userData && userData.solana_wallet && userPayoutShare > 0) {
+            await sendSolTransfer(userData.solana_wallet, userPayoutShare);
           }
 
-          await supabase.from('bets').update({
-            status: 'won',
-            payout: payoutShare.toFixed(9)
-          }).eq('id', winBet.id);
+          // Mark user's winning bets as won
+          for (const bId of data.betIds) {
+            await supabase.from('bets').update({
+              status: 'won',
+              payout: (userPayoutShare / data.betIds.length).toFixed(9)
+            }).eq('id', bId);
+          }
 
+          // Send SINGLE clean alert message to the winner
           try {
             await bot.telegram.sendMessage(
-              winBet.telegram_id,
+              telegramId,
               `🏆 **YOU WON THE BULL ROYALE ROUND!** 🏆\n\n` +
               `🎯 Winning Side: \`${winningChoice.toUpperCase()}\`\n` +
-              `💰 Your Payout Share (95% Pool): \`${payoutShare.toFixed(4)} SOL\`\n\n` +
+              `💰 Your Total Payout (95% Pool Share): \`${userPayoutShare.toFixed(4)} SOL\`\n\n` +
               `_Transferred securely from Escrow Vault to your registered wallet._`,
               { parse_mode: 'Markdown' }
             );
           } catch (err) {}
         }
 
+        // Handle losers (SINGLE message per loser)
         const losingBets = bets.filter(b => b.choice !== winningChoice);
-        for (const loseBet of losingBets) {
-          await supabase.from('bets').update({ status: 'lost', payout: 0 }).eq('id', loseBet.id);
+        const losingUserIds = [...new Set(losingBets.map(lb => lb.telegram_id))];
+
+        for (const lBet of losingBets) {
+          await supabase.from('bets').update({ status: 'lost', payout: 0 }).eq('id', lBet.id);
+        }
+
+        for (const loseUserId of losingUserIds) {
           try {
             await bot.telegram.sendMessage(
-              loseBet.telegram_id,
+              loseUserId,
               `❌ **Round Settled: You Lost**\n\n` +
               `🎯 Winning Side was: \`${winningChoice.toUpperCase()}\`\n` +
               `Better luck in the next hourly round!`,
@@ -498,12 +517,39 @@ bot.launch()
     console.error('Error starting the bot:', err);
   });
 
+// Professional Landing Page Web Server on Domain
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Bull Royale Public Arena Engine is running!\n');
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.end(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bull Royale | Solana Prediction Arena</title>
+        <style>
+            body { background: #0b0f19; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; }
+            .container { max-width: 600px; padding: 40px; background: #131b2e; border-radius: 16px; border: 1px solid #1f2937; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+            h1 { color: #f59e0b; font-size: 2.5rem; margin-bottom: 10px; }
+            p { color: #9ca3af; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.6; }
+            .btn { background: #2563eb; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: background 0.2s; display: inline-block; }
+            .btn:hover { background: #1d4ed8; }
+            .footer { margin-top: 30px; font-size: 0.85rem; color: #6b7280; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🐂 BULL ROYALE 🐻</h1>
+            <p>The premier automated, secure Solana-based prediction betting arena on Telegram. Hourly rounds, decentralized escrow payouts, and instant wins.</p>
+            <a href="https://t.me/SEU_BOT_USERNAME" class="btn" target="_blank">Launch Telegram Bot</a>
+            <div class="footer">Powered by Solana Blockchain & Cloudflare Security ⚡</div>
+        </div>
+    </body>
+    </html>
+  `);
 });
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`🌐 HTTP Web Server active on port ${PORT}`);
+  console.log(`🌐 Professional Web Server & Landing Page active on port ${PORT}`);
 });
