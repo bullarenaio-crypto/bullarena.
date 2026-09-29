@@ -124,7 +124,7 @@ bot.start(async (ctx) => {
     '🚨 **BULL ROYALE ARENA - LIVE PUBLIC LAUNCH** 🚨\n\n' +
     '⚡ Welcome to the ultimate Solana prediction battle!\n\n' +
     '📥 **Step 1:** Link your Solana payout wallet first using:\n' +
-    '`/wallet SEU_ENDERECO_SOLANA`\n\n' +
+    '`/wallet YOUR_SOLANA_WALLET_ADDRESS`\n\n' +
     'Or jump straight into the active hourly rounds below:',
     {
       parse_mode: 'Markdown',
@@ -152,7 +152,7 @@ bot.command('wallet', async (ctx) => {
     return ctx.reply(
       '⚠️ **Invalid Format!**\n\n' +
       'Please provide your Solana public address. Example:\n' +
-      '`/wallet SuaCarteiraSolanaAqui...`',
+      '`/wallet YourSolanaAddressHere...`',
       { parse_mode: 'Markdown' }
     );
   }
@@ -231,7 +231,7 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
       await ctx.answerCbQuery('⚠️ Link your payout wallet first!');
       return ctx.reply(
         '⚠️ **Action Required:** Before placing bets, please link your Solana receiving wallet using the command:\n\n' +
-        '`/wallet SEU_ENDERECO_SOLANA`',
+        '`/wallet YOUR_SOLANA_WALLET_ADDRESS`',
         { parse_mode: 'Markdown' }
       );
     }
@@ -308,7 +308,7 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
   }
 });
 
-// Background Worker: Automated Round Manager with Atomic Lock Guard against any duplication
+// Background Worker: Automated Round Manager with Atomic Lock Guard
 setInterval(async () => {
   try {
     let { data: round } = await supabase
@@ -361,7 +361,6 @@ setInterval(async () => {
 
     // Round Expiration (1 Hour Reached -> Settlement & Solana Payouts)
     if (elapsed >= ROUND_DURATION_MS) {
-      // ATOMIC LOCK: Tenta fechar imediatamente na base de dados. Se outra thread/worker tentar ao mesmo tempo, falha e evita duplicar.
       const { data: lockedRound, error: lockErr } = await supabase
         .from('rounds')
         .update({ status: 'settling' })
@@ -371,7 +370,6 @@ setInterval(async () => {
         .single();
 
       if (lockErr || !lockedRound) {
-        // A ronda já está a ser processada por outro ciclo, ignoramos para evitar duplicados.
         return;
       }
 
@@ -392,7 +390,6 @@ setInterval(async () => {
 
       const winningChoice = bullTotal >= bearTotal ? 'bull' : 'bear';
 
-      // Atualiza para 'closed' definitivo
       await supabase.from('rounds').update({ 
         status: 'closed',
         winner_choice: winningChoice 
