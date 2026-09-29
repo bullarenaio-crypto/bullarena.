@@ -22,6 +22,10 @@ const solanaConnection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 // Maintenance Mode Configuration (False = Open for testing/beta)
 const IS_MAINTENANCE = false;
 
+// Round Settings: 1 Hour duration, 15 minutes lock time before closing
+const ROUND_DURATION_MS = 60 * 60 * 1000; // 1 Hour
+const LOCK_TIME_MS = 15 * 60 * 1000;      // Last 15 minutes locked
+
 // Helper Function: Automatic 5% House Fee & 95% Prize Split Calculator
 function calculateBetSplit(totalAmount) {
   const houseFee = totalAmount * 0.05;      // 5% for the House/Vault
@@ -48,7 +52,7 @@ bot.use(async (ctx, next) => {
   return next();
 });
 
-// Start Command & User Registration
+// Start Command with User Registration & Welcome
 bot.start(async (ctx) => {
   const user = ctx.from;
   
@@ -64,36 +68,34 @@ bot.start(async (ctx) => {
   }
 
   await ctx.reply(
-    '🚨 **BULL ROYALE ARENA - TESTING MODE** 🚨\n\n' +
-    '⚡ Welcome! Maintenance is disabled. You can test `/bet [amount] [choice]` freely.\n' +
-    'Example: `/bet 1.0 bull`',
-    { parse_mode: 'Markdown' }
+    '🚨 **BULL ROYALE ARENA - LIVE ROUNDS** 🚨\n\n' +
+    '⚡ Welcome! Automated rounds run every hour. Place your bets below:',
+    {
+      parse_mode: 'Markdown',
+      ...Markup.inlineKeyboard([
+        [
+          Markup.button.callback('🐂 Bet 1.0 SOL [BULL]', 'bet_1_bull'),
+          Markup.button.callback('🐻 Bet 1.0 SOL [BEAR]', 'bet_1_bear')
+        ],
+        [
+          Markup.button.callback('🐂 Bet 5.0 SOL [BULL]', 'bet_5_bull'),
+          Markup.button.callback('🐻 Bet 5.0 SOL [BEAR]', 'bet_5_bear')
+        ]
+      ])
+    }
   );
 });
 
-// Direct Telegram Bet Command Engine (e.g., /bet 1.5 bull)
-bot.command('bet', async (ctx) => {
-  const args = ctx.message.text.split(' ');
-  
-  if (args.length < 3) {
-    return ctx.reply(
-      '⚠️ **Usage Error**\n\n' +
-      'Please use the format: `/bet [amount] [choice]`\n' +
-      'Example: `/bet 1.0 bull`',
-      { parse_mode: 'Markdown' }
-    );
-  }
-
-  const amount = parseFloat(args[1]);
-  const choice = args[2].toLowerCase();
-
-  if (isNaN(amount) || amount <= 0) {
-    return ctx.reply('❌ Please enter a valid bet amount.');
-  }
+// Handler for 1-Click Inline Button Bets with Time Lock Validation
+bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
+  const amount = parseFloat(ctx.match[1]);
+  const choice = ctx.match[2].toLowerCase();
+  const telegramId = ctx.from.id;
 
   const split = calculateBetSplit(amount);
 
   try {
+    // Find active open round
     let { data: round } = await supabase
       .from('rounds')
       .select('*')
@@ -101,18 +103,37 @@ bot.command('bet', async (ctx) => {
       .single();
 
     if (!round) {
+      // Create new round if none exists
       const { data: newRound, error: roundErr } = await supabase
         .from('rounds')
-        .insert({ status: 'open', total_pool: 0, house_fee: 0, winner_payout: 0 })
+        .insert({ 
+          status: 'open', 
+          total_pool: 0, 
+          house_fee: 0, 
+          winner_payout: 0,
+          created_at: new Date()
+        })
         .select()
         .single();
       if (roundErr) throw roundErr;
       round = newRound;
     }
 
+    // Check if round is in the last 15 minutes (locked)
+    const createdAt = new Date(round.created_at).getTime();
+    const now = Date.now();
+    const elapsed = now - createdAt;
+    const timeLeft = ROUND_DURATION_MS - elapsed;
+
+    if (timeLeft <= LOCK_TIME_MS) {
+      await ctx.answerCbQuery('⚠️ Betting is closed for this round (Last 15 minutes lock active).');
+      return ctx.reply('⚠️ **Bets Closed:** This round is in its final 15-minute lock period. Please wait for the next round!', { parse_mode: 'Markdown' });
+    }
+
+    // Register bet in Supabase
     const { error: betErr } = await supabase.from('bets').insert({
       round_id: round.id,
-      telegram_id: ctx.from.id,
+      telegram_id: telegramId,
       amount: amount,
       choice: choice,
       status: 'pending'
@@ -120,6 +141,7 @@ bot.command('bet', async (ctx) => {
 
     if (betErr) throw betErr;
 
+    // Update round total pool and fees
     const newTotalPool = Number(round.total_pool) + amount;
     const newHouseFee = Number(round.house_fee) + split.houseFee;
     const newWinnerPayout = Number(round.winner_payout) + split.prizePool;
@@ -130,25 +152,82 @@ bot.command('bet', async (ctx) => {
       winner_payout: newWinnerPayout
     }).eq('id', round.id);
 
+    await ctx.answerCbQuery(`Bet placed successfully! (${amount} SOL on ${choice.toUpperCase()})`);
+
     await ctx.reply(
-      `✅ **Bet Registered Successfully!**\n\n` +
+      `✅ **1-Click Bet Registered Successfully!**\n\n` +
       `💰 Amount: \`${amount} SOL\`\n` +
       `🎯 Choice: \`${choice.toUpperCase()}\`\n` +
       `🔒 House Vault (5%): \`${split.houseFee} SOL\`\n` +
       `🏆 Prize Pool (95%): \`${split.prizePool} SOL\`\n\n` +
-      `_Status: Secured in Supabase & Solana Devnet engine._`,
+      `_Status: Secured in Supabase._`,
       { parse_mode: 'Markdown' }
     );
 
   } catch (err) {
-    console.error('Bet processing error:', err);
-    ctx.reply('❌ Error processing your bet. Please try again.');
+    console.error('1-Click bet processing error:', err);
+    await ctx.answerCbQuery('❌ Error processing bet.');
+    await ctx.reply('❌ Error processing your 1-click bet. Please try again.');
   }
 });
 
+// Background Worker: Automated Round Manager (Checks every 30 seconds)
+setInterval(async () => {
+  try {
+    let { data: round } = await supabase
+      .from('rounds')
+      .select('*')
+      .eq('status', 'open')
+      .single();
+
+    if (!round) {
+      // If no open round exists, create one automatically
+      await supabase.from('rounds').insert({ 
+        status: 'open', 
+        total_pool: 0, 
+        house_fee: 0, 
+        winner_payout: 0,
+        created_at: new Date()
+      });
+      console.log('🔄 Automated Worker: New round initialized.');
+      return;
+    }
+
+    const createdAt = new Date(round.created_at).getTime();
+    const now = Date.now();
+    const elapsed = now - createdAt;
+
+    // Check if round time has expired (1 Hour)
+    if (elapsed >= ROUND_DURATION_MS) {
+      // Close current round
+      await supabase.from('rounds').update({ status: 'closed' }).eq('id', round.id);
+      console.log(`🔒 Automated Worker: Round ${round.id} closed after 1 hour.`);
+
+      // Automatically open the next round
+      const { data: newRound, error: newRoundErr } = await supabase
+        .from('rounds')
+        .insert({ 
+          status: 'open', 
+          total_pool: 0, 
+          house_fee: 0, 
+          winner_payout: 0,
+          created_at: new Date()
+        })
+        .select()
+        .single();
+
+      if (!newRoundErr) {
+        console.log(`🚀 Automated Worker: New round ${newRound.id} opened automatically!`);
+      }
+    }
+  } catch (err) {
+    console.error('Error in automated round worker:', err);
+  }
+}, 30000); // Runs check every 30 seconds
+
 bot.launch()
   .then(() => {
-    console.log('🚀 Bull Royale Bot running in testing mode (Maintenance = false)!');
+    console.log('🚀 Bull Royale Bot running with Automated Real-Time Round Engine!');
   })
   .catch((err) => {
     console.error('Error starting the bot:', err);
@@ -157,7 +236,7 @@ bot.launch()
 // HTTP server for Render health checks
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Bull Royale Bot Engine is running in testing mode!\n');
+  res.end('Bull Royale Bot Engine with Automated Rounds is running!\n');
 });
 
 const PORT = process.env.PORT || 3000;
