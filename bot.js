@@ -402,7 +402,6 @@ setInterval(async () => {
         const winningPool = Number(round.winner_payout || 0);
         const totalWinningVolume = winningBets.reduce((sum, b) => sum + Number(b.amount), 0);
 
-        // Group by user so we loop strictly ONCE per unique winner
         const userWinnings = {};
         winningBets.forEach(wb => {
           if (!userWinnings[wb.telegram_id]) {
@@ -436,7 +435,6 @@ setInterval(async () => {
             }).eq('id', bId);
           }
 
-          // EXPLICIT: Exactly ONE single message sent per unique winning user
           try {
             await bot.telegram.sendMessage(
               telegramId,
@@ -449,7 +447,6 @@ setInterval(async () => {
           } catch (err) {}
         }
 
-        // Handle losers (EXPLICIT: Exactly ONE single message per unique losing user)
         const losingBets = bets.filter(b => b.choice !== winningChoice);
         const losingUserIds = [...new Set(losingBets.map(lb => lb.telegram_id))];
 
@@ -552,7 +549,7 @@ const server = http.createServer((req, res) => {
         <div class="container">
             <h1>🐂 BULL ROYALE 🐻</h1>
             <p>The premier automated, secure Solana-based prediction betting arena on Telegram. Hourly rounds, decentralized escrow payouts, and instant wins.</p>
-            <a href="https://t.me/SEU_BOT_USERNAME" class="btn" target="_blank">Launch Telegram Bot</a>
+            <a href="https://t.me/BullRoyaleBot" class="btn" target="_blank">Launch Telegram Bot</a>
             <div class="footer">Powered by Solana Blockchain & Cloudflare Security ⚡</div>
         </div>
     </body>
