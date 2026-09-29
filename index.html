@@ -6263,8 +6263,7 @@
 
 
       if (val < MIN_WAGER) {
-
-        alert(`⚠️ Aposta mínima: ${MIN_WAGER.toFixed(2)} SOL!`);
+alert(⚠️ Minimum wager: ${MIN_WAGER.toFixed(2)} SOL!);
 
         return;
 
@@ -6274,7 +6273,7 @@
 
       if (val > MAX_WAGER) {
 
-        alert(`⚠️ Aposta máxima permitida: ${MAX_WAGER.toFixed(2)} SOL por aposta para proteger o multiplicador do round!`);
+        alert(⚠️ Maximum allowed wager: ${MAX_WAGER.toFixed(2)} SOL per wager to protect the round multiplier!);
 
         return;
 
@@ -6284,7 +6283,7 @@
 
       if (val > fakeCredits) {
 
-        alert(`Saldo de teste insuficiente! Você tem ${fakeCredits.toFixed(2)} PTS. Use o botão '+500 FAKE' no topo para recarregar.`);
+        alert(Insufficient Test PTS! You have ${fakeCredits.toFixed(2)} PTS. Use the '+500 FAKE' button at the top to reload.);
 
         return;
 
