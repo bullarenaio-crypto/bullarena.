@@ -20,7 +20,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // Solana Connection (Devnet)
 const solanaConnection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
-// Load Secure House/Escrow Wallet (Supports Base58 string or Number Array)
+// Load Secure House/Escrow Wallet
 let houseKeypair = null;
 try {
   const secretKeyEnv = process.env.HOUSE_WALLET_PRIVATE_KEY;
@@ -139,7 +139,7 @@ bot.start(async (ctx) => {
   );
 });
 
-// Admin Command: /stats (Vault & House Profits Overview)
+// Admin Command: /stats
 bot.command('stats', async (ctx) => {
   try {
     const { data: rounds, error: roundErr } = await supabase
@@ -196,6 +196,7 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
           total_pool: 0, 
           house_fee: 0, 
           winner_payout: 0,
+          notified_lock: false,
           created_at: new Date()
         })
         .select()
@@ -253,7 +254,7 @@ bot.action(/^bet_(\d+)_([a-z]+)$/, async (ctx) => {
   }
 });
 
-// Background Worker: Automated Round Manager, Blockchain Settlements & Notifications
+// Background Worker: Automated Round Manager, Blockchain Settlements & Strict Single Lock Notification
 setInterval(async () => {
   try {
     let { data: round } = await supabase
@@ -283,9 +284,12 @@ setInterval(async () => {
     const elapsed = now - createdAt;
     const timeLeft = ROUND_DURATION_MS - elapsed;
 
-    // 15-Minute Lock Notification
+    // Strict 15-Minute Lock Notification (Runs ONLY ONCE per round)
     if (timeLeft <= LOCK_TIME_MS && timeLeft > 0 && !round.notified_lock) {
+      // Atualiza imediatamente na base de dados para blockar duplicações caso o worker corra em paralelo
       await supabase.from('rounds').update({ notified_lock: true }).eq('id', round.id);
+      
+      console.log(`⏰ Automated Worker: Round ${round.id} entered lock period. Sending single notification.`);
       const { data: users } = await supabase.from('users').select('telegram_id');
 
       if (users && users.length > 0) {
@@ -295,15 +299,7 @@ setInterval(async () => {
               user.telegram_id,
               '🔒 **BULL ROYALE - BETS LOCKED!** 🔒\n\n' +
               '⚡ Final 15 minutes of the round. Betting is now closed for this cycle.',
-              {
-                parse_mode: 'Markdown',
-                ...Markup.inlineKeyboard([
-                  [
-                    Markup.button.callback('🐂 Bet 1.0 SOL [BULL]', 'bet_1_bull'),
-                    Markup.button.callback('🐻 Bet 1.0 SOL [BEAR]', 'bet_1_bear')
-                  ]
-                ])
-              }
+              { parse_mode: 'Markdown' }
             );
           } catch (err) {}
         }
@@ -441,7 +437,7 @@ setInterval(async () => {
 
 bot.launch()
   .then(() => {
-    console.log('🚀 Bull Royale Bot running with Flexible Solana Vault & Escrow Payouts!');
+    console.log('🚀 Bull Royale Bot running with Single-Lock Notification Guard!');
   })
   .catch((err) => {
     console.error('Error starting the bot:', err);
@@ -449,7 +445,7 @@ bot.launch()
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Bull Royale Flexible Solana Vault Engine is running!\n');
+  res.end('Bull Royale Single-Lock Engine is running!\n');
 });
 
 const PORT = process.env.PORT || 3000;
