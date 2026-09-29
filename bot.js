@@ -34,7 +34,6 @@ bot.use(async (ctx, next) => {
 bot.start(async (ctx) => {
   const user = ctx.from;
   
-  // Save or update user in Supabase automatically
   try {
     await supabase.from('users').upsert({
       telegram_id: user.id,
@@ -48,14 +47,14 @@ bot.start(async (ctx) => {
 
   await ctx.reply(
     '🚨 **BULL ROYALE ARENA** 🚨\n\n' +
-    '⚡ Arena is currently under maintenance mode.',
+    '⚡ Arena is currently under maintenance mode. Game logic and betting engine are being calibrated.',
     { parse_mode: 'Markdown' }
   );
 });
 
 bot.launch()
   .then(() => {
-    console.log('🚀 Bull Royale Bot successfully started with Supabase connected!');
+    console.log('🚀 Bull Royale Betting Engine & Bot running successfully!');
   })
   .catch((err) => {
     console.error('Error starting the bot:', err);
