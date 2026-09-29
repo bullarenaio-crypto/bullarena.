@@ -109,22 +109,11 @@
     }
 
     @keyframes pulseSplash {
-      0% {
-        transform: scale(0.96);
-        box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
-      }
-      100% {
-        transform: scale(1.04);
-        box-shadow: 0 0 50px rgba(245, 158, 11, 0.55);
-      }
+      0% { transform: scale(0.96); box-shadow: 0 0 25px rgba(245, 158, 11, 0.25); }
+      100% { transform: scale(1.04); box-shadow: 0 0 50px rgba(245, 158, 11, 0.55); }
     }
 
-    .splash-emblem-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
+    .splash-emblem-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
     .splash-title {
       font-family: 'Teko', sans-serif;
@@ -207,11 +196,7 @@
       padding: 4px;
     }
 
-    .brand-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+    .brand-icon img { width: 100%; height: 100%; object-fit: contain; }
 
     .brand-title {
       font-family: 'Teko', sans-serif;
@@ -244,16 +229,8 @@
       box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
     }
 
-    .fake-credits-pill span.lbl {
-      color: var(--text-muted);
-      letter-spacing: 1px;
-    }
-
-    .fake-credits-pill span.val {
-      color: var(--gold);
-      font-size: 13px;
-      font-weight: 900;
-    }
+    .fake-credits-pill span.lbl { color: var(--text-muted); letter-spacing: 1px; }
+    .fake-credits-pill span.val { color: var(--gold); font-size: 13px; font-weight: 900; }
 
     .btn-fake-action {
       background: rgba(245, 158, 11, 0.2);
@@ -268,10 +245,7 @@
       transition: all 0.15s ease;
     }
 
-    .btn-fake-action:hover {
-      background: var(--gold);
-      color: #000;
-    }
+    .btn-fake-action:hover { background: var(--gold); color: #000; }
 
     .btn-fake-reset {
       background: rgba(244, 63, 94, 0.15);
@@ -285,10 +259,7 @@
       cursor: pointer;
     }
 
-    .btn-fake-reset:hover {
-      background: var(--pink);
-      color: #fff;
-    }
+    .btn-fake-reset:hover { background: var(--pink); color: #fff; }
 
     .social-nav-group {
       display: flex;
@@ -311,11 +282,7 @@
       box-shadow: 0 2px 0 #0f172a;
     }
 
-    .btn-social-icon svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
-    }
+    .btn-social-icon svg { width: 16px; height: 16px; fill: currentColor; }
 
     .btn-social-icon:hover {
       border-color: var(--gold);
@@ -393,11 +360,6 @@
       box-shadow: 0 3px 0 #047857;
     }
 
-    .btn-wallet.connected:hover {
-      background: #dc2626;
-      box-shadow: 0 3px 0 #991b1b;
-    }
-
     .hero {
       text-align: center;
       margin-bottom: 38px;
@@ -419,12 +381,7 @@
       overflow: hidden;
     }
 
-    .hero-bull-emblem {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
+    .hero-bull-emblem { width: 100%; height: 100%; object-fit: contain; display: block; }
 
     .badge-slogan {
       display: inline-block;
@@ -496,7 +453,7 @@
     .metric-num.green { color: var(--green); }
     .metric-num.cyan { color: var(--cyan); }
 
-    /* NOVO PAINEL DE CONTROLO MULTI-CHAIN & CURRENCY */
+    /* MULTI-CHAIN & CURRENCY CONTROL BAR */
     .control-panel-bar {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -836,6 +793,7 @@
       user-select: none;
       transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.2s;
       display: block;
+      margin-bottom: 10px;
     }
 
     .btn-arcade-cyan {
@@ -844,28 +802,29 @@
       box-shadow: 0 6px 0 var(--cyan-btn-shadow), 0 10px 20px rgba(56, 189, 248, 0.35);
     }
 
-    .btn-arcade-cyan:active {
-      transform: skewX(-8deg) translateY(5px);
-      box-shadow: 0 1px 0 var(--cyan-btn-shadow);
-    }
-
     .btn-arcade-purple {
       background: var(--purple);
       color: #fff;
       box-shadow: 0 6px 0 var(--purple-btn-shadow), 0 10px 20px rgba(168, 85, 247, 0.35);
     }
 
-    .btn-arcade-purple:active {
-      transform: skewX(-8deg) translateY(5px);
-      box-shadow: 0 1px 0 var(--purple-btn-shadow);
+    .btn-dex-chart {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #38bdf8;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+      transition: all 0.15s;
     }
-
-    .btn-arcade.btn-locked {
-      background: #334155 !important;
-      color: #94a3b8 !important;
-      box-shadow: 0 4px 0 #1e293b !important;
-      cursor: not-allowed !important;
-      transform: none !important;
+    .btn-dex-chart:hover {
+      background: #334155;
+      color: #fff;
     }
 
     .vs-wrap { text-align: center; }
@@ -1729,7 +1688,7 @@
     <div class="splash-loader-bar">
       <div class="splash-loader-fill"></div>
     </div>
-    <div class="splash-status-sub">INITIALIZING MULTI-CHAIN PROTOCOL...</div>
+    <div class="splash-status-sub">INITIALIZING PROTOCOL VAULT...</div>
   </div>
 
   <div class="wrapper">
@@ -1747,19 +1706,21 @@
         <div class="fake-credits-pill" translate="no">
           <span class="lbl">TEST PTS:</span>
           <span class="val" id="fake-balance-val">1,000.00</span>
-          <button type="button" class="btn-fake-action" onclick="addFakeCredits(500)">+500 FAKE</button>
-          <button type="button" class="btn-fake-reset" onclick="resetFakeCredits()">RESET</button>
+          <button type="button" class="btn-fake-action" onclick="addFakeCredits(500)" title="Adicionar 500 créditos">+500 FAKE</button>
+          <button type="button" class="btn-fake-reset" onclick="resetFakeCredits()" title="Resetar para 1000">RESET</button>
         </div>
 
         <div class="social-nav-group" translate="no">
           <a href="https://x.com/bullarenaio" target="_blank" rel="noopener noreferrer" class="btn-social-icon" title="Follow on X (Twitter)">
             <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </a>
-          <a href="https://t.me/bullRoyalee_io" target="_blank" rel="noopener noreferrer" class="btn-social-icon" title="Join Telegram">
+          <a href="https://t.me/bullRoyalee_io" target="_blank" rel="noopener noreferrer" class="btn-social-icon tg-btn" title="Join Telegram Community">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
           </a>
         </div>
 
+        <a href="#arena" class="btn-nav-action" translate="no">BETA ARENA</a>
+        
         <div class="wallet-container">
           <div id="wallet-balance-pill" class="wallet-balance-pill" translate="no">
             <span class="sol-b"><strong id="val-sol">0.00</strong> <span id="pill-curr-lbl">SOL</span></span>
@@ -1777,7 +1738,7 @@
       <div class="badge-slogan" translate="no">MULTI-CHAIN & USDT/ETH LIQUIDITY WARFARE</div>
       <h1 class="hero-title" translate="no">BULL <span>ROYALE</span></h1>
       <p class="hero-sub">
-        Predict token momentum, command on-chain trading velocity, and ignite live market candles across Solana, Base, and Arbitrum. Settle wagers in Native ($20 min ETH) or USDT ($10 min) with automated 5% House Vault protection.
+        Predict token momentum across Solana, Base, and Arbitrum. Settle wagers in Native ($20 min ETH) or USDT ($10 min) with DexScreener oracles and automated 5% House Vault protection.
       </p>
     </header>
 
@@ -1797,7 +1758,7 @@
       </div>
     </section>
 
-    <!-- NOVO PAINEL DE CONTROLO MULTI-CHAIN & CURRENCY -->
+    <!-- PAINEL MULTI-CHAIN & CURRENCY -->
     <section class="control-panel-bar" translate="no">
       <div class="control-group">
         <span class="control-label">🌐 Network:</span>
@@ -1823,10 +1784,16 @@
       </div>
       <div class="wallets-grid-pills">
         <div class="w-pill" onclick="connectProvider('phantom')" title="Connect with Phantom">
-          <span>🟣</span> Phantom (Solana)
+          <span>🟣</span> Phantom
         </div>
-        <div class="w-pill" onclick="connectProvider('metamask')" title="Connect with MetaMask">
-          <span>🦊</span> MetaMask (Base/Arbitrum)
+        <div class="w-pill" onclick="connectProvider('solflare')" title="Connect with Solflare">
+          <span>🔥</span> Solflare
+        </div>
+        <div class="w-pill" onclick="connectProvider('backpack')" title="Connect with Backpack">
+          <span>🎒</span> Backpack
+        </div>
+        <div class="w-pill" onclick="connectProvider('okx')" title="Connect with OKX Wallet">
+          <span>⬛</span> OKX Wallet
         </div>
       </div>
     </section>
@@ -1844,12 +1811,9 @@
       </div>
 
       <div class="arena-tabs-wrap" translate="no">
-        <button id="tab-1h" class="btn-arena-tab active-tab" onclick="switchArenaMode('1h')">
-          <span>⚡ FLASH ARENA (1H)</span>
-        </button>
-        <button id="tab-24h" class="btn-arena-tab" onclick="switchArenaMode('24h')">
-          <span>🏆 DAILY ROYALE (24H)</span>
-        </button>
+        <button id="tab-15m" class="btn-arena-tab" onclick="switchArenaMode('15m')"><span>⚡ 15M FLASH</span></button>
+        <button id="tab-1h" class="btn-arena-tab active-tab" onclick="switchArenaMode('1h')"><span>⏳ 1H MID-CAP</span></button>
+        <button id="tab-24h" class="btn-arena-tab" onclick="switchArenaMode('24h')"><span>🏆 24H ROYALE</span></button>
       </div>
 
       <!-- WINNER ANNOUNCEMENT NOTIFICATION -->
@@ -1896,6 +1860,7 @@
           </div>
 
           <button id="btn-enter-fighter-a" class="btn-arcade btn-arcade-cyan" translate="no" onclick="openStakeModal('A')">ENTER DUEL • BONK</button>
+          <a id="fighter-a-dex-link" href="https://dexscreener.com/solana/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263" target="_blank" class="btn-dex-chart">📈 View DexScreener Chart A</a>
         </article>
 
         <!-- CENTER VS -->
@@ -1932,6 +1897,7 @@
           </div>
 
           <button id="btn-enter-fighter-b" class="btn-arcade btn-arcade-purple" translate="no" onclick="openStakeModal('B')">ENTER DUEL • WIF</button>
+          <a id="fighter-b-dex-link" href="https://dexscreener.com/solana/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm" target="_blank" class="btn-dex-chart">📈 View DexScreener Chart B</a>
         </article>
       </div>
 
@@ -2115,7 +2081,7 @@
     </footer>
   </div>
 
-  <!-- WALLET MODAL -->
+  <!-- WALLET SELECT MODAL -->
   <div id="wallet-modal-overlay" class="modal-overlay" onclick="closeWalletModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeWalletModal()">✕</button>
@@ -2137,12 +2103,32 @@
           </div>
         </button>
 
-        <button class="wallet-choice-btn" onclick="connectProvider('metamask')">
+        <button class="wallet-choice-btn" onclick="connectProvider('solflare')">
           <div class="wallet-choice-left">
-            <span style="font-size: 22px;">🦊</span>
+            <span style="font-size: 22px;">🔥</span>
             <div>
-              <div class="wallet-choice-title">MetaMask / EVM (Base & Arbitrum)</div>
-              <div class="wallet-choice-subtitle">For Base/Arbitrum ($20 min ETH / $10 min USDT)</div>
+              <div class="wallet-choice-title">Solflare</div>
+              <div class="wallet-choice-subtitle">Advanced Solana security</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="wallet-choice-btn" onclick="connectProvider('backpack')">
+          <div class="wallet-choice-left">
+            <span style="font-size: 22px;">🎒</span>
+            <div>
+              <div class="wallet-choice-title">Backpack</div>
+              <div class="wallet-choice-subtitle">Degen-ready execution</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="wallet-choice-btn" onclick="connectProvider('okx')">
+          <div class="wallet-choice-left">
+            <span style="font-size: 22px;">⬛</span>
+            <div>
+              <div class="wallet-choice-title">OKX Wallet</div>
+              <div class="wallet-choice-subtitle">Universal multi-chain Web3</div>
             </div>
           </div>
         </button>
@@ -2205,7 +2191,7 @@
           splash.classList.add('fade-out');
           setTimeout(() => splash.remove(), 650);
         }
-      }, 1400);
+      }, 1200);
     });
 
     let currentArenaMode = '1h';
@@ -2222,10 +2208,14 @@
     let volB = 49150000;
     let changeB = 11.2;
 
-    let fighterA = { name: 'BONK', symbol: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', sub: 'Solana Ecosystem Flagship' };
-    let fighterB = { name: 'dogwifhat', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', sub: 'Momentum Challenger' };
+    let fighterA = { name: 'BONK', symbol: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', sub: 'Solana Ecosystem Flagship', icon: 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035' };
+    let fighterB = { name: 'dogwifhat', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', sub: 'Momentum Challenger', icon: 'https://assets.coingecko.com/coins/images/33566/standard/dogwifhat.jpg' };
 
     const pipelineState = {
+      '15m': {
+        active: { roundId: 301, title: "15M FLASH (LIVE)", division: "⚡ 15M FLASH ARENA", stakedBonk: 45.20, stakedWif: 38.10 },
+        next: { roundId: 302, title: "15M FLASH (NEXT)", division: "⚡ 15M FLASH ARENA (OPEN)", stakedBonk: 5.00, stakedWif: 3.20 }
+      },
       '1h': {
         active: { roundId: 105, title: "FLASH ARENA (LIVE)", division: "⚔️ FLASH ARENA • DUEL #105", stakedBonk: 142.39, stakedWif: 103.11 },
         next: { roundId: 106, title: "FLASH ARENA (NEXT)", division: "⚔️ FLASH ARENA • DUEL #106 (OPEN)", stakedBonk: 12.50, stakedWif: 8.00 }
@@ -2266,9 +2256,9 @@
         return { symbol: 'USDT', min: 10, defaultVal: 10 };
       } else {
         if (chain === 'base' || chain === 'arbitrum') {
-          return { symbol: 'ETH', min: 20, defaultVal: 20 }; // $20 min for ETH on Base/Arbitrum
+          return { symbol: 'ETH', min: 20, defaultVal: 20 }; // $20 min ETH
         } else {
-          return { symbol: 'SOL', min: 0.20, defaultVal: 1.00 }; // 0.20 SOL min for Solana
+          return { symbol: 'SOL', min: 0.20, defaultVal: 1.00 }; // 0.20 SOL min Solana
         }
       }
     }
@@ -2276,6 +2266,8 @@
     function onChainOrCurrencyChange() {
       const info = getActiveCurrencyAndLimits();
       document.getElementById('pill-curr-lbl').innerText = info.symbol;
+      document.getElementById('modal-curr-label').innerText = info.symbol;
+      document.getElementById('modal-payout-curr').innerText = info.symbol;
     }
 
     function renderMyWagers() {
@@ -2309,9 +2301,11 @@
 
     function switchArenaMode(mode) {
       currentArenaMode = mode;
+      document.getElementById('tab-15m').classList.toggle('active-tab', mode === '15m');
       document.getElementById('tab-1h').classList.toggle('active-tab', mode === '1h');
       document.getElementById('tab-24h').classList.toggle('active-tab', mode === '24h');
       renderMyWagers();
+      updateArenaMath();
     }
 
     function switchPipelineRoom(room) {
@@ -2319,12 +2313,73 @@
       document.getElementById('room-active').classList.toggle('active-room', room === 'active');
       document.getElementById('room-next').classList.toggle('active-room', room === 'next');
       renderMyWagers();
+      updateArenaMath();
     }
+
+    async function fetchDexScreenerOracle() {
+      try {
+        const response = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${fighterA.mint},${fighterB.mint}`);
+        const data = await response.json();
+        if (data && data.pairs && data.pairs.length > 0) {
+          const pairsA = data.pairs.filter(p => p.baseToken.address === fighterA.mint);
+          const pairsB = data.pairs.filter(p => p.baseToken.address === fighterB.mint);
+
+          if (pairsA.length > 0) {
+            volA = pairsA.reduce((acc, p) => acc + (p.volume?.h24 || 0), 0) || volA;
+            changeA = pairsA[0].priceChange?.h24 || changeA;
+            document.getElementById('fighter-a-dex-link').href = pairsA[0].url || `https://dexscreener.com/solana/${fighterA.mint}`;
+          }
+          if (pairsB.length > 0) {
+            volB = pairsB.reduce((acc, p) => acc + (p.volume?.h24 || 0), 0) || volB;
+            changeB = pairsB[0].priceChange?.h24 || changeB;
+            document.getElementById('fighter-b-dex-link').href = pairsB[0].url || `https://dexscreener.com/solana/${fighterB.mint}`;
+          }
+          renderOracleUI();
+        }
+      } catch (err) {
+        console.warn('DexScreener API fallback active:', err);
+      }
+    }
+
+    function renderOracleUI() {
+      document.getElementById('fighter-a-dex-vol').innerHTML = `$${(volA / 1e6).toFixed(2)}M <span style="color:${changeA >= 0 ? 'var(--green)' : 'var(--pink)'};">${changeA >= 0 ? '+' : ''}${changeA}%</span>`;
+      document.getElementById('fighter-b-dex-vol').innerHTML = `$${(volB / 1e6).toFixed(2)}M <span style="color:${changeB >= 0 ? 'var(--green)' : 'var(--pink)'};">${changeB >= 0 ? '+' : ''}${changeB}%</span>`;
+    }
+
+    function updateArenaMath() {
+      const st = pipelineState[currentArenaMode][currentPipelineRoom];
+      const totalPool = st.stakedBonk + st.stakedWif;
+      const aPct = Math.round((st.stakedBonk / totalPool) * 100);
+      const bPct = 100 - aPct;
+      const multA = ((totalPool * 0.95) / st.stakedBonk).toFixed(2);
+      const multB = ((totalPool * 0.95) / st.stakedWif).toFixed(2);
+
+      document.getElementById('metric-total-pool').innerText = `${totalPool.toFixed(2)} SOL`;
+      document.getElementById('fighter-a-staked-val').innerText = `${st.stakedBonk.toFixed(2)} SOL (${aPct}%)`;
+      document.getElementById('fighter-b-staked-val').innerText = `${st.stakedWif.toFixed(2)} SOL (${bPct}%)`;
+      document.getElementById('fighter-a-multiplier-val').innerText = `${multA}x`;
+      document.getElementById('fighter-b-multiplier-val').innerText = `${multB}x`;
+      document.getElementById('tug-fill-bar').style.width = `${aPct}%`;
+    }
+
+    function updateEngineTimer() {
+      const now = new Date();
+      const m = 59 - now.getUTCMinutes();
+      const s = 59 - now.getUTCSeconds();
+      document.getElementById('clock-timer').innerText = `00h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+    }
+
+    setInterval(updateEngineTimer, 1000);
+    setInterval(fetchDexScreenerOracle, 30000);
 
     function manageWallet() {
       if (walletConnected) {
-        if (confirm("Disconnect Web3 wallet from Bull Royale?")) {
-          disconnectWallet();
+        if (confirm("Disconnect wallet?")) {
+          walletConnected = false;
+          connectedWalletAddress = null;
+          document.getElementById('btn-wallet').innerText = "CONNECT WALLET";
+          document.getElementById('btn-wallet').classList.remove("connected");
+          document.getElementById('wallet-balance-pill').style.display = "none";
         }
         return;
       }
@@ -2338,52 +2393,27 @@
 
     async function connectProvider(type) {
       closeWalletModal();
-      const btn = document.getElementById('btn-wallet');
-      const pill = document.getElementById('wallet-balance-pill');
+      let provider = null;
+      if (type === 'phantom') provider = window.phantom?.solana || window.solana;
+      else if (type === 'solflare') provider = window.solflare;
+      else if (type === 'backpack') provider = window.backpack;
+      else if (type === 'okx') provider = window.okxwallet?.solana;
 
-      if (type === 'phantom') {
-        if ('solana' in window && window.solana.isPhantom) {
-          try {
-            const res = await window.solana.connect();
-            connectedWalletAddress = res.publicKey.toString();
-            document.getElementById('selectedChain').value = 'solana';
-            walletConnected = true;
-          } catch(err) { alert('Phantom connection rejected.'); return; }
-        } else {
-          window.open('https://phantom.app/', '_blank');
-          return;
-        }
-      } else if (type === 'metamask') {
-        if (typeof window.ethereum !== 'undefined') {
-          try {
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            connectedWalletAddress = accounts[0];
-            document.getElementById('selectedChain').value = 'base';
-            walletConnected = true;
-          } catch(err) { alert('MetaMask connection rejected.'); return; }
-        } else {
-          window.open('https://metamask.io/', '_blank');
-          return;
-        }
+      if (!provider) {
+        window.open('https://phantom.app/', '_blank');
+        return;
       }
-
-      if (walletConnected && connectedWalletAddress) {
-        btn.innerText = `${connectedWalletAddress.slice(0, 4)}...${connectedWalletAddress.slice(-4)}`;
-        btn.classList.add("connected");
+      try {
+        const resp = await provider.connect();
+        connectedWalletAddress = (resp.publicKey || provider.publicKey).toString();
+        walletConnected = true;
+        document.getElementById('btn-wallet').innerText = `${connectedWalletAddress.slice(0, 4)}...${connectedWalletAddress.slice(-4)}`;
+        document.getElementById('btn-wallet').classList.add("connected");
         document.getElementById('val-sol').innerText = "14.50";
-        if (window.innerWidth > 680) pill.style.display = 'flex';
-        onChainOrCurrencyChange();
+        if (window.innerWidth > 680) document.getElementById('wallet-balance-pill').style.display = 'flex';
+      } catch (e) {
+        alert("Connection rejected.");
       }
-    }
-
-    function disconnectWallet() {
-      walletConnected = false;
-      connectedWalletAddress = null;
-      const btn = document.getElementById('btn-wallet');
-      const pill = document.getElementById('wallet-balance-pill');
-      btn.innerText = "CONNECT WALLET";
-      btn.classList.remove("connected");
-      pill.style.display = "none";
     }
 
     function toggleFaq(el) {
@@ -2447,7 +2477,7 @@
         return;
       }
       if (val > fakeCredits) {
-        alert(`Saldo de teste insuficiente! Você tem ${fakeCredits.toFixed(2)} PTS.`);
+        alert(`Insufficient Test PTS! You have ${fakeCredits.toFixed(2)} PTS.`);
         return;
       }
 
@@ -2474,6 +2504,7 @@
     renderFakeBalance();
     renderMyWagers();
     onChainOrCurrencyChange();
+    fetchDexScreenerOracle();
   </script>
 </body>
 </html>
