@@ -4936,10 +4936,10 @@
 
 
     let myActiveWagers = localStorage.getItem('bull_my_wagers')
-
       ? JSON.parse(localStorage.getItem('bull_my_wagers'))
+      : [];
 
-      : [];// BATTLE XP ENGINE (1 SOL = 1 XP | WIN = +20% XP)
+    // BATTLE XP ENGINE (1 SOL = 1 XP | WIN = +20% XP)
     let userBattleXP = localStorage.getItem('bull_user_xp')
       ? parseFloat(localStorage.getItem('bull_user_xp'))
       : 0.00;
@@ -4950,10 +4950,6 @@
     }
 
     function addBattleXP(amount, isVictoryBonus = false) {
-      userBattleXP += amount;
-      localStorage.setItem('bull_user_xp', userBattleXP);
-      renderBattleXP();
-      function addBattleXP(amount, isVictoryBonus = false) {
       userBattleXP += amount;
       localStorage.setItem('bull_user_xp', userBattleXP);
       renderBattleXP();
