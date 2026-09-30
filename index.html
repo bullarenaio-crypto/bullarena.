@@ -5558,34 +5558,31 @@ if (currentArenaMode === '30m') {
 
 
 
-      let totalWinnings = 0;
+     let totalWinnings = 0;
+      let totalBonusXP = 0;
 
       myActiveWagers.forEach(w => {
-
         if (w.roundId === st.roundId && w.mode === mode) {
-
           if (w.fighter === winner) {
-
             totalWinnings += (w.amount * parseFloat(mult));
-
+            const bonusXP = (w.baseXP || w.amount) * 0.20;
+            totalBonusXP += bonusXP;
           }
-
         }
-
       });
 
-
+      if (totalBonusXP > 0) {
+        addBattleXP(totalBonusXP, true);
+        if (currentPublicKey) {
+          recordXPOnServer(currentPublicKey, totalBonusXP, 'victory_bonus');
+        }
+      }
 
       if (totalWinnings > 0) {
-
         fakeCredits += totalWinnings;
-
         localStorage.setItem('bull_fake_credits', fakeCredits);
-
         renderFakeBalance();
-
-        alert(`🏆 CONGRATULATIONS! You won duel #${st.roundId} backing ${winner}!\nPayout added to your balance: +${totalWinnings.toFixed(2)} SOL!`);
-
+        alert(`🏆 CONGRATULATIONS! You won duel #${st.roundId} backing ${winner}!\n\nPayout: +${totalWinnings.toFixed(2)} SOL\nVictory XP Bonus (+20%): +${totalBonusXP.toFixed(2)} Battle XP!`);
       }
 
 
