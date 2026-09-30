@@ -5656,11 +5656,12 @@ if (currentPipelineRoom === 'next') {
 
       st.roundId++;
 
-      st.stakedBonk = mode === '1h' ? 50.0 : 300.0;
+      st.roundId++;
+      st.stakedBonk = mode === '30m' ? 25.0 : (mode === '1h' ? 50.0 : 300.0);
+      st.stakedWif = mode === '30m' ? 25.0 : (mode === '1h' ? 50.0 : 300.0);
+      st.division = mode === '30m' ? `🔥 TURBO ARENA • DUEL #${st.roundId}` : (mode === '1h' ? `⚔️ FLASH ARENA • DUEL #${st.roundId}` : `🏆 DAILY ROYALE • ROUND #${st.roundId}`);
 
-      st.stakedWif = mode === '1h' ? 50.0 : 300.0;
-
-      st.division = mode === '1h' ? `⚔️ FLASH ARENA • DUEL #${st.roundId}` : `🏆 DAILY ROYALE • ROUND #${st.roundId}`;
+      syncDuelFromBot();
 
 
 
