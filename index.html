@@ -5462,12 +5462,12 @@
       const btnB = document.getElementById('btn-enter-fighter-b');
 
 
-
-      if (currentPipelineRoom === 'next') {
-
+if (currentPipelineRoom === 'next') {
         timerLabel.innerText = 'OPENS IN:';
+        if (currentArenaMode === '30m') timerEl.innerText = '15m 00s';
+        else if (currentArenaMode === '1h') timerEl.innerText = '45m 00s';
+        else timerEl.innerText = '23h 45m 00s';
 
-        timerEl.innerText = currentArenaMode === '1h' ? '45m 00s' : '23h 45m 00s';
 
         timerBox.classList.remove('buffer-active');
 
