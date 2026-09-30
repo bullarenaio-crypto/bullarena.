@@ -5263,40 +5263,6 @@
 
 
 
-      document.getElementById('tab-1h').classList.toggle('active-tab', mode === '1h');
-
-      document.getElementById('tab-24h').classList.toggle('active-tab', mode === '24h');
-
-
-
-      const poolTagText = mode === '1h' ? 'FLASH POOL' : 'DAILY ROYALE';
-
-      document.getElementById('fighter-a-pool-tag').innerText = poolTagText;
-
-      document.getElementById('fighter-b-pool-tag').innerText = poolTagText;
-
-
-
-      document.getElementById('metric-pool-label').innerText = mode === '1h' ? 'ACTIVE DUEL POOL' : 'ACTIVE GRAND POOL';
-
-      document.getElementById('history-header-title').innerText = mode === '1h' ? '1H ON-CHAIN SETTLED DUELS' : '24H DAILY ROYALE SETTLEMENTS';
-
-
-
-      updateFightersUI();
-
-      renderHistory();
-
-      renderMyWagers();
-
-      updateArenaMath();
-
-      updateEngineTimer();
-
-    }
-
-
-
     function switchPipelineRoom(room) {
 
       arcadeSound();
