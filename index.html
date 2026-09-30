@@ -3751,48 +3751,29 @@
 
 
 
-      <div class="arena-tabs-wrap" translate="no">
-
+     <div class="arena-tabs-wrap" translate="no">
         <button id="tab-1h" class="btn-arena-tab active-tab" onclick="switchArenaMode('1h')">
-
           <span>⚡ FLASH ARENA (1H)</span>
-
         </button>
-
         <button id="tab-24h" class="btn-arena-tab" onclick="switchArenaMode('24h')">
-
           <span>🏆 DAILY ROYALE (24H)</span>
-
         </button>
-
       </div>
 
+      <!-- WINNER ANNOUNCEMENT NOTIFICATION -->
+      <div id="round-announcement-banner">
+        <strong id="round-winner-text" style="color:var(--green); font-size:14px; text-transform:uppercase;"></strong>
+      </div>
 
-
-<!-- BATTLE XP BADGE -->
-        <div class="fake-credits-pill" style="border-color: var(--cyan); box-shadow: 0 0 12px var(--cyan-glow);" translate="no">
-          <span class="lbl" style="color: var(--cyan);">BATTLE XP:</span>
-          <span class="val" id="user-battle-xp" style="color: #fff;">0.00</span>
-          <span style="font-size: 9px; color: var(--gold); font-weight: 900;">[+20% WIN BONUS]</span>
-        </div>
-
-        <!-- PAINEL DE CRÉDITO FAKE (DEBUG / TESTES) -->
-        <div class="fake-credits-pill" translate="no">
-          <span class="lbl">TEST PTS:</span>
-          <span class="val" id="fake-balance-val">1,000.00</span>
-          <button type="button" class="btn-fake-action" onclick="addFakeCredits(500)" title="Add 500 credits">+500 FAKE</button>
-          <button type="button" class="btn-fake-reset" onclick="resetFakeCredits()" title="Reset to 1000">RESET</button>
-        </div>
+      <div class="arena-top">
+        <span class="tag-tier" id="arena-division-tag" translate="no">⚔️ FLASH ARENA • DUEL #105</span>
+        <div class="timer-pill" id="timer-pill-box" translate="no">
+          <span id="timer-icon">⏳</span>
           <span id="timer-label-text">CLOSES IN:</span>
-
           <span id="clock-timer">00h 00m 00s</span>
-
           <span id="buffer-badge" style="display:none; font-size:10px; color:var(--pink); font-weight:900;">[15M BUFFER ACTIVE]</span>
-
         </div>
-
       </div>
-
 
 
       <div class="battle-grid">
