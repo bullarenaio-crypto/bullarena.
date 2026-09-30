@@ -5463,11 +5463,12 @@
 
         isBufferActive = (h === 0 && m < 15);
 
-        if (h === 0 && m === 0 && s === 0) {
+       if (h === 0 && m === 0 && s === 0) {
           settleRound('24h');
         }
-      
+      }
 
+      if (isBufferActive) {
       if (isBufferActive) {
         timerBox.classList.add('buffer-active');
         bufferBadge.style.display = 'inline';
