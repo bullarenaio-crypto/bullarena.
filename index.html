@@ -5410,23 +5410,15 @@
 
 
     function updateEngineTimer() {
-
       const now = new Date();
-
       const timerEl = document.getElementById('clock-timer');
-
       const timerBox = document.getElementById('timer-pill-box');
-
       const bufferBadge = document.getElementById('buffer-badge');
-
       const timerLabel = document.getElementById('timer-label-text');
-
       const btnA = document.getElementById('btn-enter-fighter-a');
-
       const btnB = document.getElementById('btn-enter-fighter-b');
 
-
-if (currentPipelineRoom === 'next') {
+      if (currentPipelineRoom === 'next') {
         timerLabel.innerText = 'OPENS IN:';
         if (currentArenaMode === '30m') timerEl.innerText = '15m 00s';
         else if (currentArenaMode === '1h') timerEl.innerText = '45m 00s';
@@ -5439,15 +5431,11 @@ if (currentPipelineRoom === 'next') {
         btnA.innerText = `ENTER PRE-STAKE • ${fighterA.symbol}`;
         btnB.innerText = `ENTER PRE-STAKE • ${fighterB.symbol}`;
         return;
-
       }
-
-
 
       timerLabel.innerText = 'CLOSES IN:';
 
-
-if (currentArenaMode === '30m') {
+      if (currentArenaMode === '30m') {
         const minNow = now.getUTCMinutes();
         const cycleEndMin = minNow < 30 ? 30 : 60;
         const remM = cycleEndMin - 1 - minNow;
@@ -5455,7 +5443,7 @@ if (currentArenaMode === '30m') {
 
         timerEl.innerText = `00h ${String(remM).padStart(2, '0')}m ${String(remS).padStart(2, '0')}s`;
 
-        // Trava de 15 minutos: apostas fecham quando faltar menos de 15m
+        // 15-Minute Lock Buffer: Closes when remaining time is less than 15m
         isBufferActive = (remM < 15);
 
         if (remM === 0 && remS === 0) {
@@ -5482,60 +5470,28 @@ if (currentArenaMode === '30m') {
         if (h === 0 && m === 0 && s === 0) {
           settleRound('24h');
         }
-
-
-
-        isBufferActive = (h === 0 && m < 15);
-
-
-
-        if (h === 0 && m === 0 && s === 0) {
-
-          settleRound('24h');
-
-        }
-
       }
-
-
 
       if (isBufferActive) {
-
         timerBox.classList.add('buffer-active');
-
         bufferBadge.style.display = 'inline';
-
         bufferBadge.innerText = '[15M BUFFER ACTIVE]';
-
         
-
         btnA.classList.add('btn-locked');
-
         btnB.classList.add('btn-locked');
-
         btnA.innerText = '🔒 ROUND LOCKED (USE NEXT ROOM)';
-
         btnB.innerText = '🔒 ROUND LOCKED (USE NEXT ROOM)';
-
       } else {
-
         timerBox.classList.remove('buffer-active');
-
         bufferBadge.style.display = 'none';
 
-
-
         btnA.classList.remove('btn-locked');
-
         btnB.classList.remove('btn-locked');
-
         btnA.innerText = `ENTER DUEL • ${fighterA.symbol}`;
-
         btnB.innerText = `ENTER DUEL • ${fighterB.symbol}`;
-
       }
-
     }
+       
 
 
 
