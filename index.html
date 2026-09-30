@@ -5227,8 +5227,39 @@
     function switchArenaMode(mode) {
 
       arcadeSound();
-
       currentArenaMode = mode;
+
+      const btn30m = document.getElementById('tab-30m');
+      if (btn30m) btn30m.classList.toggle('active-tab', mode === '30m');
+      document.getElementById('tab-1h').classList.toggle('active-tab', mode === '1h');
+      document.getElementById('tab-24h').classList.toggle('active-tab', mode === '24h');
+
+      let poolTagText = 'FLASH POOL';
+      if (mode === '30m') poolTagText = 'TURBO POOL (30M)';
+      else if (mode === '24h') poolTagText = 'DAILY ROYALE';
+
+      document.getElementById('fighter-a-pool-tag').innerText = poolTagText;
+      document.getElementById('fighter-b-pool-tag').innerText = poolTagText;
+
+      let metricLabel = 'ACTIVE DUEL POOL';
+      let historyLabel = '1H ON-CHAIN SETTLED DUELS';
+      if (mode === '30m') {
+        metricLabel = 'ACTIVE TURBO POOL';
+        historyLabel = '30M TURBO SETTLED DUELS';
+      } else if (mode === '24h') {
+        metricLabel = 'ACTIVE GRAND POOL';
+        historyLabel = '24H DAILY ROYALE SETTLEMENTS';
+      }
+
+      document.getElementById('metric-pool-label').innerText = metricLabel;
+      document.getElementById('history-header-title').innerText = historyLabel;
+
+      updateFightersUI();
+      renderHistory();
+      renderMyWagers();
+      updateArenaMath();
+      updateEngineTimer();
+    }
 
 
 
