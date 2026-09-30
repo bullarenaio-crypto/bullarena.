@@ -4987,44 +4987,6 @@
         console.warn("Failed to record XP on server:", e);
       }
     }
-    }
-// SINCRONIZAR XP DA CARTEIRA COM O SERVIDOR
-    async function syncWalletXP(walletPubkey) {
-      if (!walletPubkey) return;
-      try {
-        const res = await fetch(`https://bull-royale-bot.onrender.com/api/xp/${walletPubkey}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && typeof data.xp === 'number') {
-            userBattleXP = data.xp;
-            localStorage.setItem('bull_user_xp', userBattleXP);
-            renderBattleXP();
-          }
-        }
-      } catch (e) {
-        console.warn("Server XP sync fallback active:", e);
-      }
-    }
-
-    // REGISTRAR XP NO SERVIDOR
-    async function recordXPOnServer(walletPubkey, xpAmount, reason) {
-      if (!walletPubkey) return;
-      try {
-        await fetch('https://bull-royale-bot.onrender.com/api/xp/add', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            wallet: walletPubkey,
-            amount: xpAmount,
-            reason: reason,
-            timestamp: Date.now()
-          })
-        });
-      } catch (e) {
-        console.warn("Failed to record XP on server:", e);
-      }
-    }
-
 
     function renderFakeBalance() {
 
