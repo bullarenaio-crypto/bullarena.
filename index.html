@@ -6372,6 +6372,14 @@ alert(⚠️ Minimum wager: ${MIN_WAGER.toFixed(2)} SOL!);
         mode: currentArenaMode
 
       });
+      myActiveWagers.push({
+        fighter: selectedFighter,
+        amount: val,
+        baseXP: earnedXP,
+        mult: currentMultiplier,
+        roundId: currentSt.roundId,
+        mode: currentArenaMode
+      });
 
       localStorage.setItem('bull_my_wagers', JSON.stringify(myActiveWagers));
 
