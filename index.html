@@ -3350,20 +3350,18 @@ COMPACT NAVBAR (PC & MOBILE)
         TEST CREDITS PANEL (DEBUG / TEST)
 
         <div class="fake-credits-pill" translate="no">
-          <!-- BATTLE XP BADGE -->
-        <div class="fake-credits-pill" style="border-color: var(--cyan); box-shadow: 0 0 12px var(--cyan-glow);" translate="no">
+        <!-- BATTLE XP BADGE -->
+        <div class="fake-credits-pill xp-pill" translate="no">
           <span class="lbl" style="color: var(--cyan);">BATTLE XP:</span>
-          <span class="val" id="user-battle-xp" style="color: #fff;">0.00</span>
-          <span style="font-size: 9px; color: var(--gold); font-weight: 900;">[+20% WIN BONUS]</span>
+          <span class="val" id="user-battle-xp">0.00</span>
         </div>
 
-          <span class="lbl">TEST PTS:</span>
-
-          <span class="val" id="fake-balance-val">1,000.00</span>
-
-          <button type="button" class="btn-fake-action" onclick="addFakeCredits(500)" title="Add 500 credits">+500 FAKE</button>
-
-          <button type="button" class="btn-fake-reset" onclick="resetFakeCredits()" title="Reset to 1000">RESET</button>
+        <!-- TEST CREDITS PANEL (DEBUG / TEST) -->
+        <div class="fake-credits-pill" translate="no">
+          <span class="lbl">TEST:</span>
+          <span class="val" id="fake-balance-val" style="color: var(--gold);">1,000.00</span>
+          <button type="button" class="btn-fake-action" onclick="addFakeCredits(500)" title="Add 500 Credits">+500</button>
+          <button type="button" class="btn-fake-reset" onclick="resetFakeCredits()" title="Reset to Initial Balance">✕</button>
         </div>
 
 
