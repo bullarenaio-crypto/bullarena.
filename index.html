@@ -5468,19 +5468,12 @@ if (currentPipelineRoom === 'next') {
         else if (currentArenaMode === '1h') timerEl.innerText = '45m 00s';
         else timerEl.innerText = '23h 45m 00s';
 
-
         timerBox.classList.remove('buffer-active');
-
         bufferBadge.style.display = 'none';
-
         btnA.classList.remove('btn-locked');
-
         btnB.classList.remove('btn-locked');
-
         btnA.innerText = `ENTER PRE-STAKE • ${fighterA.symbol}`;
-
         btnB.innerText = `ENTER PRE-STAKE • ${fighterB.symbol}`;
-
         return;
 
       }
