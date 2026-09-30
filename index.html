@@ -6347,6 +6347,13 @@ alert(⚠️ Minimum wager: ${MIN_WAGER.toFixed(2)} SOL!);
       localStorage.setItem('bull_fake_credits', fakeCredits);
 
       renderFakeBalance();
+      // 1 SOL = 1 Battle XP (proporcional) e envio ao servidor
+      const earnedXP = val;
+      addBattleXP(earnedXP);
+
+      if (currentPublicKey) {
+        recordXPOnServer(currentPublicKey, earnedXP, 'wager_placed');
+      }
 
 
 
