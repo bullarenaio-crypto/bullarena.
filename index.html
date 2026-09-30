@@ -5449,36 +5449,42 @@ if (currentPipelineRoom === 'next') {
       timerLabel.innerText = 'CLOSES IN:';
 
 
+if (currentArenaMode === '30m') {
+        const minNow = now.getUTCMinutes();
+        const cycleEndMin = minNow < 30 ? 30 : 60;
+        const remM = cycleEndMin - 1 - minNow;
+        const remS = 59 - now.getUTCSeconds();
 
-      if (currentArenaMode === '1h') {
+        timerEl.innerText = `00h ${String(remM).padStart(2, '0')}m ${String(remS).padStart(2, '0')}s`;
 
+        // Trava de 15 minutos: apostas fecham quando faltar menos de 15m
+        isBufferActive = (remM < 15);
+
+        if (remM === 0 && remS === 0) {
+          settleRound('30m');
+        }
+      } else if (currentArenaMode === '1h') {
         const m = 59 - now.getUTCMinutes();
-
         const s = 59 - now.getUTCSeconds();
-
         timerEl.innerText = `00h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
-
-
 
         isBufferActive = (m < 15);
 
-
-
         if (m === 0 && s === 0) {
-
           settleRound('1h');
-
         }
-
       } else {
-
         const h = 23 - now.getUTCHours();
-
         const m = 59 - now.getUTCMinutes();
-
         const s = 59 - now.getUTCSeconds();
-
         timerEl.innerText = `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+
+        isBufferActive = (h === 0 && m < 15);
+
+        if (h === 0 && m === 0 && s === 0) {
+          settleRound('24h');
+        }
+      }
 
 
 
