@@ -4580,7 +4580,7 @@
 
           <span>AMOUNT TO ALLOCATE (MIN: 0.20 • MAX: 5.00)</span>
 
-          <span>AVAILABLE: <strong id="modal-user-sol" style="color:var(--gold);">1000.00</strong> PTS</span>
+          <span>AVAILABLE TEST PTS: <strong id="modal-user-sol" style="color:var(--gold);">1000.00</strong></span>
 
         </div>
 
@@ -5488,7 +5488,11 @@
       }
     }
 
+    function settleRound(mode) {
       const st = pipelineState[mode].active;
+
+      if (!st || st.isSettling) return;
+      st.isSettling = true;
 
       const winner = (changeA >= changeB) ? fighterA.symbol : fighterB.symbol;
 
@@ -5568,8 +5572,11 @@
 
 
       st.roundId++;
+      st.title = mode === '30m' ? 'TURBO ARENA (LIVE)' : (mode === '1h' ? 'FLASH ARENA (LIVE)' : 'DAILY ROYALE (LIVE)');
       st.stakedBonk = mode === '30m' ? 25.0 : (mode === '1h' ? 50.0 : 300.0);
       st.stakedWif = mode === '30m' ? 25.0 : (mode === '1h' ? 50.0 : 300.0);
+      st.isLocked = false;
+      st.isSettling = false;
       st.division = mode === '30m' ? `🔥 TURBO ARENA • DUEL #${st.roundId}` : (mode === '1h' ? `⚔️ FLASH ARENA • DUEL #${st.roundId}` : `🏆 DAILY ROYALE • ROUND #${st.roundId}`);
 
       syncDuelFromBot();
@@ -5994,7 +6001,7 @@
       }
       
       if (val > fakeCredits) {
-        alert(`Insufficient Test PTS! You have ${fakeCredits.toFixed(2)} PTS.Use the '+500' button at the top to reload.`);
+        alert(`Insufficient Test PTS! You have ${fakeCredits.toFixed(2)} PTS. Use the '+500' button at the top to reload.`);
         return;
       }
 
