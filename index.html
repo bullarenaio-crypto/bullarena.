@@ -5463,17 +5463,16 @@
 
         isBufferActive = (h === 0 && m < 15);
 
-       if (h === 0 && m === 0 && s === 0) {
+        if (h === 0 && m === 0 && s === 0) {
           settleRound('24h');
         }
       }
 
       if (isBufferActive) {
-      if (isBufferActive) {
         timerBox.classList.add('buffer-active');
         bufferBadge.style.display = 'inline';
         bufferBadge.innerText = '[15M BUFFER ACTIVE]';
-        
+
         btnA.classList.add('btn-locked');
         btnB.classList.add('btn-locked');
         btnA.innerText = '🔒 ROUND LOCKED (USE NEXT ROOM)';
@@ -5488,8 +5487,6 @@
         btnB.innerText = `ENTER DUEL • ${fighterB.symbol}`;
       }
     }
-       
-    function settleRound(mode) {
 
       const st = pipelineState[mode].active;
 
