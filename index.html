@@ -6313,31 +6313,19 @@
 
 
 
-      if (val < MIN_WAGER) {
-alert(⚠️ Minimum wager: ${MIN_WAGER.toFixed(2)} SOL!);
-
+     if (val < MIN_WAGER) {
+        alert(`⚠️ Minimum wager: ${MIN_WAGER.toFixed(2)} SOL!`);
         return;
-
       }
-
-
 
       if (val > MAX_WAGER) {
-
-        alert(⚠️ Maximum allowed wager: ${MAX_WAGER.toFixed(2)} SOL per wager to protect the round multiplier!);
-
+        alert(`⚠️ Maximum allowed wager: ${MAX_WAGER.toFixed(2)} SOL per wager to protect the round multiplier!`);
         return;
-
       }
-
       
-
       if (val > fakeCredits) {
-
-        alert(Insufficient Test PTS! You have ${fakeCredits.toFixed(2)} PTS. Use the '+500 FAKE' button at the top to reload.);
-
+        alert(`Insufficient Test PTS! You have ${fakeCredits.toFixed(2)} PTS. Use the '+500 FAKE' button at the top to reload.`);
         return;
-
       }
 
 
