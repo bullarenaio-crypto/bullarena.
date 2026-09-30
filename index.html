@@ -346,454 +346,233 @@
 
 
 
+   /* NAVBAR COMPACTA (PC & MOBILE) */
     nav {
-
       display: flex;
-
       justify-content: space-between;
-
       align-items: center;
-
-      background: rgba(13, 19, 34, 0.85);
-
+      background: rgba(13, 19, 34, 0.9);
       backdrop-filter: blur(14px);
-
       border: 1px solid var(--border);
-
-      border-radius: 16px;
-
-      padding: 12px 24px;
-
-      margin-bottom: 32px;
-
-      gap: 12px;
-
+      border-radius: 12px;
+      padding: 8px 16px;
+      margin-bottom: 24px;
+      gap: 10px;
     }
-
-
 
     .brand {
-
       display: flex;
-
       align-items: center;
-
-      gap: 12px;
-
+      gap: 8px;
       text-decoration: none;
-
       flex-shrink: 0;
-
     }
-
-
 
     .brand-icon {
-
-      width: 42px;
-
-      height: 42px;
-
+      width: 32px;
+      height: 32px;
       background: #0f172a;
-
-      border: 1.5px solid var(--gold);
-
-      border-radius: 10px;
-
+      border: 1px solid var(--gold);
+      border-radius: 8px;
       display: flex;
-
       align-items: center;
-
       justify-content: center;
-
-      box-shadow: 0 0 16px var(--gold-glow);
-
+      box-shadow: 0 0 10px var(--gold-glow);
       overflow: hidden;
-
-      padding: 4px;
-
+      padding: 3px;
     }
-
-
 
     .brand-icon img {
-
       width: 100%;
-
       height: 100%;
-
       object-fit: contain;
-
     }
-
-
 
     .brand-title {
-
       font-family: 'Teko', sans-serif;
-
-      font-size: 36px;
-
-      letter-spacing: 3px;
-
+      font-size: 26px;
+      letter-spacing: 2px;
       line-height: 1;
-
       color: #fff;
-
     }
-
-
 
     .brand-title span { color: var(--gold); }
 
-
-
     .nav-actions {
-
       display: flex;
-
       align-items: center;
-
-      gap: 10px;
-
+      gap: 6px;
       flex-shrink: 0;
-
-      flex-wrap: wrap;
-
+      flex-wrap: nowrap;
     }
 
-
-
+    /* PÍLULAS COMPACTAS (BATTLE XP & TEST PTS) */
     .fake-credits-pill {
-
       display: inline-flex;
-
       align-items: center;
-
-      gap: 8px;
-
+      gap: 5px;
       background: #090e1a;
-
-      border: 1.5px dashed var(--gold);
-
-      border-radius: 10px;
-
-      padding: 5px 12px;
-
-      font-size: 11px;
-
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 10px;
       font-weight: 800;
-
-      box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
-
+      line-height: 1;
+      white-space: nowrap;
     }
 
-
+    .fake-credits-pill.xp-pill {
+      border-color: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan-glow);
+    }
 
     .fake-credits-pill span.lbl {
-
       color: var(--text-muted);
-
-      letter-spacing: 1px;
-
+      letter-spacing: 0.5px;
+      font-size: 9px;
     }
-
-
 
     .fake-credits-pill span.val {
-
-      color: var(--gold);
-
-      font-size: 13px;
-
+      color: #fff;
+      font-size: 11px;
       font-weight: 900;
-
     }
-
-
 
     .btn-fake-action {
-
       background: rgba(245, 158, 11, 0.2);
-
       border: 1px solid var(--gold);
-
       color: var(--gold);
-
       font-family: 'Montserrat', sans-serif;
-
       font-weight: 900;
-
-      font-size: 10px;
-
-      padding: 4px 8px;
-
-      border-radius: 6px;
-
+      font-size: 9px;
+      padding: 3px 6px;
+      border-radius: 4px;
       cursor: pointer;
-
-      transition: all 0.15s ease;
-
+      line-height: 1;
     }
-
-
 
     .btn-fake-action:hover {
-
       background: var(--gold);
-
       color: #000;
-
     }
-
-
 
     .btn-fake-reset {
-
       background: rgba(244, 63, 94, 0.15);
-
       border: 1px solid var(--pink);
-
       color: var(--pink);
-
       font-family: 'Montserrat', sans-serif;
-
       font-weight: 900;
-
-      font-size: 10px;
-
-      padding: 4px 6px;
-
-      border-radius: 6px;
-
+      font-size: 9px;
+      padding: 3px 5px;
+      border-radius: 4px;
       cursor: pointer;
-
+      line-height: 1;
     }
-
-
 
     .btn-fake-reset:hover {
-
       background: var(--pink);
-
       color: #fff;
-
     }
-
-
 
     .social-nav-group {
-
       display: flex;
-
       align-items: center;
-
-      gap: 6px;
-
+      gap: 4px;
     }
-
-
 
     .btn-social-icon {
-
-      width: 36px;
-
-      height: 36px;
-
+      width: 28px;
+      height: 28px;
       background: #090d16;
-
-      border: 1.5px solid var(--border);
-
-      border-radius: 8px;
-
+      border: 1px solid var(--border);
+      border-radius: 6px;
       color: #cbd5e1;
-
       display: inline-flex;
-
       align-items: center;
-
       justify-content: center;
-
       text-decoration: none;
-
       transition: all 0.15s ease;
-
-      box-shadow: 0 2px 0 #0f172a;
-
     }
-
-
 
     .btn-social-icon svg {
-
-      width: 16px;
-
-      height: 16px;
-
+      width: 13px;
+      height: 13px;
       fill: currentColor;
-
     }
-
-
 
     .btn-social-icon:hover {
-
       border-color: var(--gold);
-
       color: var(--gold);
-
-      box-shadow: 0 0 12px var(--gold-glow);
-
-      transform: translateY(-1px);
-
     }
-
-
 
     .btn-nav-action {
-
       background: rgba(245, 158, 11, 0.15);
-
       border: 1px solid var(--gold);
-
       color: var(--gold);
-
       font-weight: 900;
-
-      font-size: 11px;
-
-      padding: 9px 16px;
-
-      border-radius: 8px;
-
+      font-size: 10px;
+      padding: 6px 10px;
+      border-radius: 6px;
       text-decoration: none;
-
-      letter-spacing: 1px;
-
-      transition: all 0.15s ease;
-
-      display: inline-flex;
-
-      align-items: center;
-
+      letter-spacing: 0.5px;
+      white-space: nowrap;
     }
-
-
 
     .btn-nav-action:hover {
-
       background: var(--gold);
-
       color: #000;
-
-      box-shadow: 0 0 14px var(--gold-glow);
-
     }
-
-
 
     .wallet-container {
-
       display: flex;
-
       align-items: center;
-
-      gap: 8px;
-
+      gap: 6px;
     }
-
-
 
     .wallet-balance-pill {
-
       display: none;
-
       background: #0b111e;
-
       border: 1px solid var(--border);
-
-      border-radius: 8px;
-
-      padding: 7px 12px;
-
-      font-size: 11px;
-
+      border-radius: 6px;
+      padding: 5px 8px;
+      font-size: 10px;
       font-weight: 800;
-
       color: #cbd5e1;
-
       align-items: center;
-
-      gap: 6px;
-
+      gap: 4px;
+      white-space: nowrap;
     }
-
-
 
     .wallet-balance-pill span.sol-b { color: var(--gold); }
 
-
-
     .btn-wallet {
-
       background: #6d28d9;
-
       color: #fff;
-
       border: none;
-
       font-family: 'Montserrat', sans-serif;
-
       font-weight: 900;
-
-      font-size: 12px;
-
-      padding: 9px 18px;
-
-      border-radius: 8px;
-
+      font-size: 10px;
+      padding: 7px 12px;
+      border-radius: 6px;
       cursor: pointer;
-
-      box-shadow: 0 3px 0 #4c1d95;
-
+      box-shadow: 0 2px 0 #4c1d95;
       transform: skewX(-6deg);
-
-      transition: all 0.15s ease;
-
-      display: inline-flex;
-
-      align-items: center;
-
+      white-space: nowrap;
     }
-
-
 
     .btn-wallet:active {
-
       transform: skewX(-6deg) translateY(2px);
-
       box-shadow: 0 1px 0 #4c1d95;
-
     }
-
-
 
     .btn-wallet.connected {
-
       background: #059669;
-
-      box-shadow: 0 3px 0 #047857;
-
+      box-shadow: 0 2px 0 #047857;
     }
 
-
-
     .btn-wallet.connected:hover {
-
       background: #dc2626;
-
-      box-shadow: 0 3px 0 #991b1b;
-
+      box-shadow: 0 2px 0 #991b1b;
     }
 
 
