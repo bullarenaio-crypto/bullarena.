@@ -95,42 +95,101 @@
     @keyframes sweepLoader { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
     .splash-sub { font-size: 9px; font-weight: 800; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; }
 
-    .wrapper { max-width: 1140px; margin: 0 auto; padding: 16px 20px 60px; }
+    .wrapper { max-width: 1140px; margin: 0 auto; padding: 14px 16px 60px; }
 
-    /* NAVBAR */
+    /* RESPONSIVE DUAL-TIER NAVBAR */
     nav {
+      background: rgba(7, 12, 24, 0.9);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-top-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(7, 12, 24, 0.85);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 18px;
-      margin-bottom: 28px;
-      gap: 12px;
+      width: 100%;
     }
 
-    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-    .brand-logo-frame { width: 36px; height: 36px; background: #091021; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; padding: 2px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .brand-logo-frame {
+      width: 36px;
+      height: 36px;
+      background: #091021;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 2px;
+    }
+
     .brand-logo-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
     .brand-title { font-size: 16px; font-weight: 900; letter-spacing: 1.5px; color: #fff; }
     .brand-title span { color: var(--cyan); }
 
-    .nav-actions { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+    .btn-wallet-connect {
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+      color: #fff;
+      border: 1px solid #38bdf8;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      box-shadow: 0 0 12px rgba(14, 165, 233, 0.25);
+    }
+
+    .btn-wallet-connect.connected {
+      background: #047857;
+      border-color: #10b981;
+    }
+
+    .nav-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-bottom-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
 
     .btn-open-market-hub {
       background: rgba(0, 242, 254, 0.12);
       border: 1.5px solid var(--cyan);
       color: #fff;
       font-weight: 800;
-      font-size: 11px;
-      padding: 7px 12px;
-      border-radius: 8px;
+      font-size: 10px;
+      padding: 6px 10px;
+      border-radius: 6px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       transition: all 0.15s ease;
       white-space: nowrap;
     }
@@ -144,38 +203,31 @@
     .protocol-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       background: #030612;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 5px 10px;
+      border-radius: 6px;
+      padding: 4px 8px;
       font-size: 10px;
       font-weight: 800;
       white-space: nowrap;
     }
 
     .protocol-pill.xp-pill { border-color: rgba(0, 242, 254, 0.4); box-shadow: 0 0 10px var(--cyan-glow); }
-    .btn-pill-action { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyan); font-weight: 900; font-size: 9px; padding: 2px 6px; border-radius: 4px; cursor: pointer; }
+    .btn-pill-action { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyan); font-weight: 900; font-size: 9px; padding: 2px 5px; border-radius: 4px; cursor: pointer; }
     .btn-pill-action:hover { background: var(--cyan); color: #020612; }
     .btn-pill-reset { background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.3); color: var(--pink); font-weight: 900; font-size: 9px; padding: 2px 5px; border-radius: 4px; cursor: pointer; }
 
-    .btn-social-icon { width: 30px; height: 30px; background: #050914; border: 1px solid var(--border); border-radius: 6px; color: #94a3b8; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
-    .btn-social-icon svg { width: 13px; height: 13px; fill: currentColor; }
+    .social-nav-group { display: flex; align-items: center; gap: 4px; }
+    .btn-social-icon { width: 28px; height: 28px; background: #050914; border: 1px solid var(--border); border-radius: 6px; color: #94a3b8; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+    .btn-social-icon svg { width: 12px; height: 12px; fill: currentColor; }
     .btn-social-icon:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    .btn-wallet-connect {
-      background: linear-gradient(135deg, #0ea5e9, #0284c7);
-      color: #fff;
-      border: 1px solid #38bdf8;
-      font-weight: 800;
-      font-size: 11px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      white-space: nowrap;
+    @media (min-width: 920px) {
+      nav { flex-direction: row; justify-content: space-between; align-items: center; padding: 10px 18px; }
+      .nav-top-row { width: auto; gap: 16px; }
+      .nav-bottom-row { width: auto; padding-top: 0; border-top: none; gap: 10px; flex-wrap: nowrap; }
     }
-
-    .btn-wallet-connect.connected { background: #047857; border-color: #10b981; }
 
     /* HERO */
     .hero { text-align: center; margin-bottom: 34px; }
@@ -212,7 +264,7 @@
     /* DUEL RATIO ARENA */
     .duel-ratio-arena-wrapper { background: #050813; border: 1.5px solid #141e33; border-radius: 18px; padding: 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9); margin-bottom: 38px; }
 
-    /* ABAS DE TEMPO DA ARENA (30M, 1H, 24H) */
+    /* ARENA SELECTOR TABS */
     .arena-epoch-tabs {
       display: flex;
       justify-content: center;
@@ -237,11 +289,7 @@
       transition: all 0.15s ease;
     }
 
-    .btn-epoch-tab:hover {
-      border-color: var(--cyan);
-      color: #fff;
-    }
-
+    .btn-epoch-tab:hover { border-color: var(--cyan); color: #fff; }
     .btn-epoch-tab.active-epoch {
       background: rgba(0, 242, 254, 0.12);
       border-color: var(--cyan);
@@ -249,7 +297,20 @@
       box-shadow: 0 0 12px var(--cyan-glow);
     }
 
-    /* BARRA DE CRONÔMETRO COM STATUS DA TRAVA */
+    /* MATCHMAKER ALGORITHM BADGE */
+    .matchmaker-algo-pill {
+      font-size: 9px;
+      font-weight: 900;
+      color: var(--gold);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* COUNTDOWN & LOCK STATUS BAR */
     .arena-timer-bar {
       display: flex;
       justify-content: space-between;
@@ -312,14 +373,15 @@
 
     .duel-ratio-tokens-box { display: flex; align-items: center; gap: 16px; background: #03050c; border: 1px solid #101828; padding: 6px 14px; border-radius: 10px; }
     .duel-contender-head { display: flex; align-items: center; gap: 8px; }
-    .token-head-avatar { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--cyan); box-shadow: 0 0 10px rgba(0, 242, 254, 0.25); overflow: hidden; background: #090e1a; }
+    .token-head-avatar { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--cyan); box-shadow: 0 0 10px rgba(0, 242, 254, 0.25); overflow: hidden; background: #090e1a; flex-shrink: 0; }
     .token-head-avatar.b-side { border-color: var(--purple); box-shadow: 0 0 10px rgba(129, 140, 248, 0.25); }
+    .token-head-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .token-head-meta { display: flex; flex-direction: column; }
     .token-head-name { font-size: 11px; font-weight: 900; color: #fff; }
     .token-head-change { font-size: 9px; font-weight: 800; color: var(--green); }
     .vs-tag-center { font-size: 12px; color: #475569; font-weight: 800; }
 
-    /* PISTA DE CORRIDA DE MEMES */
+    /* MEME RACE TRACK */
     .meme-race-track-wrapper {
       background: #030612;
       border: 1px solid #101c33;
@@ -412,6 +474,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .runner-avatar-bubble img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -432,7 +495,7 @@
       line-height: 1.1;
     }
 
-    /* CARD DO GRÁFICO DINÂMICO */
+    /* CHART VIEWPORT */
     .duel-chart-viewport {
       background: #03050c;
       border: 1px solid #0f1628;
@@ -480,7 +543,7 @@
     .ratio-center-symbol .title { font-size: 9px; font-weight: 900; letter-spacing: 2px; color: #fff; }
     .ratio-center-symbol .sub { font-size: 8px; color: #64748b; font-weight: 800; }
 
-    /* DUAS COLUNAS: BOTÕES + DEXSCREENER */
+    /* DUAL COLUMNS */
     .dex-duel-columns-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -533,7 +596,6 @@
       box-shadow: 0 0 20px var(--purple-glow);
     }
 
-    /* ESTILO QUANDO O BOTÃO ESTIVER TRAVADO */
     .btn-terminal-action.btn-action-locked {
       background: rgba(244, 63, 94, 0.08) !important;
       border-color: var(--pink) !important;
@@ -567,7 +629,7 @@
     .dex-live-badge { font-size: 9px; color: var(--green); font-weight: 800; }
     .dex-embed-frame { width: 100%; height: 310px; border: none; display: block; background: #000; }
 
-    /* SEÇÕES DE CONTEÚDO */
+    /* SECTIONS */
     .content-card-section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 30px 24px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7); margin-bottom: 34px; }
     .sec-header { text-align: center; margin-bottom: 26px; }
     .sec-badge { display: inline-block; background: #060b17; border: 1px solid var(--border); color: var(--cyan); font-size: 9px; font-weight: 900; letter-spacing: 2px; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; margin-bottom: 8px; }
@@ -716,6 +778,7 @@
     @media (max-width: 820px) {
       .dex-duel-columns-grid { grid-template-columns: 1fr; }
       .hub-duels-grid { grid-template-columns: 1fr; }
+      .arena-timer-bar { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -734,31 +797,38 @@
   </div>
 
   <div class="wrapper">
-    <!-- NAVBAR -->
+    <!-- RESPONSIVE NAVBAR -->
     <nav>
-      <a href="https://www.bullarenaa.io/" class="brand" translate="no">
-        <div class="brand-logo-frame">
-          <img src="https://i.postimg.cc/90MP2P9d/logo-png.jpg" alt="Bull Protocol">
+      <div class="nav-top-row">
+        <a href="https://www.bullarenaa.io/" class="brand" translate="no">
+          <div class="brand-logo-frame">
+            <img src="https://i.postimg.cc/90MP2P9d/logo-png.jpg" alt="Bull Protocol">
+          </div>
+          <div class="brand-title">BULL<span>PROTOCOL</span></div>
+        </a>
+
+        <div class="nav-wallet-slot">
+          <button id="btn-wallet" class="btn-wallet-connect" onclick="connectWallet()" translate="no">CONNECT WALLET</button>
         </div>
-        <div class="brand-title">BULL<span>PROTOCOL</span></div>
-      </a>
+      </div>
 
-      <div class="nav-actions">
-        <!-- MARKETS HUB BUTTON -->
-        <button type="button" class="btn-open-market-hub" onclick="openMarketHub()">
-          <span>📊</span> MARKETS HUB
-        </button>
+      <div class="nav-bottom-row">
+        <div class="nav-bottom-left">
+          <button type="button" class="btn-open-market-hub" onclick="openMarketHub()">
+            <span>📊</span> MARKETS HUB
+          </button>
 
-        <div class="protocol-pill xp-pill" translate="no">
-          <span style="color: var(--cyan); font-size: 9px;">XP:</span>
-          <span id="user-battle-xp" style="font-weight:900;">0.00</span>
-        </div>
+          <div class="protocol-pill xp-pill" translate="no">
+            <span style="color: var(--cyan); font-size: 9px;">XP:</span>
+            <span id="user-battle-xp" style="font-weight:900;">0.00</span>
+          </div>
 
-        <div class="protocol-pill" translate="no">
-          <span style="color: var(--text-muted); font-size: 9px;">DEMO:</span>
-          <span id="fake-balance-val" style="color: #fff; font-weight:900;">1,000.00 SOL</span>
-          <button type="button" class="btn-pill-action" onclick="addCredits(500)">+500</button>
-          <button type="button" class="btn-pill-reset" onclick="resetCredits()">✕</button>
+          <div class="protocol-pill" translate="no">
+            <span style="color: var(--text-muted); font-size: 9px;">DEMO:</span>
+            <span id="fake-balance-val" style="color: #fff; font-weight:900;">1,000.00 SOL</span>
+            <button type="button" class="btn-pill-action" onclick="addCredits(500)">+500</button>
+            <button type="button" class="btn-pill-reset" onclick="resetCredits()">✕</button>
+          </div>
         </div>
 
         <div class="social-nav-group" translate="no">
@@ -769,8 +839,6 @@
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
           </a>
         </div>
-
-        <button id="btn-wallet" class="btn-wallet-connect" onclick="connectWallet()" translate="no">CONNECT WALLET</button>
       </div>
     </nav>
 
@@ -803,7 +871,7 @@
     </section>
 
     <!-- ===================================================
-         DUEL RATIO ARENA + EPOCH TABS + ANTI-SNIPE LOCK
+         DUEL RATIO ARENA + AUTONOMOUS HYPE ROTATION
          =================================================== -->
     <main class="duel-ratio-arena-wrapper">
 
@@ -820,11 +888,14 @@
         </button>
       </div>
 
-      <!-- TIMER & PROTOCOL LOCK BUFFER BAR -->
+      <!-- TIMER & AUTONOMOUS ALGO STATUS BAR -->
       <div class="arena-timer-bar">
-        <div style="display:flex; align-items:center; gap:8px;">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
           <span id="epoch-round-badge" style="color:var(--cyan); background:rgba(0,242,254,0.1); border:1px solid var(--border); padding:3px 8px; border-radius:6px;">
             ⚔️ FLASH EPOCH • DUEL #105
+          </span>
+          <span id="matchmaker-algo-badge" class="matchmaker-algo-pill">
+            🤖 ALGO: 1H 24H MOMENTUM
           </span>
           <span id="lock-status-chip" class="lock-status-badge badge-unlocked">
             🟢 ALLOCATIONS OPEN
@@ -851,7 +922,7 @@
         <div class="duel-ratio-tokens-box">
           <div class="duel-contender-head">
             <div class="token-head-avatar">
-              <img id="head-token-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="BONK">
+              <img id="head-token-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Token A">
             </div>
             <div class="token-head-meta">
               <span class="token-head-name" id="head-token-a-name">$BONK</span>
@@ -863,7 +934,7 @@
 
           <div class="duel-contender-head">
             <div class="token-head-avatar b-side">
-              <img id="head-token-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="WIF">
+              <img id="head-token-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Token B">
             </div>
             <div class="token-head-meta">
               <span class="token-head-name" id="head-token-b-name">$WIF</span>
@@ -883,34 +954,34 @@
           <span id="race-leader-text" style="color:var(--cyan); font-weight:900;">1ST PLACE: BONK (+14.2% VEL)</span>
         </div>
 
-        <!-- TRACK TOKEN A (BONK) -->
+        <!-- TRACK TOKEN A -->
         <div class="race-lane">
           <span class="race-finish-flag">🏁</span>
           <div id="runner-token-a" class="race-runner" style="left: 62%;">
             <div class="runner-avatar-bubble">
-              <img src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="BONK">
+              <img id="runner-img-a" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Runner A">
             </div>
             <div class="runner-badge-stats">
-              <span style="color:var(--cyan);">BONK</span> <span id="runner-pct-a" style="color:#fff;">62%</span>
+              <span id="runner-symbol-a" style="color:var(--cyan);">BONK</span> <span id="runner-pct-a" style="color:#fff;">62%</span>
             </div>
           </div>
         </div>
 
-        <!-- TRACK TOKEN B (WIF) -->
+        <!-- TRACK TOKEN B -->
         <div class="race-lane">
           <span class="race-finish-flag">🏁</span>
           <div id="runner-token-b" class="race-runner" style="left: 38%;">
             <div class="runner-avatar-bubble purple-bubble">
-              <img src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="WIF">
+              <img id="runner-img-b" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Runner B">
             </div>
             <div class="runner-badge-stats">
-              <span style="color:var(--purple);">WIF</span> <span id="runner-pct-b" style="color:#fff;">38%</span>
+              <span id="runner-symbol-b" style="color:var(--purple);">WIF</span> <span id="runner-pct-b" style="color:#fff;">38%</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- RATIO CHART VIEWPORT (SMOOTH BÉZIER SPLINES) -->
+      <!-- RATIO CHART VIEWPORT -->
       <div class="duel-chart-viewport">
         <div class="badge-leading-indicator">
           <span class="lbl" id="leading-label-indicator">ANALYZING RATIO...</span>
@@ -925,7 +996,7 @@
       <div class="duel-ratio-bottom-card">
         <div class="ratio-col-side">
           <div class="token-head-avatar">
-            <img id="bar-token-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="BONK">
+            <img id="bar-token-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Token A">
           </div>
           <div class="ratio-col-text">
             <span class="ratio-col-name" id="bar-token-a-name">$BONK STRENGTH</span>
@@ -944,7 +1015,7 @@
 
         <div class="ratio-col-side right-side">
           <div class="token-head-avatar b-side">
-            <img id="bar-token-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="WIF">
+            <img id="bar-token-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Token B">
           </div>
           <div class="ratio-col-text" style="text-align: right;">
             <span class="ratio-col-name" id="bar-token-b-name">$WIF STRENGTH</span>
@@ -956,11 +1027,11 @@
         </div>
       </div>
 
-      <!-- DUAL COLUMNS: POSITION BUTTONS (WITH LIVE ANTI-SNIPE LOCK) + DEXSCREENER -->
+      <!-- DUAL COLUMNS: POSITION BUTTONS + DEXSCREENER AO VIVO -->
       <div class="dex-duel-columns-grid">
         <!-- COLUMN TOKEN A -->
         <div class="dex-column-side">
-          <button id="btn-stake-a" class="btn-terminal-action btn-terminal-cyan" onclick="handleStakeClick('BONK', currentMultiplierA, 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035')">
+          <button id="btn-stake-a" class="btn-terminal-action btn-terminal-cyan" onclick="handleStakeClick('A')">
             <span id="btn-text-a">ALLOCATE LONG • $BONK</span>
             <span id="mult-label-a" style="color:var(--cyan); font-weight:900;">1.85x TARGET</span>
           </button>
@@ -984,7 +1055,7 @@
 
         <!-- COLUMN TOKEN B -->
         <div class="dex-column-side">
-          <button id="btn-stake-b" class="btn-terminal-action btn-terminal-purple" onclick="handleStakeClick('WIF', currentMultiplierB, 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035')">
+          <button id="btn-stake-b" class="btn-terminal-action btn-terminal-purple" onclick="handleStakeClick('B')">
             <span id="btn-text-b">ALLOCATE LONG • $WIF</span>
             <span id="mult-label-b" style="color:var(--purple); font-weight:900;">2.15x TARGET</span>
           </button>
@@ -1144,6 +1215,15 @@
       </div>
       <div class="faq-list">
         <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question"><span>How do autonomous meme hype rotations work?</span><span class="faq-toggle-icon">+</span></div>
+          <div class="faq-answer">
+            Bull Protocol automatically queries Solana on-chain liquidity velocity and DexScreener momentum feeds:<br>
+            • <strong>30M Turbo:</strong> Rotates high-volatility breakout memes automatically.<br>
+            • <strong>1H Flash:</strong> Rotates the highest 24-hour volume trend leaders.<br>
+            • <strong>24H Daily:</strong> Rotates mega-cap titans for macro liquidity settlement.
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question"><span>How do protocol anti-manipulation security locks work?</span><span class="faq-toggle-icon">+</span></div>
           <div class="faq-answer">
             To prevent front-running, MEV exploitation, and last-second candle sniping by whales or automated bots:<br>
@@ -1155,10 +1235,6 @@
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question"><span>What are the minimum and maximum capital allocation limits?</span><span class="faq-toggle-icon">+</span></div>
           <div class="faq-answer">Positions are strictly capped between a minimum of 0.20 SOL and a maximum of 5.00 SOL per transaction during Phase 1 Beta.</div>
-        </div>
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question"><span>How does the DexScreener live oracle verify volume in real time?</span><span class="faq-toggle-icon">+</span></div>
-          <div class="faq-answer">The terminal polls public DexScreener node endpoints directly, fetching 24-hour volume deltas and relative velocity to resolve round ratios programmatically.</div>
         </div>
       </div>
     </section>
@@ -1211,7 +1287,7 @@
       </div>
 
       <div class="hub-duels-grid">
-        <!-- CARD 1: DOGE vs PEPE (MEMECOINS) -->
+        <!-- CARD 1: DOGE vs PEPE (MEMECOINS)[cite: 1] -->
         <div class="duel-card-item">
           <div class="card-top-tag">
             <span class="category-chip">🐸 Memecoins</span>
@@ -1238,12 +1314,12 @@
             <div><div class="c-metric-lbl">Holders</div><div class="c-metric-val">142.5K</div></div>
             <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$1.2M</div></div>
           </div>
-          <button class="btn-card-action" onclick="loadDuelToArena('DOGE', 'PEPE', 1.82, 2.10)">
+          <button class="btn-card-action" onclick="loadManualDuel('DOGE', 1.82, 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=035')">
             <span>TRADE DUEL</span> <span>↗</span>
           </button>
         </div>
 
-        <!-- CARD 2: NVDA vs SOL (RWA - LOCKED) -->
+        <!-- CARD 2: NVDA vs SOL (RWA - LOCKED)[cite: 1] -->
         <div class="duel-card-item card-locked">
           <div class="card-top-tag">
             <span class="category-chip">📊 RWA Equities</span>
@@ -1275,7 +1351,7 @@
           </button>
         </div>
 
-        <!-- CARD 3: ETH vs UNI (DEFI - LOCKED) -->
+        <!-- CARD 3: ETH vs UNI (DEFI - LOCKED)[cite: 1] -->
         <div class="duel-card-item card-locked">
           <div class="card-top-tag">
             <span class="category-chip">🔥 DeFi</span>
@@ -1359,27 +1435,67 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT & DYNAMIC PROTOCOL ENGINE -->
+  <!-- JAVASCRIPT & AUTONOMOUS DUEL MATCHMAKER -->
   <script>
     const MIN_WAGER = 0.20;
     const MAX_WAGER = 5.00;
 
     let testCredits = localStorage.getItem('bull_credits') ? parseFloat(localStorage.getItem('bull_credits')) : 1000.00;
     let userXP = localStorage.getItem('bull_xp') ? parseFloat(localStorage.getItem('bull_xp')) : 0.00;
-    let selectedFighter = 'BONK';
+
+    // ===================================================
+    // AUTONOMOUS DUEL POOLS (HYPE ROTATIONS POR ARENA)
+    // ===================================================
+    const ARENA_DUEL_POOLS = {
+      // 30M: BREAKOUT & FASTEST HYPE MOMENTUM
+      '30m': [
+        {
+          tokenA: { name: 'POPCAT', symbol: 'POPCAT', mint: '7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr', icon: 'https://cryptologos.cc/logos/popcat-sol-popcat-logo.png?v=035', pairAddress: 'FRhB8L7Y9Qq41qZXY9re2NWfMQWvk5R5SmLj512Cqh4K' },
+          tokenB: { name: 'MEW', symbol: 'MEW', mint: 'MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5', icon: 'https://cryptologos.cc/logos/cat-in-a-dogs-world-mew-logo.png?v=035', pairAddress: 'MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5' }
+        },
+        {
+          tokenA: { name: 'PNUT', symbol: 'PNUT', mint: '2qEHjDLDLbuBgRYvsxhc5P6uBp8R1v6QKUezeRumpump', icon: 'https://i.postimg.cc/90MP2P9d/logo-png.jpg', pairAddress: '2qEHjDLDLbuBgRYvsxhc5P6uBp8R1v6QKUezeRumpump' },
+          tokenB: { name: 'GOAT', symbol: 'GOAT', mint: 'CzLSujWBLFsSjncfkh59rQDqJgCSwUiUiMiNdkyDb44', icon: 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035', pairAddress: 'CzLSujWBLFsSjncfkh59rQDqJgCSwUiUiMiNdkyDb44' }
+        }
+      ],
+      // 1H: 24H TRENDING HYPE & VOLUME LEADERS
+      '1h': [
+        {
+          tokenA: { name: 'BONK', symbol: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', icon: 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035', pairAddress: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263' },
+          tokenB: { name: 'WIF', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', icon: 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035', pairAddress: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm' }
+        },
+        {
+          tokenA: { name: 'BOME', symbol: 'BOME', mint: 'ukHH6c7mMyiWCf1b9pnWe25TSpkDDt3H5pQZgZ74J82', icon: 'https://cryptologos.cc/logos/book-of-meme-bome-logo.png?v=035', pairAddress: 'ukHH6c7mMyiWCf1b9pnWe25TSpkDDt3H5pQZgZ74J82' },
+          tokenB: { name: 'SLERF', symbol: 'SLERF', mint: '71ghuQLUtEdB8zBGugxs6CxuhbpkMeWgfK9jzYWCpump', icon: 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035', pairAddress: '71ghuQLUtEdB8zBGugxs6CxuhbpkMeWgfK9jzYWCpump' }
+        }
+      ],
+      // 24H: TITANS CLASH (HIGHEST MARKET CAP MEMES)
+      '24h': [
+        {
+          tokenA: { name: 'BONK', symbol: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', icon: 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035', pairAddress: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263' },
+          tokenB: { name: 'WIF', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', icon: 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035', pairAddress: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm' }
+        },
+        {
+          tokenA: { name: 'WIF', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', icon: 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035', pairAddress: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm' },
+          tokenB: { name: 'POPCAT', symbol: 'POPCAT', mint: '7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr', icon: 'https://cryptologos.cc/logos/popcat-sol-popcat-logo.png?v=035', pairAddress: 'FRhB8L7Y9Qq41qZXY9re2NWfMQWvk5R5SmLj512Cqh4K' }
+        }
+      ]
+    };
+
+    let poolIndices = { '30m': 0, '1h': 0, '24h': 0 };
+    let currentArenaMode = '1h';
+    let currentDuel = ARENA_DUEL_POOLS['1h'][0];
 
     let currentMultiplierA = 1.85;
     let currentMultiplierB = 2.15;
     let currentActiveMult = 1.85;
+    let selectedFighter = 'BONK';
 
     let currentRatioA = 62;
     let currentRatioB = 38;
-
     let ratioHistory = [42, 45, 41, 48, 52, 49, 55, 53, 58, 56, 61, 59, 64, 60, 63, 61, 65, 62];
 
-    // ===================================================
-    // ANTI-MANIPULATION LOCK CONFIGURATION (30M, 1H, 24H)
-    // ===================================================
+    // ARENA ANTI-SNIPE CONFIGURATION
     const ARENA_CONFIG = {
       '30m': {
         name: 'TURBO EPOCH',
@@ -1387,7 +1503,8 @@
         ruleDesc: 'Closes 5 mins after opening',
         lockOffset: 5 * 60,
         lockType: 'after_open',
-        duelId: '#312'
+        duelId: '#312',
+        algoName: '🤖 ALGO: 30M BREAKOUT RADAR'
       },
       '1h': {
         name: 'FLASH EPOCH',
@@ -1395,7 +1512,8 @@
         ruleDesc: 'Closes 15 mins before closure',
         lockOffset: 15 * 60,
         lockType: 'before_close',
-        duelId: '#105'
+        duelId: '#105',
+        algoName: '🤖 ALGO: 1H 24H MOMENTUM'
       },
       '24h': {
         name: 'DAILY ROYALE',
@@ -1403,13 +1521,58 @@
         ruleDesc: 'Closes 1 hour before closure',
         lockOffset: 60 * 60,
         lockType: 'before_close',
-        duelId: '#28'
+        duelId: '#28',
+        algoName: '🤖 ALGO: 24H TITANS CLASH'
       }
     };
 
-    let currentArenaMode = '1h';
     let remainingSeconds = 2658;
     let isCurrentArenaLocked = false;
+
+    // CARREGA O DUELO SELECIONADO NA INTERFACE
+    function loadAutonomousDuel(mode) {
+      const pool = ARENA_DUEL_POOLS[mode];
+      const idx = poolIndices[mode] % pool.length;
+      currentDuel = pool[idx];
+
+      const tA = currentDuel.tokenA;
+      const tB = currentDuel.tokenB;
+
+      // Cabeçalho
+      document.getElementById('head-token-a-img').src = tA.icon;
+      document.getElementById('head-token-a-name').innerText = `$${tA.symbol}`;
+      document.getElementById('head-token-b-img').src = tB.icon;
+      document.getElementById('head-token-b-name').innerText = `$${tB.symbol}`;
+
+      // Pista de Corrida
+      document.getElementById('runner-img-a').src = tA.icon;
+      document.getElementById('runner-symbol-a').innerText = tA.symbol;
+      document.getElementById('runner-img-b').src = tB.icon;
+      document.getElementById('runner-symbol-b').innerText = tB.symbol;
+
+      // Barra inferior
+      document.getElementById('bar-token-a-img').src = tA.icon;
+      document.getElementById('bar-token-a-name').innerText = `$${tA.symbol} STRENGTH`;
+      document.getElementById('bar-token-b-img').src = tB.icon;
+      document.getElementById('bar-token-b-name').innerText = `$${tB.symbol} STRENGTH`;
+      document.getElementById('ratio-center-sub').innerText = `${tA.symbol} vs ${tB.symbol}`;
+
+      // Botões e Iframes DexScreener
+      document.getElementById('dex-label-token-a').innerText = `${tA.symbol} / SOL • DEXSCREENER LIVE`;
+      document.getElementById('dex-label-token-b').innerText = `${tB.symbol} / SOL • DEXSCREENER LIVE`;
+      document.getElementById('iframe-dex-a').src = `https://dexscreener.com/solana/${tA.pairAddress}?embed=1&theme=dark&trades=0&info=0`;
+      document.getElementById('iframe-dex-b').src = `https://dexscreener.com/solana/${tB.pairAddress}?embed=1&theme=dark&trades=0&info=0`;
+
+      // Atualiza badge de algoritmo
+      document.getElementById('matchmaker-algo-badge').innerText = ARENA_CONFIG[mode].algoName;
+
+      // Reseta histórico do gráfico para nova corrida
+      currentRatioA = 50;
+      currentRatioB = 50;
+      ratioHistory = [50, 49, 51, 50, 52, 48, 53, 49, 52, 51, 54, 50, 53, 52, 51, 52, 51, 50];
+
+      syncDexScreenerData();
+    }
 
     function checkLockStatus() {
       const cfg = ARENA_CONFIG[currentArenaMode];
@@ -1436,11 +1599,10 @@
           lockChip.className = 'lock-status-badge badge-locked';
           lockChip.innerText = `🔒 LOCK ACTIVE (${cfg.ruleDesc})`;
         }
-
         if (btnA) btnA.classList.add('btn-action-locked');
         if (btnB) btnB.classList.add('btn-action-locked');
-        if (btnTextA) btnTextA.innerText = '🔒 ALLOCATIONS LOCKED • $BONK';
-        if (btnTextB) btnTextB.innerText = '🔒 ALLOCATIONS LOCKED • $WIF';
+        if (btnTextA) btnTextA.innerText = `🔒 ALLOCATIONS LOCKED • $${currentDuel.tokenA.symbol}`;
+        if (btnTextB) btnTextB.innerText = `🔒 ALLOCATIONS LOCKED • $${currentDuel.tokenB.symbol}`;
       } else {
         let lockInText = '';
         if (cfg.lockType === 'after_open') {
@@ -1457,11 +1619,10 @@
           lockChip.className = 'lock-status-badge badge-unlocked';
           lockChip.innerText = `🟢 ALLOCATIONS OPEN (${lockInText})`;
         }
-
         if (btnA) btnA.classList.remove('btn-action-locked');
         if (btnB) btnB.classList.remove('btn-action-locked');
-        if (btnTextA) btnTextA.innerText = 'ALLOCATE LONG • $BONK';
-        if (btnTextB) btnTextB.innerText = 'ALLOCATE LONG • $WIF';
+        if (btnTextA) btnTextA.innerText = `ALLOCATE LONG • $${currentDuel.tokenA.symbol}`;
+        if (btnTextB) btnTextB.innerText = `ALLOCATE LONG • $${currentDuel.tokenB.symbol}`;
       }
     }
 
@@ -1469,7 +1630,10 @@
       if (remainingSeconds > 0) {
         remainingSeconds--;
       } else {
+        // Encerrou a rodada: avança o índice do duelo e reseta o tempo
+        poolIndices[currentArenaMode] = (poolIndices[currentArenaMode] + 1);
         remainingSeconds = ARENA_CONFIG[currentArenaMode].totalDuration;
+        loadAutonomousDuel(currentArenaMode);
       }
 
       const hours = Math.floor(remainingSeconds / 3600);
@@ -1506,16 +1670,19 @@
         if (badge) badge.innerText = `🏆 ${cfg.name} • EPOCH ${cfg.duelId}`;
       }
 
+      loadAutonomousDuel(mode);
       updateCountdown();
     }
 
-    function handleStakeClick(fighter, mult, iconUrl) {
+    function handleStakeClick(side) {
       if (isCurrentArenaLocked) {
         const cfg = ARENA_CONFIG[currentArenaMode];
         alert(`🔒 ALLOCATIONS CURRENTLY LOCKED!\n\nTo prevent candle sniping and result manipulation, protocol rules enforce:\n\n• ${cfg.name}: ${cfg.ruleDesc}.\n\nPlease await this epoch's settlement or switch to an open arena above!`);
         return;
       }
-      openStakeModal(fighter, mult, iconUrl);
+      const token = side === 'A' ? currentDuel.tokenA : currentDuel.tokenB;
+      const mult = side === 'A' ? currentMultiplierA : currentMultiplierB;
+      openStakeModal(token.symbol, mult, token.icon);
     }
 
     function renderBalances() {
@@ -1566,9 +1733,9 @@
       alert(`🔒 ACCESS RESTRICTED: ${marketName}\n\nThis sector is scheduled for unlock in ${phase}.\nCurrently, only the MEMECOINS sector is live on Solana.`);
     }
 
-    function loadDuelToArena(tokenA, tokenB, multA, multB) {
+    function loadManualDuel(symbol, mult, icon) {
       closeMarketHub();
-      handleStakeClick(tokenA, multA, 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=035');
+      openStakeModal(symbol, mult, icon);
     }
 
     function openStakeModal(fighter, mult, iconUrl) {
@@ -1634,39 +1801,41 @@
       if (!isOpen) el.classList.add('open');
     }
 
-    // DEXSCREENER API POLLING
+    // DEXSCREENER LIVE POLLING DINÂMICO BASEADO NO DUELO ATIVO
     async function syncDexScreenerData() {
-      const bonkMint = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
-      const wifMint = "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm";
+      if (!currentDuel) return;
+      const mintA = currentDuel.tokenA.mint;
+      const mintB = currentDuel.tokenB.mint;
 
       try {
-        const resp = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${bonkMint},${wifMint}`);
+        const resp = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${mintA},${mintB}`);
         const data = await resp.json();
 
         if (data && data.pairs && data.pairs.length > 0) {
-          const bonkPair = data.pairs.find(p => p.baseToken && p.baseToken.address === bonkMint) || data.pairs[0];
-          const wifPair = data.pairs.find(p => p.baseToken && p.baseToken.address === wifMint) || data.pairs[1];
+          const pairA = data.pairs.find(p => p.baseToken && p.baseToken.address === mintA) || data.pairs[0];
+          const pairB = data.pairs.find(p => p.baseToken && p.baseToken.address === mintB) || data.pairs[1] || data.pairs[0];
 
-          if (bonkPair && wifPair) {
-            const priceA = parseFloat(bonkPair.priceUsd) || 0.00002;
-            const deltaA = bonkPair.priceChange ? (bonkPair.priceChange.h24 || 0) : 0;
-            const volA = bonkPair.volume ? (bonkPair.volume.h24 || 1000000) : 1000000;
+          if (pairA && pairB) {
+            const priceA = parseFloat(pairA.priceUsd) || 0.001;
+            const deltaA = pairA.priceChange ? (pairA.priceChange.h24 || 0) : 0;
+            const volA = pairA.volume ? (pairA.volume.h24 || 1000000) : 1000000;
 
-            const priceB = parseFloat(wifPair.priceUsd) || 2.50;
-            const deltaB = wifPair.priceChange ? (wifPair.priceChange.h24 || 0) : 0;
-            const volB = wifPair.volume ? (wifPair.volume.h24 || 1000000) : 1000000;
+            const priceB = parseFloat(pairB.priceUsd) || 0.001;
+            const deltaB = pairB.priceChange ? (pairB.priceChange.h24 || 0) : 0;
+            const volB = pairB.volume ? (pairB.volume.h24 || 1000000) : 1000000;
 
             const signA = deltaA >= 0 ? '+' : '';
             const signB = deltaB >= 0 ? '+' : '';
 
-            document.getElementById('dex-stat-token-a').innerText = `$${priceA.toFixed(7)} (${signA}${deltaA}%)`;
+            document.getElementById('dex-stat-token-a').innerText = `$${priceA < 0.01 ? priceA.toFixed(6) : priceA.toFixed(3)} (${signA}${deltaA}%)`;
             document.getElementById('head-token-a-delta').innerText = `${signA}${deltaA}%`;
             document.getElementById('head-token-a-delta').style.color = deltaA >= 0 ? 'var(--green)' : 'var(--pink)';
 
-            document.getElementById('dex-stat-token-b').innerText = `$${priceB.toFixed(4)} (${signB}${deltaB}%)`;
+            document.getElementById('dex-stat-token-b').innerText = `$${priceB < 0.01 ? priceB.toFixed(6) : priceB.toFixed(3)} (${signB}${deltaB}%)`;
             document.getElementById('head-token-b-delta').innerText = `${signB}${deltaB}%`;
             document.getElementById('head-token-b-delta').style.color = deltaB >= 0 ? 'var(--green)' : 'var(--pink)';
 
+            // Cálculo do Rácio em Tempo Real
             const totalVol = volA + volB;
             const volShareA = totalVol > 0 ? (volA / totalVol) : 0.5;
 
@@ -1691,14 +1860,18 @@
     }
 
     function updateRaceAndVisuals(deltaA = 12.4, deltaB = 8.7) {
+      if (!currentDuel) return;
+      const tA = currentDuel.tokenA;
+      const tB = currentDuel.tokenB;
+
       document.getElementById('bar-token-a-pct').innerText = `${currentRatioA}%`;
       document.getElementById('bar-token-a-fill').style.width = `${currentRatioA}%`;
 
       document.getElementById('bar-token-b-pct').innerText = `${currentRatioB}%`;
       document.getElementById('bar-token-b-fill').style.width = `${currentRatioB}%`;
 
-      const trackPosA = Math.min(92, Math.max(8, currentRatioA));
-      const trackPosB = Math.min(92, Math.max(8, currentRatioB));
+      const trackPosA = Math.min(90, Math.max(10, currentRatioA));
+      const trackPosB = Math.min(90, Math.max(10, currentRatioB));
 
       const runnerA = document.getElementById('runner-token-a');
       const runnerB = document.getElementById('runner-token-b');
@@ -1713,15 +1886,15 @@
       const leadPct = document.getElementById('leading-pct-indicator');
 
       if (currentRatioA >= 50) {
-        if (raceLeader) raceLeader.innerText = `1ST PLACE: BONK (${deltaA >= 0 ? '+' : ''}${deltaA}% VEL)`;
+        if (raceLeader) raceLeader.innerText = `1ST PLACE: ${tA.symbol} (${deltaA >= 0 ? '+' : ''}${deltaA}% VEL)`;
         if (raceLeader) raceLeader.style.color = "var(--cyan)";
-        leadLabel.innerText = "BONK LEADING";
+        leadLabel.innerText = `${tA.symbol} LEADING`;
         leadLabel.style.color = "var(--cyan)";
         leadPct.innerText = `${currentRatioA}%`;
       } else {
-        if (raceLeader) raceLeader.innerText = `1ST PLACE: WIF (${deltaB >= 0 ? '+' : ''}${deltaB}% VEL)`;
+        if (raceLeader) raceLeader.innerText = `1ST PLACE: ${tB.symbol} (${deltaB >= 0 ? '+' : ''}${deltaB}% VEL)`;
         if (raceLeader) raceLeader.style.color = "var(--purple)";
-        leadLabel.innerText = "WIF LEADING";
+        leadLabel.innerText = `${tB.symbol} LEADING`;
         leadLabel.style.color = "var(--purple)";
         leadPct.innerText = `${currentRatioB}%`;
       }
@@ -1851,10 +2024,11 @@
 
       renderBalances();
       initDuelRatioChart();
-      updateRaceAndVisuals();
+
+      // Carrega o primeiro duelo autônomo da arena Flash (1H)
+      loadAutonomousDuel('1h');
       updateCountdown();
 
-      syncDexScreenerData();
       setInterval(syncDexScreenerData, 15000);
       setInterval(simulateMicroTick, 2500);
       setInterval(updateCountdown, 1000);
