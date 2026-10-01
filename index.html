@@ -211,6 +211,72 @@
 
     /* DUEL RATIO ARENA */
     .duel-ratio-arena-wrapper { background: #050813; border: 1.5px solid #141e33; border-radius: 18px; padding: 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9); margin-bottom: 38px; }
+
+    /* ===================================================
+       ABAS DE TEMPO DA ARENA (30M, 1H, 24H)
+       =================================================== */
+    .arena-epoch-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-epoch-tab {
+      background: #030612;
+      border: 1px solid var(--border);
+      color: #94a3b8;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-epoch-tab:hover {
+      border-color: var(--cyan);
+      color: #fff;
+    }
+
+    .btn-epoch-tab.active-epoch {
+      background: rgba(0, 242, 254, 0.12);
+      border-color: var(--cyan);
+      color: #fff;
+      box-shadow: 0 0 12px var(--cyan-glow);
+    }
+
+    /* BARRA SUPERIOR DE TEMPO & ROUND */
+    .arena-timer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #040816;
+      border: 1px solid #101c33;
+      border-radius: 10px;
+      padding: 8px 14px;
+      margin-bottom: 16px;
+      font-size: 11px;
+      font-weight: 800;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .timer-display {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+      font-family: monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
     .duel-ratio-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom: 1px solid #0f172a; margin-bottom: 18px; flex-wrap: wrap; gap: 16px; }
     .duel-ratio-brand-box { display: flex; align-items: center; gap: 12px; }
     .solana-badge-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #00ffa3, #00d9f5, #9945ff); border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(0, 217, 245, 0.3); padding: 6px; }
@@ -228,9 +294,7 @@
     .token-head-change { font-size: 9px; font-weight: 800; color: var(--green); }
     .vs-tag-center { font-size: 12px; color: #475569; font-weight: 800; }
 
-    /* ===================================================
-       NOVA PISTA DE CORRIDA DE MEMES EM TEMPO REAL
-       =================================================== */
+    /* PISTA DE CORRIDA DE MEMES */
     .meme-race-track-wrapper {
       background: #030612;
       border: 1px solid #101c33;
@@ -323,7 +387,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
     }
 
     .runner-avatar-bubble img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -706,9 +769,38 @@
     </section>
 
     <!-- ===================================================
-         DUEL RATIO ARENA + PISTA DE CORRIDA + DEXSCREENER
+         DUEL RATIO ARENA + ABAS DE TEMPO + CORRIDA + DEXSCREENER
          =================================================== -->
     <main class="duel-ratio-arena-wrapper">
+
+      <!-- SELETOR DAS ABAS DAS ARENAS (30M, 1H, 24H) -->
+      <div class="arena-epoch-tabs">
+        <button id="tab-epoch-30m" class="btn-epoch-tab" onclick="switchEpochMode('30m')">
+          <span>🔥 TURBO (30M)</span>
+        </button>
+        <button id="tab-epoch-1h" class="btn-epoch-tab active-epoch" onclick="switchEpochMode('1h')">
+          <span>⚡ FLASH (1H)</span>
+        </button>
+        <button id="tab-epoch-24h" class="btn-epoch-tab" onclick="switchEpochMode('24h')">
+          <span>🏆 DAILY (24H)</span>
+        </button>
+      </div>
+
+      <!-- CRONÔMETRO REGRESSIVO DA RODADA ATIVA -->
+      <div class="arena-timer-bar">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span id="epoch-round-badge" style="color:var(--cyan); background:rgba(0,242,254,0.1); border:1px solid var(--border); padding:3px 8px; border-radius:6px;">
+            ⚔️ FLASH EPOCH • DUEL #105
+          </span>
+          <span style="color:#64748b; font-size:10px;">NON-CUSTODIAL PDA VAULT</span>
+        </div>
+        <div class="timer-display">
+          <span>⏳ ENCERRA EM:</span>
+          <strong id="epoch-timer-clock">00:44:18</strong>
+          <span style="color:var(--green); font-size:9px;">[ONLINE]</span>
+        </div>
+      </div>
+
       <div class="duel-ratio-header">
         <div class="duel-ratio-brand-box">
           <div class="solana-badge-icon" title="Solana Mainnet">
@@ -1222,7 +1314,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT & MOTOR DINÂMICO DE CORRIDA E CURVAS BÉZIER -->
+  <!-- JAVASCRIPT & MOTOR DINÂMICO -->
   <script>
     const MIN_WAGER = 0.20;
     const MAX_WAGER = 5.00;
@@ -1238,8 +1330,45 @@
     let currentRatioA = 62;
     let currentRatioB = 38;
 
-    // HISTÓRICO COM ONDULAÇÃO REALÍSTICA DE MERCADO (NÃO É RETO)
     let ratioHistory = [42, 45, 41, 48, 52, 49, 55, 53, 58, 56, 61, 59, 64, 60, 63, 61, 65, 62];
+
+    // TEMPORIZADOR DAS ARENAS (REGRESSIVO)
+    let currentArenaMode = '1h';
+    let remainingSeconds = 2658; // 44 min e 18 seg
+
+    function updateCountdown() {
+      if (remainingSeconds > 0) remainingSeconds--;
+      const hours = Math.floor(remainingSeconds / 3600);
+      const minutes = Math.floor((remainingSeconds % 3600) / 60);
+      const seconds = remainingSeconds % 60;
+
+      const pad = (n) => String(n).padStart(2, '0');
+      const clockEl = document.getElementById('epoch-timer-clock');
+      if (clockEl) {
+        clockEl.innerText = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+      }
+    }
+
+    function switchEpochMode(mode) {
+      currentArenaMode = mode;
+      document.querySelectorAll('.btn-epoch-tab').forEach(b => b.classList.remove('active-epoch'));
+
+      const targetTab = document.getElementById(`tab-epoch-${mode}`);
+      if (targetTab) targetTab.classList.add('active-epoch');
+
+      const badge = document.getElementById('epoch-round-badge');
+      if (mode === '30m') {
+        remainingSeconds = 1120; // ~18m
+        if (badge) badge.innerText = "🔥 TURBO EPOCH • DUEL #312";
+      } else if (mode === '1h') {
+        remainingSeconds = 2658; // ~44m
+        if (badge) badge.innerText = "⚔️ FLASH EPOCH • DUEL #105";
+      } else if (mode === '24h') {
+        remainingSeconds = 48200; // ~13h
+        if (badge) badge.innerText = "🏆 DAILY ROYALE • EPOCH #28";
+      }
+      updateCountdown();
+    }
 
     function renderBalances() {
       const elTest = document.getElementById('fake-balance-val');
@@ -1353,9 +1482,7 @@
       if (!isOpen) el.classList.add('open');
     }
 
-    // ===================================================
-    // MOTOR DE CORRIDA E ATUALIZAÇÃO DA API DEXSCREENER
-    // ===================================================
+    // DEXSCREENER SYNC
     async function syncDexScreenerData() {
       const bonkMint = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
       const wifMint = "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm";
@@ -1388,7 +1515,6 @@
             document.getElementById('head-token-b-delta').innerText = `${signB}${deltaB}%`;
             document.getElementById('head-token-b-delta').style.color = deltaB >= 0 ? 'var(--green)' : 'var(--pink)';
 
-            // CÁLCULO DE VELOCIDADE
             const totalVol = volA + volB;
             const volShareA = totalVol > 0 ? (volA / totalVol) : 0.5;
 
@@ -1396,7 +1522,6 @@
             const scoreB = Math.max(0.1, 100 + deltaB);
             const deltaShareA = scoreA / (scoreA + scoreB);
 
-            // Rácio Ponderado: 60% Volume + 40% Delta de Preço
             const calculatedA = Math.round((volShareA * 60) + (deltaShareA * 40));
             currentRatioA = Math.min(85, Math.max(15, calculatedA));
             currentRatioB = 100 - currentRatioA;
@@ -1413,16 +1538,13 @@
       }
     }
 
-    // ATUALIZA A PISTA DE CORRIDA E AS BARRAS
     function updateRaceAndVisuals(deltaA = 12.4, deltaB = 8.7) {
-      // 1. Atualizar barras inferiores
       document.getElementById('bar-token-a-pct').innerText = `${currentRatioA}%`;
       document.getElementById('bar-token-a-fill').style.width = `${currentRatioA}%`;
 
       document.getElementById('bar-token-b-pct').innerText = `${currentRatioB}%`;
       document.getElementById('bar-token-b-fill').style.width = `${currentRatioB}%`;
 
-      // 2. Atualizar Posição na Pista de Corrida (Left %)
       const trackPosA = Math.min(92, Math.max(8, currentRatioA));
       const trackPosB = Math.min(92, Math.max(8, currentRatioB));
 
@@ -1434,7 +1556,6 @@
       document.getElementById('runner-pct-a').innerText = `${currentRatioA}%`;
       document.getElementById('runner-pct-b').innerText = `${currentRatioB}%`;
 
-      // 3. Atualizar Líder da Corrida
       const raceLeader = document.getElementById('race-leader-text');
       const leadLabel = document.getElementById('leading-label-indicator');
       const leadPct = document.getElementById('leading-pct-indicator');
@@ -1453,7 +1574,6 @@
         leadPct.innerText = `${currentRatioB}%`;
       }
 
-      // 4. Multiplicadores
       currentMultiplierA = (1.92 * (100 / Math.max(15, currentRatioA * 1.85))).toFixed(2);
       currentMultiplierB = (1.92 * (100 / Math.max(15, currentRatioB * 1.85))).toFixed(2);
 
@@ -1463,9 +1583,7 @@
       if (multLabelB) multLabelB.innerText = `${currentMultiplierB}x TARGET`;
     }
 
-    // ===================================================
-    // MOTOR DO GRÁFICO DINÂMICO COM CURVAS DE BÉZIER SUAVES
-    // ===================================================
+    // GRÁFICO CURVILÍNEO BÉZIER
     function drawSmoothChart() {
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
@@ -1482,7 +1600,6 @@
       const chartW = w - padLeft - padRight;
       const chartH = h - padTop - padBottom;
 
-      // NÍVEIS
       const yLevels = [20, 40, 60, 80];
       ctx.font = '600 10px Montserrat';
       ctx.fillStyle = '#475569';
@@ -1499,14 +1616,12 @@
         ctx.fillText(`${lvl}%`, padLeft - 10, y + 3);
       });
 
-      // CONVERTER PONTOS
       const coords = ratioHistory.map((val, i) => {
         const x = padLeft + (i / (ratioHistory.length - 1)) * chartW;
         const y = padTop + chartH - ((val - 20) / 60) * chartH;
         return { x, y };
       });
 
-      // GRADIENTE DE FUNDO COM CURVAS BÉZIER
       ctx.beginPath();
       ctx.moveTo(coords[0].x, coords[0].y);
       for (let i = 0; i < coords.length - 1; i++) {
@@ -1525,7 +1640,6 @@
       ctx.fillStyle = grad;
       ctx.fill();
 
-      // LINHA NÉON ONDULADA
       ctx.beginPath();
       ctx.moveTo(coords[0].x, coords[0].y);
       for (let i = 0; i < coords.length - 1; i++) {
@@ -1541,7 +1655,6 @@
       ctx.shadowBlur = 16;
       ctx.stroke();
 
-      // PONTO FINAL LUMINOSO (AO VIVO)
       const last = coords[coords.length - 1];
       ctx.beginPath();
       ctx.arc(last.x, last.y, 5, 0, Math.PI * 2);
@@ -1552,9 +1665,7 @@
       ctx.shadowBlur = 0;
     }
 
-    // MICRO-PULSAÇÃO DE MERCADO (O GRÁFICO NUNCA FICA RETO)
     function simulateMicroTick() {
-      // Pequena oscilação natural de trading (+- 1% ou 2%) entre as chamadas da API
       const tickFluctuation = (Math.random() * 2.4 - 1.2);
       let nextVal = Math.round(currentRatioA + tickFluctuation);
       nextVal = Math.min(82, Math.max(18, nextVal));
@@ -1589,11 +1700,12 @@
       renderBalances();
       initDuelRatioChart();
       updateRaceAndVisuals();
+      updateCountdown();
 
-      // Sincronização DexScreener + Micro-Pulsações
       syncDexScreenerData();
-      setInterval(syncDexScreenerData, 15000); // Consulta API a cada 15s
-      setInterval(simulateMicroTick, 2500);    // Micro-ondulação fluida a cada 2.5s
+      setInterval(syncDexScreenerData, 15000);
+      setInterval(simulateMicroTick, 2500);
+      setInterval(updateCountdown, 1000);
     });
   </script>
 </body>
