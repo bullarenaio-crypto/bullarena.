@@ -702,9 +702,7 @@
     footer a { color: #fff; text-decoration: none; font-weight: 700; margin-left: 14px; }
     footer a:hover { color: var(--cyan); }
 
-    /* ===================================================
-       WALLET SELECTOR MODAL (PHANTOM, SOLFLARE, BACKPACK, OKX)
-       =================================================== */
+    /* WALLET SELECTOR MODAL */
     .wallet-options-list {
       display: flex;
       flex-direction: column;
@@ -1308,7 +1306,7 @@
           <span class="r-status status-queued">SCHEDULED</span>
           <h3 class="r-title">PROTOCOL XP & BLINKS</h3>
           <ul class="r-list">
-            <li><strong>Protocol XP Engine:</strong> Activity-weighted point minting.</li>
+            <li><strong>Protocol XP Engine:</strong> Activity-weighted point minting (1 SOL = 1 XP).</li>
             <li>Solana Blinks on X + Telegram Terminal Bot.</li>
           </ul>
         </div>
@@ -1342,6 +1340,15 @@
       </div>
       <div class="faq-list">
         <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question"><span>How do Protocol XP calculations work?</span><span class="faq-toggle-icon">+</span></div>
+          <div class="faq-answer">
+            Every capital allocation directly mints Protocol XP at a 1:1 ratio with native SOL.<br>
+            • <strong>1.00 SOL Allocated = 1.00 Protocol XP</strong><br>
+            • Fractional amounts mint fractional XP (e.g. 0.20 SOL = +0.20 XP, 2.50 SOL = +2.50 XP).<br>
+            XP accumulates permanently in your connected wallet and unlocks future governance rights and fee tier discounts.
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question"><span>How do autonomous meme hype rotations work?</span><span class="faq-toggle-icon">+</span></div>
           <div class="faq-answer">
             Bull Protocol automatically queries Solana on-chain liquidity velocity and DexScreener momentum feeds:<br>
@@ -1359,10 +1366,6 @@
             • <strong>Daily Royale (24H):</strong> Locks capital allocations 1 hour prior to epoch resolution.
           </div>
         </div>
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question"><span>What are the minimum and maximum capital allocation limits?</span><span class="faq-toggle-icon">+</span></div>
-          <div class="faq-answer">Positions are strictly capped between a minimum of 0.20 SOL and a maximum of 5.00 SOL per transaction during Phase 1 Beta.</div>
-        </div>
       </div>
     </section>
 
@@ -1377,9 +1380,7 @@
     </footer>
   </div>
 
-  <!-- ===================================================
-       WALLET SELECTOR MODAL (PHANTOM, SOLFLARE, BACKPACK, OKX)
-       =================================================== -->
+  <!-- WALLET SELECTOR MODAL -->
   <div id="wallet-modal-overlay" class="modal-overlay" onclick="closeWalletModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeWalletModal()">✕</button>
@@ -1449,9 +1450,7 @@
     </div>
   </div>
 
-  <!-- ===================================================
-       WALLET PROFILE & DISCONNECT MODAL
-       =================================================== -->
+  <!-- WALLET PROFILE & DISCONNECT MODAL -->
   <div id="wallet-profile-overlay" class="modal-overlay" onclick="closeWalletProfileModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeWalletProfileModal()">✕</button>
@@ -1610,7 +1609,7 @@
     </div>
   </div>
 
-  <!-- POSITION EXECUTION MODAL -->
+  <!-- POSITION EXECUTION MODAL (COM PREVIEW DE XP REWARD) -->
   <div id="stake-modal-overlay" class="modal-overlay" onclick="closeStakeModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeStakeModal()">✕</button>
@@ -1646,6 +1645,11 @@
         <div class="modal-summary-row">
           <span style="color:var(--text-muted);">Estimated Settlement Return:</span>
           <span class="cyan"><strong id="modal-est-payout">0.00</strong> SOL</span>
+        </div>
+        <!-- PREVIEW DE XP REWARD 1:1 -->
+        <div class="modal-summary-row">
+          <span style="color:var(--text-muted);">Protocol XP Reward:</span>
+          <span style="color:var(--cyan); font-weight:800;">+<strong id="modal-est-xp">0.20</strong> XP (1:1 SOL)</span>
         </div>
         <div class="modal-summary-row">
           <span style="color:var(--text-muted);">Protocol Infrastructure Fee:</span>
@@ -2007,7 +2011,7 @@
         if (badge) badge.innerText = `🔥 ${cfg.name} • DUEL ${cfg.duelId}`;
       } else if (mode === '1h') {
         remainingSeconds = 2658;
-        if (badge) badge.innerText = `⚔️️ ${cfg.name} • DUEL ${cfg.duelId}`;
+        if (badge) badge.innerText = `⚔️ ${cfg.name} • DUEL ${cfg.duelId}`;
       } else if (mode === '24h') {
         remainingSeconds = 48200;
         if (badge) badge.innerText = `🏆 ${cfg.name} • EPOCH ${cfg.duelId}`;
@@ -2097,7 +2101,10 @@
       const val = parseFloat(document.getElementById('input-stake-amount').value) || 0;
       const ret = (val * currentActiveMult).toFixed(2);
       const payoutEl = document.getElementById('modal-est-payout');
+      const xpEl = document.getElementById('modal-est-xp');
+      
       if (payoutEl) payoutEl.innerText = ret;
+      if (xpEl) xpEl.innerText = val.toFixed(2);
     }
 
     function confirmModalStake() {
@@ -2110,10 +2117,11 @@
       const val = parseFloat(document.getElementById('input-stake-amount').value);
 
       if (!val || isNaN(val)) return alert("Please enter a valid amount!");
-      if (val < MIN_WAGER) return alert(`⚠️ Minimum capital allocation: ${MIN_WAGER.toFixed(2)} SOL!`);
-      if (val > MAX_WAGER) return alert(`⚠️ Maximum capital allocation: ${MAX_WAGER.toFixed(2)} SOL per transaction!`);
+      if (val < MIN_WAGER) return alert(`⚠️️ Minimum capital allocation: ${MIN_WAGER.toFixed(2)} SOL!`);
+      if (val > MAX_WAGER) return alert(`⚠️️ Maximum capital allocation: ${MAX_WAGER.toFixed(2)} SOL per transaction!`);
       if (val > testCredits) return alert(`Insufficient Demo Liquidity! You have ${testCredits.toFixed(2)} SOL.`);
 
+      // Subtrai crédito e credita XP na exata paridade 1 SOL = 1 XP
       testCredits -= val;
       userXP += val;
       localStorage.setItem('bull_credits', testCredits);
@@ -2121,7 +2129,9 @@
       renderBalances();
 
       document.getElementById('stake-modal-overlay').style.display = 'none';
-      alert(`🎯 POSITION EXECUTED SUCCESSFULLY!\n\nAsset: $${selectedFighter}\nAllocated: ${val.toFixed(2)} SOL\nTarget Multiplier: ${parseFloat(currentActiveMult).toFixed(2)}x\nEst. Settlement Return: +${(val * currentActiveMult).toFixed(2)} SOL`);
+
+      const earnedXP = val.toFixed(2);
+      alert(`🎯 POSITION EXECUTED SUCCESSFULLY!\n\nAsset: $${selectedFighter}\nAllocated: ${val.toFixed(2)} SOL\nTarget Multiplier: ${parseFloat(currentActiveMult).toFixed(2)}x\nEst. Settlement Return: +${(val * currentActiveMult).toFixed(2)} SOL\n\n⚡ PROTOCOL XP EARNED: +${earnedXP} XP\n📊 New Total XP Balance: ${userXP.toFixed(2)} XP\n(Rate: 1.00 SOL = 1.00 Protocol XP)`);
     }
 
     function toggleFaq(el) {
