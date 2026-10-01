@@ -212,9 +212,7 @@
     /* DUEL RATIO ARENA */
     .duel-ratio-arena-wrapper { background: #050813; border: 1.5px solid #141e33; border-radius: 18px; padding: 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9); margin-bottom: 38px; }
 
-    /* ===================================================
-       ABAS DE TEMPO DA ARENA (30M, 1H, 24H)
-       =================================================== */
+    /* ABAS DE TEMPO DA ARENA (30M, 1H, 24H) */
     .arena-epoch-tabs {
       display: flex;
       justify-content: center;
@@ -251,7 +249,7 @@
       box-shadow: 0 0 12px var(--cyan-glow);
     }
 
-    /* BARRA SUPERIOR DE TEMPO & ROUND */
+    /* BARRA DE CRONÔMETRO COM STATUS DA TRAVA */
     .arena-timer-bar {
       display: flex;
       justify-content: space-between;
@@ -259,23 +257,50 @@
       background: #040816;
       border: 1px solid #101c33;
       border-radius: 10px;
-      padding: 8px 14px;
+      padding: 10px 16px;
       margin-bottom: 16px;
       font-size: 11px;
       font-weight: 800;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
     }
 
     .timer-display {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       color: var(--gold);
       font-family: monospace;
       font-size: 12px;
       letter-spacing: 1px;
     }
+
+    .lock-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .badge-unlocked {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: var(--green);
+    }
+
+    .badge-locked {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      color: var(--pink);
+      animation: pulseAlert 1.5s infinite alternate;
+    }
+
+    @keyframes pulseAlert { 0% { opacity: 0.7; } 100% { opacity: 1; } }
 
     .duel-ratio-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom: 1px solid #0f172a; margin-bottom: 18px; flex-wrap: wrap; gap: 16px; }
     .duel-ratio-brand-box { display: flex; align-items: center; gap: 12px; }
@@ -506,6 +531,15 @@
       background: var(--purple);
       color: #020612;
       box-shadow: 0 0 20px var(--purple-glow);
+    }
+
+    /* ESTILO QUANDO O BOTÃO ESTIVER TRAVADO */
+    .btn-terminal-action.btn-action-locked {
+      background: rgba(244, 63, 94, 0.08) !important;
+      border-color: var(--pink) !important;
+      color: #cbd5e1 !important;
+      box-shadow: none !important;
+      cursor: not-allowed;
     }
 
     .dex-embed-card {
@@ -769,7 +803,7 @@
     </section>
 
     <!-- ===================================================
-         DUEL RATIO ARENA + ABAS DE TEMPO + CORRIDA + DEXSCREENER
+         DUEL RATIO ARENA + ABAS DE TEMPO + TRAVA ANTI-SNIPE
          =================================================== -->
     <main class="duel-ratio-arena-wrapper">
 
@@ -786,18 +820,20 @@
         </button>
       </div>
 
-      <!-- CRONÔMETRO REGRESSIVO DA RODADA ATIVA -->
+      <!-- CRONÔMETRO REGRESSIVO + STATUS REAL DA TRAVA ANTI-MANIPULAÇÃO -->
       <div class="arena-timer-bar">
         <div style="display:flex; align-items:center; gap:8px;">
           <span id="epoch-round-badge" style="color:var(--cyan); background:rgba(0,242,254,0.1); border:1px solid var(--border); padding:3px 8px; border-radius:6px;">
             ⚔️ FLASH EPOCH • DUEL #105
           </span>
-          <span style="color:#64748b; font-size:10px;">NON-CUSTODIAL PDA VAULT</span>
+          <span id="lock-status-chip" class="lock-status-badge badge-unlocked">
+            🟢 ENTRADAS ABERTAS
+          </span>
         </div>
+
         <div class="timer-display">
-          <span>⏳ ENCERRA EM:</span>
+          <span>⏳ ENCERRAMENTO DA RODADA:</span>
           <strong id="epoch-timer-clock">00:44:18</strong>
-          <span style="color:var(--green); font-size:9px;">[ONLINE]</span>
         </div>
       </div>
 
@@ -874,7 +910,7 @@
         </div>
       </div>
 
-      <!-- RATIO CHART VIEWPORT (CURVAS DE BÉZIER ULTRA DINÂMICAS) -->
+      <!-- RATIO CHART VIEWPORT (CURVAS DE BÉZIER SUAVES) -->
       <div class="duel-chart-viewport">
         <div class="badge-leading-indicator">
           <span class="lbl" id="leading-label-indicator">ANALISANDO RÁCIO...</span>
@@ -920,12 +956,12 @@
         </div>
       </div>
 
-      <!-- DUAS COLUNAS: BOTÃO DE APOSTA + DEXSCREENER EMBAIXO -->
+      <!-- DUAS COLUNAS: BOTÃO DE APOSTA (COM TRAVA DINÂMICA) + DEXSCREENER -->
       <div class="dex-duel-columns-grid">
         <!-- COLUNA TOKEN A -->
         <div class="dex-column-side">
-          <button id="btn-stake-a" class="btn-terminal-action btn-terminal-cyan" onclick="openStakeModal('BONK', currentMultiplierA, 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035')">
-            <span>ALLOCATE LONG • $BONK</span>
+          <button id="btn-stake-a" class="btn-terminal-action btn-terminal-cyan" onclick="handleStakeClick('BONK', currentMultiplierA, 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035')">
+            <span id="btn-text-a">ALLOCATE LONG • $BONK</span>
             <span id="mult-label-a" style="color:var(--cyan); font-weight:900;">1.85x TARGET</span>
           </button>
           
@@ -948,8 +984,8 @@
 
         <!-- COLUNA TOKEN B -->
         <div class="dex-column-side">
-          <button id="btn-stake-b" class="btn-terminal-action btn-terminal-purple" onclick="openStakeModal('WIF', currentMultiplierB, 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035')">
-            <span>ALLOCATE LONG • $WIF</span>
+          <button id="btn-stake-b" class="btn-terminal-action btn-terminal-purple" onclick="handleStakeClick('WIF', currentMultiplierB, 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035')">
+            <span id="btn-text-b">ALLOCATE LONG • $WIF</span>
             <span id="mult-label-b" style="color:var(--purple); font-weight:900;">2.15x TARGET</span>
           </button>
           
@@ -1107,6 +1143,15 @@
         <h2 class="sec-title" translate="no">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
       </div>
       <div class="faq-list">
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question"><span>Como funcionam as travas de segurança anti-manipulação das arenas?</span><span class="faq-toggle-icon">+</span></div>
+          <div class="faq-answer">
+            Para evitar que baleias ou bots façam sniping de última hora conhecendo o desfecho da vela:<br>
+            • <strong>Arena Turbo (30M):</strong> Fecha as alocações exatamente 5 minutos após a abertura da rodada.<br>
+            • <strong>Arena Flash (1H):</strong> Fecha as alocações 15 minutos antes do encerramento final.<br>
+            • <strong>Arena Daily (24H):</strong> Fecha as alocações 1 hora antes do encerramento final.
+          </div>
+        </div>
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question"><span>What are the minimum and maximum capital allocation limits?</span><span class="faq-toggle-icon">+</span></div>
           <div class="faq-answer">Positions are strictly capped between a minimum of 0.20 SOL and a maximum of 5.00 SOL per transaction during Phase 1 Beta.</div>
@@ -1314,7 +1359,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT & MOTOR DINÂMICO -->
+  <!-- JAVASCRIPT & MOTOR DINÂMICO COM TRAVA -->
   <script>
     const MIN_WAGER = 0.20;
     const MAX_WAGER = 5.00;
@@ -1332,12 +1377,103 @@
 
     let ratioHistory = [42, 45, 41, 48, 52, 49, 55, 53, 58, 56, 61, 59, 64, 60, 63, 61, 65, 62];
 
-    // TEMPORIZADOR DAS ARENAS (REGRESSIVO)
+    // ===================================================
+    // SISTEMA DE TRAVAS ANTI-MANIPULAÇÃO (30M, 1H, 24H)
+    // ===================================================
+    const ARENA_CONFIG = {
+      '30m': {
+        name: 'TURBO EPOCH',
+        totalDuration: 30 * 60, // 1800 seg
+        ruleDesc: 'Fecha 5 minutos depois de abrir',
+        lockOffset: 5 * 60,     // 300 seg após início
+        lockType: 'after_open',
+        duelId: '#312'
+      },
+      '1h': {
+        name: 'FLASH EPOCH',
+        totalDuration: 60 * 60, // 3600 seg
+        ruleDesc: 'Fecha 15 minutos antes de fechar',
+        lockOffset: 15 * 60,    // últimos 900 seg
+        lockType: 'before_close',
+        duelId: '#105'
+      },
+      '24h': {
+        name: 'DAILY ROYALE',
+        totalDuration: 24 * 60 * 60, // 86400 seg
+        ruleDesc: 'Fecha 1 hora antes de fechar',
+        lockOffset: 60 * 60,         // últimos 3600 seg
+        duelId: '#28'
+      }
+    };
+
     let currentArenaMode = '1h';
-    let remainingSeconds = 2658; // 44 min e 18 seg
+    let remainingSeconds = 2658; // Inicia em 44m 18s (aberto para 1h)
+    let isCurrentArenaLocked = false;
+
+    function checkLockStatus() {
+      const cfg = ARENA_CONFIG[currentArenaMode];
+      const elapsed = cfg.totalDuration - remainingSeconds;
+
+      if (cfg.lockType === 'after_open') {
+        // 30m: Fecha 5 min depois de abrir
+        isCurrentArenaLocked = elapsed > cfg.lockOffset;
+      } else if (cfg.lockType === 'before_close') {
+        // 1h e 24h: Fecha nos últimos minutos da rodada
+        isCurrentArenaLocked = remainingSeconds <= cfg.lockOffset;
+      }
+
+      updateLockUI(cfg, elapsed);
+    }
+
+    function updateLockUI(cfg, elapsed) {
+      const lockChip = document.getElementById('lock-status-chip');
+      const btnA = document.getElementById('btn-stake-a');
+      const btnB = document.getElementById('btn-stake-b');
+      const btnTextA = document.getElementById('btn-text-a');
+      const btnTextB = document.getElementById('btn-text-b');
+
+      if (isCurrentArenaLocked) {
+        if (lockChip) {
+          lockChip.className = 'lock-status-badge badge-locked';
+          lockChip.innerText = `🔒 TRAVA ATIVA (${cfg.ruleDesc})`;
+        }
+
+        if (btnA) btnA.classList.add('btn-action-locked');
+        if (btnB) btnB.classList.add('btn-action-locked');
+        if (btnTextA) btnTextA.innerText = '🔒 ENTRADAS TRAVADAS • $BONK';
+        if (btnTextB) btnTextB.innerText = '🔒 ENTRADAS TRAVADAS • $WIF';
+      } else {
+        let lockInText = '';
+        if (cfg.lockType === 'after_open') {
+          const lockInSec = Math.max(0, cfg.lockOffset - elapsed);
+          lockInText = `TRAVA EM ${Math.floor(lockInSec/60)}m ${lockInSec%60}s`;
+        } else {
+          const lockInSec = Math.max(0, remainingSeconds - cfg.lockOffset);
+          const hrs = Math.floor(lockInSec/3600);
+          const mins = Math.floor((lockInSec%3600)/60);
+          lockInText = hrs > 0 ? `TRAVA EM ${hrs}h ${mins}m` : `TRAVA EM ${mins}m`;
+        }
+
+        if (lockChip) {
+          lockChip.className = 'lock-status-badge badge-unlocked';
+          lockChip.innerText = `🟢 ENTRADAS ABERTAS (${lockInText})`;
+        }
+
+        if (btnA) btnA.classList.remove('btn-action-locked');
+        if (btnB) btnB.classList.remove('btn-action-locked');
+        if (btnTextA) btnTextA.innerText = 'ALLOCATE LONG • $BONK';
+        if (btnTextB) btnTextB.innerText = 'ALLOCATE LONG • $WIF';
+      }
+    }
 
     function updateCountdown() {
-      if (remainingSeconds > 0) remainingSeconds--;
+      if (remainingSeconds > 0) {
+        remainingSeconds--;
+      } else {
+        // Reinicia a rodada automaticamente
+        remainingSeconds = ARENA_CONFIG[currentArenaMode].totalDuration;
+      }
+
       const hours = Math.floor(remainingSeconds / 3600);
       const minutes = Math.floor((remainingSeconds % 3600) / 60);
       const seconds = remainingSeconds % 60;
@@ -1347,6 +1483,8 @@
       if (clockEl) {
         clockEl.innerText = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
       }
+
+      checkLockStatus();
     }
 
     function switchEpochMode(mode) {
@@ -1357,17 +1495,30 @@
       if (targetTab) targetTab.classList.add('active-epoch');
 
       const badge = document.getElementById('epoch-round-badge');
+      const cfg = ARENA_CONFIG[mode];
+
       if (mode === '30m') {
-        remainingSeconds = 1120; // ~18m
-        if (badge) badge.innerText = "🔥 TURBO EPOCH • DUEL #312";
+        remainingSeconds = 1260; // 21 min restantes (ou seja, passaram 9 min: já fechou os 5 min -> TRAVADA para demonstração da regra)
+        if (badge) badge.innerText = `🔥 ${cfg.name} • DUEL ${cfg.duelId}`;
       } else if (mode === '1h') {
-        remainingSeconds = 2658; // ~44m
-        if (badge) badge.innerText = "⚔️ FLASH EPOCH • DUEL #105";
+        remainingSeconds = 2658; // 44 min restantes (aberta, trava só aos 15m finais)
+        if (badge) badge.innerText = `⚔️ ${cfg.name} • DUEL ${cfg.duelId}`;
       } else if (mode === '24h') {
-        remainingSeconds = 48200; // ~13h
-        if (badge) badge.innerText = "🏆 DAILY ROYALE • EPOCH #28";
+        remainingSeconds = 48200; // 13h restantes (aberta, trava só na última hora)
+        if (badge) badge.innerText = `🏆 ${cfg.name} • EPOCH ${cfg.duelId}`;
       }
+
       updateCountdown();
+    }
+
+    // CLIQUE NOS BOTÕES COM VALIDAÇÃO DA TRAVA
+    function handleStakeClick(fighter, mult, iconUrl) {
+      if (isCurrentArenaLocked) {
+        const cfg = ARENA_CONFIG[currentArenaMode];
+        alert(`🔒 ENTRADAS BLOQUEADAS NESTA RODADA!\n\nPara evitar manipulação de resultados e sniping de candles, as regras do protocolo estabelecem:\n\n• ${cfg.name}: ${cfg.ruleDesc}.\n\nAguarde a liquidação desta rodada ou alterne para outra arena aberta no topo!`);
+        return;
+      }
+      openStakeModal(fighter, mult, iconUrl);
     }
 
     function renderBalances() {
@@ -1421,7 +1572,7 @@
 
     function loadDuelToArena(tokenA, tokenB, multA, multB) {
       closeMarketHub();
-      openStakeModal(tokenA, multA, 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=035');
+      handleStakeClick(tokenA, multA, 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=035');
     }
 
     // MODAL STAKE
@@ -1459,6 +1610,12 @@
     }
 
     function confirmModalStake() {
+      if (isCurrentArenaLocked) {
+        alert("🔒 Esta rodada acabou de ser travada pelo protocolo anti-snipe. Sua alocação não pôde ser aceita.");
+        document.getElementById('stake-modal-overlay').style.display = 'none';
+        return;
+      }
+
       const val = parseFloat(document.getElementById('input-stake-amount').value);
 
       if (!val || isNaN(val)) return alert("Please enter a valid amount!");
@@ -1482,7 +1639,7 @@
       if (!isOpen) el.classList.add('open');
     }
 
-    // DEXSCREENER SYNC
+    // DEXSCREENER API POLLING
     async function syncDexScreenerData() {
       const bonkMint = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
       const wifMint = "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm";
@@ -1583,7 +1740,7 @@
       if (multLabelB) multLabelB.innerText = `${currentMultiplierB}x TARGET`;
     }
 
-    // GRÁFICO CURVILÍNEO BÉZIER
+    // MOTOR DO GRÁFICO (CURVAS BÉZIER SUAVES)
     function drawSmoothChart() {
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
