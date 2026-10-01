@@ -31,11 +31,11 @@
       --border: #141f36;
       --border-focus: #1e3258;
       --cyan: #00f2fe;
-      --cyan-glow: rgba(0, 242, 254, 0.25);
+      --cyan-glow: rgba(0, 242, 254, 0.3);
       --purple: #818cf8;
-      --purple-glow: rgba(129, 140, 248, 0.25);
+      --purple-glow: rgba(129, 140, 248, 0.3);
       --green: #10b981;
-      --green-glow: rgba(16, 185, 129, 0.25);
+      --green-glow: rgba(16, 185, 129, 0.3);
       --pink: #f43f5e;
       --gold: #f59e0b;
       --text-main: #f8fafc;
@@ -228,8 +228,145 @@
     .token-head-change { font-size: 9px; font-weight: 800; color: var(--green); }
     .vs-tag-center { font-size: 12px; color: #475569; font-weight: 800; }
 
-    .duel-chart-viewport { background: #03050c; border: 1px solid #0f1628; border-radius: 12px; padding: 22px 16px 14px; position: relative; margin-bottom: 18px; }
-    .badge-leading-indicator { position: absolute; top: 16px; right: 20px; background: rgba(4, 8, 18, 0.95); border: 1px solid var(--cyan); border-radius: 6px; padding: 5px 10px; text-align: right; box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); z-index: 5; }
+    /* ===================================================
+       NOVA PISTA DE CORRIDA DE MEMES EM TEMPO REAL
+       =================================================== */
+    .meme-race-track-wrapper {
+      background: #030612;
+      border: 1px solid #101c33;
+      border-radius: 14px;
+      padding: 14px 18px 18px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .meme-race-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #94a3b8;
+    }
+
+    .race-status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--cyan);
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+
+    .race-pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulseDot 1s infinite alternate;
+    }
+
+    @keyframes pulseDot { 0% { opacity: 0.3; } 100% { opacity: 1; transform: scale(1.3); } }
+
+    .race-lane {
+      position: relative;
+      height: 44px;
+      background: rgba(9, 16, 32, 0.9);
+      border: 1px solid #162442;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .race-lane::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+      border-top: 1px dashed #1e3158;
+    }
+
+    .race-finish-flag {
+      position: absolute;
+      right: 12px;
+      font-size: 14px;
+      z-index: 2;
+      opacity: 0.8;
+    }
+
+    .race-runner {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 4;
+      transition: left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: translateX(-50%);
+    }
+
+    .runner-avatar-bubble {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      padding: 2px;
+      background: #060b17;
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 15px var(--cyan-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .runner-avatar-bubble img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+    .runner-avatar-bubble.purple-bubble {
+      border-color: var(--purple);
+      box-shadow: 0 0 15px var(--purple-glow);
+    }
+
+    .runner-badge-stats {
+      background: rgba(4, 9, 20, 0.92);
+      border: 1px solid #162442;
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 10px;
+      font-weight: 900;
+      white-space: nowrap;
+      line-height: 1.1;
+    }
+
+    /* CARD DO GRÁFICO DINÂMICO */
+    .duel-chart-viewport {
+      background: #03050c;
+      border: 1px solid #0f1628;
+      border-radius: 12px;
+      padding: 22px 16px 14px;
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .badge-leading-indicator {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: rgba(4, 8, 18, 0.95);
+      border: 1px solid var(--cyan);
+      border-radius: 6px;
+      padding: 5px 10px;
+      text-align: right;
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+      z-index: 5;
+    }
+
     .badge-leading-indicator .lbl { font-size: 8px; font-weight: 900; letter-spacing: 1px; color: var(--cyan); text-transform: uppercase; display: block; margin-bottom: 2px; }
     .badge-leading-indicator .val { font-size: 16px; font-weight: 900; color: #fff; display: flex; align-items: center; justify-content: flex-end; gap: 4px; line-height: 1; }
     .badge-leading-indicator .val span { color: var(--green); font-size: 11px; }
@@ -329,25 +466,9 @@
       color: #cbd5e1;
     }
 
-    .dex-live-indicator {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .dex-live-badge {
-      font-size: 9px;
-      color: var(--green);
-      font-weight: 800;
-    }
-
-    .dex-embed-frame {
-      width: 100%;
-      height: 310px;
-      border: none;
-      display: block;
-      background: #000;
-    }
+    .dex-live-indicator { display: flex; align-items: center; gap: 6px; }
+    .dex-live-badge { font-size: 9px; color: var(--green); font-weight: 800; }
+    .dex-embed-frame { width: 100%; height: 310px; border: none; display: block; background: #000; }
 
     /* SEÇÕES DE CONTEÚDO */
     .content-card-section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 30px 24px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7); margin-bottom: 34px; }
@@ -584,7 +705,9 @@
       </div>
     </section>
 
-    <!-- DUEL RATIO ARENA -->
+    <!-- ===================================================
+         DUEL RATIO ARENA + PISTA DE CORRIDA + DEXSCREENER
+         =================================================== -->
     <main class="duel-ratio-arena-wrapper">
       <div class="duel-ratio-header">
         <div class="duel-ratio-brand-box">
@@ -593,7 +716,7 @@
           </div>
           <div class="duel-ratio-text-title">
             <h2>DUEL <span>RATIO</span></h2>
-            <p>REAL-TIME STRENGTH BETWEEN TWO ASSETS</p>
+            <p>REAL-TIME STRENGTH & LIVE VELOCITY RACE</p>
           </div>
         </div>
 
@@ -622,10 +745,47 @@
         </div>
       </div>
 
-      <!-- RATIO CHART VIEWPORT -->
+      <!-- PISTA DE CORRIDA DE MEMES EM TEMPO REAL -->
+      <div class="meme-race-track-wrapper">
+        <div class="meme-race-header">
+          <div class="race-status-tag">
+            <span class="race-pulse-dot"></span>
+            <span>LIVE MOMENTUM RACE • DESLOCAMENTO EM TEMPO REAL</span>
+          </div>
+          <span id="race-leader-text" style="color:var(--cyan); font-weight:900;">1º LUGAR: BONK (+14.2% VEL)</span>
+        </div>
+
+        <!-- PISTA DO TOKEN A (BONK) -->
+        <div class="race-lane">
+          <span class="race-finish-flag">🏁</span>
+          <div id="runner-token-a" class="race-runner" style="left: 62%;">
+            <div class="runner-avatar-bubble">
+              <img src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="BONK">
+            </div>
+            <div class="runner-badge-stats">
+              <span style="color:var(--cyan);">BONK</span> <span id="runner-pct-a" style="color:#fff;">62%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PISTA DO TOKEN B (WIF) -->
+        <div class="race-lane">
+          <span class="race-finish-flag">🏁</span>
+          <div id="runner-token-b" class="race-runner" style="left: 38%;">
+            <div class="runner-avatar-bubble purple-bubble">
+              <img src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="WIF">
+            </div>
+            <div class="runner-badge-stats">
+              <span style="color:var(--purple);">WIF</span> <span id="runner-pct-b" style="color:#fff;">38%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RATIO CHART VIEWPORT (CURVAS DE BÉZIER ULTRA DINÂMICAS) -->
       <div class="duel-chart-viewport">
         <div class="badge-leading-indicator">
-          <span class="lbl" id="leading-label-indicator">ANALYZING RATIO...</span>
+          <span class="lbl" id="leading-label-indicator">ANALISANDO RÁCIO...</span>
           <span class="val"><strong id="leading-pct-indicator">--%</strong> <span>▲</span></span>
         </div>
         <div class="chart-canvas-box">
@@ -640,11 +800,11 @@
             <img id="bar-token-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="BONK">
           </div>
           <div class="ratio-col-text">
-            <span class="ratio-col-name" id="bar-token-a-name">$BONK CONVICTION</span>
-            <span class="ratio-col-pct" id="bar-token-a-pct">50%</span>
+            <span class="ratio-col-name" id="bar-token-a-name">$BONK FORÇA</span>
+            <span class="ratio-col-pct" id="bar-token-a-pct">62%</span>
           </div>
           <div class="ratio-track-bar">
-            <div id="bar-token-a-fill" class="ratio-fill-bar fill-cyan-glow" style="width: 50%;"></div>
+            <div id="bar-token-a-fill" class="ratio-fill-bar fill-cyan-glow" style="width: 62%;"></div>
           </div>
         </div>
 
@@ -659,11 +819,11 @@
             <img id="bar-token-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="WIF">
           </div>
           <div class="ratio-col-text" style="text-align: right;">
-            <span class="ratio-col-name" id="bar-token-b-name">$WIF CONVICTION</span>
-            <span class="ratio-col-pct purple" id="bar-token-b-pct">50%</span>
+            <span class="ratio-col-name" id="bar-token-b-name">$WIF FORÇA</span>
+            <span class="ratio-col-pct purple" id="bar-token-b-pct">38%</span>
           </div>
           <div class="ratio-track-bar">
-            <div id="bar-token-b-fill" class="ratio-fill-bar fill-purple-glow" style="width: 50%;"></div>
+            <div id="bar-token-b-fill" class="ratio-fill-bar fill-purple-glow" style="width: 38%;"></div>
           </div>
         </div>
       </div>
@@ -683,7 +843,7 @@
                 <span style="color:var(--cyan);">●</span>
                 <span id="dex-label-token-a">BONK / SOL • DEXSCREENER LIVE</span>
               </div>
-              <span id="dex-stat-token-a" class="dex-live-badge">CONNECTING...</span>
+              <span id="dex-stat-token-a" class="dex-live-badge">A CONECTAR...</span>
             </div>
             <iframe 
               id="iframe-dex-a"
@@ -707,7 +867,7 @@
                 <span style="color:var(--purple);">●</span>
                 <span id="dex-label-token-b">WIF / SOL • DEXSCREENER LIVE</span>
               </div>
-              <span id="dex-stat-token-b" class="dex-live-badge">CONNECTING...</span>
+              <span id="dex-stat-token-b" class="dex-live-badge">A CONECTAR...</span>
             </div>
             <iframe 
               id="iframe-dex-b"
@@ -1062,7 +1222,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT & MOTOR DINÂMICO DO DUEL RATIO -->
+  <!-- JAVASCRIPT & MOTOR DINÂMICO DE CORRIDA E CURVAS BÉZIER -->
   <script>
     const MIN_WAGER = 0.20;
     const MAX_WAGER = 5.00;
@@ -1071,14 +1231,15 @@
     let userXP = localStorage.getItem('bull_xp') ? parseFloat(localStorage.getItem('bull_xp')) : 0.00;
     let selectedFighter = 'BONK';
 
-    // MULTIPLICADORES E RÁCIO EM TEMPO REAL
     let currentMultiplierA = 1.85;
     let currentMultiplierB = 2.15;
     let currentActiveMult = 1.85;
 
-    let currentRatioA = 50;
-    let currentRatioB = 50;
-    let ratioHistory = [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50];
+    let currentRatioA = 62;
+    let currentRatioB = 38;
+
+    // HISTÓRICO COM ONDULAÇÃO REALÍSTICA DE MERCADO (NÃO É RETO)
+    let ratioHistory = [42, 45, 41, 48, 52, 49, 55, 53, 58, 56, 61, 59, 64, 60, 63, 61, 65, 62];
 
     function renderBalances() {
       const elTest = document.getElementById('fake-balance-val');
@@ -1171,22 +1332,10 @@
     function confirmModalStake() {
       const val = parseFloat(document.getElementById('input-stake-amount').value);
 
-      if (!val || isNaN(val)) {
-        alert("Please enter a valid amount!");
-        return;
-      }
-      if (val < MIN_WAGER) {
-        alert(`⚠️ Minimum capital allocation: ${MIN_WAGER.toFixed(2)} SOL!`);
-        return;
-      }
-      if (val > MAX_WAGER) {
-        alert(`⚠️ Maximum capital allocation: ${MAX_WAGER.toFixed(2)} SOL per transaction!`);
-        return;
-      }
-      if (val > testCredits) {
-        alert(`Insufficient Demo Liquidity! You have ${testCredits.toFixed(2)} SOL. Use '+500' in the navbar.`);
-        return;
-      }
+      if (!val || isNaN(val)) return alert("Please enter a valid amount!");
+      if (val < MIN_WAGER) return alert(`⚠️ Minimum capital allocation: ${MIN_WAGER.toFixed(2)} SOL!`);
+      if (val > MAX_WAGER) return alert(`⚠️ Maximum capital allocation: ${MAX_WAGER.toFixed(2)} SOL per transaction!`);
+      if (val > testCredits) return alert(`Insufficient Demo Liquidity! You have ${testCredits.toFixed(2)} SOL.`);
 
       testCredits -= val;
       userXP += val;
@@ -1205,7 +1354,7 @@
     }
 
     // ===================================================
-    // MOTOR DE CÁLCULO E SINCRONIZAÇÃO EM TEMPO REAL
+    // MOTOR DE CORRIDA E ATUALIZAÇÃO DA API DEXSCREENER
     // ===================================================
     async function syncDexScreenerData() {
       const bonkMint = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
@@ -1239,7 +1388,7 @@
             document.getElementById('head-token-b-delta').innerText = `${signB}${deltaB}%`;
             document.getElementById('head-token-b-delta').style.color = deltaB >= 0 ? 'var(--green)' : 'var(--pink)';
 
-            // CÁLCULO DA VELOCIDADE RELATIVA
+            // CÁLCULO DE VELOCIDADE
             const totalVol = volA + volB;
             const volShareA = totalVol > 0 ? (volA / totalVol) : 0.5;
 
@@ -1252,12 +1401,11 @@
             currentRatioA = Math.min(85, Math.max(15, calculatedA));
             currentRatioB = 100 - currentRatioA;
 
-            // ATUALIZAÇÃO DA FILA DO GRÁFICO
             ratioHistory.shift();
             ratioHistory.push(currentRatioA);
 
-            updateRatioVisuals();
-            drawChart();
+            updateRaceAndVisuals(deltaA, deltaB);
+            drawSmoothChart();
           }
         }
       } catch (err) {
@@ -1265,27 +1413,47 @@
       }
     }
 
-    function updateRatioVisuals() {
+    // ATUALIZA A PISTA DE CORRIDA E AS BARRAS
+    function updateRaceAndVisuals(deltaA = 12.4, deltaB = 8.7) {
+      // 1. Atualizar barras inferiores
       document.getElementById('bar-token-a-pct').innerText = `${currentRatioA}%`;
       document.getElementById('bar-token-a-fill').style.width = `${currentRatioA}%`;
 
       document.getElementById('bar-token-b-pct').innerText = `${currentRatioB}%`;
       document.getElementById('bar-token-b-fill').style.width = `${currentRatioB}%`;
 
+      // 2. Atualizar Posição na Pista de Corrida (Left %)
+      const trackPosA = Math.min(92, Math.max(8, currentRatioA));
+      const trackPosB = Math.min(92, Math.max(8, currentRatioB));
+
+      const runnerA = document.getElementById('runner-token-a');
+      const runnerB = document.getElementById('runner-token-b');
+      if (runnerA) runnerA.style.left = `${trackPosA}%`;
+      if (runnerB) runnerB.style.left = `${trackPosB}%`;
+
+      document.getElementById('runner-pct-a').innerText = `${currentRatioA}%`;
+      document.getElementById('runner-pct-b').innerText = `${currentRatioB}%`;
+
+      // 3. Atualizar Líder da Corrida
+      const raceLeader = document.getElementById('race-leader-text');
       const leadLabel = document.getElementById('leading-label-indicator');
       const leadPct = document.getElementById('leading-pct-indicator');
 
       if (currentRatioA >= 50) {
+        if (raceLeader) raceLeader.innerText = `1º LUGAR: BONK (${deltaA >= 0 ? '+' : ''}${deltaA}% VEL)`;
+        if (raceLeader) raceLeader.style.color = "var(--cyan)";
         leadLabel.innerText = "BONK LEADING";
         leadLabel.style.color = "var(--cyan)";
         leadPct.innerText = `${currentRatioA}%`;
       } else {
+        if (raceLeader) raceLeader.innerText = `1º LUGAR: WIF (${deltaB >= 0 ? '+' : ''}${deltaB}% VEL)`;
+        if (raceLeader) raceLeader.style.color = "var(--purple)";
         leadLabel.innerText = "WIF LEADING";
         leadLabel.style.color = "var(--purple)";
         leadPct.innerText = `${currentRatioB}%`;
       }
 
-      // Recálculo dinâmico de multiplicadores
+      // 4. Multiplicadores
       currentMultiplierA = (1.92 * (100 / Math.max(15, currentRatioA * 1.85))).toFixed(2);
       currentMultiplierB = (1.92 * (100 / Math.max(15, currentRatioB * 1.85))).toFixed(2);
 
@@ -1295,7 +1463,10 @@
       if (multLabelB) multLabelB.innerText = `${currentMultiplierB}x TARGET`;
     }
 
-    function drawChart() {
+    // ===================================================
+    // MOTOR DO GRÁFICO DINÂMICO COM CURVAS DE BÉZIER SUAVES
+    // ===================================================
+    function drawSmoothChart() {
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
@@ -1311,6 +1482,7 @@
       const chartW = w - padLeft - padRight;
       const chartH = h - padTop - padBottom;
 
+      // NÍVEIS
       const yLevels = [20, 40, 60, 80];
       ctx.font = '600 10px Montserrat';
       ctx.fillStyle = '#475569';
@@ -1327,45 +1499,69 @@
         ctx.fillText(`${lvl}%`, padLeft - 10, y + 3);
       });
 
+      // CONVERTER PONTOS
       const coords = ratioHistory.map((val, i) => {
         const x = padLeft + (i / (ratioHistory.length - 1)) * chartW;
         const y = padTop + chartH - ((val - 20) / 60) * chartH;
         return { x, y };
       });
 
-      // GRADIENTE DE FUNDO
+      // GRADIENTE DE FUNDO COM CURVAS BÉZIER
       ctx.beginPath();
       ctx.moveTo(coords[0].x, coords[0].y);
-      for (let i = 1; i < coords.length; i++) ctx.lineTo(coords[i].x, coords[i].y);
+      for (let i = 0; i < coords.length - 1; i++) {
+        const xc = (coords[i].x + coords[i + 1].x) / 2;
+        const yc = (coords[i].y + coords[i + 1].y) / 2;
+        ctx.quadraticCurveTo(coords[i].x, coords[i].y, xc, yc);
+      }
+      ctx.quadraticCurveTo(coords[coords.length - 1].x, coords[coords.length - 1].y, coords[coords.length - 1].x, coords[coords.length - 1].y);
       ctx.lineTo(coords[coords.length - 1].x, padTop + chartH);
       ctx.lineTo(coords[0].x, padTop + chartH);
       ctx.closePath();
 
       const grad = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
-      grad.addColorStop(0, 'rgba(0, 242, 254, 0.22)');
+      grad.addColorStop(0, 'rgba(0, 242, 254, 0.28)');
       grad.addColorStop(1, 'rgba(0, 242, 254, 0.0)');
       ctx.fillStyle = grad;
       ctx.fill();
 
-      // LINHA NÉON
+      // LINHA NÉON ONDULADA
       ctx.beginPath();
       ctx.moveTo(coords[0].x, coords[0].y);
-      for (let i = 1; i < coords.length; i++) ctx.lineTo(coords[i].x, coords[i].y);
-      ctx.strokeStyle = '#00f2fe';
-      ctx.lineWidth = 3;
-      ctx.shadowColor = '#00f2fe';
-      ctx.shadowBlur = 14;
-      ctx.stroke();
+      for (let i = 0; i < coords.length - 1; i++) {
+        const xc = (coords[i].x + coords[i + 1].x) / 2;
+        const yc = (coords[i].y + coords[i + 1].y) / 2;
+        ctx.quadraticCurveTo(coords[i].x, coords[i].y, xc, yc);
+      }
+      ctx.quadraticCurveTo(coords[coords.length - 1].x, coords[coords.length - 1].y, coords[coords.length - 1].x, coords[coords.length - 1].y);
 
-      // PONTO FINAL EM TEMPO REAL
-      const last = coords[coords.length - 1];
-      ctx.beginPath();
-      ctx.arc(last.x, last.y, 4.5, 0, Math.PI * 2);
-      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#00f2fe';
+      ctx.lineWidth = 3.5;
       ctx.shadowColor = '#00f2fe';
       ctx.shadowBlur = 16;
+      ctx.stroke();
+
+      // PONTO FINAL LUMINOSO (AO VIVO)
+      const last = coords[coords.length - 1];
+      ctx.beginPath();
+      ctx.arc(last.x, last.y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = '#00f2fe';
+      ctx.shadowBlur = 20;
       ctx.fill();
       ctx.shadowBlur = 0;
+    }
+
+    // MICRO-PULSAÇÃO DE MERCADO (O GRÁFICO NUNCA FICA RETO)
+    function simulateMicroTick() {
+      // Pequena oscilação natural de trading (+- 1% ou 2%) entre as chamadas da API
+      const tickFluctuation = (Math.random() * 2.4 - 1.2);
+      let nextVal = Math.round(currentRatioA + tickFluctuation);
+      nextVal = Math.min(82, Math.max(18, nextVal));
+
+      ratioHistory.shift();
+      ratioHistory.push(nextVal);
+      drawSmoothChart();
     }
 
     function initDuelRatioChart() {
@@ -1373,11 +1569,11 @@
       if (!canvas) return;
       canvas.width = canvas.parentElement.clientWidth;
       canvas.height = canvas.parentElement.clientHeight;
-      drawChart();
+      drawSmoothChart();
       window.addEventListener('resize', () => {
         canvas.width = canvas.parentElement.clientWidth;
         canvas.height = canvas.parentElement.clientHeight;
-        drawChart();
+        drawSmoothChart();
       });
     }
 
@@ -1392,10 +1588,12 @@
 
       renderBalances();
       initDuelRatioChart();
+      updateRaceAndVisuals();
 
-      // Dispara a sincronização imediatamente e agenda a cada 15 segundos
+      // Sincronização DexScreener + Micro-Pulsações
       syncDexScreenerData();
-      setInterval(syncDexScreenerData, 15000);
+      setInterval(syncDexScreenerData, 15000); // Consulta API a cada 15s
+      setInterval(simulateMicroTick, 2500);    // Micro-ondulação fluida a cada 2.5s
     });
   </script>
 </body>
