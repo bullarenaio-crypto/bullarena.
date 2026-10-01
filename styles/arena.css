@@ -1,432 +1,341 @@
 /* ===================================================
-   BULL ROYALE - ARENA & SHOWDOWN COMPONENT STYLES
+   BULL ROYALE - DUEL RATIO ARENA COMPONENT
+   Visual idêntico ao painel do Duel Ratio
    =================================================== */
 
 .arena-box {
-  background: var(--card-bg);
-  border: 1.5px solid var(--border);
+  background: #080c16;
+  border: 1.5px solid #162035;
   border-radius: 20px;
-  padding: 26px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+  padding: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
   margin-bottom: 38px;
   position: relative;
 }
 
-.arena-pipeline-bar {
+/* CABEÇALHO DO DUEL RATIO */
+.duel-header {
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #141c2c;
   margin-bottom: 20px;
   flex-wrap: wrap;
+  gap: 16px;
 }
 
-.btn-pipeline-tab {
-  background: #0a0e1a;
-  border: 1.5px solid var(--border);
-  color: #94a3b8;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
-  font-size: 12px;
-  padding: 10px 18px;
-  border-radius: 12px;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  transition: all 0.2s ease;
+.duel-title-left {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 14px;
 }
 
-.btn-pipeline-tab:hover {
-  color: #fff;
-  border-color: #334155;
-}
-
-.btn-pipeline-tab.active-room {
-  background: rgba(245, 158, 11, 0.12);
-  border-color: var(--gold);
-  color: var(--gold);
-  box-shadow: 0 0 15px var(--gold-glow);
-}
-
-.arena-tabs-wrap {
+.duel-sol-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #00ffa3, #00d9f5, #9945ff);
+  border-radius: 8px;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  padding: 6px;
+  box-shadow: 0 0 15px rgba(0, 217, 245, 0.4);
 }
 
-.btn-arena-tab {
-  background: #0a0e1a;
-  border: 1.5px solid var(--border);
-  color: #94a3b8;
-  font-family: 'Montserrat', sans-serif;
+.duel-sol-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.duel-titles h2 {
+  font-family: 'Teko', sans-serif;
+  font-size: 32px;
+  line-height: 0.9;
+  letter-spacing: 2px;
+  color: #38bdf8;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.duel-titles p {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #64748b;
   font-weight: 800;
-  font-size: 12px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* TOKENS VS NO TOPO DIREITO */
+.duel-vs-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #050811;
   padding: 8px 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: all 0.2s ease;
-}
-
-.btn-arena-tab.active-tab {
-  background: #1e293b;
-  border-color: var(--cyan);
-  color: var(--cyan);
-}
-
-#round-announcement-banner {
-  display: none;
-  background: rgba(16, 185, 129, 0.2);
-  border: 1.5px solid var(--green);
   border-radius: 12px;
-  padding: 14px 20px;
-  margin-bottom: 20px;
-  text-align: center;
-  animation: popIn 0.3s ease;
+  border: 1px solid #141c2c;
 }
 
-@keyframes popIn {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.arena-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 16px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.tag-tier {
-  background: #0f172a;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  font-size: 11px;
-  font-weight: 900;
-  padding: 6px 14px;
-  border-radius: 6px;
-  letter-spacing: 1px;
-}
-
-.timer-pill {
-  background: #0a0e1a;
-  border: 1px solid var(--cyan);
-  color: var(--cyan);
-  font-size: 12px;
-  font-weight: 900;
-  padding: 5px 16px;
-  border-radius: 20px;
+.duel-token-pill {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-.timer-pill.buffer-active {
-  border-color: var(--pink);
-  color: var(--pink);
-  background: rgba(244, 63, 94, 0.1);
-  animation: pulseAlert 1.2s infinite;
-}
-
-@keyframes pulseAlert {
-  0% { opacity: 1; }
-  50% { opacity: 0.6; }
-  100% { opacity: 1; }
-}
-
-.battle-grid {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 22px;
-  margin-bottom: 24px;
-}
-
-.card-fighter {
-  background: var(--card-inner);
-  border-radius: 16px;
-  padding: 22px;
-  position: relative;
-  transition: transform 0.2s ease;
-}
-
-.card-cyan {
-  border: 2px solid var(--cyan);
-  box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
-}
-
-.card-purple {
-  border: 2px solid var(--purple);
-  box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);
-}
-
-.card-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  font-weight: 900;
-  margin-bottom: 8px;
-}
-
-.pill-rarity {
-  padding: 3px 8px;
-  border-radius: 4px;
-  transform: skewX(-8deg);
-  letter-spacing: 1px;
-}
-
-.pill-cyan { background: var(--cyan); color: #000; }
-.pill-purple { background: var(--purple); color: #fff; }
-
-.avatar-wrap {
-  width: 95px;
-  height: 95px;
-  margin: 8px auto;
+.token-circle-avatar {
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  border: 3px solid #fff;
+  border: 1.5px solid #38bdf8;
   overflow: hidden;
-  background: #141c2e;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  background: #090e1a;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.avatar-wrap img {
+.token-circle-avatar.token-b {
+  border-color: #a855f7;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+}
+
+.token-circle-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.fighter-title {
-  font-family: 'Teko', sans-serif;
-  font-size: 44px;
-  line-height: 1;
-  text-align: center;
-  margin: 2px 0;
-}
-
-.title-cyan { color: var(--cyan); }
-.title-purple { color: var(--purple); }
-
-.fighter-sub {
-  font-size: 11px;
-  color: var(--text-muted);
-  text-align: center;
-  margin-bottom: 14px;
-  font-weight: 700;
-}
-
-.stats-box {
-  background: #04060c;
-  border: 1px solid #141c2c;
-  border-radius: 10px;
-  padding: 8px 12px;
-  margin-bottom: 16px;
-}
-
-.s-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
+.token-meta-name {
   font-size: 12px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
 }
 
-.s-row:not(:last-child) { border-bottom: 1px solid #0d1222; }
-
-.s-lbl {
-  color: var(--text-muted);
+.token-meta-delta {
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 800;
+  color: #10b981;
+}
+
+.token-meta-delta.negative {
+  color: #f43f5e;
+}
+
+.duel-vs-text {
+  font-family: 'Teko', sans-serif;
+  font-size: 20px;
+  color: #475569;
+}
+
+/* ÁREA PRINCIPAL DO GRÁFICO */
+.duel-chart-card {
+  background: #050811;
+  border: 1px solid #141c2c;
+  border-radius: 14px;
+  padding: 20px 20px 10px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* INDICADOR FLUTUANTE "CAT LEADING 68%" */
+.duel-leading-badge {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: rgba(6, 15, 25, 0.95);
+  border: 1.5px solid #00f2fe;
+  border-radius: 8px;
+  padding: 6px 12px;
+  text-align: right;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+  z-index: 5;
+}
+
+.leading-tag {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #38bdf8;
   text-transform: uppercase;
 }
 
-.s-val { font-weight: 900; }
-.s-val.gold { color: var(--gold); font-size: 15px; }
+.leading-val {
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  line-height: 1;
+}
 
-.btn-arcade {
+.leading-val span {
+  color: #10b981;
+  font-size: 13px;
+}
+
+/* CANVAS DO GRÁFICO NÉON */
+.chart-container-box {
   width: 100%;
-  padding: 15px;
+  height: 240px;
+  position: relative;
+}
+
+#duelRatioCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* BARRA DE RÁCIO INFERIOR (IDENTICA À FOTO) */
+.duel-ratio-footer-card {
+  background: #050811;
+  border: 1px solid #141c2c;
+  border-radius: 14px;
+  padding: 16px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ratio-bar-side {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 220px;
+}
+
+.ratio-token-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ratio-token-name {
+  font-size: 12px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.ratio-token-pct {
+  font-size: 18px;
+  font-weight: 900;
+  color: #38bdf8;
+  line-height: 1;
+}
+
+.ratio-token-pct.purple {
+  color: #a855f7;
+}
+
+.ratio-progress-track {
+  flex: 1;
+  height: 10px;
+  background: #0f1629;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid #1e293b;
+}
+
+.ratio-progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+
+.fill-cyan {
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.fill-purple {
+  background: linear-gradient(90deg, #7e22ce, #a855f7);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+/* ÍCONE CENTRAL DE RÁCIO */
+.ratio-center-indicator {
+  text-align: center;
+  padding: 0 10px;
+}
+
+.ratio-icon {
+  font-size: 16px;
+  color: #38bdf8;
+  margin-bottom: 2px;
+}
+
+.ratio-label {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.ratio-sublabel {
+  font-size: 9px;
+  color: #64748b;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* BOTÕES DE APOSTA / DUELO RÁPIDOS */
+.duel-actions-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.btn-duel-wager {
+  padding: 14px;
   border: none;
   border-radius: 10px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
-  transform: skewX(-8deg);
-  user-select: none;
-  transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.2s;
-  display: block;
+  transform: skewX(-6deg);
+  transition: all 0.15s ease;
 }
 
-.btn-arcade-cyan {
-  background: var(--cyan);
-  color: #02141c;
-  box-shadow: 0 6px 0 var(--cyan-btn-shadow), 0 10px 20px rgba(56, 189, 248, 0.35);
+.btn-duel-cyan {
+  background: #38bdf8;
+  color: #04111d;
+  box-shadow: 0 4px 0 #0284c7, 0 0 15px rgba(56, 189, 248, 0.3);
 }
 
-.btn-arcade-cyan:active {
-  transform: skewX(-8deg) translateY(5px);
-  box-shadow: 0 1px 0 var(--cyan-btn-shadow);
+.btn-duel-cyan:active {
+  transform: skewX(-6deg) translateY(3px);
+  box-shadow: 0 1px 0 #0284c7;
 }
 
-.btn-arcade-purple {
-  background: var(--purple);
-  color: #fff;
-  box-shadow: 0 6px 0 var(--purple-btn-shadow), 0 10px 20px rgba(168, 85, 247, 0.35);
+.btn-duel-purple {
+  background: #a855f7;
+  color: #ffffff;
+  box-shadow: 0 4px 0 #7e22ce, 0 0 15px rgba(168, 85, 247, 0.3);
 }
 
-.btn-arcade-purple:active {
-  transform: skewX(-8deg) translateY(5px);
-  box-shadow: 0 1px 0 var(--purple-btn-shadow);
+.btn-duel-purple:active {
+  transform: skewX(-6deg) translateY(3px);
+  box-shadow: 0 1px 0 #7e22ce;
 }
 
-.btn-arcade.btn-locked {
-  background: #334155 !important;
-  color: #94a3b8 !important;
-  box-shadow: 0 4px 0 #1e293b !important;
-  cursor: not-allowed !important;
-  transform: none !important;
-}
-
-.vs-wrap { text-align: center; }
-
-.vs-badge {
-  width: 58px;
-  height: 58px;
-  background: var(--gold);
-  border: 3px solid #fff;
-  border-radius: 14px;
-  transform: rotate(45deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 10px;
-  box-shadow: 0 0 25px var(--gold-glow);
-}
-
-.vs-badge span {
-  transform: rotate(-45deg);
-  font-family: 'Teko', sans-serif;
-  font-size: 30px;
-  font-weight: 700;
-  color: #000;
-}
-
-.vs-text {
-  font-size: 11px;
-  font-weight: 900;
-  color: var(--text-muted);
-  line-height: 1.3;
-}
-
-.vs-text span { color: var(--gold); }
-
-.tug-zone {
-  background: var(--card-inner);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-bottom: 24px;
-}
-
-.tug-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  font-weight: 900;
-  margin-bottom: 6px;
-}
-
-.tug-track {
-  width: 100%;
-  height: 16px;
-  background: var(--purple);
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid #000;
-}
-
-.tug-fill {
-  width: 58%;
-  height: 100%;
-  background: var(--cyan);
-  transition: width 0.4s ease;
-}
-
-.history-box {
-  border-top: 1px solid var(--border);
-  padding-top: 18px;
-}
-
-.history-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.history-title {
-  font-family: 'Teko', sans-serif;
-  font-size: 22px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #f1f5f9;
-}
-
-.history-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.history-row {
-  background: #050812;
-  border: 1px solid #141c2c;
-  border-radius: 10px;
-  padding: 10px 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.history-match {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 800;
-}
-
-.badge-winner {
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid var(--green);
-  color: var(--green);
-  font-size: 9px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-weight: 900;
-}
-
-.history-stats {
-  display: flex;
-  gap: 14px;
-  color: #94a3b8;
-  font-weight: 700;
-}
-
-.history-stats strong { color: #fff; }
-
-@media (max-width: 768px) {
-  .battle-grid { grid-template-columns: 1fr; }
+@media (max-width: 680px) {
+  .duel-header { flex-direction: column; align-items: flex-start; }
+  .duel-vs-top { width: 100%; justify-content: space-between; }
+  .duel-ratio-footer-card { flex-direction: column; }
+  .ratio-bar-side { width: 100%; }
+  .duel-actions-row { grid-template-columns: 1fr; }
 }
