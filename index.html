@@ -221,7 +221,20 @@
       white-space: nowrap;
     }
 
-    .protocol-pill.xp-pill { border-color: rgba(0, 242, 254, 0.4); box-shadow: 0 0 10px var(--cyan-glow); }
+    /* XP PILL CLICÁVEL COM EFEITO HOVER */
+    .protocol-pill.xp-pill {
+      border-color: rgba(0, 242, 254, 0.4);
+      box-shadow: 0 0 10px var(--cyan-glow);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .protocol-pill.xp-pill:hover {
+      background: rgba(0, 242, 254, 0.15);
+      border-color: var(--cyan);
+      transform: translateY(-1px);
+    }
+
     .btn-pill-action { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyan); font-weight: 900; font-size: 9px; padding: 2px 5px; border-radius: 4px; cursor: pointer; }
     .btn-pill-action:hover { background: var(--cyan); color: #020612; }
     .btn-pill-reset { background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.3); color: var(--pink); font-weight: 900; font-size: 9px; padding: 2px 5px; border-radius: 4px; cursor: pointer; }
@@ -839,6 +852,115 @@
       box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
     }
 
+    /* ===================================================
+       NOVO MODAL: USER BETS & PROTOCOL XP LEDGER
+       =================================================== */
+    .xp-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 16px 0;
+      text-align: center;
+    }
+
+    .xp-summary-card {
+      background: #030610;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 6px;
+    }
+
+    .xp-summary-label {
+      font-size: 8px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .xp-summary-val {
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .user-bets-list-container {
+      max-height: 250px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 14px 0 6px;
+      padding-right: 4px;
+    }
+
+    .user-bets-list-container::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .user-bets-list-container::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .bet-history-card {
+      background: #030610;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s ease;
+    }
+
+    .bet-history-card:hover {
+      border-color: var(--cyan);
+      background: rgba(0, 242, 254, 0.03);
+    }
+
+    .bet-card-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bet-asset-tag {
+      font-size: 11px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .bet-meta-sub {
+      font-size: 9px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .bet-card-right {
+      text-align: right;
+    }
+
+    .bet-xp-gain-badge {
+      font-size: 10px;
+      font-weight: 900;
+      color: var(--green);
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+
+    .no-bets-empty-state {
+      text-align: center;
+      padding: 24px 10px;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
     /* MODAL DE EXECUÇÃO DE POSIÇÃO */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(2, 4, 10, 0.9); backdrop-filter: blur(8px); z-index: 99999; align-items: center; justify-content: center; padding: 16px; }
     .modal-box { background: #060b17; border: 1.5px solid var(--cyan); border-radius: 16px; width: 100%; max-width: 420px; padding: 24px; box-shadow: 0 0 40px var(--cyan-glow); position: relative; }
@@ -952,9 +1074,11 @@
             <span>📊</span> MARKETS HUB
           </button>
 
-          <div class="protocol-pill xp-pill" translate="no">
+          <!-- BOTÃO XP CLICÁVEL QUE ABRE O HISTÓRICO -->
+          <div class="protocol-pill xp-pill" onclick="openXPModal()" title="Click to view your allocations and Protocol XP ledger" translate="no">
             <span style="color: var(--cyan); font-size: 9px;">XP:</span>
             <span id="user-battle-xp" style="font-weight:900;">0.00</span>
+            <span style="font-size:9px; color:var(--cyan); margin-left:2px;">↗</span>
           </div>
 
           <div class="protocol-pill" translate="no">
@@ -1345,7 +1469,7 @@
             Every capital allocation directly mints Protocol XP at a 1:1 ratio with native SOL.<br>
             • <strong>1.00 SOL Allocated = 1.00 Protocol XP</strong><br>
             • Fractional amounts mint fractional XP (e.g. 0.20 SOL = +0.20 XP, 2.50 SOL = +2.50 XP).<br>
-            XP accumulates permanently in your connected wallet and unlocks future governance rights and fee tier discounts.
+            XP accumulates permanently in your connected wallet and unlocks future governance rights and fee tier discounts. Click on the XP badge in the navbar to review your full ledger!
           </div>
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
@@ -1380,6 +1504,55 @@
     </footer>
   </div>
 
+  <!-- ===================================================
+       NOVO MODAL: USER ALLOCATIONS & PROTOCOL XP LEDGER
+       =================================================== -->
+  <div id="xp-modal-overlay" class="modal-overlay" onclick="closeXPModal(event)">
+    <div class="modal-box" translate="no" onclick="event.stopPropagation()" style="max-width: 480px;">
+      <button class="modal-close" onclick="closeXPModal()">✕</button>
+      <div class="modal-head">
+        <div class="modal-avatar" style="background:rgba(0,242,254,0.1); border-color:var(--cyan); display:flex; align-items:center; justify-content:center;">
+          <span style="font-size:18px;">💎</span>
+        </div>
+        <div class="modal-title-box">
+          <h3>PROTOCOL XP & ALLOCATION LEDGER</h3>
+          <span style="font-size:10px; color:var(--text-muted); font-weight:800;">AUTONOMOUS ON-CHAIN ACTIVITY TRACKER</span>
+        </div>
+      </div>
+
+      <!-- CARDS DE RESUMO DE XP -->
+      <div class="xp-summary-grid">
+        <div class="xp-summary-card">
+          <div class="xp-summary-label">TOTAL XP</div>
+          <div class="xp-summary-val" style="color:var(--cyan);" id="modal-summary-total-xp">0.00</div>
+        </div>
+        <div class="xp-summary-card">
+          <div class="xp-summary-label">TOTAL ALLOCATED</div>
+          <div class="xp-summary-val" style="color:#fff;" id="modal-summary-total-sol">0.00 SOL</div>
+        </div>
+        <div class="xp-summary-card">
+          <div class="xp-summary-label">POSITIONS</div>
+          <div class="xp-summary-val" style="color:var(--green);" id="modal-summary-count">0</div>
+        </div>
+      </div>
+
+      <div style="font-size:10px; color:var(--text-muted); font-weight:800; text-transform:uppercase; margin-bottom:8px; display:flex; justify-content:space-between;">
+        <span>RECENT ALLOCATIONS</span>
+        <span style="color:var(--cyan);">RATE: 1.00 SOL = 1.00 XP</span>
+      </div>
+
+      <!-- LISTA DINÂMICA DE APOSTAS -->
+      <div id="user-bets-list-box" class="user-bets-list-container">
+        <!-- RENDERIZADO VIA JAVASCRIPT -->
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; border-top:1px solid #141f36; padding-top:12px;">
+        <button type="button" class="btn-copy-address" onclick="clearUserBets()">🗑️ CLEAR HISTORY</button>
+        <button type="button" class="btn-copy-address" style="color:#fff; border-color:var(--cyan);" onclick="closeXPModal()">CLOSE LEDGER</button>
+      </div>
+    </div>
+  </div>
+
   <!-- WALLET SELECTOR MODAL -->
   <div id="wallet-modal-overlay" class="modal-overlay" onclick="closeWalletModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()">
@@ -1395,7 +1568,6 @@
       </div>
 
       <div class="wallet-options-list">
-        <!-- PHANTOM -->
         <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('phantom')">
           <div class="wallet-opt-left">
             <div class="wallet-opt-icon">🟣</div>
@@ -1407,7 +1579,6 @@
           <span id="detect-tag-phantom" class="wallet-detect-tag detect-installed">DETECTING...</span>
         </button>
 
-        <!-- SOLFLARE -->
         <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('solflare')">
           <div class="wallet-opt-left">
             <div class="wallet-opt-icon">🔥</div>
@@ -1419,7 +1590,6 @@
           <span id="detect-tag-solflare" class="wallet-detect-tag detect-installed">DETECTING...</span>
         </button>
 
-        <!-- BACKPACK -->
         <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('backpack')">
           <div class="wallet-opt-left">
             <div class="wallet-opt-icon">🎒</div>
@@ -1431,7 +1601,6 @@
           <span id="detect-tag-backpack" class="wallet-detect-tag detect-installed">DETECTING...</span>
         </button>
 
-        <!-- OKX WALLET -->
         <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('okx')">
           <div class="wallet-opt-left">
             <div class="wallet-opt-icon">⬛</div>
@@ -1609,7 +1778,7 @@
     </div>
   </div>
 
-  <!-- POSITION EXECUTION MODAL (COM PREVIEW DE XP REWARD) -->
+  <!-- POSITION EXECUTION MODAL -->
   <div id="stake-modal-overlay" class="modal-overlay" onclick="closeStakeModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeStakeModal()">✕</button>
@@ -1646,7 +1815,6 @@
           <span style="color:var(--text-muted);">Estimated Settlement Return:</span>
           <span class="cyan"><strong id="modal-est-payout">0.00</strong> SOL</span>
         </div>
-        <!-- PREVIEW DE XP REWARD 1:1 -->
         <div class="modal-summary-row">
           <span style="color:var(--text-muted);">Protocol XP Reward:</span>
           <span style="color:var(--cyan); font-weight:800;">+<strong id="modal-est-xp">0.20</strong> XP (1:1 SOL)</span>
@@ -1671,9 +1839,71 @@
     let testCredits = localStorage.getItem('bull_credits') ? parseFloat(localStorage.getItem('bull_credits')) : 1000.00;
     let userXP = localStorage.getItem('bull_xp') ? parseFloat(localStorage.getItem('bull_xp')) : 0.00;
 
+    // BANCO DE APOSTAS DO USUÁRIO
+    let userBets = localStorage.getItem('bull_user_bets') ? JSON.parse(localStorage.getItem('bull_user_bets')) : [];
+
     // ESTADO DA CARTEIRA
     let connectedWallet = localStorage.getItem('bull_wallet_address') || null;
     let connectedWalletProvider = localStorage.getItem('bull_wallet_provider') || null;
+
+    // ===================================================
+    // GERENCIADOR DE PROTOCOL XP & HISTÓRICO DE APOSTAS
+    // ===================================================
+    function openXPModal() {
+      renderXPLedger();
+      document.getElementById('xp-modal-overlay').style.display = 'flex';
+    }
+
+    function closeXPModal(e) {
+      if (e && e.target !== document.getElementById('xp-modal-overlay') && !e.target.classList.contains('modal-close')) return;
+      document.getElementById('xp-modal-overlay').style.display = 'none';
+    }
+
+    function renderXPLedger() {
+      document.getElementById('modal-summary-total-xp').innerText = userXP.toFixed(2);
+
+      const totalSol = userBets.reduce((acc, curr) => acc + (curr.amount || 0), 0);
+      document.getElementById('modal-summary-total-sol').innerText = `${totalSol.toFixed(2)} SOL`;
+      document.getElementById('modal-summary-count').innerText = userBets.length;
+
+      const listBox = document.getElementById('user-bets-list-box');
+      if (userBets.length === 0) {
+        listBox.innerHTML = `
+          <div class="no-bets-empty-state">
+            ⚡ No active allocations found in this session.<br>
+            Execute positions in any live arena to start accumulating Protocol XP!
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      userBets.slice().reverse().forEach(bet => {
+        html += `
+          <div class="bet-history-card">
+            <div class="bet-card-left">
+              <div>
+                <div class="bet-asset-tag">ALLOCATION • $${bet.asset}</div>
+                <div class="bet-meta-sub">${bet.epoch} • Target: ${bet.multiplier.toFixed(2)}x • ${bet.timestamp}</div>
+              </div>
+            </div>
+            <div class="bet-card-right">
+              <div class="bet-xp-gain-badge">+${bet.xpEarned} XP</div>
+              <div style="font-size:10px; font-weight:800; color:#fff;">${bet.amount.toFixed(2)} SOL ➔ <span style="color:var(--cyan);">+${bet.estPayout} SOL</span></div>
+            </div>
+          </div>
+        `;
+      });
+      listBox.innerHTML = html;
+    }
+
+    function clearUserBets() {
+      if (confirm("Are you sure you want to clear your local allocation history? (Your Protocol XP total will remain intact)")) {
+        userBets = [];
+        localStorage.removeItem('bull_user_bets');
+        renderXPLedger();
+      }
+    }
 
     // ===================================================
     // GERENCIADOR DE CARTEIRAS WEB3 (CONNECT & DISCONNECT)
@@ -2117,8 +2347,8 @@
       const val = parseFloat(document.getElementById('input-stake-amount').value);
 
       if (!val || isNaN(val)) return alert("Please enter a valid amount!");
-      if (val < MIN_WAGER) return alert(`⚠️️ Minimum capital allocation: ${MIN_WAGER.toFixed(2)} SOL!`);
-      if (val > MAX_WAGER) return alert(`⚠️️ Maximum capital allocation: ${MAX_WAGER.toFixed(2)} SOL per transaction!`);
+      if (val < MIN_WAGER) return alert(`⚠️ Minimum capital allocation: ${MIN_WAGER.toFixed(2)} SOL!`);
+      if (val > MAX_WAGER) return alert(`⚠️ Maximum capital allocation: ${MAX_WAGER.toFixed(2)} SOL per transaction!`);
       if (val > testCredits) return alert(`Insufficient Demo Liquidity! You have ${testCredits.toFixed(2)} SOL.`);
 
       // Subtrai crédito e credita XP na exata paridade 1 SOL = 1 XP
@@ -2126,12 +2356,27 @@
       userXP += val;
       localStorage.setItem('bull_credits', testCredits);
       localStorage.setItem('bull_xp', userXP);
-      renderBalances();
 
+      // SALVA O REGISTRO COMPLETO DA APOSTA NO LEDGER DO USUÁRIO
+      const newBet = {
+        id: 'BULL-' + Math.floor(1000 + Math.random() * 9000),
+        asset: selectedFighter,
+        amount: val,
+        multiplier: parseFloat(currentActiveMult),
+        estPayout: (val * currentActiveMult).toFixed(2),
+        xpEarned: val.toFixed(2),
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        epoch: ARENA_CONFIG[currentArenaMode].name
+      };
+
+      userBets.push(newBet);
+      localStorage.setItem('bull_user_bets', JSON.stringify(userBets));
+
+      renderBalances();
       document.getElementById('stake-modal-overlay').style.display = 'none';
 
       const earnedXP = val.toFixed(2);
-      alert(`🎯 POSITION EXECUTED SUCCESSFULLY!\n\nAsset: $${selectedFighter}\nAllocated: ${val.toFixed(2)} SOL\nTarget Multiplier: ${parseFloat(currentActiveMult).toFixed(2)}x\nEst. Settlement Return: +${(val * currentActiveMult).toFixed(2)} SOL\n\n⚡ PROTOCOL XP EARNED: +${earnedXP} XP\n📊 New Total XP Balance: ${userXP.toFixed(2)} XP\n(Rate: 1.00 SOL = 1.00 Protocol XP)`);
+      alert(`🎯 POSITION EXECUTED SUCCESSFULLY!\n\nAsset: $${selectedFighter}\nAllocated: ${val.toFixed(2)} SOL\nTarget Multiplier: ${parseFloat(currentActiveMult).toFixed(2)}x\nEst. Settlement Return: +${(val * currentActiveMult).toFixed(2)} SOL\n\n⚡ PROTOCOL XP EARNED: +${earnedXP} XP\n📊 New Total XP Balance: ${userXP.toFixed(2)} XP\n(Rate: 1.00 SOL = 1.00 Protocol XP)\n\nTip: Click the 'XP' badge in the navigation bar anytime to inspect your active allocations!`);
     }
 
     function toggleFaq(el) {
@@ -2246,6 +2491,7 @@
       if (multLabelB) multLabelB.innerText = `${currentMultiplierB}x TARGET`;
     }
 
+    // SMOOTH BÉZIER SPLINES CHART
     function drawSmoothChart() {
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
