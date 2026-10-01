@@ -5,65 +5,676 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="google" content="notranslate">
 
-  <!-- PRELOAD LOGO EMBLEM -->
   <link rel="preload" as="image" href="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png" fetchpriority="high">
 
-  <!-- SEO & SOCIAL SHARING -->
-  <title>Bull Royale • The Liquidity Warfare Protocol on Solana</title>
-  <meta name="description" content="Predict token momentum, command on-chain volume and ignite live candles. Settle 30-minute turbo rounds, 1-hour flash duels and 24-hour daily royales directly in $SOL with DexScreener oracles.">
+  <title>Bull Royale • Duel Ratio Arena on Solana</title>
+  <meta name="description" content="Predict token velocity and real-time liquidity ratio strength between top Solana contenders.">
 
-  <!-- FAVICON -->
   <link rel="icon" type="image/png" href="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png">
   <link rel="apple-touch-icon" href="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png">
-
-  <!-- OPEN GRAPH / SOCIAL -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.bullarenaa.io/">
-  <meta property="og:title" content="Bull Royale • Liquidity Warfare Protocol">
-  <meta property="og:description" content="1-Hour Flash Duels & 24-Hour Daily Royales settled in native $SOL. Powered by Solana Blinks on X, Telegram Bot, autonomous PDA vaults, and DexScreener oracles.">
-  <meta property="og:image" content="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png">
-
-  <!-- TWITTER CARDS -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@bullarenaio">
-  <meta name="twitter:title" content="Bull Royale • Liquidity Warfare on Solana">
-  <meta name="twitter:description" content="Predict token velocity, ignite on-chain market candles, execute directly via X Blinks and Telegram, and claim instant $SOL payouts.">
-  <meta name="twitter:image" content="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png">
 
   <!-- GOOGLE FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,900&family=Teko:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Teko:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- PROTEÇÃO DE TAMANHO IMEDIATA (EVITA ELEMENTOS GIGANTES) -->
-  <style>
-    body { background-color: #060810; color: #fff; margin: 0; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
-    img { max-width: 100%; height: auto; }
-    .hero-emblem-frame { width: 125px; height: 125px; margin: 0 auto 18px; }
-    .hero-bull-emblem { width: 100%; height: 100%; object-fit: contain; }
-    .brand-icon { width: 32px; height: 32px; }
-  </style>
-
-  <!-- CSS MODULAR EXTERNO -->
-  <link rel="stylesheet" href="./styles/style.css">
-  <link rel="stylesheet" href="./styles/arena.css">
-
-  <!-- SOLANA WEB3 SDK CDN -->
+  <!-- SOLANA WEB3 SDK -->
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #040711;
+      --card-bg: #090e1c;
+      --card-inner: #050813;
+      --border: #141c2e;
+      --cyan: #00f2fe;
+      --cyan-glow: rgba(0, 242, 254, 0.35);
+      --purple: #a855f7;
+      --purple-glow: rgba(168, 85, 247, 0.35);
+      --green: #10b981;
+      --pink: #f43f5e;
+      --gold: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.35);
+      --text-muted: #64748b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      background-image: radial-gradient(ellipse at 50% 10%, #0d1629 0%, #050813 60%, var(--bg) 100%);
+      font-family: 'Montserrat', sans-serif;
+      color: #ffffff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* TRAVA DE TAMANHO PARA IMAGENS */
+    img { max-width: 100%; height: auto; display: block; }
+
+    .wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 20px 60px;
+    }
+
+    /* NAVBAR */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(9, 14, 28, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 16px;
+      margin-bottom: 24px;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: #0f172a;
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 3px;
+    }
+
+    .brand-title {
+      font-family: 'Teko', sans-serif;
+      font-size: 26px;
+      letter-spacing: 2px;
+      line-height: 1;
+      color: #fff;
+    }
+
+    .brand-title span { color: var(--gold); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fake-credits-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #060914;
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .fake-credits-pill.xp-pill {
+      border-color: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan-glow);
+    }
+
+    .btn-fake-action {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 9px;
+      padding: 3px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn-fake-reset {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      font-weight: 900;
+      font-size: 9px;
+      padding: 3px 5px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn-wallet {
+      background: #6d28d9;
+      color: #fff;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 10px;
+      padding: 7px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 0 #4c1d95;
+      transform: skewX(-6deg);
+    }
+
+    .btn-wallet.connected {
+      background: #059669;
+      box-shadow: 0 2px 0 #047857;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .hero-emblem-frame {
+      width: 105px;
+      height: 105px;
+      margin: 0 auto 16px;
+      background: #090e1c;
+      border: 2px solid var(--gold);
+      border-radius: 18px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px var(--gold-glow);
+    }
+
+    .badge-slogan {
+      display: inline-block;
+      background: #070b17;
+      border: 1px solid var(--border);
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2.5px;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-family: 'Teko', sans-serif;
+      font-size: 64px;
+      line-height: 0.95;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span { color: var(--gold); }
+
+    .hero-sub {
+      font-size: 13px;
+      color: #94a3b8;
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    /* ===================================================
+       DUEL RATIO ARENA (DESIGN FIEL À IMAGEM)
+       =================================================== */
+    .duel-ratio-arena-wrapper {
+      background: #050813;
+      border: 1.5px solid #141d30;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+      margin-bottom: 40px;
+    }
+
+    /* CABEÇALHO DO DUEL RATIO */
+    .duel-ratio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #101626;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .duel-ratio-brand-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .solana-badge-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #00ffa3, #00d9f5, #9945ff);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(0, 217, 245, 0.4);
+      padding: 6px;
+    }
+
+    .solana-badge-icon svg {
+      width: 100%;
+      height: 100%;
+      fill: #000;
+    }
+
+    .duel-ratio-text-title h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .duel-ratio-text-title h2 span { color: var(--cyan); }
+
+    .duel-ratio-text-title p {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      color: #64748b;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    /* TOPO TOKENS VS */
+    .duel-ratio-tokens-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #03050c;
+      border: 1px solid #121929;
+      padding: 6px 14px;
+      border-radius: 12px;
+    }
+
+    .duel-contender-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .token-head-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid var(--cyan);
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+      overflow: hidden;
+      background: #090e1a;
+    }
+
+    .token-head-avatar.b-side {
+      border-color: var(--purple);
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+    }
+
+    .token-head-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .token-head-name {
+      font-size: 12px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .token-head-change {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--green);
+    }
+
+    .vs-tag-center {
+      font-family: 'Teko', sans-serif;
+      font-size: 20px;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    /* CARD DO GRÁFICO */
+    .duel-chart-viewport {
+      background: #03050c;
+      border: 1px solid #101626;
+      border-radius: 14px;
+      padding: 24px 16px 14px;
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    /* BADGE CAT LEADING 68% */
+    .badge-leading-indicator {
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      background: rgba(4, 8, 18, 0.95);
+      border: 1px solid var(--cyan);
+      border-radius: 6px;
+      padding: 6px 12px;
+      text-align: right;
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+      z-index: 5;
+    }
+
+    .badge-leading-indicator .lbl {
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .badge-leading-indicator .val {
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      line-height: 1;
+    }
+
+    .badge-leading-indicator .val span {
+      color: var(--green);
+      font-size: 12px;
+    }
+
+    .chart-canvas-box {
+      width: 100%;
+      height: 240px;
+      position: relative;
+    }
+
+    #ratioCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* BARRA DE RÁCIO INFERIOR */
+    .duel-ratio-bottom-card {
+      background: #03050c;
+      border: 1px solid #101626;
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .ratio-col-side {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .ratio-col-side.right-side {
+      justify-content: flex-end;
+    }
+
+    .ratio-col-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ratio-col-name {
+      font-size: 12px;
+      font-weight: 900;
+      color: #cbd5e1;
+    }
+
+    .ratio-col-pct {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--cyan);
+      line-height: 1;
+    }
+
+    .ratio-col-pct.purple {
+      color: var(--purple);
+    }
+
+    .ratio-track-bar {
+      flex: 1;
+      max-width: 160px;
+      height: 10px;
+      background: #0d1222;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid #1e293b;
+    }
+
+    .ratio-fill-bar {
+      height: 100%;
+      border-radius: 5px;
+      transition: width 0.4s ease;
+    }
+
+    .fill-cyan-glow {
+      background: linear-gradient(90deg, #0284c7, var(--cyan));
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+    }
+
+    .fill-purple-glow {
+      background: linear-gradient(90deg, #7e22ce, var(--purple));
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+
+    .ratio-center-symbol {
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .ratio-center-symbol .icon {
+      font-size: 16px;
+      color: var(--cyan);
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .ratio-center-symbol .title {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+
+    .ratio-center-symbol .sub {
+      font-size: 9px;
+      color: #64748b;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    /* BOTÕES DE APOSTA / PREDIÇÃO */
+    .duel-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .btn-action-wager {
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transform: skewX(-6deg);
+      transition: all 0.15s ease;
+    }
+
+    .btn-action-cyan {
+      background: var(--cyan);
+      color: #03101c;
+      box-shadow: 0 4px 0 #0284c7, 0 0 20px rgba(0, 242, 254, 0.35);
+    }
+
+    .btn-action-cyan:active {
+      transform: skewX(-6deg) translateY(3px);
+      box-shadow: 0 1px 0 #0284c7;
+    }
+
+    .btn-action-purple {
+      background: var(--purple);
+      color: #ffffff;
+      box-shadow: 0 4px 0 #7e22ce, 0 0 20px rgba(168, 85, 247, 0.35);
+    }
+
+    .btn-action-purple:active {
+      transform: skewX(-6deg) translateY(3px);
+      box-shadow: 0 1px 0 #7e22ce;
+    }
+
+    /* SEÇÕES DE INFORMAÇÕES */
+    .content-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 26px;
+      margin-bottom: 30px;
+    }
+
+    .sec-title {
+      font-family: 'Teko', sans-serif;
+      font-size: 40px;
+      letter-spacing: 2px;
+      line-height: 1;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sec-title span { color: var(--gold); }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .step-card {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .step-card h3 {
+      font-family: 'Teko', sans-serif;
+      font-size: 22px;
+      color: var(--gold);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .step-card p {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer a { color: #fff; text-decoration: none; font-weight: 700; margin-left: 12px; }
+    footer a:hover { color: var(--gold); }
+
+    /* MODAL DE APOSTA */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 6, 14, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-box {
+      background: #080d1c;
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 420px;
+      padding: 22px;
+      box-shadow: 0 0 35px var(--gold-glow);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: #64748b;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .modal-close:hover { color: #fff; }
+
+    .modal-input {
+      width: 100%;
+      background: #030611;
+      border: 1px solid var(--border);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin: 14px 0;
+      outline: none;
+    }
+
+    @media (max-width: 768px) {
+      .steps-grid { grid-template-columns: 1fr; }
+      .duel-ratio-header { flex-direction: column; align-items: flex-start; }
+      .duel-ratio-tokens-box { width: 100%; justify-content: space-between; }
+      .duel-ratio-bottom-card { flex-direction: column; align-items: stretch; }
+      .ratio-col-side { justify-content: space-between; }
+      .ratio-col-side.right-side { justify-content: space-between; }
+      .duel-actions-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 48px; }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- INTRO SPLASH SCREEN -->
-  <div id="splash-screen" translate="no">
-    <div class="splash-emblem-wrap">
-      <img src="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png" alt="Bull Royale Emblem" fetchpriority="high">
-    </div>
-    <div class="splash-title">BULL<span>ROYALE</span></div>
-    <div class="splash-loader-bar">
-      <div class="splash-loader-fill"></div>
-    </div>
-    <div class="splash-status-sub">INITIALIZING PROTOCOL VAULT...</div>
-  </div>
 
   <div class="wrapper">
     <!-- NAVBAR -->
@@ -76,619 +687,161 @@
       </a>
 
       <div class="nav-actions">
-        <!-- BATTLE XP BADGE -->
         <div class="fake-credits-pill xp-pill" translate="no">
-          <span class="lbl" style="color: var(--cyan);">BATTLE XP:</span>
-          <span class="val" id="user-battle-xp">0.00</span>
+          <span style="color: var(--cyan); font-size: 9px;">XP:</span>
+          <span id="user-battle-xp" style="font-weight:900;">0.00</span>
         </div>
 
-        <!-- TEST CREDITS PANEL -->
         <div class="fake-credits-pill" translate="no">
-          <span class="lbl">TEST:</span>
-          <span class="val" id="fake-balance-val" style="color: var(--gold);">1,000.00</span>
-          <button type="button" class="btn-fake-action" onclick="addFakeCredits(500)" title="Add 500 Credits">+500</button>
-          <button type="button" class="btn-fake-reset" onclick="resetFakeCredits()" title="Reset to Initial Balance">✕</button>
+          <span style="color: var(--text-muted); font-size: 9px;">TEST:</span>
+          <span id="fake-balance-val" style="color: var(--gold); font-weight:900;">1,000.00</span>
+          <button type="button" class="btn-fake-action" onclick="addCredits(500)">+500</button>
+          <button type="button" class="btn-fake-reset" onclick="resetCredits()">✕</button>
         </div>
 
-        <div class="social-nav-group" translate="no">
-          <a href="https://x.com/bullarenaio" target="_blank" rel="noopener noreferrer" class="btn-social-icon" title="Follow on X (Twitter)">
-            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </a>
-          <a href="https://t.me/bullRoyalee_io" target="_blank" rel="noopener noreferrer" class="btn-social-icon tg-btn" title="Join Telegram Community">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-          </a>
-        </div>
-
-        <a href="#arena" class="btn-nav-action" translate="no">BETA ARENA</a>
-
-        <div class="wallet-container">
-          <div id="wallet-balance-pill" class="wallet-balance-pill" translate="no">
-            <span class="sol-b"><strong id="val-sol">0.00</strong> SOL</span>
-          </div>
-          <button id="btn-wallet" class="btn-wallet" translate="no" onclick="manageWallet()">CONNECT WALLET</button>
-        </div>
+        <button id="btn-wallet" class="btn-wallet" onclick="connectWallet()" translate="no">CONNECT WALLET</button>
       </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <header class="hero">
       <div class="hero-emblem-frame">
-        <img src="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png" alt="Bull Royale Crest" class="hero-bull-emblem" fetchpriority="high">
+        <img src="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png" alt="Bull Royale Crest">
       </div>
       <div class="badge-slogan" translate="no">THE LIQUIDITY WARFARE PROTOCOL</div>
       <h1 class="hero-title" translate="no">BULL <span>ROYALE</span></h1>
       <p class="hero-sub">
-        Predict token momentum, command on-chain trading velocity, and ignite live market candles. Settle 30-minute turbo rounds, 1-hour flash duels and 24-hour daily royales directly in $SOL with DexScreener oracles, anti-snipe vaults, and automated protocol operations.
+        Predict real-time strength and liquidity momentum between top Solana contenders. Instant on-chain payouts settled in native $SOL.
       </p>
     </header>
 
-    <!-- METRICS BAR -->
-    <section class="metrics-bar">
-      <div class="metric-col">
-        <div class="metric-label" id="metric-pool-label">ACTIVE DUEL POOL</div>
-        <div class="metric-num gold" id="metric-total-pool" translate="no">245.50 SOL</div>
-      </div>
-      <div class="metric-col">
-        <div class="metric-label">SETTLEMENT ENGINE</div>
-        <div class="metric-num green" translate="no">100% INSTANT $SOL</div>
-      </div>
-      <div class="metric-col">
-        <div class="metric-label">EXECUTION VAULT</div>
-        <div class="metric-num cyan" translate="no">NON-CUSTODIAL PDA</div>
-      </div>
-    </section>
+    <!-- ===================================================
+         DUEL RATIO ARENA (A TELA DA SUA IMAGEM)
+         =================================================== -->
+    <main class="duel-ratio-arena-wrapper">
+      <!-- CABEÇALHO -->
+      <div class="duel-ratio-header">
+        <div class="duel-ratio-brand-box">
+          <div class="solana-badge-icon" title="Solana Network">
+            <svg viewBox="0 0 397 311"><path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zM64.6 3.8C67 1.4 70.3 0 73.8 0h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1L64.6 3.8zM332.4 120.8c-2.4-2.4-5.7-3.8-9.2-3.8H5.8c-5.8 0-8.7 7-4.6 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1l-62.7-62.7z"/></svg>
+          </div>
+          <div class="duel-ratio-text-title">
+            <h2>DUEL <span>RATIO</span></h2>
+            <p>REAL-TIME STRENGTH BETWEEN TWO ASSETS</p>
+          </div>
+        </div>
 
-    <!-- SUPPORTED WALLETS BAR -->
-    <section class="supported-wallets-bar" translate="no">
-      <div class="wallets-bar-label">
-        <span>⚡ SUPPORTED WALLETS:</span>
-      </div>
-      <div class="wallets-grid-pills">
-        <div class="w-pill" onclick="connectProvider('phantom')" title="Connect with Phantom">
-          <span>🟣</span> Phantom
-        </div>
-        <div class="w-pill" onclick="connectProvider('solflare')" title="Connect with Solflare">
-          <span>🔥</span> Solflare
-        </div>
-        <div class="w-pill" onclick="connectProvider('backpack')" title="Connect with Backpack">
-          <span>🎒</span> Backpack
-        </div>
-        <div class="w-pill" onclick="connectProvider('okx')" title="Connect with OKX Wallet">
-          <span>⬛</span> OKX Wallet
-        </div>
-      </div>
-    </section>
+        <div class="duel-ratio-tokens-box">
+          <div class="duel-contender-head">
+            <div class="token-head-avatar">
+              <img id="head-img-a" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Contender A">
+            </div>
+            <div class="token-head-meta">
+              <span class="token-head-name" id="head-name-a">$BONK</span>
+              <span class="token-head-change" id="head-change-a">+12.4%</span>
+            </div>
+          </div>
 
-    <!-- ARENA SHOWDOWN -->
-    <main id="arena" class="arena-box">
-      <!-- PIPELINE TABS -->
-      <div class="arena-pipeline-bar" translate="no">
-        <button id="room-active" class="btn-pipeline-tab active-room" onclick="switchPipelineRoom('active')">
-          <span id="tab-label-active">🟢 LIVE ROOM • DUEL #105 (CLOSING SOON)</span>
+          <span class="vs-tag-center">VS</span>
+
+          <div class="duel-contender-head">
+            <div class="token-head-avatar b-side">
+              <img id="head-img-b" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Contender B">
+            </div>
+            <div class="token-head-meta">
+              <span class="token-head-name" id="head-name-b">$WIF</span>
+              <span class="token-head-change" id="head-change-b">+8.7%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÁREA DO GRÁFICO NÉON -->
+      <div class="duel-chart-viewport">
+        <!-- BADGE FLUTUANTE DA IMAGEM -->
+        <div class="badge-leading-indicator">
+          <span class="lbl" id="leading-label-text">BONK LEADING</span>
+          <span class="val"><strong id="leading-pct-text">68%</strong> <span>▲</span></span>
+        </div>
+
+        <!-- CANVAS DO GRÁFICO -->
+        <div class="chart-canvas-box">
+          <canvas id="ratioCanvas"></canvas>
+        </div>
+      </div>
+
+      <!-- BARRA DE RÁCIO INFERIOR -->
+      <div class="duel-ratio-bottom-card">
+        <!-- LADO A -->
+        <div class="ratio-col-side">
+          <div class="token-head-avatar">
+            <img id="bar-img-a" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Contender A">
+          </div>
+          <div class="ratio-col-text">
+            <span class="ratio-col-name" id="bar-name-a">$BONK</span>
+            <span class="ratio-col-pct" id="bar-pct-a">68%</span>
+          </div>
+          <div class="ratio-track-bar">
+            <div id="bar-fill-a" class="ratio-fill-bar fill-cyan-glow" style="width: 68%;"></div>
+          </div>
+        </div>
+
+        <!-- CENTRO -->
+        <div class="ratio-center-symbol">
+          <div class="icon">⇄</div>
+          <div class="title">RATIO</div>
+          <div class="sub" id="ratio-center-sub">BONK vs WIF</div>
+        </div>
+
+        <!-- LADO B -->
+        <div class="ratio-col-side right-side">
+          <div class="token-head-avatar b-side">
+            <img id="bar-img-b" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Contender B">
+          </div>
+          <div class="ratio-col-text" style="text-align: right;">
+            <span class="ratio-col-name" id="bar-name-b">$WIF</span>
+            <span class="ratio-col-pct purple" id="bar-pct-b">32%</span>
+          </div>
+          <div class="ratio-track-bar">
+            <div id="bar-fill-b" class="ratio-fill-bar fill-purple-glow" style="width: 32%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÕES DE APOSTA / PREDIÇÃO -->
+      <div class="duel-actions-grid">
+        <button class="btn-action-wager btn-action-cyan" onclick="openWagerModal('BONK', 1.72)">
+          BACK BONK (1.72x PAYOUT)
         </button>
-        <button id="room-next" class="btn-pipeline-tab" onclick="switchPipelineRoom('next')">
-          <span id="tab-label-next">🚀 NEXT ROOM • DUEL #106 (OPEN FOR WAGERS)</span>
+        <button class="btn-action-wager btn-action-purple" onclick="openWagerModal('WIF', 2.28)">
+          BACK WIF (2.28x PAYOUT)
         </button>
-      </div>
-
-      <div class="arena-tabs-wrap" translate="no">
-        <button id="tab-30m" class="btn-arena-tab" onclick="switchArenaMode('30m')">
-          <span>🔥 TURBO ARENA (30M)</span>
-        </button>
-        <button id="tab-1h" class="btn-arena-tab active-tab" onclick="switchArenaMode('1h')">
-          <span>⚡ FLASH ARENA (1H)</span>
-        </button>
-        <button id="tab-24h" class="btn-arena-tab" onclick="switchArenaMode('24h')">
-          <span>🏆 DAILY ROYALE (24H)</span>
-        </button>
-      </div>
-
-      <!-- ANNOUNCEMENT BANNER -->
-      <div id="round-announcement-banner">
-        <strong id="round-winner-text" style="color:var(--green); font-size:14px; text-transform:uppercase;"></strong>
-      </div>
-
-      <div class="arena-top">
-        <span class="tag-tier" id="arena-division-tag" translate="no">⚔️ FLASH ARENA • DUEL #105</span>
-        <div class="timer-pill" id="timer-pill-box" translate="no">
-          <span id="timer-icon">⏳</span>
-          <span id="timer-label-text">CLOSES IN:</span>
-          <span id="clock-timer">00h 00m 00s</span>
-          <span id="buffer-badge" style="display:none; font-size:10px; color:var(--pink); font-weight:900;">[15M BUFFER ACTIVE]</span>
-        </div>
-      </div>
-
-      <div class="battle-grid">
-        <!-- FIGHTER A -->
-        <article class="card-fighter card-cyan">
-          <div class="card-meta">
-            <span class="pill-rarity pill-cyan" id="fighter-a-pool-tag" translate="no">FLASH POOL</span>
-            <span style="color:var(--text-muted);" id="fighter-a-oracle-status">LIVE ORACLE</span>
-          </div>
-          <div class="avatar-wrap">
-            <img id="fighter-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Contender A">
-          </div>
-          <h2 class="fighter-title title-cyan" id="fighter-a-name" translate="no">BONK</h2>
-          <p class="fighter-sub" id="fighter-a-sub" translate="no">Solana Ecosystem Flagship</p>
-
-          <div class="stats-box">
-            <div class="s-row">
-              <span class="s-lbl">DexScreener 24h Vol</span>
-              <span class="s-val" id="fighter-a-dex-vol" translate="no">Loading...</span>
-            </div>
-            <div class="s-row">
-              <span class="s-lbl">Total Staked</span>
-              <span class="s-val" id="fighter-a-staked-val" translate="no">142.39 SOL (58%)</span>
-            </div>
-            <div class="s-row">
-              <span class="s-lbl">Dynamic Multiplier</span>
-              <span class="s-val gold" id="fighter-a-multiplier-val" translate="no">1.72x</span>
-            </div>
-          </div>
-
-          <button id="btn-enter-fighter-a" class="btn-arcade btn-arcade-cyan" translate="no" onclick="openStakeModal('A')">ENTER DUEL • BONK</button>
-          
-          <div class="dex-embed-wrapper" style="margin-top: 14px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #000;">
-            <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 10px; background:#070a12; font-size:10px; font-weight:800; color:var(--cyan); border-bottom:1px solid #141c2c;">
-              <span>📊 LIVE DEXSCREENER ORACLE</span>
-              <a id="fighter-a-dex-link" href="https://dexscreener.com/solana/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263" target="_blank" rel="noopener noreferrer" style="color:var(--cyan); text-decoration:none;">EXPAND ↗</a>
-            </div>
-            <iframe 
-              id="fighter-a-dex-iframe"
-              src="https://dexscreener.com/solana/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263?embed=1&theme=dark&trades=0&info=0" 
-              style="width: 100%; height: 260px; border: none; display: block;"
-              loading="lazy">
-            </iframe>
-          </div>
-        </article>
-
-        <!-- CENTER VS -->
-        <div class="vs-wrap">
-          <div class="vs-badge" translate="no"><span>VS</span></div>
-          <div class="vs-text" translate="no">ORACLE<br><span>DexScreener</span><br>SETTLEMENT</div>
-        </div>
-
-        <!-- FIGHTER B -->
-        <article class="card-fighter card-purple">
-          <div class="card-meta">
-            <span class="pill-rarity pill-purple" id="fighter-b-pool-tag" translate="no">FLASH POOL</span>
-            <span style="color:var(--text-muted);" id="fighter-b-oracle-status">LIVE ORACLE</span>
-          </div>
-          <div class="avatar-wrap">
-            <img id="fighter-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Contender B">
-          </div>
-          <h2 class="fighter-title title-purple" id="fighter-b-name" translate="no">WIF</h2>
-          <p class="fighter-sub" id="fighter-b-sub" translate="no">Momentum Challenger</p>
-
-          <div class="stats-box">
-            <div class="s-row">
-              <span class="s-lbl">DexScreener 24h Vol</span>
-              <span class="s-val" id="fighter-b-dex-vol" translate="no">Loading...</span>
-            </div>
-            <div class="s-row">
-              <span class="s-lbl">Total Staked</span>
-              <span class="s-val" id="fighter-b-staked-val" translate="no">103.11 SOL (42%)</span>
-            </div>
-            <div class="s-row">
-              <span class="s-lbl">Dynamic Multiplier</span>
-              <span class="s-val gold" id="fighter-b-multiplier-val" translate="no">2.28x</span>
-            </div>
-          </div>
-
-          <button id="btn-enter-fighter-b" class="btn-arcade btn-arcade-purple" translate="no" onclick="openStakeModal('B')">ENTER DUEL • WIF</button>
-          
-          <div class="dex-embed-wrapper" style="margin-top: 14px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #000;">
-            <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 10px; background:#070a12; font-size:10px; font-weight:800; color:var(--purple); border-bottom:1px solid #141c2c;">
-              <span>📊 LIVE DEXSCREENER ORACLE</span>
-              <a id="fighter-b-dex-link" href="https://dexscreener.com/solana/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm" target="_blank" rel="noopener noreferrer" style="color:var(--purple); text-decoration:none;">EXPAND ↗</a>
-            </div>
-            <iframe 
-              id="fighter-b-dex-iframe"
-              src="https://dexscreener.com/solana/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm?embed=1&theme=dark&trades=0&info=0" 
-              style="width: 100%; height: 260px; border: none; display: block;"
-              loading="lazy">
-            </iframe>
-          </div>
-        </article>
-      </div>
-
-      <!-- TUG OF WAR -->
-      <div class="tug-zone">
-        <div class="tug-labels" translate="no">
-          <span id="tug-label-fighter-a" style="color:var(--cyan);">BONK MOMENTUM: 58% (142.4 SOL)</span>
-          <span id="tug-label-fighter-b" style="color:var(--purple);">WIF MOMENTUM: 42% (103.1 SOL)</span>
-        </div>
-        <div class="tug-track">
-          <div id="tug-fill-bar" class="tug-fill" style="width: 58%;"></div>
-        </div>
-      </div>
-
-      <!-- MY ACTIVE WAGERS -->
-      <div id="my-wagers-box" style="background: rgba(16, 185, 129, 0.08); border: 1.5px solid var(--green); border-radius: 12px; padding: 14px 18px; margin-bottom: 22px; display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-          <span style="font-size: 11px; font-weight: 900; color: var(--green); letter-spacing: 1.5px; text-transform: uppercase;">
-            ✅ YOUR ACTIVE WAGERS IN THIS ROUND
-          </span>
-          <span style="font-size: 10px; color: #94a3b8; font-weight: 800; letter-spacing: 1px;">ON-CHAIN VALIDATED</span>
-        </div>
-        <div id="my-wagers-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
-      </div>
-
-      <!-- SETTLEMENT HISTORY -->
-      <div class="history-box">
-        <div class="history-header">
-          <div class="history-title" id="history-header-title" translate="no">1H ON-CHAIN SETTLED DUELS</div>
-          <span style="font-size:10px; color:var(--text-muted); font-weight:800;" translate="no">ORACLE VERIFIED</span>
-        </div>
-        <div class="history-list" id="history-container" translate="no">
-          <div class="history-row">
-            <div class="history-match">
-              <span style="color:var(--gold);">ROUND #104</span>
-              <span>WIF vs PEPE</span>
-              <span class="badge-winner">SETTLED: WIF (Δ +14.2%)</span>
-            </div>
-            <div class="history-stats">
-              <span>Pool: <strong>88.50 SOL</strong></span>
-              <span>Payout: <strong style="color:var(--gold);">1.85x</strong></span>
-              <span>Distribution: <strong style="color:var(--green);">Instant</strong></span>
-            </div>
-          </div>
-          <div class="history-row">
-            <div class="history-match">
-              <span style="color:var(--gold);">ROUND #103</span>
-              <span>BONK vs POPCAT</span>
-              <span class="badge-winner">SETTLED: BONK (Δ +18.9%)</span>
-            </div>
-            <div class="history-stats">
-              <span>Pool: <strong>112.00 SOL</strong></span>
-              <span>Payout: <strong style="color:var(--gold);">1.62x</strong></span>
-              <span>Distribution: <strong style="color:var(--green);">Instant</strong></span>
-            </div>
-          </div>
-        </div>
       </div>
     </main>
 
     <!-- HOW IT WORKS -->
-    <section class="content-card-section">
-      <div class="sec-header">
-        <div class="sec-badge" translate="no">TACTICAL OVERVIEW</div>
-        <h2 class="sec-title" translate="no">HOW <span>WARFARE</span> EXECUTES</h2>
-        <p class="sec-sub">
-          A high-precision, liquidity duel arena built natively for Solana traders and high-conviction communities across 1-hour fast flashes and 24-hour grand royales.
-        </p>
-      </div>
-
+    <section class="content-box">
+      <h2 class="sec-title">HOW <span>WARFARE</span> EXECUTES</h2>
       <div class="steps-grid">
         <div class="step-card">
-          <div class="step-num" translate="no">01</div>
-          <h3 class="step-title" translate="no">CONNECT & ALLOCATE</h3>
-          <p class="step-desc">
-            Connect your Web3 wallet (Phantom, Solflare, Backpack). Sign your $SOL allocation directly into the autonomous Program Derived Address (PDA) vault.
-          </p>
+          <h3>01. TRACK RATIO</h3>
+          <p>The glowing Duel Ratio chart calculates live trading volume momentum between both assets directly on Solana.</p>
         </div>
         <div class="step-card">
-          <div class="step-num" translate="no" style="color:var(--purple);">02</div>
-          <h3 class="step-title" translate="no">SELECT THE CONVICTION</h3>
-          <p class="step-desc">
-            Track real-time DexScreener volume momentum across active or upcoming room pipelines. Back the contender forecasted to lead trading velocity.
-          </p>
+          <h3>02. BACK VELOCITY</h3>
+          <p>Allocate $SOL to the token you forecast will lead trading velocity before the round closure.</p>
         </div>
         <div class="step-card">
-          <div class="step-num" translate="no" style="color:var(--green);">03</div>
-          <h3 class="step-title" translate="no">INSTANT SOL SETTLEMENT</h3>
-          <p class="step-desc">
-            Upon round closure, the oracle resolves the outcome mathematically. Winning participants claim directly from the 95% prize pool in native $SOL.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- TOKENOMICS & PROTOCOL TREASURY -->
-    <section class="content-card-section">
-      <div class="sec-header">
-        <div class="sec-badge" translate="no">SUSTAINABLE ARCHITECTURE</div>
-        <h2 class="sec-title" translate="no">PROTOCOL <span>SETTLEMENT</span> & TREASURY ENGINE</h2>
-        <p class="sec-sub">
-          Every wager placed inside Bull Royale ensures robust winner payouts while funding reliable platform operations and RPC infrastructure.
-        </p>
-      </div>
-
-      <div class="tokenomics-grid">
-        <div class="t-card">
-          <div class="t-card-header">
-            <h3 class="t-title" translate="no">DUEL ALLOCATION BREAKDOWN</h3>
-            <span class="t-tag tag-cyan" translate="no">PER-ROUND METRICS</span>
-          </div>
-
-          <div class="t-item">
-            <div class="t-item-head" translate="no">
-              <span style="color: var(--green);">WINNING PARTICIPANTS POOL</span>
-              <span class="t-pct" style="color: var(--green);">95%</span>
-            </div>
-            <div class="bar-shell">
-              <div class="bar-core bar-green" style="width: 95%;"></div>
-            </div>
-            <div class="t-item-desc">
-              Redistributed instantly and proportionally in native $SOL to wallets backing the victor token. Zero hidden spreads.
-            </div>
-          </div>
-
-          <div class="t-item">
-            <div class="t-item-head" translate="no">
-              <span style="color: var(--gold);">PROTOCOL OPERATIONS & TREASURY</span>
-              <span class="t-pct" style="color: var(--gold);">5%</span>
-            </div>
-            <div class="bar-shell">
-              <div class="bar-core bar-gold" style="width: 5%;"></div>
-            </div>
-            <div class="t-item-desc">
-              Dedicated to non-custodial vault automation, high-speed RPC node feeds, and platform maintenance.
-            </div>
-          </div>
-        </div>
-
-        <div class="t-card">
-          <div class="t-card-header">
-            <h3 class="t-title" translate="no">SETTLEMENT INTEGRITY</h3>
-            <span class="t-tag tag-gold" translate="no">CORE SPECIFICATION</span>
-          </div>
-
-          <div class="t-item">
-            <div class="t-item-head" translate="no">
-              <span style="color: var(--gold);">AUTOMATED PROTOCOL VAULT</span>
-              <span class="t-pct" style="color: var(--gold);">100% PROGRAMMED</span>
-            </div>
-            <div class="bar-shell">
-              <div class="bar-core bar-gold" style="width: 100%;"></div>
-            </div>
-            <div class="t-item-desc">
-              Each round executes through autonomous Program Derived Addresses (PDA) on Solana with mathematical distribution.
-            </div>
-          </div>
-
-          <div class="t-item">
-            <div class="t-item-head" translate="no">
-              <span style="color: var(--purple);">ZERO SPECULATIVE DEBT</span>
-              <span class="t-pct" style="color: var(--purple);">100% HARD $SOL BACKED</span>
-            </div>
-            <div class="bar-shell">
-              <div class="bar-core bar-purple" style="width: 100%;"></div>
-            </div>
-            <div class="t-item-desc">
-              No artificial leverage, promissory balances or lock cliffs. All pools settle strictly against verified on-chain deposits.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECURITY -->
-    <section class="content-card-section">
-      <div class="sec-header">
-        <div class="sec-badge" style="border-color: var(--green); color: var(--green);" translate="no">TRUST MINIMIZED</div>
-        <h2 class="sec-title" translate="no">PROTOCOL <span>INTEGRITY</span></h2>
-        <p class="sec-sub">
-          Non-custodial infrastructure eliminating house manipulation through deterministic code execution.
-        </p>
-      </div>
-
-      <div class="security-grid">
-        <div class="sec-card">
-          <div class="sec-card-head">
-            <div class="sec-icon-wrap">🛡️</div>
-            <div class="sec-title-box">
-              <h4 translate="no">NON-CUSTODIAL PDA</h4>
-              <span class="sec-status-chip">● AUTONOMOUS</span>
-            </div>
-          </div>
-          <p class="sec-card-body">
-            Staked $SOL is held in an automated Program Derived Address. Developers hold zero private key authority over user balances.
-          </p>
-        </div>
-
-        <div class="sec-card">
-          <div class="sec-card-head">
-            <div class="sec-icon-wrap">📊</div>
-            <div class="sec-title-box">
-              <h4 translate="no">ORACLE RESOLUTION</h4>
-              <span class="sec-status-chip">● TAMPER-PROOF</span>
-            </div>
-          </div>
-          <p class="sec-card-body">
-            Round closures pull verifiable volume deltas from public DexScreener endpoints, resolving settlements mathematically.
-          </p>
-        </div>
-
-        <div class="sec-card">
-          <div class="sec-card-head">
-            <div class="sec-icon-wrap">⚡</div>
-            <div class="sec-title-box">
-              <h4 translate="no">ANTI-SNIPE BUFFER</h4>
-              <span class="sec-status-chip">● FAIR-PLAY</span>
-            </div>
-          </div>
-          <p class="sec-card-body">
-            Flash rounds lock 15 minutes prior to closure, preventing frontrunning, sudden multiplier dilution and whale manipulation.
-          </p>
-        </div>
-      </div>
-
-      <div class="audit-summary-bar" translate="no">
-        <div class="audit-tag-group">
-          <div class="audit-pill">🛡️ CONTRACT: <strong>PDA ENFORCED</strong></div>
-          <div class="audit-pill">⚡ NETWORK: <strong>SOLANA MAINNET</strong></div>
-          <div class="audit-pill">💎 SETTLEMENT: <strong>NATIVE $SOL</strong></div>
-        </div>
-        <a href="https://solscan.io" target="_blank" rel="noopener noreferrer" class="btn-nav-action">VIEW ON SOLSCAN ↗</a>
-      </div>
-    </section>
-
-    <!-- ROADMAP -->
-    <section class="content-card-section">
-      <div class="sec-header">
-        <div class="sec-badge" translate="no">EXECUTION PIPELINE</div>
-        <h2 class="sec-title" translate="no">STRATEGIC <span>ROADMAP</span></h2>
-        <p class="sec-sub">
-          From high-throughput liquidity engine into an autonomous warfare ecosystem powered by continuous Battle XP accumulation. Zero presales.
-        </p>
-      </div>
-
-      <div class="roadmap-grid">
-        <div class="r-card active-phase">
-          <span class="r-phase-tag" style="color: var(--gold);" translate="no">PHASE 01</span>
-          <span class="r-status status-live" translate="no">LIVE BETA</span>
-          <h3 class="r-title" translate="no">PROTOCOL GENESIS</h3>
-          <ul class="r-list">
-            <li>Triple Arenas: Turbo (30M), Flash (1H) & Daily Royale (24H).</li>
-            <li>Native $SOL non-custodial PDA vault integration.</li>
-            <li>Real-time DexScreener Oracle momentum feeds.</li>
-            <li>Automated 15-min Anti-Snipe and whale protection buffers.</li>
-            <li>5% Protocol Operations & Treasury accumulation.</li>
-          </ul>
-        </div>
-
-        <div class="r-card upcoming-phase">
-          <span class="r-phase-tag" style="color: var(--cyan);" translate="no">PHASE 02</span>
-          <span class="r-status status-queued" translate="no">SCHEDULED</span>
-          <h3 class="r-title" translate="no">BATTLE XP & WARFARE</h3>
-          <ul class="r-list">
-            <li><strong>Battle XP Engine:</strong> Earn on-chain XP points with every wager placed.</li>
-            <li><strong>Zero Presale:</strong> Fair activity-based rewards calculated directly from trading volume.</li>
-            <li>Automated duel rotations: Titans Clash & Trending Radar.</li>
-            <li><strong>1-Click Social Execution:</strong> Solana Blinks on X + Telegram Duel Bot.</li>
-            <li>Leaderboard Syndicate rankings & High-Roller arenas.</li>
-          </ul>
-        </div>
-
-        <div class="r-card locked-phase">
-          <span class="r-phase-tag" style="color: #94a3b8;" translate="no">PHASE 03</span>
-          <span class="r-status status-locked" translate="no">LOCKED 🔒</span>
-          <h3 class="r-title" translate="no">XP CONVERSION & SYNDICATE</h3>
-          <ul class="r-list">
-            <li>Full Anchor Rust smart contract formal security audit.</li>
-            <li>Post-launch Battle XP redemption into exclusive protocol tiers.</li>
-            <li>Multi-pair cross-warfare expansions (SOL, ETH, BTC, Memes).</li>
-          </ul>
-          
-          <div class="censor-strip-wrap">
-            <div class="censor-strip" title="Restricted Access">
-              <span class="classified-label">██████ [TOP SECRET] ██████</span>
-            </div>
-          </div>
-          <div class="censor-strip-wrap">
-            <div class="censor-strip" title="Restricted Access">
-              <span class="classified-label">██████ [CLASSIFIED] ██████</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="r-card locked-phase">
-          <span class="r-phase-tag" style="color: #94a3b8;" translate="no">PHASE 04</span>
-          <span class="r-status status-locked" translate="no">RESTRICTED 🔒</span>
-          <h3 class="r-title" translate="no">WARFARE SUPREMACY</h3>
-          <ul class="r-list">
-            <li>Tier-1 Centralized Exchange integrations (CEX).</li>
-            <li>Cross-chain oracle settlement (Base, Arbitrum).</li>
-            <li>Decentralized governance powered by top Battle XP holders.</li>
-          </ul>
-
-          <div class="censor-strip-wrap">
-            <div class="censor-strip" title="Restricted Access">
-              <span class="classified-label">██████ [TOP SECRET] ██████</span>
-            </div>
-          </div>
-          <div class="censor-strip-wrap">
-            <div class="censor-strip" title="Restricted Access">
-              <span class="classified-label">██████ [CONFIDENTIAL] ██████</span>
-            </div>
-          </div>
-          <div class="censor-strip-wrap">
-            <div class="censor-strip" title="Restricted Access">
-              <span class="classified-label">██████ [LEVEL 5 CLASSIFIED] ██████</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="content-card-section">
-      <div class="sec-header">
-        <div class="sec-badge" translate="no">KNOWLEDGE BASE</div>
-        <h2 class="sec-title" translate="no">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
-        <p class="sec-sub">
-          Essential protocol details regarding settlements, non-custodial custody, and $SOL payouts.
-        </p>
-      </div>
-
-      <div class="faq-list" translate="no">
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
-            <span>What are the minimum and maximum wager limits?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            To prevent pool manipulation and protect payout multipliers, all wagers are strictly capped between a minimum of 0.20 SOL and a maximum of 5.00 SOL per wager during the Phase 1 Beta arena.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
-            <span>How does the protocol fee work?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            During the Beta Phase, a flat 5% protocol operations fee is deducted from the gross round pool to maintain autonomous non-custodial PDA vault engines, RPC feeds, and real-time oracle tracking. 95% is distributed proportionally to winning wallets.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
-            <span>Can I bet on the next round while the current one is closing?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            Yes! Through our Dual-Round Pipeline, when the Live Room enters its final 15 minutes (Anti-Snipe buffer), you can switch to the Next Room (Upcoming Round) and place your wagers in advance with zero interruption.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
-            <span>How does 1-click betting work on X (Twitter) and Telegram?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            Through Solana Blinks (Actions), any Bull Royale duel link shared on X (Twitter) embeds as an interactive transaction card directly in the user's timeline. Followers can back their contender with 1 click directly inside X. Similarly, our Telegram Duel Bot allows full duel participation inside groups and channels.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
-            <span>What is the difference between Flash Arena (1H) and Daily Royale (24H)?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            The Flash Arena (1H) operates on fast momentum bursts and closes at the top of every hour with a 15-minute anti-snipe buffer. The Daily Royale (24H) accumulates a much larger macro liquidity pool, settling once per day at 00:00 UTC with a 15-minute buffer.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">
-            <span>How does the DexScreener Oracle prevent human tampering?</span>
-            <span class="faq-toggle-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            Settlements are determined programmatically using public volume data returned by the DexScreener API at the exact second of round closure. The operators have zero backdoor access to amend numbers.
-          </div>
+          <h3>03. INSTANT SETTLEMENT</h3>
+          <p>When the duel closes, 95% of the total pool is distributed proportionally to winning wallets in native $SOL.</p>
         </div>
       </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-      <div translate="no">© 2026 Bull Royale Protocol (bullarenaa.io) • Ignited on Solana</div>
-      <div translate="no">
+      <div>© 2026 Bull Royale Protocol • Ignited on Solana</div>
+      <div>
         <a href="https://t.me/bullRoyalee_io" target="_blank" rel="noopener noreferrer">Telegram</a>
         <a href="https://x.com/bullarenaio" target="_blank" rel="noopener noreferrer">𝕏 (Twitter)</a>
         <a href="https://solscan.io" target="_blank" rel="noopener noreferrer">Solscan</a>
@@ -696,110 +849,215 @@
     </footer>
   </div>
 
-  <!-- MODAL WALLET -->
-  <div id="wallet-modal-overlay" class="modal-overlay" onclick="closeWalletModal(event)">
-    <div class="modal-box" translate="no" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeWalletModal()">✕</button>
-      <div class="modal-head">
-        <div class="modal-title-box">
-          <h3>CONNECT WALLET</h3>
-          <span style="font-size:11px; color:var(--gold); font-weight:800;">SELECT YOUR SOLANA WALLET</span>
-        </div>
-      </div>
+  <!-- MODAL DE APOSTA -->
+  <div id="wagerModal" class="modal-overlay" onclick="closeWagerModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeWagerModal()">✕</button>
+      <h3 id="modalTitle" style="font-family:'Teko',sans-serif; font-size:28px; color:var(--gold);">BACK CONTENDER</h3>
+      <p style="font-size:11px; color:#94a3b8; font-weight:700;">Enter your $SOL amount to back this token in the live round:</p>
 
-      <div class="wallet-list-select">
-        <button class="wallet-choice-btn" onclick="connectProvider('phantom')">
-          <div class="wallet-choice-left">
-            <span style="font-size: 22px;">🟣</span>
-            <div>
-              <div class="wallet-choice-title">Phantom</div>
-              <div class="wallet-choice-subtitle">Most popular Solana wallet</div>
-            </div>
-          </div>
-        </button>
+      <input type="number" id="wagerAmount" class="modal-input" value="0.5" step="0.1" min="0.2" max="5.0">
 
-        <button class="wallet-choice-btn" onclick="connectProvider('solflare')">
-          <div class="wallet-choice-left">
-            <span style="font-size: 22px;">🔥</span>
-            <div>
-              <div class="wallet-choice-title">Solflare</div>
-              <div class="wallet-choice-subtitle">Advanced security & speed</div>
-            </div>
-          </div>
-        </button>
-
-        <button class="wallet-choice-btn" onclick="connectProvider('backpack')">
-          <div class="wallet-choice-left">
-            <span style="font-size: 22px;">🎒</span>
-            <div>
-              <div class="wallet-choice-title">Backpack</div>
-              <div class="wallet-choice-subtitle">Degen-ready execution</div>
-            </div>
-          </div>
-        </button>
-
-        <button class="wallet-choice-btn" onclick="connectProvider('okx')">
-          <div class="wallet-choice-left">
-            <span style="font-size: 22px;">⬛</span>
-            <div>
-              <div class="wallet-choice-title">OKX Wallet</div>
-              <div class="wallet-choice-subtitle">Universal multi-chain Web3</div>
-            </div>
-          </div>
-        </button>
-      </div>
+      <button class="btn-action-wager btn-action-cyan" style="width:100%; transform:none;" onclick="confirmWager()">
+        CONFIRM & SIGN SOL STAKE
+      </button>
     </div>
   </div>
 
-  <!-- MODAL STAKE -->
-  <div id="stake-modal-overlay" class="modal-overlay" onclick="closeStakeModal(event)">
-    <div class="modal-box" translate="no" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeStakeModal()">✕</button>
-      <div class="modal-head">
-        <div class="modal-avatar">
-          <img id="modal-fighter-img" src="" alt="Fighter">
-        </div>
-        <div class="modal-title-box">
-          <h3 id="modal-fighter-name">BONK</h3>
-          <span style="font-size:11px; color:var(--gold); font-weight:800;">MULTIPLIER: <span id="modal-fighter-mult">1.72x</span></span>
-        </div>
-      </div>
+  <!-- JAVASCRIPT EMbutido E À PROVA DE FALHAS -->
+  <script>
+    // ESTADO E CRÉDITOS
+    let testCredits = localStorage.getItem('bull_credits') ? parseFloat(localStorage.getItem('bull_credits')) : 1000.00;
+    let userXP = localStorage.getItem('bull_xp') ? parseFloat(localStorage.getItem('bull_xp')) : 0.00;
+    let currentFighter = 'BONK';
+    let currentMult = 1.72;
 
-      <div class="modal-input-wrap">
-        <div class="modal-input-top">
-          <span>AMOUNT TO ALLOCATE (MIN: 0.20 • MAX: 5.00)</span>
-          <span>AVAILABLE TEST PTS: <strong id="modal-user-sol" style="color:var(--gold);">1000.00</strong></span>
-        </div>
-        <div class="modal-input-row">
-          <input type="number" id="input-stake-amount" class="modal-input" placeholder="0.20" step="0.10" min="0.20" max="5.00" oninput="calculateModalReturn()">
-          <span class="modal-token-label">SOL</span>
-        </div>
-      </div>
+    function renderBalances() {
+      document.getElementById('fake-balance-val').innerText = testCredits.toLocaleString('en-US', { minimumFractionDigits: 2 });
+      document.getElementById('user-battle-xp').innerText = userXP.toLocaleString('en-US', { minimumFractionDigits: 2 });
+    }
 
-      <div class="quick-pct-row">
-        <button class="btn-pct" onclick="setFixedSol(0.20)">0.20 SOL</button>
-        <button class="btn-pct" onclick="setFixedSol(1.00)">1.00 SOL</button>
-        <button class="btn-pct" onclick="setFixedSol(2.50)">2.50 SOL</button>
-        <button class="btn-pct" onclick="setFixedSol(5.00)">MAX (5 SOL)</button>
-      </div>
+    function addCredits(amt) {
+      testCredits += amt;
+      localStorage.setItem('bull_credits', testCredits);
+      renderBalances();
+    }
 
-      <div class="modal-summary-box">
-        <div class="modal-summary-row">
-          <span style="color:var(--text-muted);">Est. Potential Payout:</span>
-          <span class="gold"><strong id="modal-est-payout">0.00</strong> SOL</span>
-        </div>
-        <div class="modal-summary-row">
-          <span style="color:var(--text-muted);">Protocol Operations Fee:</span>
-          <span style="color: #94a3b8;">5% (Platform Infrastructure & Operations)</span>
-        </div>
-      </div>
+    function resetCredits() {
+      testCredits = 1000.00;
+      localStorage.setItem('bull_credits', testCredits);
+      renderBalances();
+    }
 
-      <button id="btn-modal-confirm" class="btn-arcade btn-arcade-cyan" onclick="confirmModalStake()">CONFIRM & SIGN SOL STAKE</button>
-    </div>
-  </div>
+    async function connectWallet() {
+      const btn = document.getElementById('btn-wallet');
+      if (window.solana && window.solana.isPhantom) {
+        try {
+          const resp = await window.solana.connect();
+          const pk = resp.publicKey.toString();
+          btn.innerText = `${pk.slice(0, 4)}...${pk.slice(-4)}`;
+          btn.classList.add('connected');
+        } catch (e) {}
+      } else {
+        alert("Phantom Wallet not detected! Please install the browser extension or use test credits.");
+      }
+    }
 
-  <!-- JAVASCRIPT MODULAR EXTERNO -->
-  <script src="./scripts/wallet.js"></script>
-  <script src="./scripts/arena.js"></script>
+    function openWagerModal(fighter, mult) {
+      currentFighter = fighter;
+      currentMult = mult;
+      document.getElementById('modalTitle').innerText = `BACK $${fighter} (${mult}x)`;
+      document.getElementById('wagerModal').style.display = 'flex';
+    }
+
+    function closeWagerModal(e) {
+      document.getElementById('wagerModal').style.display = 'none';
+    }
+
+    function confirmWager() {
+      const val = parseFloat(document.getElementById('wagerAmount').value);
+      if (!val || val < 0.2) return alert("Minimum wager: 0.20 SOL");
+      if (val > testCredits) return alert("Insufficient test credits! Click +500 at the top.");
+
+      testCredits -= val;
+      userXP += val;
+      localStorage.setItem('bull_credits', testCredits);
+      localStorage.setItem('bull_xp', userXP);
+      renderBalances();
+      closeWagerModal();
+
+      alert(`🎯 Wager of ${val.toFixed(2)} SOL placed on $${currentFighter}!\nPotential return: +${(val * currentMult).toFixed(2)} SOL`);
+    }
+
+    // ===================================================
+    // MOTOR DO GRÁFICO NÉON (DUEL RATIO)
+    // ===================================================
+    function initDuelRatioChart() {
+      const canvas = document.getElementById('ratioCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+        draw();
+      }
+
+      // Pontos que formam exatamente a curva da imagem de referência
+      const points = [
+        { time: '10:00', val: 34 },
+        { time: '', val: 38 },
+        { time: '', val: 35 },
+        { time: '', val: 40 },
+        { time: '12:00', val: 42 },
+        { time: '', val: 45 },
+        { time: '', val: 48 },
+        { time: '14:00', val: 42 },
+        { time: '', val: 39 },
+        { time: '', val: 44 },
+        { time: '16:00', val: 49 },
+        { time: '', val: 47 },
+        { time: '', val: 51 },
+        { time: '18:00', val: 53 },
+        { time: '', val: 56 },
+        { time: '', val: 62 },
+        { time: '', val: 64 },
+        { time: '20:00', val: 68 }
+      ];
+
+      function draw() {
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        const padLeft = 45;
+        const padRight = 20;
+        const padTop = 30;
+        const padBottom = 30;
+
+        const chartW = w - padLeft - padRight;
+        const chartH = h - padTop - padBottom;
+
+        // LINHAS DE GRADE E PORCENTAGENS (30% a 70%)
+        const yLevels = [30, 40, 50, 60, 70];
+        ctx.font = '700 10px Montserrat';
+        ctx.fillStyle = '#475569';
+        ctx.textAlign = 'right';
+
+        yLevels.forEach(lvl => {
+          const y = padTop + chartH - ((lvl - 30) / 40) * chartH;
+          ctx.strokeStyle = '#0f172a';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(padLeft, y);
+          ctx.lineTo(w - padRight, y);
+          ctx.stroke();
+
+          ctx.fillText(`${lvl}%`, padLeft - 10, y + 3);
+        });
+
+        // HORÁRIOS NO EIXO INFERIOR
+        const timeLabels = ['10:00', '12:00', '14:00', '16:00', '18:00', '20:00'];
+        ctx.textAlign = 'center';
+        timeLabels.forEach((t, i) => {
+          const x = padLeft + (i / (timeLabels.length - 1)) * chartW;
+          ctx.fillText(t, x, h - 8);
+        });
+
+        // CALCULAR COORDENADAS DA CURVA
+        const coords = points.map((p, i) => {
+          const x = padLeft + (i / (points.length - 1)) * chartW;
+          const y = padTop + chartH - ((p.val - 30) / 40) * chartH;
+          return { x, y };
+        });
+
+        // GRADIENTE DE FUNDO DA LINHA
+        ctx.beginPath();
+        ctx.moveTo(coords[0].x, coords[0].y);
+        for (let i = 1; i < coords.length; i++) {
+          ctx.lineTo(coords[i].x, coords[i].y);
+        }
+        ctx.lineTo(coords[coords.length - 1].x, padTop + chartH);
+        ctx.lineTo(coords[0].x, padTop + chartH);
+        ctx.closePath();
+
+        const grad = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
+        grad.addColorStop(0, 'rgba(0, 242, 254, 0.22)');
+        grad.addColorStop(1, 'rgba(0, 242, 254, 0.0)');
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // LINHA BRILHANTE NÉON
+        ctx.beginPath();
+        ctx.moveTo(coords[0].x, coords[0].y);
+        for (let i = 1; i < coords.length; i++) {
+          ctx.lineTo(coords[i].x, coords[i].y);
+        }
+        ctx.strokeStyle = '#00f2fe';
+        ctx.lineWidth = 3;
+        ctx.shadowColor = '#00f2fe';
+        ctx.shadowBlur = 14;
+        ctx.stroke();
+
+        // PONTO LUMINOSO FINAL
+        const last = coords[coords.length - 1];
+        ctx.beginPath();
+        ctx.arc(last.x, last.y, 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = '#00f2fe';
+        ctx.shadowBlur = 18;
+        ctx.fill();
+        ctx.shadowBlur = 0; // reset
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderBalances();
+      initDuelRatioChart();
+    });
+  </script>
 </body>
 </html>
