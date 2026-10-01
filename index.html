@@ -6,22 +6,22 @@
   <meta name="google" content="notranslate">
 
   <!-- PRELOAD LOGO -->
-  <link rel="preload" as="image" href="./logo.png" fetchpriority="high">
+  <link rel="preload" as="image" href="./logo.png.jpg" fetchpriority="high">
 
   <!-- SEO & INSTITUTIONAL METADATA -->
   <title>Bull Protocol • Decentralized Relative Strength & Liquidity Terminal on Solana</title>
   <meta name="description" content="Institutional relative velocity and momentum protocol on Solana. Capitalize on dynamic asset strength ratios settled autonomously via non-custodial PDA vaults and DexScreener oracles.">
 
   <!-- FAVICON -->
-  <link rel="icon" type="image/png" href="./logo.png">
-  <link rel="apple-touch-icon" href="./logo.png">
+  <link rel="icon" type="image/jpeg" href="./logo.png.jpg">
+  <link rel="apple-touch-icon" href="./logo.png.jpg">
 
   <!-- OPEN GRAPH / SOCIAL -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.bullarenaa.io/">
   <meta property="og:title" content="Bull Protocol • Decentralized Relative Strength on Solana">
   <meta property="og:description" content="Predict token velocity deltas directly in native $SOL. Powered by autonomous PDA settlement vaults and real-time DexScreener ratio oracles.">
-  <meta property="og:image" content="./logo.png">
+  <meta property="og:image" content="./logo.png.jpg">
 
   <!-- GOOGLE FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -91,10 +91,17 @@
       border: 1px solid var(--border);
       background: #060b17;
       box-shadow: 0 0 35px var(--cyan-glow);
-      padding: 12px;
+      padding: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+    }
+
+    .splash-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .splash-title {
@@ -165,16 +172,22 @@
     }
 
     .brand-logo-frame {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       background: #091021;
       border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
-      padding: 4px;
+      padding: 3px;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .brand-logo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .brand-title {
@@ -290,17 +303,24 @@
     }
 
     .hero-logo-frame {
-      width: 95px;
-      height: 95px;
+      width: 105px;
+      height: 105px;
       margin: 0 auto 16px;
       background: #070d1c;
       border: 1.5px solid var(--border);
       border-radius: 20px;
-      padding: 12px;
+      padding: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 30px rgba(0, 242, 254, 0.18);
+      overflow: hidden;
+    }
+
+    .hero-logo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .badge-protocol-tag {
@@ -1318,7 +1338,7 @@
   <!-- PROTOCOL SPLASH LOADER -->
   <div id="splash-screen" translate="no">
     <div class="splash-logo-wrap">
-      <img src="./logo.png" alt="Bull Protocol Emblem" onerror="this.src='https://cryptologos.cc/logos/solana-sol-logo.png?v=035'">
+      <img src="./logo.png.jpg" alt="Bull Protocol Emblem" onerror="this.src='https://cryptologos.cc/logos/solana-sol-logo.png?v=035'">
     </div>
     <div class="splash-title">BULL<span>PROTOCOL</span></div>
     <div class="splash-bar">
@@ -1332,7 +1352,7 @@
     <nav>
       <a href="https://www.bullarenaa.io/" class="brand" translate="no">
         <div class="brand-logo-frame">
-          <img src="./logo.png" alt="Bull Protocol" onerror="this.src='https://cryptologos.cc/logos/solana-sol-logo.png?v=035'">
+          <img src="./logo.png.jpg" alt="Bull Protocol" onerror="this.src='https://cryptologos.cc/logos/solana-sol-logo.png?v=035'">
         </div>
         <div class="brand-title">BULL<span>PROTOCOL</span></div>
       </a>
@@ -1368,7 +1388,7 @@
     <!-- INSTITUTIONAL HERO -->
     <header class="hero">
       <div class="hero-logo-frame">
-        <img src="./logo.png" alt="Bull Protocol Crest" onerror="this.src='https://cryptologos.cc/logos/solana-sol-logo.png?v=035'">
+        <img src="./logo.png.jpg" alt="Bull Protocol Crest" onerror="this.src='https://cryptologos.cc/logos/solana-sol-logo.png?v=035'">
       </div>
       <div class="badge-protocol-tag" translate="no">DECENTRALIZED RELATIVE STRENGTH PROTOCOL</div>
       <h1 class="hero-title" translate="no">BULL <span>PROTOCOL</span></h1>
