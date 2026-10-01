@@ -35,9 +35,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,900&family=Teko:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- MODULAR STYLESHEETS -->
-  <link rel="stylesheet" href="styles/style.css">
-  <link rel="stylesheet" href="styles/arena.css">
+  <!-- PROTEÇÃO DE TAMANHO IMEDIATA (EVITA ELEMENTOS GIGANTES) -->
+  <style>
+    body { background-color: #060810; color: #fff; margin: 0; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+    img { max-width: 100%; height: auto; }
+    .hero-emblem-frame { width: 125px; height: 125px; margin: 0 auto 18px; }
+    .hero-bull-emblem { width: 100%; height: 100%; object-fit: contain; }
+    .brand-icon { width: 32px; height: 32px; }
+  </style>
+
+  <!-- CSS MODULAR EXTERNO -->
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/arena.css">
 
   <!-- SOLANA WEB3 SDK CDN -->
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
@@ -789,8 +798,8 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
-  <script src="scripts/wallet.js"></script>
-  <script src="scripts/arena.js"></script>
+  <!-- JAVASCRIPT MODULAR EXTERNO -->
+  <script src="./scripts/wallet.js"></script>
+  <script src="./scripts/arena.js"></script>
 </body>
 </html>
