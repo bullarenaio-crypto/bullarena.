@@ -246,7 +246,7 @@
     .ratio-col-pct.purple { color: var(--purple); }
 
     .ratio-track-bar { flex: 1; max-width: 140px; height: 8px; background: #0d1222; border-radius: 4px; overflow: hidden; border: 1px solid #1a243a; }
-    .ratio-fill-bar { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+    .ratio-fill-bar { height: 100%; border-radius: 4px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
     .fill-cyan-glow { background: linear-gradient(90deg, #0284c7, var(--cyan)); box-shadow: 0 0 10px rgba(0, 242, 254, 0.4); }
     .fill-purple-glow { background: linear-gradient(90deg, #4f46e5, var(--purple)); box-shadow: 0 0 10px rgba(129, 140, 248, 0.4); }
 
@@ -255,9 +255,7 @@
     .ratio-center-symbol .title { font-size: 9px; font-weight: 900; letter-spacing: 2px; color: #fff; }
     .ratio-center-symbol .sub { font-size: 8px; color: #64748b; font-weight: 800; }
 
-    /* ===================================================
-       DUAS COLUNAS: BOTÃO + DEXSCREENER AO VIVO EMBAIXO
-       =================================================== */
+    /* DUAS COLUNAS: BOTÕES + DEXSCREENER */
     .dex-duel-columns-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -586,9 +584,7 @@
       </div>
     </section>
 
-    <!-- ===================================================
-         DUEL RATIO ARENA + DEXSCREENER EM CADA COLUNA
-         =================================================== -->
+    <!-- DUEL RATIO ARENA -->
     <main class="duel-ratio-arena-wrapper">
       <div class="duel-ratio-header">
         <div class="duel-ratio-brand-box">
@@ -608,7 +604,7 @@
             </div>
             <div class="token-head-meta">
               <span class="token-head-name" id="head-token-a-name">$BONK</span>
-              <span class="token-head-change" id="head-token-a-delta">+12.4%</span>
+              <span class="token-head-change" id="head-token-a-delta">Loading...</span>
             </div>
           </div>
 
@@ -620,7 +616,7 @@
             </div>
             <div class="token-head-meta">
               <span class="token-head-name" id="head-token-b-name">$WIF</span>
-              <span class="token-head-change" id="head-token-b-delta">+8.7%</span>
+              <span class="token-head-change" id="head-token-b-delta">Loading...</span>
             </div>
           </div>
         </div>
@@ -629,8 +625,8 @@
       <!-- RATIO CHART VIEWPORT -->
       <div class="duel-chart-viewport">
         <div class="badge-leading-indicator">
-          <span class="lbl" id="leading-label-indicator">BONK LEADING</span>
-          <span class="val"><strong id="leading-pct-indicator">68%</strong> <span>▲</span></span>
+          <span class="lbl" id="leading-label-indicator">ANALYZING RATIO...</span>
+          <span class="val"><strong id="leading-pct-indicator">--%</strong> <span>▲</span></span>
         </div>
         <div class="chart-canvas-box">
           <canvas id="ratioCanvas"></canvas>
@@ -645,10 +641,10 @@
           </div>
           <div class="ratio-col-text">
             <span class="ratio-col-name" id="bar-token-a-name">$BONK CONVICTION</span>
-            <span class="ratio-col-pct" id="bar-token-a-pct">68%</span>
+            <span class="ratio-col-pct" id="bar-token-a-pct">50%</span>
           </div>
           <div class="ratio-track-bar">
-            <div id="bar-token-a-fill" class="ratio-fill-bar fill-cyan-glow" style="width: 68%;"></div>
+            <div id="bar-token-a-fill" class="ratio-fill-bar fill-cyan-glow" style="width: 50%;"></div>
           </div>
         </div>
 
@@ -664,21 +660,21 @@
           </div>
           <div class="ratio-col-text" style="text-align: right;">
             <span class="ratio-col-name" id="bar-token-b-name">$WIF CONVICTION</span>
-            <span class="ratio-col-pct purple" id="bar-token-b-pct">32%</span>
+            <span class="ratio-col-pct purple" id="bar-token-b-pct">50%</span>
           </div>
           <div class="ratio-track-bar">
-            <div id="bar-token-b-fill" class="ratio-fill-bar fill-purple-glow" style="width: 32%;"></div>
+            <div id="bar-token-b-fill" class="ratio-fill-bar fill-purple-glow" style="width: 50%;"></div>
           </div>
         </div>
       </div>
 
-      <!-- COLUNAS: BOTÃO DE APOSTA + DEXSCREENER LOGO ABAIXO -->
+      <!-- DUAS COLUNAS: BOTÃO DE APOSTA + DEXSCREENER EMBAIXO -->
       <div class="dex-duel-columns-grid">
         <!-- COLUNA TOKEN A -->
         <div class="dex-column-side">
-          <button id="btn-stake-a" class="btn-terminal-action btn-terminal-cyan" onclick="openStakeModal('BONK', 1.72, 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035')">
+          <button id="btn-stake-a" class="btn-terminal-action btn-terminal-cyan" onclick="openStakeModal('BONK', currentMultiplierA, 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035')">
             <span>ALLOCATE LONG • $BONK</span>
-            <span style="color:var(--cyan); font-weight:900;">1.72x TARGET</span>
+            <span id="mult-label-a" style="color:var(--cyan); font-weight:900;">1.85x TARGET</span>
           </button>
           
           <div class="dex-embed-card">
@@ -687,7 +683,7 @@
                 <span style="color:var(--cyan);">●</span>
                 <span id="dex-label-token-a">BONK / SOL • DEXSCREENER LIVE</span>
               </div>
-              <span id="dex-stat-token-a" class="dex-live-badge">SYNCING...</span>
+              <span id="dex-stat-token-a" class="dex-live-badge">CONNECTING...</span>
             </div>
             <iframe 
               id="iframe-dex-a"
@@ -700,9 +696,9 @@
 
         <!-- COLUNA TOKEN B -->
         <div class="dex-column-side">
-          <button id="btn-stake-b" class="btn-terminal-action btn-terminal-purple" onclick="openStakeModal('WIF', 2.28, 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035')">
+          <button id="btn-stake-b" class="btn-terminal-action btn-terminal-purple" onclick="openStakeModal('WIF', currentMultiplierB, 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035')">
             <span>ALLOCATE LONG • $WIF</span>
-            <span style="color:var(--purple); font-weight:900;">2.28x TARGET</span>
+            <span id="mult-label-b" style="color:var(--purple); font-weight:900;">2.15x TARGET</span>
           </button>
           
           <div class="dex-embed-card">
@@ -711,7 +707,7 @@
                 <span style="color:var(--purple);">●</span>
                 <span id="dex-label-token-b">WIF / SOL • DEXSCREENER LIVE</span>
               </div>
-              <span id="dex-stat-token-b" class="dex-live-badge">SYNCING...</span>
+              <span id="dex-stat-token-b" class="dex-live-badge">CONNECTING...</span>
             </div>
             <iframe 
               id="iframe-dex-b"
@@ -917,7 +913,6 @@
         </button>
       </div>
 
-      <!-- CARDS DE MERCADO -->
       <div class="hub-duels-grid">
         <!-- CARD 1: DOGE vs PEPE (MEMECOINS)[cite: 1] -->
         <div class="duel-card-item">
@@ -1028,7 +1023,7 @@
         </div>
         <div class="modal-title-box">
           <h3 id="modal-fighter-name">ALLOCATE LONG • $BONK</h3>
-          <span style="font-size:10px; color:var(--cyan); font-weight:800;">EST. MULTIPLIER: <span id="modal-fighter-mult">1.72x</span></span>
+          <span style="font-size:10px; color:var(--cyan); font-weight:800;">EST. MULTIPLIER: <span id="modal-fighter-mult">1.85x</span></span>
         </div>
       </div>
 
@@ -1067,7 +1062,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT & DEXSCREENER LIVE ENGINE -->
+  <!-- JAVASCRIPT & MOTOR DINÂMICO DO DUEL RATIO -->
   <script>
     const MIN_WAGER = 0.20;
     const MAX_WAGER = 5.00;
@@ -1075,7 +1070,15 @@
     let testCredits = localStorage.getItem('bull_credits') ? parseFloat(localStorage.getItem('bull_credits')) : 1000.00;
     let userXP = localStorage.getItem('bull_xp') ? parseFloat(localStorage.getItem('bull_xp')) : 0.00;
     let selectedFighter = 'BONK';
-    let currentMultiplier = 1.72;
+
+    // MULTIPLICADORES E RÁCIO EM TEMPO REAL
+    let currentMultiplierA = 1.85;
+    let currentMultiplierB = 2.15;
+    let currentActiveMult = 1.85;
+
+    let currentRatioA = 50;
+    let currentRatioB = 50;
+    let ratioHistory = [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50];
 
     function renderBalances() {
       const elTest = document.getElementById('fake-balance-val');
@@ -1110,7 +1113,7 @@
       }
     }
 
-    // MODAL MARKETS HUB
+    // CONTROLE MARKETS HUB
     function openMarketHub() { document.getElementById('market-hub-modal').style.display = 'block'; }
     function closeMarketHub(e) {
       if (e && e.target !== document.getElementById('market-hub-modal') && !e.target.classList.contains('hub-close-btn')) return;
@@ -1134,10 +1137,10 @@
     // MODAL STAKE
     function openStakeModal(fighter, mult, iconUrl) {
       selectedFighter = fighter;
-      currentMultiplier = mult;
+      currentActiveMult = mult;
 
       document.getElementById('modal-fighter-name').innerText = `ALLOCATE LONG • $${fighter}`;
-      document.getElementById('modal-fighter-mult').innerText = `${mult.toFixed(2)}x`;
+      document.getElementById('modal-fighter-mult').innerText = `${parseFloat(mult).toFixed(2)}x`;
       document.getElementById('modal-fighter-img').src = iconUrl;
       document.getElementById('modal-user-sol').innerText = testCredits.toFixed(2);
 
@@ -1160,7 +1163,7 @@
 
     function calculateModalReturn() {
       const val = parseFloat(document.getElementById('input-stake-amount').value) || 0;
-      const ret = (val * currentMultiplier).toFixed(2);
+      const ret = (val * currentActiveMult).toFixed(2);
       const payoutEl = document.getElementById('modal-est-payout');
       if (payoutEl) payoutEl.innerText = ret;
     }
@@ -1192,7 +1195,7 @@
       renderBalances();
 
       document.getElementById('stake-modal-overlay').style.display = 'none';
-      alert(`🎯 POSITION EXECUTED SUCCESSFULLY!\n\nAsset: $${selectedFighter}\nAllocated: ${val.toFixed(2)} SOL\nTarget Multiplier: ${currentMultiplier}x\nEst. Settlement Return: +${(val * currentMultiplier).toFixed(2)} SOL`);
+      alert(`🎯 POSITION EXECUTED SUCCESSFULLY!\n\nAsset: $${selectedFighter}\nAllocated: ${val.toFixed(2)} SOL\nTarget Multiplier: ${parseFloat(currentActiveMult).toFixed(2)}x\nEst. Settlement Return: +${(val * currentActiveMult).toFixed(2)} SOL`);
     }
 
     function toggleFaq(el) {
@@ -1202,7 +1205,7 @@
     }
 
     // ===================================================
-    // INTEGRAÇÃO DEXSCREENER EM TEMPO REAL (API POLLING)
+    // MOTOR DE CÁLCULO E SINCRONIZAÇÃO EM TEMPO REAL
     // ===================================================
     async function syncDexScreenerData() {
       const bonkMint = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
@@ -1213,25 +1216,48 @@
         const data = await resp.json();
 
         if (data && data.pairs && data.pairs.length > 0) {
-          const bonkPair = data.pairs.find(p => p.baseToken.address === bonkMint) || data.pairs[0];
-          const wifPair = data.pairs.find(p => p.baseToken.address === wifMint) || data.pairs[1];
+          const bonkPair = data.pairs.find(p => p.baseToken && p.baseToken.address === bonkMint) || data.pairs[0];
+          const wifPair = data.pairs.find(p => p.baseToken && p.baseToken.address === wifMint) || data.pairs[1];
 
-          if (bonkPair) {
-            const price = parseFloat(bonkPair.priceUsd).toFixed(8);
-            const delta24h = bonkPair.priceChange ? bonkPair.priceChange.h24 : 0;
-            const sign = delta24h >= 0 ? '+' : '';
-            document.getElementById('dex-stat-token-a').innerText = `$${price} (${sign}${delta24h}%)`;
-            document.getElementById('head-token-a-delta').innerText = `${sign}${delta24h}%`;
-            document.getElementById('head-token-a-delta').style.color = delta24h >= 0 ? 'var(--green)' : 'var(--pink)';
-          }
+          if (bonkPair && wifPair) {
+            const priceA = parseFloat(bonkPair.priceUsd) || 0.00002;
+            const deltaA = bonkPair.priceChange ? (bonkPair.priceChange.h24 || 0) : 0;
+            const volA = bonkPair.volume ? (bonkPair.volume.h24 || 1000000) : 1000000;
 
-          if (wifPair) {
-            const price = parseFloat(wifPair.priceUsd).toFixed(4);
-            const delta24h = wifPair.priceChange ? wifPair.priceChange.h24 : 0;
-            const sign = delta24h >= 0 ? '+' : '';
-            document.getElementById('dex-stat-token-b').innerText = `$${price} (${sign}${delta24h}%)`;
-            document.getElementById('head-token-b-delta').innerText = `${sign}${delta24h}%`;
-            document.getElementById('head-token-b-delta').style.color = delta24h >= 0 ? 'var(--green)' : 'var(--pink)';
+            const priceB = parseFloat(wifPair.priceUsd) || 2.50;
+            const deltaB = wifPair.priceChange ? (wifPair.priceChange.h24 || 0) : 0;
+            const volB = wifPair.volume ? (wifPair.volume.h24 || 1000000) : 1000000;
+
+            const signA = deltaA >= 0 ? '+' : '';
+            const signB = deltaB >= 0 ? '+' : '';
+
+            document.getElementById('dex-stat-token-a').innerText = `$${priceA.toFixed(7)} (${signA}${deltaA}%)`;
+            document.getElementById('head-token-a-delta').innerText = `${signA}${deltaA}%`;
+            document.getElementById('head-token-a-delta').style.color = deltaA >= 0 ? 'var(--green)' : 'var(--pink)';
+
+            document.getElementById('dex-stat-token-b').innerText = `$${priceB.toFixed(4)} (${signB}${deltaB}%)`;
+            document.getElementById('head-token-b-delta').innerText = `${signB}${deltaB}%`;
+            document.getElementById('head-token-b-delta').style.color = deltaB >= 0 ? 'var(--green)' : 'var(--pink)';
+
+            // CÁLCULO DA VELOCIDADE RELATIVA
+            const totalVol = volA + volB;
+            const volShareA = totalVol > 0 ? (volA / totalVol) : 0.5;
+
+            const scoreA = Math.max(0.1, 100 + deltaA);
+            const scoreB = Math.max(0.1, 100 + deltaB);
+            const deltaShareA = scoreA / (scoreA + scoreB);
+
+            // Rácio Ponderado: 60% Volume + 40% Delta de Preço
+            const calculatedA = Math.round((volShareA * 60) + (deltaShareA * 40));
+            currentRatioA = Math.min(85, Math.max(15, calculatedA));
+            currentRatioB = 100 - currentRatioA;
+
+            // ATUALIZAÇÃO DA FILA DO GRÁFICO
+            ratioHistory.shift();
+            ratioHistory.push(currentRatioA);
+
+            updateRatioVisuals();
+            drawChart();
           }
         }
       } catch (err) {
@@ -1239,102 +1265,120 @@
       }
     }
 
-    // GRÁFICO DUEL RATIO NÉON
-    function initDuelRatioChart() {
+    function updateRatioVisuals() {
+      document.getElementById('bar-token-a-pct').innerText = `${currentRatioA}%`;
+      document.getElementById('bar-token-a-fill').style.width = `${currentRatioA}%`;
+
+      document.getElementById('bar-token-b-pct').innerText = `${currentRatioB}%`;
+      document.getElementById('bar-token-b-fill').style.width = `${currentRatioB}%`;
+
+      const leadLabel = document.getElementById('leading-label-indicator');
+      const leadPct = document.getElementById('leading-pct-indicator');
+
+      if (currentRatioA >= 50) {
+        leadLabel.innerText = "BONK LEADING";
+        leadLabel.style.color = "var(--cyan)";
+        leadPct.innerText = `${currentRatioA}%`;
+      } else {
+        leadLabel.innerText = "WIF LEADING";
+        leadLabel.style.color = "var(--purple)";
+        leadPct.innerText = `${currentRatioB}%`;
+      }
+
+      // Recálculo dinâmico de multiplicadores
+      currentMultiplierA = (1.92 * (100 / Math.max(15, currentRatioA * 1.85))).toFixed(2);
+      currentMultiplierB = (1.92 * (100 / Math.max(15, currentRatioB * 1.85))).toFixed(2);
+
+      const multLabelA = document.getElementById('mult-label-a');
+      const multLabelB = document.getElementById('mult-label-b');
+      if (multLabelA) multLabelA.innerText = `${currentMultiplierA}x TARGET`;
+      if (multLabelB) multLabelB.innerText = `${currentMultiplierB}x TARGET`;
+    }
+
+    function drawChart() {
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
-      function resize() {
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const padLeft = 45;
+      const padRight = 20;
+      const padTop = 30;
+      const padBottom = 30;
+      const chartW = w - padLeft - padRight;
+      const chartH = h - padTop - padBottom;
+
+      const yLevels = [20, 40, 60, 80];
+      ctx.font = '600 10px Montserrat';
+      ctx.fillStyle = '#475569';
+      ctx.textAlign = 'right';
+
+      yLevels.forEach(lvl => {
+        const y = padTop + chartH - ((lvl - 20) / 60) * chartH;
+        ctx.strokeStyle = '#0f172a';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(padLeft, y);
+        ctx.lineTo(w - padRight, y);
+        ctx.stroke();
+        ctx.fillText(`${lvl}%`, padLeft - 10, y + 3);
+      });
+
+      const coords = ratioHistory.map((val, i) => {
+        const x = padLeft + (i / (ratioHistory.length - 1)) * chartW;
+        const y = padTop + chartH - ((val - 20) / 60) * chartH;
+        return { x, y };
+      });
+
+      // GRADIENTE DE FUNDO
+      ctx.beginPath();
+      ctx.moveTo(coords[0].x, coords[0].y);
+      for (let i = 1; i < coords.length; i++) ctx.lineTo(coords[i].x, coords[i].y);
+      ctx.lineTo(coords[coords.length - 1].x, padTop + chartH);
+      ctx.lineTo(coords[0].x, padTop + chartH);
+      ctx.closePath();
+
+      const grad = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
+      grad.addColorStop(0, 'rgba(0, 242, 254, 0.22)');
+      grad.addColorStop(1, 'rgba(0, 242, 254, 0.0)');
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // LINHA NÉON
+      ctx.beginPath();
+      ctx.moveTo(coords[0].x, coords[0].y);
+      for (let i = 1; i < coords.length; i++) ctx.lineTo(coords[i].x, coords[i].y);
+      ctx.strokeStyle = '#00f2fe';
+      ctx.lineWidth = 3;
+      ctx.shadowColor = '#00f2fe';
+      ctx.shadowBlur = 14;
+      ctx.stroke();
+
+      // PONTO FINAL EM TEMPO REAL
+      const last = coords[coords.length - 1];
+      ctx.beginPath();
+      ctx.arc(last.x, last.y, 4.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = '#00f2fe';
+      ctx.shadowBlur = 16;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    function initDuelRatioChart() {
+      const canvas = document.getElementById('ratioCanvas');
+      if (!canvas) return;
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+      drawChart();
+      window.addEventListener('resize', () => {
         canvas.width = canvas.parentElement.clientWidth;
         canvas.height = canvas.parentElement.clientHeight;
-        draw();
-      }
-
-      const points = [
-        { time: '10:00', val: 34 }, { time: '', val: 38 }, { time: '', val: 35 }, { time: '', val: 40 },
-        { time: '12:00', val: 42 }, { time: '', val: 45 }, { time: '', val: 48 }, { time: '14:00', val: 42 },
-        { time: '', val: 39 }, { time: '', val: 44 }, { time: '16:00', val: 49 }, { time: '', val: 47 },
-        { time: '', val: 51 }, { time: '18:00', val: 53 }, { time: '', val: 56 }, { time: '', val: 62 },
-        { time: '', val: 64 }, { time: '20:00', val: 68 }
-      ];
-
-      function draw() {
-        const w = canvas.width;
-        const h = canvas.height;
-        ctx.clearRect(0, 0, w, h);
-
-        const padLeft = 45;
-        const padRight = 20;
-        const padTop = 30;
-        const padBottom = 30;
-
-        const chartW = w - padLeft - padRight;
-        const chartH = h - padTop - padBottom;
-
-        const yLevels = [30, 40, 50, 60, 70];
-        ctx.font = '600 10px Montserrat';
-        ctx.fillStyle = '#475569';
-        ctx.textAlign = 'right';
-
-        yLevels.forEach(lvl => {
-          const y = padTop + chartH - ((lvl - 30) / 40) * chartH;
-          ctx.strokeStyle = '#0f172a';
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(padLeft, y);
-          ctx.lineTo(w - padRight, y);
-          ctx.stroke();
-          ctx.fillText(`${lvl}%`, padLeft - 10, y + 3);
-        });
-
-        const timeLabels = ['10:00', '12:00', '14:00', '16:00', '18:00', '20:00'];
-        ctx.textAlign = 'center';
-        timeLabels.forEach((t, i) => {
-          const x = padLeft + (i / (timeLabels.length - 1)) * chartW;
-          ctx.fillText(t, x, h - 8);
-        });
-
-        const coords = points.map((p, i) => {
-          const x = padLeft + (i / (points.length - 1)) * chartW;
-          const y = padTop + chartH - ((p.val - 30) / 40) * chartH;
-          return { x, y };
-        });
-
-        ctx.beginPath();
-        ctx.moveTo(coords[0].x, coords[0].y);
-        for (let i = 1; i < coords.length; i++) ctx.lineTo(coords[i].x, coords[i].y);
-        ctx.lineTo(coords[coords.length - 1].x, padTop + chartH);
-        ctx.lineTo(coords[0].x, padTop + chartH);
-        ctx.closePath();
-
-        const grad = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
-        grad.addColorStop(0, 'rgba(0, 242, 254, 0.2)');
-        grad.addColorStop(1, 'rgba(0, 242, 254, 0.0)');
-        ctx.fillStyle = grad;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.moveTo(coords[0].x, coords[0].y);
-        for (let i = 1; i < coords.length; i++) ctx.lineTo(coords[i].x, coords[i].y);
-        ctx.strokeStyle = '#00f2fe';
-        ctx.lineWidth = 3;
-        ctx.shadowColor = '#00f2fe';
-        ctx.shadowBlur = 14;
-        ctx.stroke();
-
-        const last = coords[coords.length - 1];
-        ctx.beginPath();
-        ctx.arc(last.x, last.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = '#00f2fe';
-        ctx.shadowBlur = 16;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-
-      window.addEventListener('resize', resize);
-      resize();
+        drawChart();
+      });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -1349,9 +1393,9 @@
       renderBalances();
       initDuelRatioChart();
 
-      // Sincroniza dados da API DexScreener imediatamente e a cada 20 segundos
+      // Dispara a sincronização imediatamente e agenda a cada 15 segundos
       syncDexScreenerData();
-      setInterval(syncDexScreenerData, 20000);
+      setInterval(syncDexScreenerData, 15000);
     });
   </script>
 </body>
