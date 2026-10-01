@@ -31,7 +31,7 @@
       --border: #141f36;
       --border-focus: #1e3258;
       --cyan: #00f2fe;
-      --cyan-glow: rgba(0, 242, 254, 0.3);
+      --cyan-glow: rgba(0, 242, 254, 0.35);
       --purple: #818cf8;
       --purple-glow: rgba(129, 140, 248, 0.3);
       --green: #10b981;
@@ -221,7 +221,6 @@
       white-space: nowrap;
     }
 
-    /* XP PILL CLICÁVEL COM EFEITO HOVER */
     .protocol-pill.xp-pill {
       border-color: rgba(0, 242, 254, 0.4);
       box-shadow: 0 0 10px var(--cyan-glow);
@@ -503,35 +502,34 @@
       line-height: 1.1;
     }
 
-    /* CHART VIEWPORT */
+    /* ===================================================
+       ECG / HEARTBEAT CLEAN PULSE VIEWPORT
+       =================================================== */
     .duel-chart-viewport {
-      background: #03050c;
+      background: #02050e;
+      background-image: 
+        linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
       border: 1px solid #0f1628;
       border-radius: 12px;
-      padding: 22px 16px 14px;
+      padding: 14px;
       position: relative;
       margin-bottom: 18px;
+      overflow: hidden;
     }
 
-    .badge-leading-indicator {
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      background: rgba(4, 8, 18, 0.95);
-      border: 1px solid var(--cyan);
-      border-radius: 6px;
-      padding: 5px 10px;
-      text-align: right;
-      box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
-      z-index: 5;
+    .chart-canvas-box {
+      width: 100%;
+      height: 200px;
+      position: relative;
     }
 
-    .badge-leading-indicator .lbl { font-size: 8px; font-weight: 900; letter-spacing: 1px; color: var(--cyan); text-transform: uppercase; display: block; margin-bottom: 2px; }
-    .badge-leading-indicator .val { font-size: 16px; font-weight: 900; color: #fff; display: flex; align-items: center; justify-content: flex-end; gap: 4px; line-height: 1; }
-    .badge-leading-indicator .val span { color: var(--green); font-size: 11px; }
-
-    .chart-canvas-box { width: 100%; height: 240px; position: relative; }
-    #ratioCanvas { width: 100%; height: 100%; display: block; }
+    #ratioCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
 
     .duel-ratio-bottom-card { background: #03050c; border: 1px solid #0f1628; border-radius: 12px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
     .ratio-col-side { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 180px; }
@@ -743,223 +741,38 @@
       transform: translateX(2px);
     }
 
-    .wallet-opt-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .wallet-opt-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      background: #070d1e;
-      border: 1px solid var(--border);
-    }
-
-    .wallet-opt-name {
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .wallet-opt-sub {
-      font-size: 9px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .wallet-detect-tag {
-      font-size: 9px;
-      font-weight: 800;
-      padding: 3px 7px;
-      border-radius: 4px;
-      letter-spacing: 0.5px;
-    }
-
-    .detect-installed {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--green);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    .detect-missing {
-      background: rgba(100, 116, 139, 0.12);
-      color: #64748b;
-      border: 1px solid #1e293b;
-    }
+    .wallet-opt-left { display: flex; align-items: center; gap: 12px; }
+    .wallet-opt-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; background: #070d1e; border: 1px solid var(--border); }
+    .wallet-opt-name { font-size: 13px; font-weight: 800; }
+    .wallet-opt-sub { font-size: 9px; color: var(--text-muted); font-weight: 600; }
+    .wallet-detect-tag { font-size: 9px; font-weight: 800; padding: 3px 7px; border-radius: 4px; letter-spacing: 0.5px; }
+    .detect-installed { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .detect-missing { background: rgba(100, 116, 139, 0.12); color: #64748b; border: 1px solid #1e293b; }
 
     /* PROFILE / DISCONNECT MODAL */
-    .wallet-profile-box {
-      background: #030610;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      margin: 16px 0;
-      text-align: center;
-    }
+    .wallet-profile-box { background: #030610; border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin: 16px 0; text-align: center; }
+    .wallet-pubkey-full { font-family: monospace; font-size: 11px; color: var(--cyan); word-break: break-all; background: #060b17; padding: 8px; border-radius: 6px; margin: 10px 0; border: 1px solid #142038; }
+    .btn-copy-address { background: transparent; border: 1px solid var(--border); color: #94a3b8; font-size: 10px; font-weight: 800; padding: 5px 10px; border-radius: 6px; cursor: pointer; transition: all 0.15s ease; }
+    .btn-copy-address:hover { border-color: var(--cyan); color: #fff; }
+    .btn-disconnect-wallet { width: 100%; padding: 12px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 0.5px; cursor: pointer; border: 1px solid var(--pink); background: rgba(244, 63, 94, 0.12); color: var(--pink); transition: all 0.15s ease; }
+    .btn-disconnect-wallet:hover { background: var(--pink); color: #fff; box-shadow: 0 0 15px rgba(244, 63, 94, 0.4); }
 
-    .wallet-pubkey-full {
-      font-family: monospace;
-      font-size: 11px;
-      color: var(--cyan);
-      word-break: break-all;
-      background: #060b17;
-      padding: 8px;
-      border-radius: 6px;
-      margin: 10px 0;
-      border: 1px solid #142038;
-    }
-
-    .btn-copy-address {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: #94a3b8;
-      font-size: 10px;
-      font-weight: 800;
-      padding: 5px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .btn-copy-address:hover {
-      border-color: var(--cyan);
-      color: #fff;
-    }
-
-    .btn-disconnect-wallet {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      border: 1px solid var(--pink);
-      background: rgba(244, 63, 94, 0.12);
-      color: var(--pink);
-      transition: all 0.15s ease;
-    }
-
-    .btn-disconnect-wallet:hover {
-      background: var(--pink);
-      color: #fff;
-      box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
-    }
-
-    /* ===================================================
-       NOVO MODAL: USER BETS & PROTOCOL XP LEDGER
-       =================================================== */
-    .xp-summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin: 16px 0;
-      text-align: center;
-    }
-
-    .xp-summary-card {
-      background: #030610;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 6px;
-    }
-
-    .xp-summary-label {
-      font-size: 8px;
-      font-weight: 800;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 4px;
-    }
-
-    .xp-summary-val {
-      font-size: 14px;
-      font-weight: 900;
-    }
-
-    .user-bets-list-container {
-      max-height: 250px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin: 14px 0 6px;
-      padding-right: 4px;
-    }
-
-    .user-bets-list-container::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .user-bets-list-container::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 4px;
-    }
-
-    .bet-history-card {
-      background: #030610;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.15s ease;
-    }
-
-    .bet-history-card:hover {
-      border-color: var(--cyan);
-      background: rgba(0, 242, 254, 0.03);
-    }
-
-    .bet-card-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .bet-asset-tag {
-      font-size: 11px;
-      font-weight: 900;
-      color: #fff;
-    }
-
-    .bet-meta-sub {
-      font-size: 9px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .bet-card-right {
-      text-align: right;
-    }
-
-    .bet-xp-gain-badge {
-      font-size: 10px;
-      font-weight: 900;
-      color: var(--green);
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      padding: 2px 6px;
-      border-radius: 4px;
-      display: inline-block;
-      margin-bottom: 2px;
-    }
-
-    .no-bets-empty-state {
-      text-align: center;
-      padding: 24px 10px;
-      color: var(--text-muted);
-      font-size: 11px;
-      font-weight: 600;
-    }
+    /* USER BETS & PROTOCOL XP LEDGER */
+    .xp-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0; text-align: center; }
+    .xp-summary-card { background: #030610; border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; }
+    .xp-summary-label { font-size: 8px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .xp-summary-val { font-size: 14px; font-weight: 900; }
+    .user-bets-list-container { max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin: 14px 0 6px; padding-right: 4px; }
+    .user-bets-list-container::-webkit-scrollbar { width: 4px; }
+    .user-bets-list-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .bet-history-card { background: #030610; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; transition: all 0.15s ease; }
+    .bet-history-card:hover { border-color: var(--cyan); background: rgba(0, 242, 254, 0.03); }
+    .bet-card-left { display: flex; align-items: center; gap: 10px; }
+    .bet-asset-tag { font-size: 11px; font-weight: 900; color: #fff; }
+    .bet-meta-sub { font-size: 9px; color: var(--text-muted); font-weight: 600; }
+    .bet-card-right { text-align: right; }
+    .bet-xp-gain-badge { font-size: 10px; font-weight: 900; color: var(--green); background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 2px; }
+    .no-bets-empty-state { text-align: center; padding: 24px 10px; color: var(--text-muted); font-size: 11px; font-weight: 600; }
 
     /* MODAL DE EXECUÇÃO DE POSIÇÃO */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(2, 4, 10, 0.9); backdrop-filter: blur(8px); z-index: 99999; align-items: center; justify-content: center; padding: 16px; }
@@ -1232,12 +1045,8 @@
         </div>
       </div>
 
-      <!-- RATIO CHART VIEWPORT -->
+      <!-- ECG HEARTBEAT PULSE VIEWPORT (CLEAN MINIMALIST CANVAS) -->
       <div class="duel-chart-viewport">
-        <div class="badge-leading-indicator">
-          <span class="lbl" id="leading-label-indicator">ANALYZING RATIO...</span>
-          <span class="val"><strong id="leading-pct-indicator">--%</strong> <span>▲</span></span>
-        </div>
         <div class="chart-canvas-box">
           <canvas id="ratioCanvas"></canvas>
         </div>
@@ -1504,9 +1313,7 @@
     </footer>
   </div>
 
-  <!-- ===================================================
-       NOVO MODAL: USER ALLOCATIONS & PROTOCOL XP LEDGER
-       =================================================== -->
+  <!-- MODAL: USER ALLOCATIONS & PROTOCOL XP LEDGER -->
   <div id="xp-modal-overlay" class="modal-overlay" onclick="closeXPModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()" style="max-width: 480px;">
       <button class="modal-close" onclick="closeXPModal()">✕</button>
@@ -1520,7 +1327,6 @@
         </div>
       </div>
 
-      <!-- CARDS DE RESUMO DE XP -->
       <div class="xp-summary-grid">
         <div class="xp-summary-card">
           <div class="xp-summary-label">TOTAL XP</div>
@@ -1541,9 +1347,7 @@
         <span style="color:var(--cyan);">RATE: 1.00 SOL = 1.00 XP</span>
       </div>
 
-      <!-- LISTA DINÂMICA DE APOSTAS -->
       <div id="user-bets-list-box" class="user-bets-list-container">
-        <!-- RENDERIZADO VIA JAVASCRIPT -->
       </div>
 
       <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; border-top:1px solid #141f36; padding-top:12px;">
@@ -1839,16 +1643,12 @@
     let testCredits = localStorage.getItem('bull_credits') ? parseFloat(localStorage.getItem('bull_credits')) : 1000.00;
     let userXP = localStorage.getItem('bull_xp') ? parseFloat(localStorage.getItem('bull_xp')) : 0.00;
 
-    // BANCO DE APOSTAS DO USUÁRIO
     let userBets = localStorage.getItem('bull_user_bets') ? JSON.parse(localStorage.getItem('bull_user_bets')) : [];
 
-    // ESTADO DA CARTEIRA
     let connectedWallet = localStorage.getItem('bull_wallet_address') || null;
     let connectedWalletProvider = localStorage.getItem('bull_wallet_provider') || null;
 
-    // ===================================================
     // GERENCIADOR DE PROTOCOL XP & HISTÓRICO DE APOSTAS
-    // ===================================================
     function openXPModal() {
       renderXPLedger();
       document.getElementById('xp-modal-overlay').style.display = 'flex';
@@ -1905,9 +1705,7 @@
       }
     }
 
-    // ===================================================
-    // GERENCIADOR DE CARTEIRAS WEB3 (CONNECT & DISCONNECT)
-    // ===================================================
+    // GERENCIADOR DE CARTEIRAS WEB3
     function handleWalletButtonClick() {
       if (connectedWallet) {
         openWalletProfileModal();
@@ -2032,9 +1830,7 @@
       }
     }
 
-    // ===================================================
-    // AUTONOMOUS DUEL POOLS (HYPE ROTATIONS)
-    // ===================================================
+    // AUTONOMOUS DUEL POOLS
     const ARENA_DUEL_POOLS = {
       '30m': [
         {
@@ -2079,7 +1875,6 @@
 
     let currentRatioA = 62;
     let currentRatioB = 38;
-    let ratioHistory = [42, 45, 41, 48, 52, 49, 55, 53, 58, 56, 61, 59, 64, 60, 63, 61, 65, 62];
 
     const ARENA_CONFIG = {
       '30m': {
@@ -2147,7 +1942,6 @@
 
       currentRatioA = 50;
       currentRatioB = 50;
-      ratioHistory = [50, 49, 51, 50, 52, 48, 53, 49, 52, 51, 54, 50, 53, 52, 51, 52, 51, 50];
 
       syncDexScreenerData();
     }
@@ -2351,13 +2145,11 @@
       if (val > MAX_WAGER) return alert(`⚠️ Maximum capital allocation: ${MAX_WAGER.toFixed(2)} SOL per transaction!`);
       if (val > testCredits) return alert(`Insufficient Demo Liquidity! You have ${testCredits.toFixed(2)} SOL.`);
 
-      // Subtrai crédito e credita XP na exata paridade 1 SOL = 1 XP
       testCredits -= val;
       userXP += val;
       localStorage.setItem('bull_credits', testCredits);
       localStorage.setItem('bull_xp', userXP);
 
-      // SALVA O REGISTRO COMPLETO DA APOSTA NO LEDGER DO USUÁRIO
       const newBet = {
         id: 'BULL-' + Math.floor(1000 + Math.random() * 9000),
         asset: selectedFighter,
@@ -2430,11 +2222,7 @@
             currentRatioA = Math.min(85, Math.max(15, calculatedA));
             currentRatioB = 100 - currentRatioA;
 
-            ratioHistory.shift();
-            ratioHistory.push(currentRatioA);
-
             updateRaceAndVisuals(deltaA, deltaB);
-            drawSmoothChart();
           }
         }
       } catch (err) {
@@ -2465,21 +2253,12 @@
       document.getElementById('runner-pct-b').innerText = `${currentRatioB}%`;
 
       const raceLeader = document.getElementById('race-leader-text');
-      const leadLabel = document.getElementById('leading-label-indicator');
-      const leadPct = document.getElementById('leading-pct-indicator');
-
       if (currentRatioA >= 50) {
         if (raceLeader) raceLeader.innerText = `1ST PLACE: ${tA.symbol} (${deltaA >= 0 ? '+' : ''}${deltaA}% VEL)`;
         if (raceLeader) raceLeader.style.color = "var(--cyan)";
-        leadLabel.innerText = `${tA.symbol} LEADING`;
-        leadLabel.style.color = "var(--cyan)";
-        leadPct.innerText = `${currentRatioA}%`;
       } else {
         if (raceLeader) raceLeader.innerText = `1ST PLACE: ${tB.symbol} (${deltaB >= 0 ? '+' : ''}${deltaB}% VEL)`;
         if (raceLeader) raceLeader.style.color = "var(--purple)";
-        leadLabel.innerText = `${tB.symbol} LEADING`;
-        leadLabel.style.color = "var(--purple)";
-        leadPct.innerText = `${currentRatioB}%`;
       }
 
       currentMultiplierA = (1.92 * (100 / Math.max(15, currentRatioA * 1.85))).toFixed(2);
@@ -2491,109 +2270,97 @@
       if (multLabelB) multLabelB.innerText = `${currentMultiplierB}x TARGET`;
     }
 
-    // SMOOTH BÉZIER SPLINES CHART
-    function drawSmoothChart() {
+    // ===================================================
+    // MOTOR DO ECG / BATIMENTO CARDÍACO (CANVAS PULSE)
+    // ===================================================
+    let ecgOffset = 0;
+
+    function getEcgY(x, width, height, midY) {
+      // Normaliza x ao longo de ciclos de pulso de batimento cardíaco
+      const cycleLength = 220;
+      const phase = (x + ecgOffset) % cycleLength;
+
+      let yOffset = 0;
+      // Ondulação suave de base P
+      if (phase >= 30 && phase < 50) {
+        yOffset = -Math.sin(((phase - 30) / 20) * Math.PI) * 7;
+      }
+      // QRS Complexo: Mergulho rápido Q
+      else if (phase >= 60 && phase < 68) {
+        yOffset = ((phase - 60) / 8) * 14;
+      }
+      // QRS Complexo: Pico cardíaco agudo R (Batimento)
+      else if (phase >= 68 && phase < 82) {
+        const peakProgress = (phase - 68) / 14;
+        yOffset = -Math.sin(peakProgress * Math.PI) * 65;
+      }
+      // QRS Complexo: Vale profundo S
+      else if (phase >= 82 && phase < 94) {
+        yOffset = Math.sin(((phase - 82) / 12) * Math.PI) * 22;
+      }
+      // Onda de recuperação T
+      else if (phase >= 115 && phase < 145) {
+        yOffset = -Math.sin(((phase - 115) / 30) * Math.PI) * 12;
+      }
+
+      // Adiciona micro-vibração de ruído elétrico biológico
+      const microNoise = (Math.sin(x * 0.15 + ecgOffset * 0.05) * 1.5);
+      return midY + yOffset + microNoise;
+    }
+
+    function renderEcgPulse() {
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
       const w = canvas.width;
       const h = canvas.height;
+      const midY = h / 2;
+
       ctx.clearRect(0, 0, w, h);
 
-      const padLeft = 45;
-      const padRight = 20;
-      const padTop = 30;
-      const padBottom = 30;
-      const chartW = w - padLeft - padRight;
-      const chartH = h - padTop - padBottom;
-
-      const yLevels = [20, 40, 60, 80];
-      ctx.font = '600 10px Montserrat';
-      ctx.fillStyle = '#475569';
-      ctx.textAlign = 'right';
-
-      yLevels.forEach(lvl => {
-        const y = padTop + chartH - ((lvl - 20) / 60) * chartH;
-        ctx.strokeStyle = '#0f172a';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(padLeft, y);
-        ctx.lineTo(w - padRight, y);
-        ctx.stroke();
-        ctx.fillText(`${lvl}%`, padLeft - 10, y + 3);
-      });
-
-      const coords = ratioHistory.map((val, i) => {
-        const x = padLeft + (i / (ratioHistory.length - 1)) * chartW;
-        const y = padTop + chartH - ((val - 20) / 60) * chartH;
-        return { x, y };
-      });
-
+      // Linha de batimento cardíaco contínua
       ctx.beginPath();
-      ctx.moveTo(coords[0].x, coords[0].y);
-      for (let i = 0; i < coords.length - 1; i++) {
-        const xc = (coords[i].x + coords[i + 1].x) / 2;
-        const yc = (coords[i].y + coords[i + 1].y) / 2;
-        ctx.quadraticCurveTo(coords[i].x, coords[i].y, xc, yc);
+      for (let x = 0; x <= w; x += 2) {
+        const y = getEcgY(x, w, h, midY);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
       }
-      ctx.quadraticCurveTo(coords[coords.length - 1].x, coords[coords.length - 1].y, coords[coords.length - 1].x, coords[coords.length - 1].y);
-      ctx.lineTo(coords[coords.length - 1].x, padTop + chartH);
-      ctx.lineTo(coords[0].x, padTop + chartH);
-      ctx.closePath();
-
-      const grad = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
-      grad.addColorStop(0, 'rgba(0, 242, 254, 0.28)');
-      grad.addColorStop(1, 'rgba(0, 242, 254, 0.0)');
-      ctx.fillStyle = grad;
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.moveTo(coords[0].x, coords[0].y);
-      for (let i = 0; i < coords.length - 1; i++) {
-        const xc = (coords[i].x + coords[i + 1].x) / 2;
-        const yc = (coords[i].y + coords[i + 1].y) / 2;
-        ctx.quadraticCurveTo(coords[i].x, coords[i].y, xc, yc);
-      }
-      ctx.quadraticCurveTo(coords[coords.length - 1].x, coords[coords.length - 1].y, coords[coords.length - 1].x, coords[coords.length - 1].y);
 
       ctx.strokeStyle = '#00f2fe';
-      ctx.lineWidth = 3.5;
+      ctx.lineWidth = 2.5;
       ctx.shadowColor = '#00f2fe';
-      ctx.shadowBlur = 16;
+      ctx.shadowBlur = 18;
       ctx.stroke();
 
-      const last = coords[coords.length - 1];
+      // Ponto condutor na ponta direita simulando varredura médica
+      const leadX = w - 12;
+      const leadY = getEcgY(leadX, w, h, midY);
       ctx.beginPath();
-      ctx.arc(last.x, last.y, 5, 0, Math.PI * 2);
+      ctx.arc(leadX, leadY, 4, 0, Math.PI * 2);
       ctx.fillStyle = '#ffffff';
       ctx.shadowColor = '#00f2fe';
-      ctx.shadowBlur = 20;
+      ctx.shadowBlur = 22;
       ctx.fill();
       ctx.shadowBlur = 0;
+
+      // Velocidade do deslocamento do eletrocardiograma
+      ecgOffset += 2.2;
+      requestAnimationFrame(renderEcgPulse);
     }
 
-    function simulateMicroTick() {
-      const tickFluctuation = (Math.random() * 2.4 - 1.2);
-      let nextVal = Math.round(currentRatioA + tickFluctuation);
-      nextVal = Math.min(82, Math.max(18, nextVal));
-
-      ratioHistory.shift();
-      ratioHistory.push(nextVal);
-      drawSmoothChart();
-    }
-
-    function initDuelRatioChart() {
+    function initEcgCanvas() {
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
-      drawSmoothChart();
-      window.addEventListener('resize', () => {
+
+      function resize() {
         canvas.width = canvas.parentElement.clientWidth;
         canvas.height = canvas.parentElement.clientHeight;
-        drawSmoothChart();
-      });
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+      requestAnimationFrame(renderEcgPulse);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -2607,13 +2374,12 @@
 
       renderBalances();
       renderWalletState();
-      initDuelRatioChart();
+      initEcgCanvas();
 
       loadAutonomousDuel('1h');
       updateCountdown();
 
       setInterval(syncDexScreenerData, 15000);
-      setInterval(simulateMicroTick, 2500);
       setInterval(updateCountdown, 1000);
     });
   </script>
