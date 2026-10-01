@@ -3345,6 +3345,222 @@
     color: var(--accent-cyan) !important;
     text-shadow: 0 0 10px rgba(0, 242, 254, 0.4) !important;
   }
+</style
+  <style>
+  /* ===================================================
+     BULL ROYALE - DARK NEON THEME & DUEL RATIO STYLES
+     =================================================== */
+
+  :root {
+    --bg-main: #08090d;
+    --bg-card: #0f131c;
+    --bg-card-hover: #151a27;
+    --border-subtle: #1c2438;
+    --border-glow: rgba(0, 242, 254, 0.4);
+    --accent-cyan: #00f2fe;
+    --accent-purple: #7928ca;
+    --text-primary: #f8fafc;
+    --text-muted: #8b98b0;
+  }
+
+  body {
+    background-color: var(--bg-main) !important;
+    color: var(--text-primary) !important;
+  }
+
+  /* Base card overrides */
+  .r-card {
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 14px !important;
+    transition: all 0.25s ease-in-out !important;
+  }
+
+  .r-card:hover {
+    background-color: var(--bg-card-hover) !important;
+    border-color: var(--border-glow) !important;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.18) !important;
+  }
+
+  .r-card.locked {
+    opacity: 0.55 !important;
+    filter: grayscale(35%) !important;
+  }
+
+  /* Duel Ratio Component Styling */
+  .duel-card-container {
+    background: #090c15;
+    border: 1px solid #171d2c;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 900px;
+    margin: 20px auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #f8fafc;
+  }
+
+  .duel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .duel-title-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .duel-title {
+    margin: 0;
+    font-size: 1.35rem;
+    letter-spacing: 2px;
+    color: #00f2fe;
+    font-weight: 800;
+  }
+
+  .duel-subtitle {
+    margin: 3px 0 0 0;
+    font-size: 0.65rem;
+    color: #64748b;
+    letter-spacing: 1.5px;
+  }
+
+  .duel-matchup {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .competitor {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .competitor-avatar, .side-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    background: #111624;
+  }
+
+  .border-cyan { border: 2px solid #00f2fe; }
+  .border-amber { border: 2px solid #f59e0b; }
+  .text-cyan { color: #00f2fe; }
+  .text-blue { color: #38bdf8; }
+
+  .competitor-name { font-weight: 700; font-size: 0.85rem; display: block; }
+  .competitor-change { font-size: 0.75rem; font-weight: 600; display: block; }
+  .duel-vs { font-size: 0.75rem; color: #64748b; font-weight: 700; }
+
+  .chart-container {
+    position: relative;
+    height: 260px;
+    background: #06080e;
+    border: 1px solid #141b2b;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 10px 10px 30px 45px;
+  }
+
+  .chart-lead-badge {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: rgba(0, 242, 254, 0.1);
+    border: 1px solid rgba(0, 242, 254, 0.35);
+    border-radius: 8px;
+    padding: 4px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 0.7rem;
+    color: #00f2fe;
+  }
+
+  .duel-svg-chart {
+    width: 100%;
+    height: 100%;
+  }
+
+  .axis-y {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: #475569;
+  }
+
+  .axis-x {
+    position: absolute;
+    bottom: 8px;
+    left: 50px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: #475569;
+  }
+
+  .duel-footer-ratio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: #06080e;
+    border: 1px solid #141b2b;
+    border-radius: 12px;
+  }
+
+  .ratio-side {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .side-info { flex: 1; }
+  .side-numbers {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .right-align { justify-content: flex-end; }
+
+  .progress-track {
+    height: 6px;
+    background: #151d30;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .progress-fill { height: 100%; border-radius: 999px; }
+  .fill-cyan { background: #00f2fe; box-shadow: 0 0 10px #00f2fe; }
+  .fill-blue { background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
+
+  .ratio-center-legend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+  }
+  .swap-icon { font-size: 0.85rem; color: #64748b; }
+  .legend-title { font-size: 0.65rem; color: #94a3b8; font-weight: 700; letter-spacing: 1px; }
+  .legend-pair { font-size: 0.6rem; color: #475569; }
 </style>
 </head>
 
