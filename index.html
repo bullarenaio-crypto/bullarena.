@@ -52,7 +52,6 @@
       overflow-x: hidden;
     }
 
-    /* TRAVA DE TAMANHO PARA IMAGENS */
     img { max-width: 100%; height: auto; display: block; }
 
     /* INTRO SPLASH SCREEN */
@@ -134,7 +133,7 @@
       padding: 16px 20px 60px;
     }
 
-    /* COMPACT NAVBAR */
+    /* NAVBAR */
     nav {
       display: flex;
       justify-content: space-between;
@@ -268,7 +267,7 @@
       box-shadow: 0 2px 0 #047857;
     }
 
-    /* HERO SECTION */
+    /* HERO */
     .hero {
       text-align: center;
       margin-bottom: 34px;
@@ -322,7 +321,7 @@
       font-weight: 600;
     }
 
-    /* METRICS BAR */
+    /* METRICS */
     .metrics-bar {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -359,7 +358,7 @@
     .metric-num.green { color: var(--green); }
     .metric-num.cyan { color: var(--cyan); }
 
-    /* SUPPORTED WALLETS BAR */
+    /* SUPPORTED WALLETS */
     .supported-wallets-bar {
       background: rgba(9, 14, 28, 0.7);
       border: 1px solid var(--border);
@@ -410,7 +409,7 @@
     }
 
     /* ===================================================
-       DUEL RATIO ARENA (FIEL À IMAGEM)
+       DUEL RATIO ARENA (DA IMAGEM)
        =================================================== */
     .duel-ratio-arena-wrapper {
       background: #050813;
@@ -660,7 +659,7 @@
       box-shadow: 0 1px 0 #7e22ce;
     }
 
-    /* SEÇÕES DE CONTEÚDO */
+    /* SEÇÕES DO SITE */
     .content-card-section {
       background: var(--card-bg);
       border: 1.5px solid var(--border);
@@ -704,7 +703,6 @@
       font-weight: 600;
     }
 
-    /* STEPS */
     .steps-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -742,7 +740,7 @@
       font-weight: 600;
     }
 
-    /* TOKENOMICS & TREASURY */
+    /* TOKENOMICS */
     .tokenomics-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1031,7 +1029,7 @@
       opacity: 0.8;
     }
 
-    /* FAQ SECTION */
+    /* FAQ */
     .faq-list {
       display: flex;
       flex-direction: column;
@@ -1108,12 +1106,14 @@
 
     footer a:hover { color: var(--gold); }
 
-    /* MODAL */
+    /* ===================================================
+       MODAL DE APOSTA COMPLETO (COM TRAVAS DE 0.20 A 5 SOL)
+       =================================================== */
     .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(3, 6, 14, 0.88);
+      background: rgba(3, 6, 14, 0.9);
       backdrop-filter: blur(8px);
       z-index: 99999;
       align-items: center;
@@ -1122,41 +1122,141 @@
     }
 
     .modal-box {
-      background: #080d1c;
+      background: #090e1a;
       border: 2px solid var(--gold);
-      border-radius: 16px;
+      border-radius: 18px;
       width: 100%;
-      max-width: 420px;
-      padding: 22px;
-      box-shadow: 0 0 35px var(--gold-glow);
+      max-width: 440px;
+      padding: 24px;
+      box-shadow: 0 0 40px var(--gold-glow);
       position: relative;
     }
 
     .modal-close {
       position: absolute;
-      top: 14px;
-      right: 16px;
+      top: 16px;
+      right: 18px;
       background: none;
       border: none;
+      font-size: 22px;
       color: #64748b;
-      font-size: 20px;
       cursor: pointer;
     }
 
     .modal-close:hover { color: #fff; }
 
+    .modal-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .modal-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      background: #141c2e;
+      flex-shrink: 0;
+    }
+
+    .modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .modal-title-box h3 {
+      font-family: 'Teko', sans-serif;
+      font-size: 28px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .modal-input-wrap {
+      background: #04060c;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .modal-input-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .modal-input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .modal-input {
-      width: 100%;
-      background: #030611;
-      border: 1px solid var(--border);
+      background: transparent;
+      border: none;
       color: #fff;
       font-family: 'Montserrat', sans-serif;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 900;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin: 14px 0;
+      width: 100%;
       outline: none;
+    }
+
+    .modal-token-label {
+      font-family: 'Teko', sans-serif;
+      font-size: 22px;
+      color: var(--gold);
+    }
+
+    .quick-pct-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .btn-pct {
+      background: #0f1629;
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 7px 4px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+
+    .btn-pct:hover {
+      border-color: var(--gold);
+      color: #fff;
+    }
+
+    .modal-summary-box {
+      background: #050813;
+      border: 1px solid #141c2c;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .modal-summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+    }
+
+    .modal-summary-row span.gold {
+      color: var(--gold);
+      font-size: 14px;
+      font-weight: 900;
     }
 
     @media (max-width: 768px) {
@@ -1219,7 +1319,6 @@
           <button type="button" class="btn-fake-reset" onclick="resetCredits()">✕</button>
         </div>
 
-        <!-- REDES SOCIAIS -->
         <div class="social-nav-group" translate="no">
           <a href="https://x.com/bullarenaio" target="_blank" rel="noopener noreferrer" class="btn-social-icon" title="Follow on X (Twitter)">
             <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -1369,16 +1468,16 @@
 
       <!-- BOTÕES DE APOSTA / PREDIÇÃO -->
       <div class="duel-actions-grid">
-        <button class="btn-action-wager btn-action-cyan" onclick="openWagerModal('BONK', 1.72)">
+        <button class="btn-action-wager btn-action-cyan" onclick="openStakeModal('BONK', 1.72, 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035')">
           BACK BONK (1.72x PAYOUT)
         </button>
-        <button class="btn-action-wager btn-action-purple" onclick="openWagerModal('WIF', 2.28)">
+        <button class="btn-action-wager btn-action-purple" onclick="openStakeModal('WIF', 2.28, 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035')">
           BACK WIF (2.28x PAYOUT)
         </button>
       </div>
     </main>
 
-    <!-- TACTICAL OVERVIEW (HOW IT WORKS) -->
+    <!-- TACTICAL OVERVIEW -->
     <section class="content-card-section">
       <div class="sec-header">
         <div class="sec-badge" translate="no">TACTICAL OVERVIEW</div>
@@ -1413,7 +1512,7 @@
       </div>
     </section>
 
-    <!-- TOKENOMICS & PROTOCOL TREASURY -->
+    <!-- TOKENOMICS -->
     <section class="content-card-section">
       <div class="sec-header">
         <div class="sec-badge" translate="no">SUSTAINABLE ARCHITECTURE</div>
@@ -1641,7 +1740,7 @@
       </div>
     </section>
 
-    <!-- FAQ SECTION -->
+    <!-- FAQ -->
     <section class="content-card-section">
       <div class="sec-header">
         <div class="sec-badge" translate="no">KNOWLEDGE BASE</div>
@@ -1694,6 +1793,16 @@
 
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question">
+            <span>What is the difference between Flash Arena (1H) and Daily Royale (24H)?</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            The Flash Arena (1H) operates on fast momentum bursts and closes at the top of every hour with a 15-minute anti-snipe buffer. The Daily Royale (24H) accumulates a much larger macro liquidity pool, settling once per day at 00:00 UTC with a 15-minute buffer.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
             <span>How does the DexScreener Oracle prevent human tampering?</span>
             <span class="faq-toggle-icon">+</span>
           </div>
@@ -1715,16 +1824,53 @@
     </footer>
   </div>
 
-  <!-- MODAL WAGER -->
-  <div id="wagerModal" class="modal-overlay" onclick="closeWagerModal(event)">
-    <div class="modal-box" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeWagerModal()">✕</button>
-      <h3 id="modalTitle" style="font-family:'Teko',sans-serif; font-size:28px; color:var(--gold);">BACK CONTENDER</h3>
-      <p style="font-size:11px; color:#94a3b8; font-weight:700;">Enter your $SOL amount to back this token in the live round:</p>
+  <!-- ===================================================
+       MODAL DE APOSTA / STAKE (COM LIMITES 0.20 A 5.00 SOL)
+       =================================================== -->
+  <div id="stake-modal-overlay" class="modal-overlay" onclick="closeStakeModal(event)">
+    <div class="modal-box" translate="no" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeStakeModal()">✕</button>
+      <div class="modal-head">
+        <div class="modal-avatar">
+          <img id="modal-fighter-img" src="" alt="Fighter">
+        </div>
+        <div class="modal-title-box">
+          <h3 id="modal-fighter-name">BONK</h3>
+          <span style="font-size:11px; color:var(--gold); font-weight:800;">MULTIPLIER: <span id="modal-fighter-mult">1.72x</span></span>
+        </div>
+      </div>
 
-      <input type="number" id="wagerAmount" class="modal-input" value="0.5" step="0.1" min="0.2" max="5.0">
+      <div class="modal-input-wrap">
+        <div class="modal-input-top">
+          <span>AMOUNT TO ALLOCATE (MIN: 0.20 • MAX: 5.00)</span>
+          <span>AVAILABLE TEST PTS: <strong id="modal-user-sol" style="color:var(--gold);">1000.00</strong></span>
+        </div>
+        <div class="modal-input-row">
+          <input type="number" id="input-stake-amount" class="modal-input" placeholder="0.20" step="0.10" min="0.20" max="5.00" oninput="calculateModalReturn()">
+          <span class="modal-token-label">SOL</span>
+        </div>
+      </div>
 
-      <button class="btn-action-wager btn-action-cyan" style="width:100%; transform:none;" onclick="confirmWager()">
+      <!-- BOTÕES RÁPIDOS DE SELEÇÃO -->
+      <div class="quick-pct-row">
+        <button type="button" class="btn-pct" onclick="setFixedSol(0.20)">0.20 SOL</button>
+        <button type="button" class="btn-pct" onclick="setFixedSol(1.00)">1.00 SOL</button>
+        <button type="button" class="btn-pct" onclick="setFixedSol(2.50)">2.50 SOL</button>
+        <button type="button" class="btn-pct" onclick="setFixedSol(5.00)">MAX (5 SOL)</button>
+      </div>
+
+      <div class="modal-summary-box">
+        <div class="modal-summary-row">
+          <span style="color:var(--text-muted);">Est. Potential Payout:</span>
+          <span class="gold"><strong id="modal-est-payout">0.00</strong> SOL</span>
+        </div>
+        <div class="modal-summary-row">
+          <span style="color:var(--text-muted);">Protocol Operations Fee:</span>
+          <span style="color: #94a3b8;">5% (Platform Infrastructure & Operations)</span>
+        </div>
+      </div>
+
+      <button id="btn-modal-confirm" class="btn-action-wager btn-action-cyan" style="width: 100%; transform: none;" onclick="confirmModalStake()">
         CONFIRM & SIGN SOL STAKE
       </button>
     </div>
@@ -1732,10 +1878,13 @@
 
   <!-- MOTOR JAVASCRIPT COMPLETO -->
   <script>
+    const MIN_WAGER = 0.20;
+    const MAX_WAGER = 5.00;
+
     let testCredits = localStorage.getItem('bull_credits') ? parseFloat(localStorage.getItem('bull_credits')) : 1000.00;
     let userXP = localStorage.getItem('bull_xp') ? parseFloat(localStorage.getItem('bull_xp')) : 0.00;
-    let currentFighter = 'BONK';
-    let currentMult = 1.72;
+    let selectedFighter = 'BONK';
+    let currentMultiplier = 1.72;
 
     function renderBalances() {
       const elTest = document.getElementById('fake-balance-val');
@@ -1770,30 +1919,77 @@
       }
     }
 
-    function openWagerModal(fighter, mult) {
-      currentFighter = fighter;
-      currentMult = mult;
-      document.getElementById('modalTitle').innerText = `BACK $${fighter} (${mult}x)`;
-      document.getElementById('wagerModal').style.display = 'flex';
+    // MODAL DE APOSTA / STAKE
+    function openStakeModal(fighter, mult, iconUrl) {
+      selectedFighter = fighter;
+      currentMultiplier = mult;
+
+      document.getElementById('modal-fighter-name').innerText = `$${fighter}`;
+      document.getElementById('modal-fighter-mult').innerText = `${mult.toFixed(2)}x`;
+      document.getElementById('modal-fighter-img').src = iconUrl;
+      document.getElementById('modal-user-sol').innerText = testCredits.toFixed(2);
+
+      const inp = document.getElementById('input-stake-amount');
+      inp.value = '0.20';
+      calculateModalReturn();
+
+      const btnConfirm = document.getElementById('btn-modal-confirm');
+      btnConfirm.className = fighter === 'BONK' ? 'btn-action-wager btn-action-cyan' : 'btn-action-wager btn-action-purple';
+      btnConfirm.style.width = '100%';
+      btnConfirm.style.transform = 'none';
+
+      document.getElementById('stake-modal-overlay').style.display = 'flex';
     }
 
-    function closeWagerModal(e) {
-      document.getElementById('wagerModal').style.display = 'none';
+    function closeStakeModal(e) {
+      if (e && e.target !== document.getElementById('stake-modal-overlay') && !e.target.classList.contains('modal-close')) return;
+      document.getElementById('stake-modal-overlay').style.display = 'none';
     }
 
-    function confirmWager() {
-      const val = parseFloat(document.getElementById('wagerAmount').value);
-      if (!val || val < 0.2) return alert("Minimum wager: 0.20 SOL");
-      if (val > testCredits) return alert("Insufficient test credits! Click +500 at the top.");
+    function setFixedSol(amount) {
+      document.getElementById('input-stake-amount').value = amount.toFixed(2);
+      calculateModalReturn();
+    }
+
+    function calculateModalReturn() {
+      const val = parseFloat(document.getElementById('input-stake-amount').value) || 0;
+      const ret = (val * currentMultiplier).toFixed(2);
+      const payoutEl = document.getElementById('modal-est-payout');
+      if (payoutEl) payoutEl.innerText = ret;
+    }
+
+    function confirmModalStake() {
+      const val = parseFloat(document.getElementById('input-stake-amount').value);
+
+      if (!val || isNaN(val)) {
+        alert("Please enter a valid amount!");
+        return;
+      }
+
+      if (val < MIN_WAGER) {
+        alert(`⚠️ Minimum wager: ${MIN_WAGER.toFixed(2)} SOL!`);
+        return;
+      }
+
+      if (val > MAX_WAGER) {
+        alert(`⚠️ Maximum allowed wager: ${MAX_WAGER.toFixed(2)} SOL per wager to protect the round multiplier!`);
+        return;
+      }
+
+      if (val > testCredits) {
+        alert(`Insufficient Test PTS! You have ${testCredits.toFixed(2)} PTS. Use the '+500' button at the top to reload.`);
+        return;
+      }
 
       testCredits -= val;
       userXP += val;
       localStorage.setItem('bull_credits', testCredits);
       localStorage.setItem('bull_xp', userXP);
       renderBalances();
-      closeWagerModal();
 
-      alert(`🎯 Wager of ${val.toFixed(2)} SOL placed on $${currentFighter}!\nPotential return: +${(val * currentMult).toFixed(2)} SOL`);
+      document.getElementById('stake-modal-overlay').style.display = 'none';
+
+      alert(`🎯 WAGER CONFIRMED SUCCESSFULLY!\n\nContender: $${selectedFighter}\nAmount: ${val.toFixed(2)} SOL\nMultiplier: ${currentMultiplier}x\nEst. Payout: +${(val * currentMultiplier).toFixed(2)} SOL`);
     }
 
     function toggleFaq(el) {
@@ -1802,9 +1998,7 @@
       if (!isOpen) el.classList.add('open');
     }
 
-    // ===================================================
-    // MOTOR DO GRÁFICO NÉON (DUEL RATIO)
-    // ===================================================
+    // GRÁFICO DUEL RATIO NÉON
     function initDuelRatioChart() {
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
@@ -1850,7 +2044,6 @@
         const chartW = w - padLeft - padRight;
         const chartH = h - padTop - padBottom;
 
-        // LINHAS DE GRADE (30% a 70%)
         const yLevels = [30, 40, 50, 60, 70];
         ctx.font = '700 10px Montserrat';
         ctx.fillStyle = '#475569';
@@ -1868,7 +2061,6 @@
           ctx.fillText(`${lvl}%`, padLeft - 10, y + 3);
         });
 
-        // HORÁRIOS
         const timeLabels = ['10:00', '12:00', '14:00', '16:00', '18:00', '20:00'];
         ctx.textAlign = 'center';
         timeLabels.forEach((t, i) => {
@@ -1876,14 +2068,12 @@
           ctx.fillText(t, x, h - 8);
         });
 
-        // CURVA
         const coords = points.map((p, i) => {
           const x = padLeft + (i / (points.length - 1)) * chartW;
           const y = padTop + chartH - ((p.val - 30) / 40) * chartH;
           return { x, y };
         });
 
-        // GRADIENTE DE FUNDO
         ctx.beginPath();
         ctx.moveTo(coords[0].x, coords[0].y);
         for (let i = 1; i < coords.length; i++) {
@@ -1899,7 +2089,6 @@
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // LINHA NÉON
         ctx.beginPath();
         ctx.moveTo(coords[0].x, coords[0].y);
         for (let i = 1; i < coords.length; i++) {
@@ -1911,7 +2100,6 @@
         ctx.shadowBlur = 14;
         ctx.stroke();
 
-        // PONTO LUMINOSO FINAL
         const last = coords[coords.length - 1];
         ctx.beginPath();
         ctx.arc(last.x, last.y, 4.5, 0, Math.PI * 2);
@@ -1927,7 +2115,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Fadeout do Splash Screen
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
         if (splash) {
