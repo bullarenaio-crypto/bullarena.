@@ -744,7 +744,7 @@
       </a>
 
       <div class="nav-actions">
-        <!-- BOTÃO MARKETS HUB -->
+        <!-- MARKETS HUB BUTTON -->
         <button type="button" class="btn-open-market-hub" onclick="openMarketHub()">
           <span>📊</span> MARKETS HUB
         </button>
@@ -803,11 +803,11 @@
     </section>
 
     <!-- ===================================================
-         DUEL RATIO ARENA + ABAS DE TEMPO + TRAVA ANTI-SNIPE
+         DUEL RATIO ARENA + EPOCH TABS + ANTI-SNIPE LOCK
          =================================================== -->
     <main class="duel-ratio-arena-wrapper">
 
-      <!-- SELETOR DAS ABAS DAS ARENAS (30M, 1H, 24H) -->
+      <!-- EPOCH MODE SELECTOR (30M, 1H, 24H) -->
       <div class="arena-epoch-tabs">
         <button id="tab-epoch-30m" class="btn-epoch-tab" onclick="switchEpochMode('30m')">
           <span>🔥 TURBO (30M)</span>
@@ -820,19 +820,19 @@
         </button>
       </div>
 
-      <!-- CRONÔMETRO REGRESSIVO + STATUS REAL DA TRAVA ANTI-MANIPULAÇÃO -->
+      <!-- TIMER & PROTOCOL LOCK BUFFER BAR -->
       <div class="arena-timer-bar">
         <div style="display:flex; align-items:center; gap:8px;">
           <span id="epoch-round-badge" style="color:var(--cyan); background:rgba(0,242,254,0.1); border:1px solid var(--border); padding:3px 8px; border-radius:6px;">
             ⚔️ FLASH EPOCH • DUEL #105
           </span>
           <span id="lock-status-chip" class="lock-status-badge badge-unlocked">
-            🟢 ENTRADAS ABERTAS
+            🟢 ALLOCATIONS OPEN
           </span>
         </div>
 
         <div class="timer-display">
-          <span>⏳ ENCERRAMENTO DA RODADA:</span>
+          <span>⏳ EPOCH CLOSING IN:</span>
           <strong id="epoch-timer-clock">00:44:18</strong>
         </div>
       </div>
@@ -873,17 +873,17 @@
         </div>
       </div>
 
-      <!-- PISTA DE CORRIDA DE MEMES EM TEMPO REAL -->
+      <!-- LIVE MOMENTUM RACE TRACK -->
       <div class="meme-race-track-wrapper">
         <div class="meme-race-header">
           <div class="race-status-tag">
             <span class="race-pulse-dot"></span>
-            <span>LIVE MOMENTUM RACE • DESLOCAMENTO EM TEMPO REAL</span>
+            <span>LIVE MOMENTUM RACE • REAL-TIME VELOCITY DISPLACEMENT</span>
           </div>
-          <span id="race-leader-text" style="color:var(--cyan); font-weight:900;">1º LUGAR: BONK (+14.2% VEL)</span>
+          <span id="race-leader-text" style="color:var(--cyan); font-weight:900;">1ST PLACE: BONK (+14.2% VEL)</span>
         </div>
 
-        <!-- PISTA DO TOKEN A (BONK) -->
+        <!-- TRACK TOKEN A (BONK) -->
         <div class="race-lane">
           <span class="race-finish-flag">🏁</span>
           <div id="runner-token-a" class="race-runner" style="left: 62%;">
@@ -896,7 +896,7 @@
           </div>
         </div>
 
-        <!-- PISTA DO TOKEN B (WIF) -->
+        <!-- TRACK TOKEN B (WIF) -->
         <div class="race-lane">
           <span class="race-finish-flag">🏁</span>
           <div id="runner-token-b" class="race-runner" style="left: 38%;">
@@ -910,10 +910,10 @@
         </div>
       </div>
 
-      <!-- RATIO CHART VIEWPORT (CURVAS DE BÉZIER SUAVES) -->
+      <!-- RATIO CHART VIEWPORT (SMOOTH BÉZIER SPLINES) -->
       <div class="duel-chart-viewport">
         <div class="badge-leading-indicator">
-          <span class="lbl" id="leading-label-indicator">ANALISANDO RÁCIO...</span>
+          <span class="lbl" id="leading-label-indicator">ANALYZING RATIO...</span>
           <span class="val"><strong id="leading-pct-indicator">--%</strong> <span>▲</span></span>
         </div>
         <div class="chart-canvas-box">
@@ -928,7 +928,7 @@
             <img id="bar-token-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="BONK">
           </div>
           <div class="ratio-col-text">
-            <span class="ratio-col-name" id="bar-token-a-name">$BONK FORÇA</span>
+            <span class="ratio-col-name" id="bar-token-a-name">$BONK STRENGTH</span>
             <span class="ratio-col-pct" id="bar-token-a-pct">62%</span>
           </div>
           <div class="ratio-track-bar">
@@ -947,7 +947,7 @@
             <img id="bar-token-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="WIF">
           </div>
           <div class="ratio-col-text" style="text-align: right;">
-            <span class="ratio-col-name" id="bar-token-b-name">$WIF FORÇA</span>
+            <span class="ratio-col-name" id="bar-token-b-name">$WIF STRENGTH</span>
             <span class="ratio-col-pct purple" id="bar-token-b-pct">38%</span>
           </div>
           <div class="ratio-track-bar">
@@ -956,9 +956,9 @@
         </div>
       </div>
 
-      <!-- DUAS COLUNAS: BOTÃO DE APOSTA (COM TRAVA DINÂMICA) + DEXSCREENER -->
+      <!-- DUAL COLUMNS: POSITION BUTTONS (WITH LIVE ANTI-SNIPE LOCK) + DEXSCREENER -->
       <div class="dex-duel-columns-grid">
-        <!-- COLUNA TOKEN A -->
+        <!-- COLUMN TOKEN A -->
         <div class="dex-column-side">
           <button id="btn-stake-a" class="btn-terminal-action btn-terminal-cyan" onclick="handleStakeClick('BONK', currentMultiplierA, 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035')">
             <span id="btn-text-a">ALLOCATE LONG • $BONK</span>
@@ -971,7 +971,7 @@
                 <span style="color:var(--cyan);">●</span>
                 <span id="dex-label-token-a">BONK / SOL • DEXSCREENER LIVE</span>
               </div>
-              <span id="dex-stat-token-a" class="dex-live-badge">A CONECTAR...</span>
+              <span id="dex-stat-token-a" class="dex-live-badge">CONNECTING...</span>
             </div>
             <iframe 
               id="iframe-dex-a"
@@ -982,7 +982,7 @@
           </div>
         </div>
 
-        <!-- COLUNA TOKEN B -->
+        <!-- COLUMN TOKEN B -->
         <div class="dex-column-side">
           <button id="btn-stake-b" class="btn-terminal-action btn-terminal-purple" onclick="handleStakeClick('WIF', currentMultiplierB, 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035')">
             <span id="btn-text-b">ALLOCATE LONG • $WIF</span>
@@ -995,7 +995,7 @@
                 <span style="color:var(--purple);">●</span>
                 <span id="dex-label-token-b">WIF / SOL • DEXSCREENER LIVE</span>
               </div>
-              <span id="dex-stat-token-b" class="dex-live-badge">A CONECTAR...</span>
+              <span id="dex-stat-token-b" class="dex-live-badge">CONNECTING...</span>
             </div>
             <iframe 
               id="iframe-dex-b"
@@ -1144,12 +1144,12 @@
       </div>
       <div class="faq-list">
         <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question"><span>Como funcionam as travas de segurança anti-manipulação das arenas?</span><span class="faq-toggle-icon">+</span></div>
+          <div class="faq-question"><span>How do protocol anti-manipulation security locks work?</span><span class="faq-toggle-icon">+</span></div>
           <div class="faq-answer">
-            Para evitar que baleias ou bots façam sniping de última hora conhecendo o desfecho da vela:<br>
-            • <strong>Arena Turbo (30M):</strong> Fecha as alocações exatamente 5 minutos após a abertura da rodada.<br>
-            • <strong>Arena Flash (1H):</strong> Fecha as alocações 15 minutos antes do encerramento final.<br>
-            • <strong>Arena Daily (24H):</strong> Fecha as alocações 1 hora antes do encerramento final.
+            To prevent front-running, MEV exploitation, and last-second candle sniping by whales or automated bots:<br>
+            • <strong>Turbo Arena (30M):</strong> Locks capital allocations exactly 5 minutes after epoch opening.<br>
+            • <strong>Flash Arena (1H):</strong> Locks capital allocations 15 minutes prior to epoch resolution.<br>
+            • <strong>Daily Royale (24H):</strong> Locks capital allocations 1 hour prior to epoch resolution.
           </div>
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
@@ -1174,7 +1174,7 @@
     </footer>
   </div>
 
-  <!-- MODAL MARKETS HUB -->
+  <!-- MARKETS HUB MODAL -->
   <div id="market-hub-modal" class="market-hub-overlay" onclick="closeMarketHub(event)">
     <div class="market-hub-container" onclick="event.stopPropagation()">
       <button class="hub-close-btn" onclick="closeMarketHub()">✕</button>
@@ -1186,32 +1186,32 @@
 
       <div class="hub-filters-row">
         <button class="hub-filter-btn active" onclick="switchHubCategory('all')">
-          <span>⚡ Todos</span>
+          <span>⚡ All Markets</span>
         </button>
         <button class="hub-filter-btn" onclick="switchHubCategory('memecoins')">
           <span>🐸 Memecoins</span>
           <span style="font-size:9px; background:rgba(16,185,129,0.15); color:var(--green); padding:1px 5px; border-radius:4px;">LIVE</span>
         </button>
-        <button class="hub-filter-btn locked" onclick="triggerLockedMarket('Ações RWA', 'Phase 3 - Compliance Vaults')">
-          <span>📊 Ações RWA</span>
-          <span class="locked-chip">🔒 FASE 3</span>
+        <button class="hub-filter-btn locked" onclick="triggerLockedMarket('RWA Equities', 'Phase 3 - Compliance Vaults')">
+          <span>📊 RWA Equities</span>
+          <span class="locked-chip">🔒 PHASE 3</span>
         </button>
         <button class="hub-filter-btn locked" onclick="triggerLockedMarket('DeFi Market', 'Phase 2 - Cross-Chain Oracles')">
           <span>🔥 DeFi</span>
-          <span class="locked-chip">🔒 FASE 2</span>
+          <span class="locked-chip">🔒 PHASE 2</span>
         </button>
         <button class="hub-filter-btn locked" onclick="triggerLockedMarket('AI Synthetics', 'Phase 2 - Model Aggregators')">
           <span>🤖 AI</span>
-          <span class="locked-chip">🔒 FASE 2</span>
+          <span class="locked-chip">🔒 PHASE 2</span>
         </button>
-        <button class="hub-filter-btn locked" onclick="triggerLockedMarket('Outros / NFTs', 'Phase 4 - Ecosystem Expansion')">
-          <span>🌐 Outros</span>
-          <span class="locked-chip">🔒 FASE 4</span>
+        <button class="hub-filter-btn locked" onclick="triggerLockedMarket('Others / NFTs', 'Phase 4 - Ecosystem Expansion')">
+          <span>🌐 Others</span>
+          <span class="locked-chip">🔒 PHASE 4</span>
         </button>
       </div>
 
       <div class="hub-duels-grid">
-        <!-- CARD 1: DOGE vs PEPE (MEMECOINS)[cite: 1] -->
+        <!-- CARD 1: DOGE vs PEPE (MEMECOINS) -->
         <div class="duel-card-item">
           <div class="card-top-tag">
             <span class="category-chip">🐸 Memecoins</span>
@@ -1234,20 +1234,20 @@
             <svg class="sparkline-svg" viewBox="0 0 100 20"><path d="M0 15 Q 25 5, 50 12 T 100 4" /></svg>
           </div>
           <div class="card-metrics-row">
-            <div><div class="c-metric-lbl">Volume 24h</div><div class="c-metric-val">$2.4M</div></div>
+            <div><div class="c-metric-lbl">24h Volume</div><div class="c-metric-val">$2.4M</div></div>
             <div><div class="c-metric-lbl">Holders</div><div class="c-metric-val">142.5K</div></div>
-            <div><div class="c-metric-lbl">Liquidez</div><div class="c-metric-val">$1.2M</div></div>
+            <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$1.2M</div></div>
           </div>
           <button class="btn-card-action" onclick="loadDuelToArena('DOGE', 'PEPE', 1.82, 2.10)">
-            <span>OPERAR DUELO</span> <span>↗</span>
+            <span>TRADE DUEL</span> <span>↗</span>
           </button>
         </div>
 
-        <!-- CARD 2: NVDA vs SOL (AÇÕES RWA - BLOQUEADO)[cite: 1] -->
+        <!-- CARD 2: NVDA vs SOL (RWA - LOCKED) -->
         <div class="duel-card-item card-locked">
           <div class="card-top-tag">
-            <span class="category-chip">📊 Ações RWA</span>
-            <span class="status-badge-chip badge-lock">🔒 FASE 3</span>
+            <span class="category-chip">📊 RWA Equities</span>
+            <span class="status-badge-chip badge-lock">🔒 PHASE 3</span>
           </div>
           <div class="card-vs-arena">
             <div class="contender-ring-box">
@@ -1266,20 +1266,20 @@
             <svg class="sparkline-svg red-spark" viewBox="0 0 100 20"><path d="M0 5 Q 25 18, 50 8 T 100 16" /></svg>
           </div>
           <div class="card-metrics-row">
-            <div><div class="c-metric-lbl">Volume 24h</div><div class="c-metric-val">$12.8M</div></div>
+            <div><div class="c-metric-lbl">24h Volume</div><div class="c-metric-val">$12.8M</div></div>
             <div><div class="c-metric-lbl">Holders</div><div class="c-metric-val">8.7K</div></div>
-            <div><div class="c-metric-lbl">Liquidez</div><div class="c-metric-val">$6.3M</div></div>
+            <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$6.3M</div></div>
           </div>
-          <button class="btn-card-action" onclick="triggerLockedMarket('NVDA vs SOL (Ações RWA)', 'Phase 3 - Synthetic Equities Vault')">
-            <span>🔒 BLOQUEADO (FASE 3)</span>
+          <button class="btn-card-action" onclick="triggerLockedMarket('NVDA vs SOL (RWA Equities)', 'Phase 3 - Synthetic Equities Vault')">
+            <span>🔒 LOCKED (PHASE 3)</span>
           </button>
         </div>
 
-        <!-- CARD 3: ETH vs UNI (DEFI - BLOQUEADO)[cite: 1] -->
+        <!-- CARD 3: ETH vs UNI (DEFI - LOCKED) -->
         <div class="duel-card-item card-locked">
           <div class="card-top-tag">
             <span class="category-chip">🔥 DeFi</span>
-            <span class="status-badge-chip badge-lock">🔒 FASE 2</span>
+            <span class="status-badge-chip badge-lock">🔒 PHASE 2</span>
           </div>
           <div class="card-vs-arena">
             <div class="contender-ring-box">
@@ -1298,19 +1298,19 @@
             <svg class="sparkline-svg red-spark" viewBox="0 0 100 20"><path d="M0 12 Q 30 4, 60 15 T 100 10" /></svg>
           </div>
           <div class="card-metrics-row">
-            <div><div class="c-metric-lbl">Volume 24h</div><div class="c-metric-val">$5.2M</div></div>
+            <div><div class="c-metric-lbl">24h Volume</div><div class="c-metric-val">$5.2M</div></div>
             <div><div class="c-metric-lbl">Holders</div><div class="c-metric-val">96.3K</div></div>
-            <div><div class="c-metric-lbl">Liquidez</div><div class="c-metric-val">$3.8M</div></div>
+            <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$3.8M</div></div>
           </div>
           <button class="btn-card-action" onclick="triggerLockedMarket('ETH vs UNI (DeFi)', 'Phase 2 - Multi-Pair Aggregators')">
-            <span>🔒 BLOQUEADO (FASE 2)</span>
+            <span>🔒 LOCKED (PHASE 2)</span>
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL DE EXECUÇÃO DE POSIÇÃO (STAKE) -->
+  <!-- POSITION EXECUTION MODAL -->
   <div id="stake-modal-overlay" class="modal-overlay" onclick="closeStakeModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeStakeModal()">✕</button>
@@ -1359,7 +1359,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT & MOTOR DINÂMICO COM TRAVA -->
+  <!-- JAVASCRIPT & DYNAMIC PROTOCOL ENGINE -->
   <script>
     const MIN_WAGER = 0.20;
     const MAX_WAGER = 5.00;
@@ -1378,36 +1378,37 @@
     let ratioHistory = [42, 45, 41, 48, 52, 49, 55, 53, 58, 56, 61, 59, 64, 60, 63, 61, 65, 62];
 
     // ===================================================
-    // SISTEMA DE TRAVAS ANTI-MANIPULAÇÃO (30M, 1H, 24H)
+    // ANTI-MANIPULATION LOCK CONFIGURATION (30M, 1H, 24H)
     // ===================================================
     const ARENA_CONFIG = {
       '30m': {
         name: 'TURBO EPOCH',
-        totalDuration: 30 * 60, // 1800 seg
-        ruleDesc: 'Fecha 5 minutos depois de abrir',
-        lockOffset: 5 * 60,     // 300 seg após início
+        totalDuration: 30 * 60,
+        ruleDesc: 'Closes 5 mins after opening',
+        lockOffset: 5 * 60,
         lockType: 'after_open',
         duelId: '#312'
       },
       '1h': {
         name: 'FLASH EPOCH',
-        totalDuration: 60 * 60, // 3600 seg
-        ruleDesc: 'Fecha 15 minutos antes de fechar',
-        lockOffset: 15 * 60,    // últimos 900 seg
+        totalDuration: 60 * 60,
+        ruleDesc: 'Closes 15 mins before closure',
+        lockOffset: 15 * 60,
         lockType: 'before_close',
         duelId: '#105'
       },
       '24h': {
         name: 'DAILY ROYALE',
-        totalDuration: 24 * 60 * 60, // 86400 seg
-        ruleDesc: 'Fecha 1 hora antes de fechar',
-        lockOffset: 60 * 60,         // últimos 3600 seg
+        totalDuration: 24 * 60 * 60,
+        ruleDesc: 'Closes 1 hour before closure',
+        lockOffset: 60 * 60,
+        lockType: 'before_close',
         duelId: '#28'
       }
     };
 
     let currentArenaMode = '1h';
-    let remainingSeconds = 2658; // Inicia em 44m 18s (aberto para 1h)
+    let remainingSeconds = 2658;
     let isCurrentArenaLocked = false;
 
     function checkLockStatus() {
@@ -1415,10 +1416,8 @@
       const elapsed = cfg.totalDuration - remainingSeconds;
 
       if (cfg.lockType === 'after_open') {
-        // 30m: Fecha 5 min depois de abrir
         isCurrentArenaLocked = elapsed > cfg.lockOffset;
       } else if (cfg.lockType === 'before_close') {
-        // 1h e 24h: Fecha nos últimos minutos da rodada
         isCurrentArenaLocked = remainingSeconds <= cfg.lockOffset;
       }
 
@@ -1435,28 +1434,28 @@
       if (isCurrentArenaLocked) {
         if (lockChip) {
           lockChip.className = 'lock-status-badge badge-locked';
-          lockChip.innerText = `🔒 TRAVA ATIVA (${cfg.ruleDesc})`;
+          lockChip.innerText = `🔒 LOCK ACTIVE (${cfg.ruleDesc})`;
         }
 
         if (btnA) btnA.classList.add('btn-action-locked');
         if (btnB) btnB.classList.add('btn-action-locked');
-        if (btnTextA) btnTextA.innerText = '🔒 ENTRADAS TRAVADAS • $BONK';
-        if (btnTextB) btnTextB.innerText = '🔒 ENTRADAS TRAVADAS • $WIF';
+        if (btnTextA) btnTextA.innerText = '🔒 ALLOCATIONS LOCKED • $BONK';
+        if (btnTextB) btnTextB.innerText = '🔒 ALLOCATIONS LOCKED • $WIF';
       } else {
         let lockInText = '';
         if (cfg.lockType === 'after_open') {
           const lockInSec = Math.max(0, cfg.lockOffset - elapsed);
-          lockInText = `TRAVA EM ${Math.floor(lockInSec/60)}m ${lockInSec%60}s`;
+          lockInText = `LOCKS IN ${Math.floor(lockInSec/60)}m ${lockInSec%60}s`;
         } else {
           const lockInSec = Math.max(0, remainingSeconds - cfg.lockOffset);
           const hrs = Math.floor(lockInSec/3600);
           const mins = Math.floor((lockInSec%3600)/60);
-          lockInText = hrs > 0 ? `TRAVA EM ${hrs}h ${mins}m` : `TRAVA EM ${mins}m`;
+          lockInText = hrs > 0 ? `LOCKS IN ${hrs}h ${mins}m` : `LOCKS IN ${mins}m`;
         }
 
         if (lockChip) {
           lockChip.className = 'lock-status-badge badge-unlocked';
-          lockChip.innerText = `🟢 ENTRADAS ABERTAS (${lockInText})`;
+          lockChip.innerText = `🟢 ALLOCATIONS OPEN (${lockInText})`;
         }
 
         if (btnA) btnA.classList.remove('btn-action-locked');
@@ -1470,7 +1469,6 @@
       if (remainingSeconds > 0) {
         remainingSeconds--;
       } else {
-        // Reinicia a rodada automaticamente
         remainingSeconds = ARENA_CONFIG[currentArenaMode].totalDuration;
       }
 
@@ -1498,24 +1496,23 @@
       const cfg = ARENA_CONFIG[mode];
 
       if (mode === '30m') {
-        remainingSeconds = 1260; // 21 min restantes (ou seja, passaram 9 min: já fechou os 5 min -> TRAVADA para demonstração da regra)
+        remainingSeconds = 1260;
         if (badge) badge.innerText = `🔥 ${cfg.name} • DUEL ${cfg.duelId}`;
       } else if (mode === '1h') {
-        remainingSeconds = 2658; // 44 min restantes (aberta, trava só aos 15m finais)
+        remainingSeconds = 2658;
         if (badge) badge.innerText = `⚔️ ${cfg.name} • DUEL ${cfg.duelId}`;
       } else if (mode === '24h') {
-        remainingSeconds = 48200; // 13h restantes (aberta, trava só na última hora)
+        remainingSeconds = 48200;
         if (badge) badge.innerText = `🏆 ${cfg.name} • EPOCH ${cfg.duelId}`;
       }
 
       updateCountdown();
     }
 
-    // CLIQUE NOS BOTÕES COM VALIDAÇÃO DA TRAVA
     function handleStakeClick(fighter, mult, iconUrl) {
       if (isCurrentArenaLocked) {
         const cfg = ARENA_CONFIG[currentArenaMode];
-        alert(`🔒 ENTRADAS BLOQUEADAS NESTA RODADA!\n\nPara evitar manipulação de resultados e sniping de candles, as regras do protocolo estabelecem:\n\n• ${cfg.name}: ${cfg.ruleDesc}.\n\nAguarde a liquidação desta rodada ou alterne para outra arena aberta no topo!`);
+        alert(`🔒 ALLOCATIONS CURRENTLY LOCKED!\n\nTo prevent candle sniping and result manipulation, protocol rules enforce:\n\n• ${cfg.name}: ${cfg.ruleDesc}.\n\nPlease await this epoch's settlement or switch to an open arena above!`);
         return;
       }
       openStakeModal(fighter, mult, iconUrl);
@@ -1554,7 +1551,6 @@
       }
     }
 
-    // CONTROLE MARKETS HUB
     function openMarketHub() { document.getElementById('market-hub-modal').style.display = 'block'; }
     function closeMarketHub(e) {
       if (e && e.target !== document.getElementById('market-hub-modal') && !e.target.classList.contains('hub-close-btn')) return;
@@ -1575,7 +1571,6 @@
       handleStakeClick(tokenA, multA, 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=035');
     }
 
-    // MODAL STAKE
     function openStakeModal(fighter, mult, iconUrl) {
       selectedFighter = fighter;
       currentActiveMult = mult;
@@ -1611,7 +1606,7 @@
 
     function confirmModalStake() {
       if (isCurrentArenaLocked) {
-        alert("🔒 Esta rodada acabou de ser travada pelo protocolo anti-snipe. Sua alocação não pôde ser aceita.");
+        alert("🔒 This epoch has just been locked by the anti-snipe protocol buffer. Your allocation could not be processed.");
         document.getElementById('stake-modal-overlay').style.display = 'none';
         return;
       }
@@ -1718,13 +1713,13 @@
       const leadPct = document.getElementById('leading-pct-indicator');
 
       if (currentRatioA >= 50) {
-        if (raceLeader) raceLeader.innerText = `1º LUGAR: BONK (${deltaA >= 0 ? '+' : ''}${deltaA}% VEL)`;
+        if (raceLeader) raceLeader.innerText = `1ST PLACE: BONK (${deltaA >= 0 ? '+' : ''}${deltaA}% VEL)`;
         if (raceLeader) raceLeader.style.color = "var(--cyan)";
         leadLabel.innerText = "BONK LEADING";
         leadLabel.style.color = "var(--cyan)";
         leadPct.innerText = `${currentRatioA}%`;
       } else {
-        if (raceLeader) raceLeader.innerText = `1º LUGAR: WIF (${deltaB >= 0 ? '+' : ''}${deltaB}% VEL)`;
+        if (raceLeader) raceLeader.innerText = `1ST PLACE: WIF (${deltaB >= 0 ? '+' : ''}${deltaB}% VEL)`;
         if (raceLeader) raceLeader.style.color = "var(--purple)";
         leadLabel.innerText = "WIF LEADING";
         leadLabel.style.color = "var(--purple)";
@@ -1740,7 +1735,7 @@
       if (multLabelB) multLabelB.innerText = `${currentMultiplierB}x TARGET`;
     }
 
-    // MOTOR DO GRÁFICO (CURVAS BÉZIER SUAVES)
+    // SMOOTH BÉZIER SPLINES CHART
     function drawSmoothChart() {
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
