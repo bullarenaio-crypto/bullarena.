@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="google" content="notranslate">
 
-  <!-- PRELOAD LOGO EMBLEM (HIGH PRIORITY) -->
+  <!-- PRELOAD LOGO EMBLEM -->
   <link rel="preload" as="image" href="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png" fetchpriority="high">
 
-  <!-- SEO & SOCIAL SHARING (OPEN GRAPH / TWITTER CARDS) -->
+  <!-- SEO & SOCIAL SHARING -->
   <title>Bull Royale • The Liquidity Warfare Protocol on Solana</title>
   <meta name="description" content="Predict token momentum, command on-chain volume and ignite live candles. Settle 30-minute turbo rounds, 1-hour flash duels and 24-hour daily royales directly in $SOL with DexScreener oracles.">
 
@@ -16,7 +16,7 @@
   <link rel="icon" type="image/png" href="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png">
   <link rel="apple-touch-icon" href="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png">
 
-  <!-- OPEN GRAPH / TELEGRAM / WHATSAPP -->
+  <!-- OPEN GRAPH / SOCIAL -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.bullarenaa.io/">
   <meta property="og:title" content="Bull Royale • Liquidity Warfare Protocol">
@@ -30,7 +30,7 @@
   <meta name="twitter:description" content="Predict token velocity, ignite on-chain market candles, execute directly via X Blinks and Telegram, and claim instant $SOL payouts.">
   <meta name="twitter:image" content="https://i.postimg.cc/D0BbxYZx/bull-embrem2.png">
 
-  <!-- FONTS -->
+  <!-- GOOGLE FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,900&family=Teko:wght@600;700&display=swap" rel="stylesheet">
@@ -73,7 +73,7 @@
           <span class="val" id="user-battle-xp">0.00</span>
         </div>
 
-        <!-- TEST CREDITS PANEL (DEBUG / TEST) -->
+        <!-- TEST CREDITS PANEL -->
         <div class="fake-credits-pill" translate="no">
           <span class="lbl">TEST:</span>
           <span class="val" id="fake-balance-val" style="color: var(--gold);">1,000.00</span>
@@ -152,7 +152,7 @@
 
     <!-- ARENA SHOWDOWN -->
     <main id="arena" class="arena-box">
-      <!-- ARENA PIPELINE TABS -->
+      <!-- PIPELINE TABS -->
       <div class="arena-pipeline-bar" translate="no">
         <button id="room-active" class="btn-pipeline-tab active-room" onclick="switchPipelineRoom('active')">
           <span id="tab-label-active">🟢 LIVE ROOM • DUEL #105 (CLOSING SOON)</span>
@@ -174,7 +174,7 @@
         </button>
       </div>
 
-      <!-- WINNER ANNOUNCEMENT NOTIFICATION -->
+      <!-- ANNOUNCEMENT BANNER -->
       <div id="round-announcement-banner">
         <strong id="round-winner-text" style="color:var(--green); font-size:14px; text-transform:uppercase;"></strong>
       </div>
@@ -219,7 +219,6 @@
 
           <button id="btn-enter-fighter-a" class="btn-arcade btn-arcade-cyan" translate="no" onclick="openStakeModal('A')">ENTER DUEL • BONK</button>
           
-          <!-- DEXSCREENER LIVE CHART (FIGHTER A) -->
           <div class="dex-embed-wrapper" style="margin-top: 14px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #000;">
             <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 10px; background:#070a12; font-size:10px; font-weight:800; color:var(--cyan); border-bottom:1px solid #141c2c;">
               <span>📊 LIVE DEXSCREENER ORACLE</span>
@@ -269,7 +268,6 @@
 
           <button id="btn-enter-fighter-b" class="btn-arcade btn-arcade-purple" translate="no" onclick="openStakeModal('B')">ENTER DUEL • WIF</button>
           
-          <!-- DEXSCREENER LIVE CHART (FIGHTER B) -->
           <div class="dex-embed-wrapper" style="margin-top: 14px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #000;">
             <div style="display:flex; justify-content:space-between; align-items:center; padding: 6px 10px; background:#070a12; font-size:10px; font-weight:800; color:var(--purple); border-bottom:1px solid #141c2c;">
               <span>📊 LIVE DEXSCREENER ORACLE</span>
@@ -517,7 +515,7 @@
       </div>
     </section>
 
-    <!-- STRATEGIC ROADMAP -->
+    <!-- ROADMAP -->
     <section class="content-card-section">
       <div class="sec-header">
         <div class="sec-badge" translate="no">EXECUTION PIPELINE</div>
@@ -689,7 +687,7 @@
     </footer>
   </div>
 
-  <!-- WALLET SELECT MODAL -->
+  <!-- MODAL WALLET -->
   <div id="wallet-modal-overlay" class="modal-overlay" onclick="closeWalletModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeWalletModal()">✕</button>
@@ -744,7 +742,7 @@
     </div>
   </div>
 
-  <!-- STAKE MODAL -->
+  <!-- MODAL STAKE -->
   <div id="stake-modal-overlay" class="modal-overlay" onclick="closeStakeModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeStakeModal()">✕</button>
@@ -791,7 +789,7 @@
     </div>
   </div>
 
-  <!-- APPLICATION SCRIPTS -->
+  <!-- SCRIPTS -->
   <script src="scripts/wallet.js"></script>
   <script src="scripts/arena.js"></script>
 </body>
