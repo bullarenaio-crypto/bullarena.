@@ -52,7 +52,7 @@
       color: var(--text-main);
       min-height: 100vh;
       overflow-x: hidden;
-      padding-bottom: calc(var(--nav-height) + 20px); /* Espaço para a barra Raydium fixa embaixo */
+      padding-bottom: calc(var(--nav-height) + 20px);
     }
 
     img { max-width: 100%; height: auto; display: block; }
@@ -110,6 +110,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .brand {
@@ -144,6 +146,33 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* SELETOR GLOBAL DE IDIOMAS UNIVERSAL */
+    .language-select-wrapper {
+      display: flex;
+      align-items: center;
+      background: #030612;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
+    .language-select {
+      background: transparent;
+      border: none;
+      color: var(--cyan);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .language-select option {
+      background: #070c18;
+      color: #fff;
     }
 
     .protocol-pill {
@@ -187,9 +216,7 @@
       color: #fff;
     }
 
-    /* ===================================================
-       RAYDIUM STYLE: BOTTOM DOCK NAVIGATION BAR (FIXA)
-       =================================================== */
+    /* RAYDIUM STYLE: BOTTOM DOCK NAVIGATION BAR (FIXA) */
     .raydium-dock-nav {
       position: fixed;
       bottom: 0;
@@ -219,9 +246,9 @@
       cursor: pointer;
       transition: all 0.2s ease;
       font-family: 'Montserrat', sans-serif;
-      padding: 6px 10px;
+      padding: 6px 8px;
       border-radius: 8px;
-      min-width: 58px;
+      min-width: 50px;
     }
 
     .dock-tab-icon {
@@ -231,7 +258,7 @@
     }
 
     .dock-tab-label {
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 800;
       letter-spacing: 0.5px;
       text-transform: uppercase;
@@ -609,7 +636,7 @@
       .scroll-horizontal-mobile { display: grid; overflow-x: visible; }
       .steps-grid { grid-template-columns: repeat(3, 1fr); }
       .steps-grid .step-card { min-width: auto; }
-      .roadmap-grid { grid-template-columns: repeat(4, 1fr); }
+      .roadmap-grid { grid-template-columns: repeat(5, 1fr); }
       .roadmap-grid .r-card { min-width: auto; }
       .security-grid { grid-template-columns: repeat(3, 1fr); }
       .security-grid .sec-card { min-width: auto; }
@@ -673,11 +700,23 @@
     .faq-item.open .faq-answer { display: block; }
 
     /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding-top: 18px; display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: var(--text-muted); flex-wrap: wrap; gap: 10px; }
+    footer { border-top: 1px solid var(--border); padding-top: 18px; display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: var(--text-muted); flex-wrap: wrap; gap: 10px; margin-bottom: 20px;}
     footer a { color: #fff; text-decoration: none; font-weight: 700; margin-left: 12px; }
     footer a:hover { color: var(--cyan); }
 
-    /* MARKETS VIEW (ESTILO APP) */
+    /* CHAT SUPPORT VIEW */
+    .chat-container { display: flex; flex-direction: column; height: 420px; background: #030610; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .chat-messages { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    .chat-msg { max-width: 80%; padding: 10px 14px; border-radius: 10px; font-size: 11.5px; line-height: 1.5; font-weight: 500; }
+    .chat-msg.support { background: #091021; border: 1px solid var(--border); color: #cbd5e1; align-self: flex-start; }
+    .chat-msg.user { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: #fff; align-self: flex-end; }
+    .chat-input-area { display: flex; border-top: 1px solid var(--border); background: #060b17; padding: 10px; gap: 8px; }
+    .chat-input { flex: 1; background: #030610; border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; outline: none; }
+    .chat-input:focus { border-color: var(--cyan); }
+    .btn-chat-send { background: var(--cyan); color: #020612; border: none; font-weight: 900; font-size: 11px; padding: 0 16px; border-radius: 8px; cursor: pointer; }
+    .btn-chat-send:hover { background: #38bdf8; }
+
+    /* MARKETS VIEW */
     .hub-duels-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     @media (min-width: 600px) { .hub-duels-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 900px) { .hub-duels-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
@@ -783,7 +822,7 @@
   </div>
 
   <div class="wrapper">
-    <!-- HEADER SUPERIOR: LOGO + SALDO DEMO + CONECTAR CARTEIRA -->
+    <!-- HEADER SUPERIOR: LOGO + SELETOR DE IDIOMAS + SALDO DEMO + CONECTAR CARTEIRA -->
     <header class="top-header">
       <a href="https://www.bullarenaa.io/" class="brand" translate="no">
         <div class="brand-logo-frame">
@@ -793,6 +832,22 @@
       </a>
 
       <div class="header-right">
+        <!-- SELETOR UNIVERSAL DE IDIOMAS (GLOBAL) -->
+        <div class="language-select-wrapper" title="Select Language">
+          <select id="globalLanguageSelect" class="language-select" onchange="changeGlobalLanguage(this.value)">
+            <option value="en">🌐 EN (English)</option>
+            <option value="pt">🌐 PT (Português)</option>
+            <option value="es">🌐 ES (Español)</option>
+            <option value="zh">🌐 ZH (中文)</option>
+            <option value="ja">🌐 JA (日本語)</option>
+            <option value="ru">🌐 RU (Русский)</option>
+            <option value="fr">🌐 FR (Français)</option>
+            <option value="de">🌐 DE (Deutsch)</option>
+            <option value="ko">🌐 KO (한국어)</option>
+            <option value="ar">🌐 AR (العربية)</option>
+          </select>
+        </div>
+
         <div class="protocol-pill" translate="no">
           <span id="fake-balance-val" style="color: #fff; font-weight:900;">1,000.00 SOL</span>
           <button type="button" class="btn-pill-action" onclick="addCredits(500)">+500</button>
@@ -805,8 +860,8 @@
     </header>
 
     <!-- ===================================================
-         VIEW 1: TERMINAL ARENA (PADRÃO / LIVE BETTING)
-         =================================================== -->
+        VIEW 1: TERMINAL ARENA (PADRÃO / LIVE BETTING)
+        =================================================== -->
     <div id="view-terminal" class="tab-view-panel active-view">
       <div class="hero">
         <div class="hero-logo-frame">
@@ -814,7 +869,7 @@
         </div>
         <div class="badge-protocol-tag" translate="no">DECENTRALIZED RELATIVE STRENGTH PROTOCOL</div>
         <h1 class="hero-title" translate="no">BULL <span>PROTOCOL</span></h1>
-        <p class="hero-sub">
+        <p class="hero-sub" data-i18n="hero-sub">
           High-frequency dual-asset momentum engine running directly on Solana via non-custodial PDA vaults and DexScreener oracles.
         </p>
       </div>
@@ -1017,8 +1072,8 @@
     </div>
 
     <!-- ===================================================
-         VIEW 2: MARKETS HUB (CATÁLOGO DE DUELOS)
-         =================================================== -->
+        VIEW 2: MARKETS HUB (CATÁLOGO DE DUELOS)
+        =================================================== -->
     <div id="view-markets" class="tab-view-panel">
       <div class="content-card-section">
         <div class="sec-header">
@@ -1028,7 +1083,6 @@
         </div>
 
         <div class="hub-duels-grid">
-          <!-- MEMECOINS (LIVE) -->
           <div class="duel-card-item">
             <div class="card-top-tag">
               <span class="category-chip">🐸 Memecoins</span>
@@ -1060,7 +1114,6 @@
             </button>
           </div>
 
-          <!-- RWA EQUITIES (LOCKED) -->
           <div class="duel-card-item">
             <div class="card-top-tag">
               <span class="category-chip">📊 RWA Equities</span>
@@ -1092,7 +1145,6 @@
             </button>
           </div>
 
-          <!-- DEFI (LOCKED) -->
           <div class="duel-card-item">
             <div class="card-top-tag">
               <span class="category-chip">🔥 DeFi</span>
@@ -1128,8 +1180,8 @@
     </div>
 
     <!-- ===================================================
-         VIEW 3: PROTOCOL XP & USER BETS LEDGER
-         =================================================== -->
+        VIEW 3: PROTOCOL XP & USER BETS LEDGER
+        =================================================== -->
     <div id="view-xp" class="tab-view-panel">
       <div class="content-card-section">
         <div class="sec-header">
@@ -1168,51 +1220,61 @@
     </div>
 
     <!-- ===================================================
-         VIEW 4: ROADMAP
-         =================================================== -->
+        VIEW 4: ROADMAP (5 FASES ATUALIZADAS & BLINDADAS)
+        =================================================== -->
     <div id="view-roadmap" class="tab-view-panel">
       <section class="content-card-section">
         <div class="sec-header">
           <div class="sec-badge">EXECUTION PIPELINE</div>
           <h2 class="sec-title">PROTOCOL <span>ROADMAP</span></h2>
-          <p class="sec-sub">Swipe cards horizontally on mobile to view roadmap phases.</p>
+          <p class="sec-sub">Institutional execution pipeline. Swipe cards horizontally on mobile.</p>
         </div>
         <div class="roadmap-grid scroll-horizontal-mobile">
           <div class="r-card active-phase">
             <span class="r-phase-tag" style="color:var(--cyan);">PHASE 01</span>
-            <span class="r-status status-live">LIVE BETA</span>
-            <h3 class="r-title">TERMINAL GENESIS</h3>
+            <span class="r-status status-live">DEVNET ACTIVE</span>
+            <h3 class="r-title">FOUNDATION & DEVNET</h3>
             <ul class="r-list">
-              <li>Duel Ratio live terminal deployment on Solana.</li>
-              <li>Native $SOL non-custodial PDA vault integration.</li>
-              <li>DexScreener dual-feed momentum oracles.</li>
+              <li>Institutional UI/UX dark terminal deployment.</li>
+              <li>30-minute High-Frequency Tug-of-War arena.</li>
+              <li>PDA escrow configuration & end-to-end Devnet testing.</li>
             </ul>
           </div>
           <div class="r-card upcoming-phase">
             <span class="r-phase-tag" style="color:var(--purple);">PHASE 02</span>
             <span class="r-status status-queued">SCHEDULED</span>
-            <h3 class="r-title">PROTOCOL XP & BLINKS</h3>
+            <h3 class="r-title">MAINNET & AUDIT</h3>
             <ul class="r-list">
-              <li><strong>Protocol XP Engine:</strong> Activity point minting (1 SOL = 1 XP).</li>
-              <li>Solana Blinks on X + Telegram Terminal Bot.</li>
+              <li>Migration to Solana Mainnet-Beta.</li>
+              <li>Full smart contract security audit.</li>
+              <li>Syndicates (Prop Desks) collective pools activation.</li>
             </ul>
           </div>
           <div class="r-card locked-phase">
-            <span class="r-phase-tag" style="color:#64748b;">PHASE 03</span>
-            <span class="r-status status-locked">LOCKED 🔒</span>
-            <h3 class="r-title">RWA & TOKENIZED EQUITIES</h3>
+            <span class="r-phase-tag" style="color:var(--gold);">PHASE 03</span>
+            <span class="r-status status-queued">ECOSYSTEM MILESTONE</span>
+            <h3 class="r-title">$BULL TOKEN LAUNCH</h3>
             <ul class="r-list">
-              <li>Tokenized Equities & Synthetic Ratio deployment.</li>
-              <li>Security audit and multi-market expansions.</li>
+              <li>Retroactive Protocol XP distribution (1 SOL = 1 XP).</li>
+              <li>$BULL Token official launch & utility staking.</li>
+              <li>Community governance over duels catalogue.</li>
+            </ul>
+          </div>
+          <div class="r-card locked-phase">
+            <span class="r-phase-tag" style="color:#64748b;">PHASE 04</span>
+            <span class="r-status status-locked">LOCKED 🔒</span>
+            <h3 class="r-title">CLASSIFIED EXPANSION</h3>
+            <ul class="r-list">
+              <li>Advanced institutional liquidity routing.</li>
             </ul>
             <div class="censor-strip-wrap"><div class="censor-strip"><span class="classified-label">██████ [CONFIDENTIAL] ██████</span></div></div>
           </div>
           <div class="r-card locked-phase">
-            <span class="r-phase-tag" style="color:#64748b;">PHASE 04</span>
+            <span class="r-phase-tag" style="color:#64748b;">PHASE 05</span>
             <span class="r-status status-locked">RESTRICTED 🔒</span>
-            <h3 class="r-title">INSTITUTIONAL EXPANSION</h3>
+            <h3 class="r-title">GLOBAL ECOSYSTEM</h3>
             <ul class="r-list">
-              <li>Tier-1 CEX connectivity & automated market maker liquidity.</li>
+              <li>Cross-chain settlement gateways.</li>
             </ul>
             <div class="censor-strip-wrap"><div class="censor-strip"><span class="classified-label">██████ [LEVEL 5 CLASSIFIED] ██████</span></div></div>
           </div>
@@ -1221,8 +1283,8 @@
     </div>
 
     <!-- ===================================================
-         VIEW 5: VAULT / SECURITY & MECHANICS
-         =================================================== -->
+        VIEW 5: VAULT / SECURITY & MECHANICS
+        =================================================== -->
     <div id="view-vault" class="tab-view-panel">
       <section class="content-card-section">
         <div class="sec-header">
@@ -1244,7 +1306,7 @@
           <div class="step-card">
             <div class="step-num" style="color:var(--green);">03</div>
             <h3 class="step-title">AUTONOMOUS SETTLEMENT</h3>
-            <p class="step-desc">At epoch expiration, 95% of total liquidity is distributed proportionally to winning wallets in native $SOL.</p>
+            <p class="step-desc">At epoch expiration, liquidity is distributed proportionally to winning wallets in native $SOL (Protocol fee: 1.0%).</p>
           </div>
         </div>
       </section>
@@ -1280,6 +1342,30 @@
       </section>
     </div>
 
+    <!-- ===================================================
+        VIEW 6: 24/7 SUPPORT CHAT (GLOBAL)
+        =================================================== -->
+    <div id="view-chat" class="tab-view-panel">
+      <section class="content-card-section">
+        <div class="sec-header">
+          <div class="sec-badge">GLOBAL ASSISTANCE</div>
+          <h2 class="sec-title">24/7 SUPPORT <span>CHAT</span></h2>
+          <p class="sec-sub">Direct communication channel with Bull Protocol operators and community support.</p>
+        </div>
+        <div class="chat-container">
+          <div id="chatMessages" class="chat-messages">
+            <div class="chat-msg support">
+              👋 Welcome to Bull Protocol Support Desk. How can we assist your high-frequency trading session today?
+            </div>
+          </div>
+          <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Type your message in any language..." onkeypress="handleChatKeyPress(event)">
+            <button type="button" class="btn-chat-send" onclick="sendChatMessage()">SEND</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
     <!-- FAQ -->
     <section class="content-card-section">
       <div class="sec-header">
@@ -1296,11 +1382,9 @@
           </div>
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question"><span>How do protocol anti-manipulation security locks work?</span><span class="faq-toggle-icon">+</span></div>
+          <div class="faq-question"><span>What is the protocol transaction fee?</span><span class="faq-toggle-icon">+</span></div>
           <div class="faq-answer">
-            • <strong>Turbo Arena (30M):</strong> Locks capital allocations exactly 5 minutes after epoch opening.<br>
-            • <strong>Flash Arena (1H):</strong> Locks capital allocations 15 minutes prior to epoch resolution.<br>
-            • <strong>Daily Royale (24H):</strong> Locks capital allocations 1 hour prior to epoch resolution.
+            The platform operates with an ultra-competitive transaction fee of <strong>1.0%</strong> on duel volume, optimized for high-frequency trading and sustainable protocol development.
           </div>
         </div>
       </div>
@@ -1318,8 +1402,8 @@
   </div>
 
   <!-- ===================================================
-       RAYDIUM STYLE: DOCK NAVIGATION BAR (FIXA NO RODAPÉ)
-       =================================================== -->
+      RAYDIUM STYLE: DOCK NAVIGATION BAR (FIXA NO RODAPÉ)
+      =================================================== -->
   <nav class="raydium-dock-nav">
     <button class="dock-tab-btn active" onclick="switchDockTab('view-terminal')">
       <span class="dock-tab-icon">⚔️</span>
@@ -1340,6 +1424,10 @@
     <button class="dock-tab-btn" onclick="switchDockTab('view-vault')">
       <span class="dock-tab-icon">🛡️</span>
       <span class="dock-tab-label">Vault</span>
+    </button>
+    <button class="dock-tab-btn" onclick="switchDockTab('view-chat')">
+      <span class="dock-tab-icon">💬</span>
+      <span class="dock-tab-label">Support</span>
     </button>
   </nav>
 
@@ -1491,6 +1579,54 @@
 
     let connectedWallet = localStorage.getItem('bull_wallet_address') || null;
     let connectedWalletProvider = localStorage.getItem('bull_wallet_provider') || null;
+
+    // INTERNACIONALIZAÇÃO GLOBAL (SUPORTE MULTILÍNGUE UNIVERSAL)
+    const translations = {
+      en: { "hero-sub": "High-frequency dual-asset momentum engine running directly on Solana via non-custodial PDA vaults and DexScreener oracles." },
+      pt: { "hero-sub": "Motor de momentum de duplo ativo de alta frequência rodando diretamente na Solana via cofres PDA não-custodiais e oráculos DexScreener." },
+      es: { "hero-sub": "Motor de momentum de doble activo de alta frecuencia que se ejecuta directamente en Solana a través de bóvedas PDA no custodias y oráculos DexScreener." },
+      zh: { "hero-sub": "高频双资产动量引擎，通过非托管 PDA 金库和 DexScreener 预言机直接在 Solana 上运行。" },
+      ja: { "hero-sub": "ノンカストディアル PDA ボルトと DexScreener オラクルを介して Solana 上で直接実行される高頻度デュアルアセットモメンタムエンジン。" },
+      ru: { "hero-sub": "Высокочастотный движок импульса с двумя активами, работающий на Solana через кастодиальные хранилища PDA и оракулы DexScreener." },
+      fr: { "hero-sub": "Moteur de momentum à double actif haute fréquence fonctionnant directement sur Solana via des coffres PDA non-dépositaires et des oracles DexScreener." },
+      de: { "hero-sub": "Hochfrequenz-Dual-Asset-Momentum-Engine, die direkt auf Solana über nicht-verwahrte PDA-Tresore und DexScreener-Orakel läuft." },
+      ko: { "hero-sub": "비수탁 PDA 볼트와 DexScreener 오라클을 통해 Solana에서 직접 실행되는 고빈도 듀얼 자산 모멘텀 엔진." },
+      ar: { "hero-sub": "محرك زخم ثنائي الأصول عالي التردد يعمل مباشرة على Solana عبر خزائن PDA غير الاحتجازية ووسطاء DexScreener." }
+    };
+
+    function changeGlobalLanguage(lang) {
+      localStorage.setItem('bull_lang', lang);
+      const dict = translations[lang] || translations['en'];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.innerText = dict[key];
+      });
+    }
+
+    // SUPORTE CHAT 24/7
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const chatBox = document.getElementById('chatMessages');
+      chatBox.innerHTML += `<div class="chat-msg user">${escapeHtml(text)}</div>`;
+      input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      setTimeout(() => {
+        chatBox.innerHTML += `<div class="chat-msg support">🤖 Operator response: Thank you for your message. Our high-frequency settlement nodes and support team have logged your request. We will assist you shortly!</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 800);
+    }
+
+    function handleChatKeyPress(e) {
+      if (e.key === 'Enter') sendChatMessage();
+    }
+
+    function escapeHtml(string) {
+      return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
 
     // CONTROLE DA NAVEGAÇÃO DE ABAS ESTILO RAYDIUM
     function switchDockTab(viewId) {
