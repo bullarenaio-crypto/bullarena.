@@ -8,7 +8,7 @@
   <!-- PRELOAD LOGO -->
   <link rel="preload" as="image" href="https://i.postimg.cc/90MP2P9d/logo-png.jpg" fetchpriority="high">
 
-  <title>Bull Protocol • Decentralized Relative Strength & Liquidity Terminal on Solana</title>
+  <title>Bull Protocol • Institutional Relative Strength & Liquidity Terminal on Solana</title>
   <meta name="description" content="Institutional relative velocity and momentum protocol on Solana. Capitalize on dynamic asset strength ratios settled autonomously via non-custodial PDA vaults and DexScreener oracles.">
 
   <!-- FAVICON -->
@@ -313,7 +313,7 @@
     .hero-title span { color: var(--cyan); }
     .hero-sub { font-size: 11.5px; color: var(--text-muted); max-width: 680px; margin: 0 auto; line-height: 1.5; font-weight: 600; padding: 0 6px; }
 
-    /* DUEL RATIO ARENA */
+    /* DUEL RATIO TERMINAL */
     .duel-ratio-arena-wrapper { background: #050813; border: 1.5px solid #141e33; border-radius: 18px; padding: 16px 14px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9); margin-bottom: 24px; }
 
     .arena-epoch-tabs {
@@ -420,7 +420,7 @@
     .token-head-change { font-size: 8.5px; font-weight: 800; color: var(--green); }
     .vs-tag-center { font-size: 11px; color: #475569; font-weight: 800; }
 
-    /* MEME RACE TRACK */
+    /* MOMENTUM TRACKER */
     .meme-race-track-wrapper {
       background: #030612;
       border: 1px solid #101c33;
@@ -585,7 +585,7 @@
     .dex-live-badge { font-size: 9px; color: var(--green); font-weight: 800; }
     .dex-embed-frame { width: 100%; height: 300px; border: none; display: block; background: #000; }
 
-    /* SEÇÕES INSTITUCIONAIS */
+    /* SEÇÕES INSTITUCIONAIS & SYNDICATES */
     .content-card-section {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -600,6 +600,24 @@
     .sec-title { font-size: 22px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
     .sec-title span { color: var(--cyan); }
     .sec-sub { font-size: 12px; color: var(--text-muted); max-width: 650px; margin: 4px auto 0; font-weight: 500; line-height: 1.5; }
+
+    /* SYNDICATES ROOMS GRID (50 SLOTS) */
+    .syndicates-control-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+    .btn-create-syndicate { background: linear-gradient(135deg, var(--cyan), #0284c7); color: #020612; border: none; font-weight: 900; font-size: 11px; padding: 10px 16px; border-radius: 8px; cursor: pointer; box-shadow: 0 0 15px var(--cyan-glow); }
+    .btn-create-syndicate:hover { background: #38bdf8; }
+
+    .syndicates-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 768px) { .syndicates-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .syndicate-card { background: var(--card-inner); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+    .syndicate-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .syndicate-title { font-size: 13px; font-weight: 900; color: #fff; }
+    .syndicate-badge { font-size: 8.5px; font-weight: 800; background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); padding: 2px 6px; border-radius: 4px; }
+    .syndicate-slots-bar { width: 100%; height: 6px; background: #090f1d; border-radius: 3px; overflow: hidden; margin: 10px 0; border: 1px solid var(--border); }
+    .syndicate-slots-fill { height: 100%; background: var(--cyan); border-radius: 3px; }
+    .syndicate-meta-row { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); font-weight: 700; margin-bottom: 12px; }
+    .btn-join-syndicate { width: 100%; padding: 9px; background: rgba(0, 242, 254, 0.08); border: 1px solid var(--cyan); color: #fff; border-radius: 6px; font-size: 10.5px; font-weight: 800; cursor: pointer; }
+    .btn-join-syndicate:hover { background: var(--cyan); color: #020612; }
 
     .scroll-horizontal-mobile {
       display: flex;
@@ -645,34 +663,12 @@
     .step-title { font-size: 13px; font-weight: 800; letter-spacing: 0.5px; color: #fff; margin-bottom: 6px; text-transform: uppercase; }
     .step-desc { font-size: 11.5px; color: #94a3b8; line-height: 1.5; font-weight: 500; }
 
-    /* TOKENOMICS */
-    .tokenomics-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-    @media (min-width: 768px) { .tokenomics-grid { grid-template-columns: 1fr 1fr; gap: 18px; } }
-    .t-card { background: var(--card-inner); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
-    .t-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid #10192d; padding-bottom: 8px; }
-    .t-title { font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-    .t-tag { font-size: 9px; font-weight: 800; padding: 3px 6px; border-radius: 4px; letter-spacing: 1px; }
-    .tag-cyan { background: rgba(0, 242, 254, 0.1); color: var(--cyan); border: 1px solid rgba(0, 242, 254, 0.3); }
-    .tag-green { background: rgba(16, 185, 129, 0.1); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
-    .t-item { margin-bottom: 14px; }
-    .t-item-head { display: flex; justify-content: space-between; font-size: 10.5px; font-weight: 800; margin-bottom: 6px; }
-    .bar-shell { width: 100%; height: 8px; background: #090f1d; border-radius: 4px; overflow: hidden; border: 1px solid #141f36; }
-    .bar-core { height: 100%; border-radius: 4px; }
-    .bar-green { background: linear-gradient(90deg, #059669, var(--green)); }
-    .bar-cyan { background: linear-gradient(90deg, #0284c7, var(--cyan)); }
-    .bar-purple { background: linear-gradient(90deg, #4f46e5, var(--purple)); }
-    .t-item-desc { font-size: 10.5px; color: var(--text-muted); margin-top: 5px; font-weight: 500; }
-
     /* SECURITY */
     .sec-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .sec-icon-wrap { width: 32px; height: 32px; border-radius: 6px; background: #070e1c; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; }
     .sec-title-box h4 { font-size: 12.5px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: #fff; }
     .sec-status-chip { font-size: 8px; font-weight: 800; color: var(--green); letter-spacing: 1px; text-transform: uppercase; }
     .sec-card-body { font-size: 11px; color: #94a3b8; line-height: 1.5; font-weight: 500; }
-    .audit-summary-bar { background: #030612; border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-    .audit-tag-group { display: flex; gap: 6px; flex-wrap: wrap; }
-    .audit-pill { background: #080f21; border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; font-size: 9.5px; font-weight: 700; color: #cbd5e1; }
-    .audit-pill strong { color: var(--cyan); }
 
     /* ROADMAP DETAILS */
     .r-phase-tag { font-size: 8px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: inline-block; }
@@ -746,7 +742,7 @@
     .btn-card-action { width: 100%; padding: 9px; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: #cbd5e1; font-size: 10.5px; font-weight: 800; cursor: pointer; }
     .btn-card-action:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    /* XP VIEW */
+    /* XP & ALLOCATIONS VIEW */
     .xp-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 14px 0; text-align: center; }
     .xp-summary-card { background: #030610; border: 1px solid var(--border); border-radius: 8px; padding: 10px 4px; }
     .xp-summary-label { font-size: 8px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 3px; }
@@ -859,7 +855,7 @@
     </header>
 
     <!-- ===================================================
-        VIEW 1: TERMINAL ARENA (PADRÃO / LIVE BETTING)
+        VIEW 1: TERMINAL TERMINAL (RELATIVE STRENGTH DUEL)
         =================================================== -->
     <div id="view-terminal" class="tab-view-panel active-view">
       <div class="hero">
@@ -873,7 +869,7 @@
         </p>
       </div>
 
-      <!-- DUEL RATIO ARENA -->
+      <!-- DUEL RATIO TERMINAL -->
       <main class="duel-ratio-arena-wrapper">
         <div class="arena-epoch-tabs">
           <button id="tab-epoch-30m" class="btn-epoch-tab" onclick="switchEpochMode('30m')">
@@ -890,7 +886,7 @@
         <div class="arena-timer-bar">
           <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
             <span id="epoch-round-badge" style="color:var(--cyan); background:rgba(0,242,254,0.1); border:1px solid var(--border); padding:3px 8px; border-radius:6px;">
-              ⚔️ FLASH EPOCH • DUEL #105
+              ⚔️ FLASH CYCLE • SESSION #105
             </span>
             <span id="matchmaker-algo-badge" class="matchmaker-algo-pill">
               🤖 ALGO: 1H 24H MOMENTUM
@@ -912,8 +908,8 @@
               <svg viewBox="0 0 397 311"><path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zM64.6 3.8C67 1.4 70.3 0 73.8 0h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1L64.6 3.8zM332.4 120.8c-2.4-2.4-5.7-3.8-9.2-3.8H5.8c-5.8 0-8.7 7-4.6 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1l-62.7-62.7z"/></svg>
             </div>
             <div class="duel-ratio-text-title">
-              <h2>DUEL <span>RATIO</span></h2>
-              <p data-i18n="duel-ratio-sub">REAL-TIME STRENGTH & LIVE VELOCITY RACE</p>
+              <h2>RELATIVE STRENGTH <span>TERMINAL</span></h2>
+              <p data-i18n="duel-ratio-sub">REAL-TIME VELOCITY & MOMENTUM COMPARISON</p>
             </div>
           </div>
 
@@ -942,12 +938,12 @@
           </div>
         </div>
 
-        <!-- LIVE MOMENTUM RACE TRACK -->
+        <!-- LIVE MOMENTUM TRACKER -->
         <div class="meme-race-track-wrapper">
           <div class="meme-race-header">
             <div class="race-status-tag">
               <span class="race-pulse-dot"></span>
-              <span data-i18n="live-momentum">LIVE MOMENTUM RACE • REAL-TIME VELOCITY</span>
+              <span data-i18n="live-momentum">LIVE MOMENTUM TRACKER • REAL-TIME VELOCITY</span>
             </div>
             <span id="race-leader-text" style="color:var(--cyan); font-weight:900;">1ST PLACE: BONK (+14.2% VEL)</span>
           </div>
@@ -1071,7 +1067,7 @@
     </div>
 
     <!-- ===================================================
-        VIEW 2: MARKETS HUB (CATÁLOGO DE DUELOS)
+        VIEW 2: MARKETS HUB (CATÁLOGO DE MERCADO)
         =================================================== -->
     <div id="view-markets" class="tab-view-panel">
       <div class="content-card-section">
@@ -1109,7 +1105,7 @@
               <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$1.2M</div></div>
             </div>
             <button class="btn-card-action" onclick="loadManualDuel('DOGE', 1.82, 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=035')">
-              <span data-i18n="trade-duel">TRADE DUEL</span> <span>↗</span>
+              <span data-i18n="trade-duel">EXECUTE POSITION</span> <span>↗</span>
             </button>
           </div>
 
@@ -1179,14 +1175,82 @@
     </div>
 
     <!-- ===================================================
-        VIEW 3: PROTOCOL XP & USER BETS LEDGER
+        VIEW 3: SYNDICATES (MESAS PROPRIETÁRIAS - CRIAR E 50 SLOTS)
+        =================================================== -->
+    <div id="view-syndicates" class="tab-view-panel">
+      <div class="content-card-section">
+        <div class="sec-header">
+          <div class="sec-badge">PROP DESKS & POOLS</div>
+          <h2 class="sec-title">COLLECTIVE <span>SYNDICATES</span></h2>
+          <p class="sec-sub">Create your trading room or join existing collaborative desks with up to 50 active members.</p>
+        </div>
+
+        <div class="syndicates-control-bar">
+          <span style="font-size:11px; font-weight:800; color:var(--text-muted);" id="syndicate-count-label">ACTIVE ROOMS: 3</span>
+          <button type="button" class="btn-create-syndicate" onclick="openCreateSyndicateModal()">⚡ CREATE SYNDICATE DESK</button>
+        </div>
+
+        <div id="syndicates-container" class="syndicates-grid">
+          <!-- Syndicate 1 -->
+          <div class="syndicate-card">
+            <div>
+              <div class="syndicate-card-header">
+                <span class="syndicate-title">Solana Alpha Syndicate</span>
+                <span class="syndicate-badge">Slots: 12 / 50</span>
+              </div>
+              <div class="syndicate-slots-bar"><div class="syndicate-slots-fill" style="width: 24%;"></div></div>
+              <div class="syndicate-meta-row">
+                <span>Manager: Desk #1</span>
+                <span>Pool: 48.7M SOL</span>
+              </div>
+            </div>
+            <button type="button" class="btn-join-syndicate" onclick="joinSyndicate('Solana Alpha Syndicate')">JOIN DESK POOL</button>
+          </div>
+
+          <!-- Syndicate 2 -->
+          <div class="syndicate-card">
+            <div>
+              <div class="syndicate-card-header">
+                <span class="syndicate-title">ETH Liquidity Collective</span>
+                <span class="syndicate-badge">Slots: 42 / 50</span>
+              </div>
+              <div class="syndicate-slots-bar"><div class="syndicate-slots-fill" style="width: 84%; background:var(--purple);"></div></div>
+              <div class="syndicate-meta-row">
+                <span>Manager: Desk #4</span>
+                <span>Pool: 36.2M SOL</span>
+              </div>
+            </div>
+            <button type="button" class="btn-join-syndicate" onclick="joinSyndicate('ETH Liquidity Collective')">JOIN DESK POOL</button>
+          </div>
+
+          <!-- Syndicate 3 -->
+          <div class="syndicate-card">
+            <div>
+              <div class="syndicate-card-header">
+                <span class="syndicate-title">Cross-Asset Arbitrage</span>
+                <span class="syndicate-badge">Slots: 50 / 50 (FULL)</span>
+              </div>
+              <div class="syndicate-slots-bar"><div class="syndicate-slots-fill" style="width: 100%; background:var(--pink);"></div></div>
+              <div class="syndicate-meta-row">
+                <span>Manager: Desk #9</span>
+                <span>Pool: 876.3M SOL</span>
+              </div>
+            </div>
+            <button type="button" class="btn-join-syndicate" style="opacity:0.5; cursor:not-allowed;" disabled>DESK FULL (50/50)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================
+        VIEW 4: PROTOCOL XP & LEDGER
         =================================================== -->
     <div id="view-xp" class="tab-view-panel">
       <div class="content-card-section">
         <div class="sec-header">
           <div class="sec-badge" data-i18n="activity-tracker">ACTIVITY TRACKER</div>
           <h2 class="sec-title">PROTOCOL XP <span>LEDGER</span></h2>
-          <p class="sec-sub" data-i18n="sub-xp">Track your live betting volume and Protocol XP earnings (1.00 SOL = 1.00 XP).</p>
+          <p class="sec-sub" data-i18n="sub-xp">Track your live volume and Protocol XP earnings (1.00 SOL = 1.00 XP).</p>
         </div>
 
         <div class="xp-summary-grid">
@@ -1219,7 +1283,7 @@
     </div>
 
     <!-- ===================================================
-        VIEW 4: ROADMAP (5 FASES ATUALIZADAS & BLINDADAS)
+        VIEW 5: ROADMAP (5 FASES)
         =================================================== -->
     <div id="view-roadmap" class="tab-view-panel">
       <section class="content-card-section">
@@ -1235,7 +1299,7 @@
             <h3 class="r-title" data-i18n="r1-title">FOUNDATION & DEVNET</h3>
             <ul class="r-list">
               <li data-i18n="r1-desc1">Institutional UI/UX dark terminal deployment.</li>
-              <li data-i18n="r1-desc2">30-minute High-Frequency Tug-of-War arena.</li>
+              <li data-i18n="r1-desc2">30-minute High-Frequency strength comparison arena.</li>
               <li data-i18n="r1-desc3">PDA escrow configuration & end-to-end Devnet testing.</li>
             </ul>
           </div>
@@ -1246,7 +1310,7 @@
             <ul class="r-list">
               <li data-i18n="r2-desc1">Migration to Solana Mainnet-Beta.</li>
               <li data-i18n="r2-desc2">Full smart contract security audit.</li>
-              <li data-i18n="r2-desc3">Syndicates (Prop Desks) collective pools activation.</li>
+              <li data-i18n="r2-desc3">Syndicates (Prop Desks) 50-member pools activation.</li>
             </ul>
           </div>
           <div class="r-card locked-phase">
@@ -1256,7 +1320,7 @@
             <ul class="r-list">
               <li data-i18n="r3-desc1">Retroactive Protocol XP distribution (1 SOL = 1 XP).</li>
               <li data-i18n="r3-desc2">$BULL Token official launch & utility staking.</li>
-              <li data-i18n="r3-desc3">Community governance over duels catalogue.</li>
+              <li data-i18n="r3-desc3">Community governance over terminal pairs.</li>
             </ul>
           </div>
           <div class="r-card locked-phase">
@@ -1276,66 +1340,6 @@
               <li data-i18n="r5-desc1">Cross-chain settlement gateways.</li>
             </ul>
             <div class="censor-strip-wrap"><div class="censor-strip"><span class="classified-label">██████ [LEVEL 5 CLASSIFIED] ██████</span></div></div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- ===================================================
-        VIEW 5: VAULT / SECURITY & MECHANICS
-        =================================================== -->
-    <div id="view-vault" class="tab-view-panel">
-      <section class="content-card-section">
-        <div class="sec-header">
-          <div class="sec-badge" data-i18n="exec-arch">EXECUTION ARCHITECTURE</div>
-          <h2 class="sec-title">PROTOCOL <span>MECHANICS</span></h2>
-          <p class="sec-sub" data-i18n="sub-mechanics">Deterministic capital allocation engine built natively on Solana without counterparty risk.</p>
-        </div>
-        <div class="steps-grid scroll-horizontal-mobile">
-          <div class="step-card">
-            <div class="step-num">01</div>
-            <h3 class="step-title" data-i18n="step1-title">ANALYSIS & ALLOCATION</h3>
-            <p class="step-desc" data-i18n="step1-desc">Connect your Solana Web3 wallet. Sign capital allocation directly into an autonomous PDA vault.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num" style="color:var(--purple);">02</div>
-            <h3 class="step-title" data-i18n="step2-title">RATIO CONVICTION</h3>
-            <p class="step-desc" data-i18n="step2-desc">Monitor real-time volume velocity via DexScreener oracle feeds. Back the asset projected to lead.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num" style="color:var(--green);">03</div>
-            <h3 class="step-title" data-i18n="step3-title">AUTONOMOUS SETTLEMENT</h3>
-            <p class="step-desc" data-i18n="step3-desc">At epoch expiration, liquidity is distributed proportionally to winning wallets in native $SOL (Protocol fee: 1.0%).</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="content-card-section">
-        <div class="sec-header">
-          <div class="sec-badge" data-i18n="sec-protocol">SECURITY PROTOCOL</div>
-          <h2 class="sec-title">TRUST & <span>NON-CUSTODIAL VAULTS</span></h2>
-        </div>
-        <div class="security-grid scroll-horizontal-mobile">
-          <div class="sec-card">
-            <div class="sec-card-head">
-              <div class="sec-icon-wrap">🛡️</div>
-              <div class="sec-title-box">
-                <h4 data-i18n="sec1-title">PDA Vault Enforced</h4>
-                <span class="sec-status-chip">Autonomous</span>
-              </div>
-            </div>
-            <p class="sec-card-body" data-i18n="sec1-desc">All allocations are locked programmatically inside deterministic Program Derived Addresses with zero administrative key interference.</p>
-          </div>
-
-          <div class="sec-card">
-            <div class="sec-card-head">
-              <div class="sec-icon-wrap">⚡</div>
-              <div class="sec-title-box">
-                <h4 data-i18n="sec2-title">Anti-Snipe Locking</h4>
-                <span class="sec-status-chip">Front-Run Immune</span>
-              </div>
-            </div>
-            <p class="sec-card-body" data-i18n="sec2-desc">Strict cutoff windows prevent whales and MEV bots from exploiting end-of-candle closing states, ensuring fair multiplier payout stability.</p>
           </div>
         </div>
       </section>
@@ -1365,30 +1369,6 @@
       </section>
     </div>
 
-    <!-- FAQ -->
-    <section class="content-card-section">
-      <div class="sec-header">
-        <div class="sec-badge">KNOWLEDGE BASE</div>
-        <h2 class="sec-title">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
-      </div>
-      <div class="faq-list">
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question"><span>How do Protocol XP calculations work?</span><span class="faq-toggle-icon">+</span></div>
-          <div class="faq-answer">
-            Every capital allocation directly mints Protocol XP at a 1:1 ratio with native SOL.<br>
-            • <strong>1.00 SOL Allocated = 1.00 Protocol XP</strong><br>
-            • Fractional amounts mint fractional XP (e.g. 0.20 SOL = +0.20 XP, 2.50 SOL = +2.50 XP).
-          </div>
-        </div>
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question"><span>What is the protocol transaction fee?</span><span class="faq-toggle-icon">+</span></div>
-          <div class="faq-answer">
-            The platform operates with an ultra-competitive transaction fee of <strong>1.0%</strong> on duel volume, optimized for high-frequency trading and sustainable protocol development.
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- FOOTER -->
     <footer>
       <div data-i18n="footer-rights">© 2026 Bull Protocol (bullarenaa.io) • Autonomous Liquidity Infrastructure on Solana</div>
@@ -1412,17 +1392,17 @@
       <span class="dock-tab-icon">📊</span>
       <span class="dock-tab-label" data-i18n="nav-markets">Markets</span>
     </button>
+    <button class="dock-tab-btn" onclick="switchDockTab('view-syndicates')">
+      <span class="dock-tab-icon">👥</span>
+      <span class="dock-tab-label" data-i18n="nav-syndicates">Syndicates</span>
+    </button>
     <button class="dock-tab-btn" onclick="switchDockTab('view-xp')">
       <span class="dock-tab-icon">💎</span>
-      <span class="dock-tab-label" data-i18n="nav-xp">XP & Bets</span>
+      <span class="dock-tab-label" data-i18n="nav-xp">XP & Ledger</span>
     </button>
     <button class="dock-tab-btn" onclick="switchDockTab('view-roadmap')">
       <span class="dock-tab-icon">🗺️</span>
       <span class="dock-tab-label" data-i18n="nav-roadmap">Roadmap</span>
-    </button>
-    <button class="dock-tab-btn" onclick="switchDockTab('view-vault')">
-      <span class="dock-tab-icon">🛡️</span>
-      <span class="dock-tab-label" data-i18n="nav-vault">Vault</span>
     </button>
     <button class="dock-tab-btn" onclick="switchDockTab('view-chat')">
       <span class="dock-tab-icon">💬</span>
@@ -1475,6 +1455,46 @@
 
       <button id="btn-modal-confirm" class="btn-execute-stake" onclick="confirmModalStake()">
         CONFIRM & EXECUTE POSITION
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL DE CRIAÇÃO DE SYNDICATE (SALA COM 50 SLOTS) -->
+  <div id="syndicate-modal-overlay" class="modal-overlay" onclick="closeCreateSyndicateModal(event)">
+    <div class="modal-box" translate="no" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeCreateSyndicateModal()">✕</button>
+      <div class="modal-head">
+        <div class="modal-avatar" style="background:#091021; border-color:var(--cyan); display:flex; align-items:center; justify-content:center;">
+          <span style="font-size:18px;">👥</span>
+        </div>
+        <div class="modal-title-box">
+          <h3>CREATE SYNDICATE DESK</h3>
+          <span style="font-size:10px; color:var(--cyan); font-weight:800;">OPEN A ROOM FOR UP TO 50 TRADERS</span>
+        </div>
+      </div>
+
+      <div class="modal-input-wrap">
+        <div class="modal-input-top">
+          <span>DESK / SYNDICATE NAME</span>
+        </div>
+        <div class="modal-input-row">
+          <input type="text" id="input-syndicate-name" class="modal-input" placeholder="e.g. Apex High-Freq Desk" style="font-size:14px;">
+        </div>
+      </div>
+
+      <div class="modal-summary-box">
+        <div class="modal-summary-row">
+          <span style="color:var(--text-muted);">Max Participants:</span>
+          <span style="color:#fff; font-weight:900;">50 Traders</span>
+        </div>
+        <div class="modal-summary-row">
+          <span style="color:var(--text-muted);">Protocol Settlement Fee:</span>
+          <span class="cyan">1.0%</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn-execute-stake" onclick="confirmCreateSyndicate()">
+        DEPLOY SYNDICATE DESK (50 SLOTS)
       </button>
     </div>
   </div>
@@ -1575,24 +1595,25 @@
     let testCredits = localStorage.getItem('bull_credits') ? parseFloat(localStorage.getItem('bull_credits')) : 1000.00;
     let userXP = localStorage.getItem('bull_xp') ? parseFloat(localStorage.getItem('bull_xp')) : 0.00;
     let userBets = localStorage.getItem('bull_user_bets') ? JSON.parse(localStorage.getItem('bull_user_bets')) : [];
+    let customSyndicates = localStorage.getItem('bull_syndicates') ? JSON.parse(localStorage.getItem('bull_syndicates')) : [];
 
     let connectedWallet = localStorage.getItem('bull_wallet_address') || null;
     let connectedWalletProvider = localStorage.getItem('bull_wallet_provider') || null;
 
-    // DICIONÁRIO COMPLETO DE TRADUÇÃO GLOBAL
+    // DICIONÁRIO COMPLETO DE TRADUÇÃO GLOBAL (SEM TERMOS DE APOSTA)
     const translations = {
       en: {
         "badge-protocol": "DECENTRALIZED RELATIVE STRENGTH PROTOCOL",
         "hero-sub": "High-frequency dual-asset momentum engine running directly on Solana via non-custodial PDA vaults and DexScreener oracles.",
         "alloc-open": "🟢 ALLOCATIONS OPEN",
         "closing-in": "⏳ CLOSING IN:",
-        "duel-ratio-sub": "REAL-TIME STRENGTH & LIVE VELOCITY RACE",
-        "live-momentum": "LIVE MOMENTUM RACE • REAL-TIME VELOCITY",
+        "duel-ratio-sub": "REAL-TIME VELOCITY & MOMENTUM COMPARISON",
+        "live-momentum": "LIVE MOMENTUM TRACKER • REAL-TIME VELOCITY",
         "cat-market": "MARKET CATALOGUE",
         "sub-market": "Select dual-asset ratios to trade. Memecoins are live; synthetic vaults unlock sequentially.",
-        "trade-duel": "TRADE DUEL",
+        "trade-duel": "EXECUTE POSITION",
         "activity-tracker": "ACTIVITY TRACKER",
-        "sub-xp": "Track your live betting volume and Protocol XP earnings (1.00 SOL = 1.00 XP).",
+        "sub-xp": "Track your live volume and Protocol XP earnings (1.00 SOL = 1.00 XP).",
         "lbl-total-xp": "TOTAL XP",
         "lbl-total-alloc": "TOTAL ALLOCATED",
         "lbl-positions": "POSITIONS",
@@ -1602,33 +1623,20 @@
         "sub-roadmap": "Institutional execution pipeline. Swipe cards horizontally on mobile.",
         "r1-title": "FOUNDATION & DEVNET",
         "r1-desc1": "Institutional UI/UX dark terminal deployment.",
-        "r1-desc2": "30-minute High-Frequency Tug-of-War arena.",
+        "r1-desc2": "30-minute High-Frequency strength comparison arena.",
         "r1-desc3": "PDA escrow configuration & end-to-end Devnet testing.",
         "r2-title": "MAINNET & AUDIT",
         "r2-desc1": "Migration to Solana Mainnet-Beta.",
         "r2-desc2": "Full smart contract security audit.",
-        "r2-desc3": "Syndicates (Prop Desks) collective pools activation.",
+        "r2-desc3": "Syndicates (Prop Desks) 50-member pools activation.",
         "r3-title": "$BULL TOKEN LAUNCH",
         "r3-desc1": "Retroactive Protocol XP distribution (1 SOL = 1 XP).",
         "r3-desc2": "$BULL Token official launch & utility staking.",
-        "r3-desc3": "Community governance over duels catalogue.",
+        "r3-desc3": "Community governance over terminal pairs.",
         "r4-title": "CLASSIFIED EXPANSION",
         "r4-desc1": "Advanced institutional liquidity routing.",
         "r5-title": "GLOBAL ECOSYSTEM",
         "r5-desc1": "Cross-chain settlement gateways.",
-        "exec-arch": "EXECUTION ARCHITECTURE",
-        "sub-mechanics": "Deterministic capital allocation engine built natively on Solana without counterparty risk.",
-        "step1-title": "ANALYSIS & ALLOCATION",
-        "step1-desc": "Connect your Solana Web3 wallet. Sign capital allocation directly into an autonomous PDA vault.",
-        "step2-title": "RATIO CONVICTION",
-        "step2-desc": "Monitor real-time volume velocity via DexScreener oracle feeds. Back the asset projected to lead.",
-        "step3-title": "AUTONOMOUS SETTLEMENT",
-        "step3-desc": "At epoch expiration, liquidity is distributed proportionally to winning wallets in native $SOL (Protocol fee: 1.0%).",
-        "sec-protocol": "SECURITY PROTOCOL",
-        "sec1-title": "PDA Vault Enforced",
-        "sec1-desc": "All allocations are locked programmatically inside deterministic Program Derived Addresses with zero administrative key interference.",
-        "sec2-title": "Anti-Snipe Locking",
-        "sec2-desc": "Strict cutoff windows prevent whales and MEV bots from exploiting end-of-candle closing states, ensuring fair multiplier payout stability.",
         "global-assist": "GLOBAL ASSISTANCE",
         "sub-chat": "Direct communication channel with Bull Protocol operators and community support.",
         "chat-welcome": "👋 Welcome to Bull Protocol Support Desk. How can we assist your high-frequency trading session today?",
@@ -1637,9 +1645,9 @@
         "footer-rights": "© 2026 Bull Protocol (bullarenaa.io) • Autonomous Liquidity Infrastructure on Solana",
         "nav-terminal": "Terminal",
         "nav-markets": "Markets",
-        "nav-xp": "XP & Bets",
+        "nav-syndicates": "Syndicates",
+        "nav-xp": "XP & Ledger",
         "nav-roadmap": "Roadmap",
-        "nav-vault": "Vault",
         "nav-support": "Support"
       },
       pt: {
@@ -1647,13 +1655,13 @@
         "hero-sub": "Motor de momentum de duplo ativo de alta frequência rodando diretamente na Solana via cofres PDA não-custodiais e oráculos DexScreener.",
         "alloc-open": "🟢 ALOCAÇÕES ABERTAS",
         "closing-in": "⏳ ENCERRA EM:",
-        "duel-ratio-sub": "CORRIDA DE VELOCITY & FORÇA EM TEMPO REAL",
-        "live-momentum": "CORRIDA DE MOMENTUM AO VIVO • VELOCIDADE REAL",
+        "duel-ratio-sub": "COMPARAÇÃO DE VELOCIDADE E MOMENTUM EM TEMPO REAL",
+        "live-momentum": "RASTREADOR DE MOMENTUM AO VIVO • VELOCIDADE REAL",
         "cat-market": "CATÁLOGO DE MERCADO",
         "sub-market": "Selecione razões de duplo ativo para negociar. Memecoins ativas; cofres sintéticos desbloqueiam sequencialmente.",
-        "trade-duel": "NEGOCIAR DUELO",
+        "trade-duel": "EXECUTAR POSIÇÃO",
         "activity-tracker": "RASTREADOR DE ATIVIDADE",
-        "sub-xp": "Acompanhe seu volume de apostas ao vivo e ganhos de XP do Protocolo (1.00 SOL = 1.00 XP).",
+        "sub-xp": "Acompanhe seu volume e ganhos de XP do Protocolo (1.00 SOL = 1.00 XP).",
         "lbl-total-xp": "XP TOTAL",
         "lbl-total-alloc": "TOTAL ALOCADO",
         "lbl-positions": "POSIÇÕES",
@@ -1663,33 +1671,20 @@
         "sub-roadmap": "Pipeline institucional. Deslize os cards horizontalmente no celular.",
         "r1-title": "FUNDAÇÃO & DEVNET",
         "r1-desc1": "Implantação do terminal escuro de UI/UX institucional.",
-        "r1-desc2": "Arena de cabo de guerra de alta frequência de 30 minutos.",
+        "r1-desc2": "Terminal de comparação de força de 30 minutos.",
         "r1-desc3": "Configuração de garantia PDA e testes end-to-end em Devnet.",
         "r2-title": "MAINNET & AUDITORIA",
         "r2-desc1": "Migração para Solana Mainnet-Beta.",
         "r2-desc2": "Auditoria completa de segurança de contratos inteligentes.",
-        "r2-desc3": "Ativação de pools coletivos de Syndicates (Mesas).",
+        "r2-desc3": "Ativação de mesas de operações (Syndicates) com 50 membros.",
         "r3-title": "LANÇAMENTO DO TOKEN $BULL",
         "r3-desc1": "Distribuição retroativa de XP do Protocolo (1 SOL = 1 XP).",
         "r3-desc2": "Lançamento oficial do Token $BULL e staking de utilidade.",
-        "r3-desc3": "Governança comunitária sobre o catálogo de duelos.",
+        "r3-desc3": "Governança comunitária sobre o catálogo de pares.",
         "r4-title": "EXPANSÃO CLASSIFICADA",
         "r4-desc1": "Roteamento avançado de liquidez institucional.",
         "r5-title": "ECOSSISTEMA GLOBAL",
         "r5-desc1": "Gateways de liquidação cross-chain.",
-        "exec-arch": "ARQUITETURA DE EXECUÇÃO",
-        "sub-mechanics": "Motor determinístico de alocação de capital construído nativamente na Solana sem risco de contraparte.",
-        "step1-title": "ANÁLISE & ALOCAÇÃO",
-        "step1-desc": "Conecte sua carteira Solana Web3. Assine a alocação de capital diretamente em um cofre PDA autônomo.",
-        "step2-title": "CONVICÇÃO DE RAZÃO",
-        "step2-desc": "Monitore a velocidade de volume em tempo real via oráculos DexScreener. Apoie o ativo projetado para liderar.",
-        "step3-title": "LIQUIDAÇÃO AUTÔNOMA",
-        "step3-desc": "No término do período, a liquidez é distribuída proporcionalmente às carteiras vencedoras em $SOL nativo (Taxa: 1.0%).",
-        "sec-protocol": "PROTOCOLO DE SEGURANÇA",
-        "sec1-title": "Blindagem em Cofre PDA",
-        "sec1-desc": "Todas as alocações são travadas programaticamente dentro de Endereços Derivados de Programa determinísticos sem interferência administrativa.",
-        "sec2-title": "Travamento Anti-Snipe",
-        "sec2-desc": "Janelas restritas de corte evitam que baleias e bots MEV explotem estados de fechamento, garantindo estabilidade de pagamento.",
         "global-assist": "ASSISTÊNCIA GLOBAL",
         "sub-chat": "Canal de comunicação direta com operadores do Bull Protocol e suporte comunitário.",
         "chat-welcome": "👋 Bem-vindo ao Suporte do Bull Protocol. Como podemos ajudar sua sessão de trading de alta frequência hoje?",
@@ -1698,9 +1693,9 @@
         "footer-rights": "© 2026 Bull Protocol (bullarenaa.io) • Infraestrutura de Liquidez Autônoma na Solana",
         "nav-terminal": "Terminal",
         "nav-markets": "Mercados",
-        "nav-xp": "XP & Apostas",
+        "nav-syndicates": "Syndicates",
+        "nav-xp": "XP & Ledger",
         "nav-roadmap": "Roadmap",
-        "nav-vault": "Cofre",
         "nav-support": "Suporte"
       },
       es: {
@@ -1708,13 +1703,13 @@
         "hero-sub": "Motor de momentum de doble activo de alta frecuencia que se ejecuta directamente en Solana a través de bóvedas PDA no custodias y oráculos DexScreener.",
         "alloc-open": "🟢 ASIGNACIONES ABIERTAS",
         "closing-in": "⏳ CIERRA EN:",
-        "duel-ratio-sub": "CARRERA DE VELOCIDAD Y FUERZA EN TIEMPO REAL",
-        "live-momentum": "CARRERA DE MOMENTUM EN VIVO • VELOCIDAD REAL",
+        "duel-ratio-sub": "COMPARACIÓN DE VELOCIDAD Y MOMENTUM EN TIEMPO REAL",
+        "live-momentum": "RASTREADOR DE MOMENTUM EN VIVO • VELOCIDAD REAL",
         "cat-market": "CATÁLOGO DE MERCADO",
         "sub-market": "Seleccione proporciones de doble activo para operar. Memecoins activos; las bóvedas sintéticas se desbloquean secuencialmente.",
-        "trade-duel": "OPERAR DUELO",
+        "trade-duel": "EJECUTAR POSICIÓN",
         "activity-tracker": "RASTREADOR DE ACTIVIDAD",
-        "sub-xp": "Siga su volumen de apuestas en vivo y ganancias de XP del Protocolo (1.00 SOL = 1.00 XP).",
+        "sub-xp": "Siga su volumen y ganancias de XP del Protocolo (1.00 SOL = 1.00 XP).",
         "lbl-total-xp": "XP TOTAL",
         "lbl-total-alloc": "TOTAL ASIGNADO",
         "lbl-positions": "POSICIONES",
@@ -1724,33 +1719,20 @@
         "sub-roadmap": "Tubería institucional. Deslice las tarjetas horizontalmente en dispositivos móviles.",
         "r1-title": "FUNDACIÓN Y DEVNET",
         "r1-desc1": "Despliegue del terminal oscuro de UI/UX institucional.",
-        "r1-desc2": "Arena de tira y afloja de alta frecuencia de 30 minutos.",
+        "r1-desc2": "Terminal de comparación de fuerza de 30 minutos.",
         "r1-desc3": "Configuración de PDA y pruebas de extremo a extremo en Devnet.",
         "r2-title": "MAINNET Y AUDITORÍA",
         "r2-desc1": "Migración a Solana Mainnet-Beta.",
         "r2-desc2": "Auditoría de seguridad completa de contratos inteligentes.",
-        "r2-desc3": "Activación de piscinas colectivas de Syndicates.",
+        "r2-desc3": "Activación de escritorios de operaciones (Syndicates) con 50 miembros.",
         "r3-title": "LANZAMIENTO DEL TOKEN $BULL",
         "r3-desc1": "Distribución retroactiva de XP del Protocolo (1 SOL = 1 XP).",
         "r3-desc2": "Lanzamiento oficial del token $BULL y staking de utilidad.",
-        "r3-desc3": "Gobernanza comunitaria sobre el catálogo de duelos.",
+        "r3-desc3": "Gobernanza comunitaria sobre el catálogo de pares.",
         "r4-title": "EXPANSIÓN CLASIFICADA",
         "r4-desc1": "Enrutamiento avanzado de liquidez institucional.",
         "r5-title": "ECOSISTEMA GLOBAL",
         "r5-desc1": "Pasarelas de liquidación cross-chain.",
-        "exec-arch": "ARQUITECTURA DE EJECUCIÓN",
-        "sub-mechanics": "Motor determinista de asignación de capital construido de forma nativa en Solana sin riesgo de contraparte.",
-        "step1-title": "ANÁLISIS Y ASIGNACIÓN",
-        "step1-desc": "Conecte su billetera Solana Web3. Firme la asignación de capital directamente en una bóveda PDA autónoma.",
-        "step2-title": "CONVICCIÓN DE RATIO",
-        "step2-desc": "Monitoree la velocidad de volumen en tiempo real a través de oráculos DexScreener. Apoye al activo proyectado para liderar.",
-        "step3-title": "LIQUIDACIÓN AUTÓNOMA",
-        "step3-desc": "Al finalizar el ciclo, la liquidez se distribuye proporcionalmente a las billeteras ganadoras en SOL nativo (Tarifa: 1.0%).",
-        "sec-protocol": "PROTOCOLO DE SEGURIDAD",
-        "sec1-title": "Bóveda PDA Reforzada",
-        "sec1-desc": "Todas las asignaciones se bloquean mediante programación dentro de direcciones derivadas de programas deterministas sin interferencia administrativa.",
-        "sec2-title": "Bloqueo Anti-Snipe",
-        "sec2-desc": "Las ventanas estrictas de corte evitan que las ballenas y los bots MEV exploten los estados de cierre, garantizando estabilidad.",
         "global-assist": "ASISTENCIA GLOBAL",
         "sub-chat": "Canal de comunicación directo con operadores de Bull Protocol y soporte comunitario.",
         "chat-welcome": "👋 Bienvenido al Soporte de Bull Protocol. ¿Cómo podemos ayudar en su sesión de trading de alta frecuencia hoy?",
@@ -1759,9 +1741,9 @@
         "footer-rights": "© 2026 Bull Protocol (bullarenaa.io) • Infraestructura de liquidez autónoma en Solana",
         "nav-terminal": "Terminal",
         "nav-markets": "Mercados",
-        "nav-xp": "XP y Apuestas",
+        "nav-syndicates": "Syndicates",
+        "nav-xp": "XP & Ledger",
         "nav-roadmap": "Roadmap",
-        "nav-vault": "Bóveda",
         "nav-support": "Soporte"
       }
     };
@@ -1779,7 +1761,7 @@
       });
     }
 
-    // SUPORTE CHAT 24/7 CORRIGIDO E INTERATIVO
+    // SUPORTE CHAT 24/7 INTERATIVO
     function sendChatMessage() {
       const input = document.getElementById('chatInput');
       const text = input.value.trim();
@@ -1804,6 +1786,104 @@
       return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
+    // CRIAÇÃO E GERENCIAMENTO DE SYNDICATES (Salas para até 50 participantes)
+    function openCreateSyndicateModal() {
+      document.getElementById('syndicate-modal-overlay').style.display = 'flex';
+    }
+
+    function closeCreateSyndicateModal(e) {
+      if (e && e.target !== document.getElementById('syndicate-modal-overlay') && !e.target.classList.contains('modal-close')) return;
+      document.getElementById('syndicate-modal-overlay').style.display = 'none';
+    }
+
+    function confirmCreateSyndicate() {
+      const nameInput = document.getElementById('input-syndicate-name');
+      const name = nameInput.value.trim();
+      if (!name) {
+        alert("Please enter a valid syndicate desk name!");
+        return;
+      }
+
+      const newSyndicate = {
+        name: name,
+        slots: 1,
+        maxSlots: 50,
+        pool: '1.2M SOL',
+        manager: connectedWallet ? `${connectedWallet.slice(0,4)}...` : 'Manager #1'
+      };
+
+      customSyndicates.push(newSyndicate);
+      localStorage.setItem('bull_syndicates', JSON.stringify(customSyndicates));
+      renderSyndicates();
+      closeCreateSyndicateModal();
+      nameInput.value = '';
+      alert(`⚡ SUCCESS: Syndicate Desk "${name}" deployed with 50 slots capacity!`);
+    }
+
+    function joinSyndicate(name) {
+      alert(`✅ Connected to Syndicate Desk: "${name}". Capital pooled successfully into the PDA vault.`);
+    }
+
+    function renderSyndicates() {
+      const container = document.getElementById('syndicates-container');
+      if (!container) return;
+
+      let html = `
+        <div class="syndicate-card">
+          <div>
+            <div class="syndicate-card-header">
+              <span class="syndicate-title">Solana Alpha Syndicate</span>
+              <span class="syndicate-badge">Slots: 12 / 50</span>
+            </div>
+            <div class="syndicate-slots-bar"><div class="syndicate-slots-fill" style="width: 24%;"></div></div>
+            <div class="syndicate-meta-row">
+              <span>Manager: Desk #1</span>
+              <span>Pool: 48.7M SOL</span>
+            </div>
+          </div>
+          <button type="button" class="btn-join-syndicate" onclick="joinSyndicate('Solana Alpha Syndicate')">JOIN DESK POOL</button>
+        </div>
+
+        <div class="syndicate-card">
+          <div>
+            <div class="syndicate-card-header">
+              <span class="syndicate-title">ETH Liquidity Collective</span>
+              <span class="syndicate-badge">Slots: 42 / 50</span>
+            </div>
+            <div class="syndicate-slots-bar"><div class="syndicate-slots-fill" style="width: 84%; background:var(--purple);"></div></div>
+            <div class="syndicate-meta-row">
+              <span>Manager: Desk #4</span>
+              <span>Pool: 36.2M SOL</span>
+            </div>
+          </div>
+          <button type="button" class="btn-join-syndicate" onclick="joinSyndicate('ETH Liquidity Collective')">JOIN DESK POOL</button>
+        </div>
+      `;
+
+      customSyndicates.forEach(syn => {
+        const pct = (syn.slots / syn.maxSlots) * 100;
+        html += `
+          <div class="syndicate-card">
+            <div>
+              <div class="syndicate-card-header">
+                <span class="syndicate-title">${escapeHtml(syn.name)}</span>
+                <span class="syndicate-badge">Slots: ${syn.slots} / ${syn.maxSlots}</span>
+              </div>
+              <div class="syndicate-slots-bar"><div class="syndicate-slots-fill" style="width: ${pct}%; background:var(--cyan);"></div></div>
+              <div class="syndicate-meta-row">
+                <span>Manager: ${syn.manager}</span>
+                <span>Pool: ${syn.pool}</span>
+              </div>
+            </div>
+            <button type="button" class="btn-join-syndicate" onclick="joinSyndicate('${escapeHtml(syn.name)}')">JOIN DESK POOL</button>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      document.getElementById('syndicate-count-label').innerText = `ACTIVE ROOMS: ${2 + customSyndicates.length}`;
+    }
+
     // CONTROLE DA NAVEGAÇÃO DE ABAS ESTILO RAYDIUM
     function switchDockTab(viewId) {
       document.querySelectorAll('.tab-view-panel').forEach(panel => panel.classList.remove('active-view'));
@@ -1816,6 +1896,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       if (viewId === 'view-xp') renderXPLedger();
+      if (viewId === 'view-syndicates') renderSyndicates();
     }
 
     function renderXPLedger() {
@@ -2013,8 +2094,8 @@
     let currentRatioB = 38;
 
     const ARENA_CONFIG = {
-      '30m': { name: 'TURBO EPOCH', totalDuration: 30 * 60, ruleDesc: 'Closes 5 mins after opening', lockOffset: 5 * 60, lockType: 'after_open', duelId: '#312', algoName: '🤖 ALGO: 30M BREAKOUT' },
-      '1h': { name: 'FLASH EPOCH', totalDuration: 60 * 60, ruleDesc: 'Closes 15 mins before closure', lockOffset: 15 * 60, lockType: 'before_close', duelId: '#105', algoName: '🤖 ALGO: 1H MOMENTUM' },
+      '30m': { name: 'TURBO SESSION', totalDuration: 30 * 60, ruleDesc: 'Closes 5 mins after opening', lockOffset: 5 * 60, lockType: 'after_open', duelId: '#312', algoName: '🤖 ALGO: 30M BREAKOUT' },
+      '1h': { name: 'FLASH SESSION', totalDuration: 60 * 60, ruleDesc: 'Closes 15 mins before closure', lockOffset: 15 * 60, lockType: 'before_close', duelId: '#105', algoName: '🤖 ALGO: 1H MOMENTUM' },
       '24h': { name: 'DAILY ROYALE', totalDuration: 24 * 60 * 60, ruleDesc: 'Closes 1 hour before closure', lockOffset: 60 * 60, lockType: 'before_close', duelId: '#28', algoName: '🤖 ALGO: 24H TITANS' }
     };
 
@@ -2122,7 +2203,7 @@
       else if (mode === '1h') remainingSeconds = 2658;
       else if (mode === '24h') remainingSeconds = 48200;
 
-      if (badge) badge.innerText = `⚔️ ${cfg.name} • DUEL ${cfg.duelId}`;
+      if (badge) badge.innerText = `⚔️ ${cfg.name} • SESSION ${cfg.duelId}`;
 
       loadAutonomousDuel(mode);
       updateCountdown();
@@ -2182,7 +2263,7 @@
 
     function confirmModalStake() {
       if (isCurrentArenaLocked) {
-        alert("🔒 Epoch locked!");
+        alert("🔒 Session locked!");
         document.getElementById('stake-modal-overlay').style.display = 'none';
         return;
       }
@@ -2202,7 +2283,7 @@
       localStorage.setItem('bull_credits', testCredits);
       localStorage.setItem('bull_xp', userXP);
 
-      const newBet = {
+      const newAllocation = {
         id: 'BULL-' + Math.floor(1000 + Math.random() * 9000),
         asset: selectedFighter,
         amount: val,
@@ -2213,7 +2294,7 @@
         epoch: ARENA_CONFIG[currentArenaMode].name
       };
 
-      userBets.push(newBet);
+      userBets.push(newAllocation);
       localStorage.setItem('bull_user_bets', JSON.stringify(userBets));
 
       renderBalances();
@@ -2231,10 +2312,6 @@
     function renderBalances() {
       const elTest = document.getElementById('fake-balance-val');
       if (elTest) elTest.innerText = `${testCredits.toLocaleString('en-US', { minimumFractionDigits: 2 })} SOL`;
-    }
-
-    function toggleFaq(el) {
-      el.classList.toggle('open');
     }
 
     // DEXSCREENER LIVE POLLING
@@ -2404,6 +2481,7 @@
       initEcgCanvas();
       loadAutonomousDuel('1h');
       updateCountdown();
+      renderSyndicates();
 
       setInterval(syncDexScreenerData, 15000);
       setInterval(updateCountdown, 1000);
