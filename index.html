@@ -40,7 +40,6 @@
       --gold: #f59e0b;
       --text-main: #f8fafc;
       --text-muted: #64748b;
-      --nav-height: 64px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,7 +51,6 @@
       color: var(--text-main);
       min-height: 100vh;
       overflow-x: hidden;
-      padding-bottom: calc(var(--nav-height) + 20px); /* Espaço para a barra Raydium fixa embaixo */
     }
 
     img { max-width: 100%; height: auto; display: block; }
@@ -97,19 +95,27 @@
     @keyframes sweepLoader { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
     .splash-sub { font-size: 9px; font-weight: 800; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; }
 
-    .wrapper { max-width: 1140px; margin: 0 auto; padding: 12px 14px 20px; }
+    .wrapper { max-width: 1140px; margin: 0 auto; padding: 12px 14px 60px; }
 
-    /* HEADER SUPERIOR LIMPO */
-    header.top-header {
+    /* RESPONSIVE NAVBAR COM ESPAÇAMENTO OTIMIZADO */
+    nav {
       background: rgba(7, 12, 24, 0.9);
       backdrop-filter: blur(14px);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 10px 14px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-top-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      width: 100%;
+      gap: 12px;
     }
 
     .brand {
@@ -117,6 +123,8 @@
       align-items: center;
       gap: 8px;
       text-decoration: none;
+      flex-shrink: 1;
+      min-width: 0;
     }
 
     .brand-logo-frame {
@@ -137,30 +145,14 @@
       letter-spacing: 1px; 
       color: #fff; 
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .brand-title span { color: var(--cyan); }
 
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .nav-wallet-slot {
+      flex-shrink: 0;
     }
-
-    .protocol-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: #030612;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 4px 8px;
-      font-size: 10px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .btn-pill-action { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyan); font-weight: 900; font-size: 9px; padding: 2px 5px; border-radius: 4px; cursor: pointer; }
-    .btn-pill-action:hover { background: var(--cyan); color: #020612; }
 
     .btn-wallet-connect {
       background: linear-gradient(135deg, #0ea5e9, #0284c7);
@@ -181,114 +173,149 @@
       gap: 5px;
     }
 
+    .btn-wallet-connect:hover {
+      box-shadow: 0 0 18px rgba(14, 165, 233, 0.45);
+    }
+
     .btn-wallet-connect.connected {
       background: rgba(16, 185, 129, 0.15);
       border-color: var(--green);
       color: #fff;
     }
 
-    /* ===================================================
-       RAYDIUM STYLE: BOTTOM DOCK NAVIGATION BAR (FIXA)
-       =================================================== */
-    .raydium-dock-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: var(--nav-height);
-      background: rgba(4, 8, 18, 0.94);
-      backdrop-filter: blur(16px);
-      border-top: 1.5px solid #162442;
+    .nav-bottom-row {
       display: flex;
-      justify-content: space-around;
       align-items: center;
-      z-index: 99990;
-      padding: 0 10px;
-      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.85);
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .dock-tab-btn {
+    .nav-bottom-left {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 3px;
-      background: transparent;
-      border: none;
-      color: #64748b;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: 'Montserrat', sans-serif;
-      padding: 6px 10px;
-      border-radius: 8px;
-      min-width: 58px;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
-    .dock-tab-icon {
-      font-size: 18px;
-      line-height: 1;
-      transition: transform 0.2s ease;
-    }
-
-    .dock-tab-label {
-      font-size: 9px;
+    .btn-open-market-hub {
+      background: rgba(0, 242, 254, 0.12);
+      border: 1.5px solid var(--cyan);
+      color: #fff;
       font-weight: 800;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      font-size: 10px;
+      padding: 5px 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
     }
 
-    .dock-tab-btn.active {
-      color: var(--cyan);
+    .btn-open-market-hub:hover {
+      background: var(--cyan);
+      color: #020612;
+      box-shadow: 0 0 15px var(--cyan-glow);
     }
 
-    .dock-tab-btn.active .dock-tab-icon {
-      transform: translateY(-2px);
-      filter: drop-shadow(0 0 8px var(--cyan));
+    .protocol-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #030612;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
     }
 
-    .dock-tab-btn:hover {
-      color: #cbd5e1;
+    .protocol-pill.xp-pill {
+      border-color: rgba(0, 242, 254, 0.4);
+      box-shadow: 0 0 10px var(--cyan-glow);
+      cursor: pointer;
+      transition: all 0.15s ease;
     }
 
-    /* CONTROLE DAS TELAS/VISÕES */
-    .tab-view-panel {
-      display: none;
-      animation: fadeInView 0.25s ease forwards;
+    .protocol-pill.xp-pill:hover {
+      background: rgba(0, 242, 254, 0.15);
+      border-color: var(--cyan);
+      transform: translateY(-1px);
     }
 
-    .tab-view-panel.active-view {
-      display: block;
-    }
+    .btn-pill-action { background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.3); color: var(--cyan); font-weight: 900; font-size: 9px; padding: 2px 5px; border-radius: 4px; cursor: pointer; }
+    .btn-pill-action:hover { background: var(--cyan); color: #020612; }
+    .btn-pill-reset { background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.3); color: var(--pink); font-weight: 900; font-size: 9px; padding: 2px 5px; border-radius: 4px; cursor: pointer; }
 
-    @keyframes fadeInView {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    .social-nav-group { display: flex; align-items: center; gap: 4px; }
+    .btn-social-icon { width: 28px; height: 28px; background: #050914; border: 1px solid var(--border); border-radius: 6px; color: #94a3b8; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+    .btn-social-icon svg { width: 12px; height: 12px; fill: currentColor; }
+    .btn-social-icon:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    @media (min-width: 920px) {
+      nav { flex-direction: row; justify-content: space-between; align-items: center; padding: 10px 18px; }
+      .nav-top-row { width: auto; gap: 16px; }
+      .nav-bottom-row { width: auto; padding-top: 0; border-top: none; gap: 10px; flex-wrap: nowrap; }
+      .brand-title { font-size: 16px; }
+      .brand-logo-frame { width: 36px; height: 36px; }
     }
 
     /* HERO */
-    .hero { text-align: center; margin-bottom: 24px; }
+    .hero { text-align: center; margin-bottom: 30px; }
     .hero-logo-frame {
-      width: 85px;
-      height: 85px;
-      margin: 0 auto 12px;
+      width: 95px;
+      height: 95px;
+      margin: 0 auto 14px;
       background: #070d1c;
       border: 1.5px solid var(--border);
-      border-radius: 18px;
-      padding: 6px;
+      border-radius: 20px;
+      padding: 7px;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 35px rgba(0, 242, 254, 0.22);
       overflow: hidden;
     }
-    .hero-logo-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
-    .badge-protocol-tag { display: inline-block; background: #060b17; border: 1px solid var(--border); color: var(--cyan); font-size: 8.5px; font-weight: 900; letter-spacing: 2px; padding: 4px 12px; border-radius: 20px; margin-bottom: 6px; text-transform: uppercase; }
-    .hero-title { font-size: 30px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; line-height: 1.1; }
+    .hero-logo-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 13px; }
+    .badge-protocol-tag { display: inline-block; background: #060b17; border: 1px solid var(--border); color: var(--cyan); font-size: 9px; font-weight: 900; letter-spacing: 2px; padding: 5px 14px; border-radius: 20px; margin-bottom: 8px; text-transform: uppercase; }
+    .hero-title { font-size: 34px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; line-height: 1.1; }
     .hero-title span { color: var(--cyan); }
-    .hero-sub { font-size: 11.5px; color: var(--text-muted); max-width: 680px; margin: 0 auto; line-height: 1.5; font-weight: 600; padding: 0 6px; }
+    .hero-sub { font-size: 12px; color: var(--text-muted); max-width: 680px; margin: 0 auto; line-height: 1.6; font-weight: 600; padding: 0 6px; }
+
+    @media (min-width: 768px) {
+      .hero-logo-frame { width: 110px; height: 110px; padding: 8px; }
+      .hero-title { font-size: 42px; letter-spacing: 2px; margin-bottom: 10px; }
+      .hero-sub { font-size: 13px; }
+    }
+
+    /* METRICS */
+    .metrics-bar { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; margin-bottom: 16px; text-align: center; }
+    .metric-col { position: relative; }
+    .metric-col:not(:last-child)::after { content: ""; position: absolute; right: 0; top: 15%; height: 70%; width: 1px; background: var(--border); }
+    .metric-label { font-size: 9px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 4px; }
+    .metric-num { font-size: 15px; font-weight: 900; }
+    .metric-num.cyan { color: var(--cyan); }
+    .metric-num.green { color: var(--green); }
+    .metric-num.slate { color: #cbd5e1; }
+
+    @media (min-width: 768px) {
+      .metrics-bar { padding: 16px 20px; }
+      .metric-label { font-size: 10px; letter-spacing: 1.5px; }
+      .metric-num { font-size: 18px; }
+    }
 
     /* DUEL RATIO ARENA */
-    .duel-ratio-arena-wrapper { background: #050813; border: 1.5px solid #141e33; border-radius: 18px; padding: 16px 14px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9); margin-bottom: 24px; }
+    .duel-ratio-arena-wrapper { background: #050813; border: 1.5px solid #141e33; border-radius: 18px; padding: 16px 14px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9); margin-bottom: 34px; }
+
+    @media (min-width: 768px) {
+      .duel-ratio-arena-wrapper { padding: 24px; margin-bottom: 38px; }
+    }
 
     .arena-epoch-tabs {
       display: flex;
@@ -323,12 +350,12 @@
     }
 
     .matchmaker-algo-pill {
-      font-size: 8.5px;
+      font-size: 9px;
       font-weight: 900;
       color: var(--gold);
       background: rgba(245, 158, 11, 0.12);
       border: 1px solid rgba(245, 158, 11, 0.35);
-      padding: 3px 7px;
+      padding: 3px 8px;
       border-radius: 6px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
@@ -365,14 +392,24 @@
       gap: 6px;
       padding: 3px 8px;
       border-radius: 6px;
-      font-size: 9.5px;
+      font-size: 10px;
       font-weight: 900;
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
 
-    .badge-unlocked { background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.4); color: var(--green); }
-    .badge-locked { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.5); color: var(--pink); animation: pulseAlert 1.5s infinite alternate; }
+    .badge-unlocked {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: var(--green);
+    }
+
+    .badge-locked {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      color: var(--pink);
+      animation: pulseAlert 1.5s infinite alternate;
+    }
 
     @keyframes pulseAlert { 0% { opacity: 0.7; } 100% { opacity: 1; } }
 
@@ -415,8 +452,23 @@
       color: #94a3b8;
     }
 
-    .race-status-tag { display: inline-flex; align-items: center; gap: 5px; color: var(--cyan); font-size: 8.5px; letter-spacing: 0.8px; }
-    .race-pulse-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: pulseDot 1s infinite alternate; }
+    .race-status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--cyan);
+      font-size: 8.5px;
+      letter-spacing: 0.8px;
+    }
+
+    .race-pulse-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulseDot 1s infinite alternate;
+    }
 
     @keyframes pulseDot { 0% { opacity: 0.3; } 100% { opacity: 1; transform: scale(1.3); } }
 
@@ -433,7 +485,16 @@
       overflow: hidden;
     }
 
-    .race-lane::before { content: ""; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; border-top: 1px dashed #1e3158; }
+    .race-lane::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+      border-top: 1px dashed #1e3158;
+    }
+
     .race-finish-flag { position: absolute; right: 10px; font-size: 13px; z-index: 2; opacity: 0.8; }
 
     .race-runner {
@@ -474,7 +535,7 @@
       line-height: 1.1;
     }
 
-    /* ECG HEARTBEAT VIEWPORT */
+    /* ECG / HEARTBEAT VIEWPORT */
     .duel-chart-viewport {
       background: #02050e;
       background-image: 
@@ -489,8 +550,17 @@
       overflow: hidden;
     }
 
-    .chart-canvas-box { width: 100%; height: 170px; position: relative; }
-    #ratioCanvas { width: 100%; height: 100%; display: block; }
+    .chart-canvas-box {
+      width: 100%;
+      height: 180px;
+      position: relative;
+    }
+
+    #ratioCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
 
     .duel-ratio-bottom-card { background: #03050c; border: 1px solid #0f1628; border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
     .ratio-col-side { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 140px; }
@@ -522,7 +592,11 @@
       .dex-duel-columns-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
     }
 
-    .dex-column-side { display: flex; flex-direction: column; gap: 10px; }
+    .dex-column-side {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
     .btn-terminal-action {
       width: 100%;
@@ -539,11 +613,29 @@
       align-items: center;
     }
 
-    .btn-terminal-cyan { background: rgba(0, 242, 254, 0.08); border: 1.5px solid var(--cyan); color: #fff; }
-    .btn-terminal-cyan:hover { background: var(--cyan); color: #020612; box-shadow: 0 0 20px var(--cyan-glow); }
+    .btn-terminal-cyan {
+      background: rgba(0, 242, 254, 0.08);
+      border: 1.5px solid var(--cyan);
+      color: #fff;
+    }
 
-    .btn-terminal-purple { background: rgba(129, 140, 248, 0.08); border: 1.5px solid var(--purple); color: #fff; }
-    .btn-terminal-purple:hover { background: var(--purple); color: #020612; box-shadow: 0 0 20px var(--purple-glow); }
+    .btn-terminal-cyan:hover {
+      background: var(--cyan);
+      color: #020612;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    .btn-terminal-purple {
+      background: rgba(129, 140, 248, 0.08);
+      border: 1.5px solid var(--purple);
+      color: #fff;
+    }
+
+    .btn-terminal-purple:hover {
+      background: var(--purple);
+      color: #020612;
+      box-shadow: 0 0 20px var(--purple-glow);
+    }
 
     .btn-terminal-action.btn-action-locked {
       background: rgba(244, 63, 94, 0.08) !important;
@@ -553,28 +645,59 @@
       cursor: not-allowed;
     }
 
-    .dex-embed-card { background: #030611; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
-    .dex-embed-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #060b17; border-bottom: 1px solid var(--border); font-size: 10px; font-weight: 800; color: #cbd5e1; }
+    .dex-embed-card {
+      background: #030611;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dex-embed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: #060b17;
+      border-bottom: 1px solid var(--border);
+      font-size: 10px;
+      font-weight: 800;
+      color: #cbd5e1;
+    }
+
     .dex-live-indicator { display: flex; align-items: center; gap: 6px; }
     .dex-live-badge { font-size: 9px; color: var(--green); font-weight: 800; }
     .dex-embed-frame { width: 100%; height: 300px; border: none; display: block; background: #000; }
 
-    /* SEÇÕES INSTITUCIONAIS */
+    /* ===================================================
+       SEÇÕES INSTITUCIONAIS COM ROLAGEM HORIZONTAL NO MOBILE
+       =================================================== */
     .content-card-section {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 24px 16px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-      margin-bottom: 24px;
+      margin-bottom: 30px;
     }
 
-    .sec-header { text-align: center; margin-bottom: 20px; }
+    @media (min-width: 768px) {
+      .content-card-section { padding: 30px 24px; margin-bottom: 34px; }
+    }
+
+    .sec-header { text-align: center; margin-bottom: 22px; }
     .sec-badge { display: inline-block; background: #060b17; border: 1px solid var(--border); color: var(--cyan); font-size: 8.5px; font-weight: 900; letter-spacing: 2px; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; margin-bottom: 6px; }
     .sec-title { font-size: 22px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
     .sec-title span { color: var(--cyan); }
     .sec-sub { font-size: 12px; color: var(--text-muted); max-width: 650px; margin: 4px auto 0; font-weight: 500; line-height: 1.5; }
 
+    @media (min-width: 768px) {
+      .sec-title { font-size: 26px; }
+      .sec-sub { font-size: 13px; }
+    }
+
+    /* GRELHAS DESKTOP / CARROSSEL HORIZONTAL NO TELEMÓVEL */
     .scroll-horizontal-mobile {
       display: flex;
       gap: 14px;
@@ -584,12 +707,17 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .scroll-horizontal-mobile::-webkit-scrollbar { height: 4px; }
-    .scroll-horizontal-mobile::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .scroll-horizontal-mobile::-webkit-scrollbar {
+      height: 4px;
+    }
 
-    .steps-grid .step-card,
-    .roadmap-grid .r-card,
-    .security-grid .sec-card {
+    .scroll-horizontal-mobile::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    /* CARD DE PASSOS */
+    .steps-grid .step-card {
       min-width: 250px;
       flex: 0 0 auto;
       scroll-snap-align: start;
@@ -599,20 +727,59 @@
       padding: 18px 16px;
     }
 
-    .security-grid .sec-card { border-top: 2px solid var(--cyan); }
-    .roadmap-grid .r-card { min-width: 240px; }
-    .r-card.active-phase { border-top: 2px solid var(--cyan); box-shadow: 0 0 16px rgba(0, 242, 254, 0.1); }
-    .r-card.upcoming-phase { border-top: 2px solid var(--purple); }
-    .r-card.locked-phase { border-top: 2px solid #23314d; }
+    /* CARD DE ROADMAP */
+    .roadmap-grid .r-card {
+      min-width: 240px;
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 12px;
+    }
+
+    /* CARD DE SEGURANÇA */
+    .security-grid .sec-card {
+      min-width: 250px;
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      border-top: 2px solid var(--cyan);
+    }
 
     @media (min-width: 768px) {
-      .scroll-horizontal-mobile { display: grid; overflow-x: visible; }
-      .steps-grid { grid-template-columns: repeat(3, 1fr); }
-      .steps-grid .step-card { min-width: auto; }
-      .roadmap-grid { grid-template-columns: repeat(4, 1fr); }
-      .roadmap-grid .r-card { min-width: auto; }
-      .security-grid { grid-template-columns: repeat(3, 1fr); }
-      .security-grid .sec-card { min-width: auto; }
+      .scroll-horizontal-mobile {
+        display: grid;
+        overflow-x: visible;
+        padding-bottom: 0;
+      }
+      .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .steps-grid .step-card {
+        min-width: auto;
+        flex: auto;
+      }
+      .roadmap-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .roadmap-grid .r-card {
+        min-width: auto;
+        flex: auto;
+      }
+      .security-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .security-grid .sec-card {
+        min-width: auto;
+        flex: auto;
+      }
     }
 
     .step-num { font-family: 'Teko', sans-serif; font-size: 30px; line-height: 1; color: var(--cyan); margin-bottom: 5px; }
@@ -649,6 +816,9 @@
     .audit-pill strong { color: var(--cyan); }
 
     /* ROADMAP DETAILS */
+    .r-card.active-phase { border-top: 2px solid var(--cyan); box-shadow: 0 0 16px rgba(0, 242, 254, 0.1); }
+    .r-card.upcoming-phase { border-top: 2px solid var(--purple); }
+    .r-card.locked-phase { border-top: 2px solid #23314d; }
     .r-phase-tag { font-size: 8px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; display: inline-block; }
     .r-status { display: inline-block; font-size: 8px; font-weight: 800; padding: 2px 5px; border-radius: 4px; margin-bottom: 8px; text-transform: uppercase; }
     .status-live { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
@@ -677,7 +847,79 @@
     footer a { color: #fff; text-decoration: none; font-weight: 700; margin-left: 12px; }
     footer a:hover { color: var(--cyan); }
 
-    /* MARKETS VIEW (ESTILO APP) */
+    /* MODAL OVERLAYS */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(2, 4, 10, 0.9); backdrop-filter: blur(8px); z-index: 99999; align-items: center; justify-content: center; padding: 16px; }
+    .modal-box { background: #060b17; border: 1.5px solid var(--cyan); border-radius: 16px; width: 100%; max-width: 420px; padding: 22px; box-shadow: 0 0 40px var(--cyan-glow); position: relative; }
+    .modal-close { position: absolute; top: 16px; right: 18px; background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
+    .modal-close:hover { color: #fff; }
+    .modal-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    .modal-avatar { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--cyan); overflow: hidden; background: #090e1a; flex-shrink: 0; }
+    .modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-title-box h3 { font-size: 15px; font-weight: 900; letter-spacing: 0.5px; }
+
+    .modal-input-wrap { background: #030610; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
+    .modal-input-top { display: flex; justify-content: space-between; font-size: 9.5px; color: var(--text-muted); font-weight: 800; margin-bottom: 6px; }
+    .modal-input-row { display: flex; align-items: center; gap: 10px; }
+    .modal-input { background: transparent; border: none; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 900; width: 100%; outline: none; }
+    .modal-token-label { font-weight: 900; font-size: 15px; color: var(--cyan); }
+    .quick-pct-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
+    .btn-pct { background: #081024; border: 1px solid var(--border); color: #cbd5e1; font-weight: 800; font-size: 9.5px; padding: 7px 4px; border-radius: 6px; cursor: pointer; }
+    .btn-pct:hover { border-color: var(--cyan); color: #fff; }
+
+    .modal-summary-box { background: #030610; border: 1px solid #10192d; border-radius: 8px; padding: 10px 12px; font-size: 10.5px; font-weight: 700; margin-bottom: 16px; }
+    .modal-summary-row { display: flex; justify-content: space-between; padding: 4px 0; }
+    .modal-summary-row span.cyan { color: var(--cyan); font-size: 13px; font-weight: 900; }
+    .btn-execute-stake { width: 100%; padding: 13px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 11.5px; font-weight: 900; letter-spacing: 0.5px; cursor: pointer; border: none; background: var(--cyan); color: #020612; box-shadow: 0 0 15px var(--cyan-glow); }
+    .btn-execute-stake:hover { background: #38bdf8; }
+
+    /* WALLET LIST */
+    .wallet-options-list { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
+    .wallet-option-btn { background: #030610; border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: #fff; font-family: 'Montserrat', sans-serif; }
+    .wallet-option-btn:hover { border-color: var(--cyan); background: rgba(0, 242, 254, 0.05); }
+    .wallet-opt-left { display: flex; align-items: center; gap: 10px; }
+    .wallet-opt-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; background: #070d1e; border: 1px solid var(--border); }
+    .wallet-opt-name { font-size: 12.5px; font-weight: 800; }
+    .wallet-opt-sub { font-size: 8.5px; color: var(--text-muted); font-weight: 600; }
+    .wallet-detect-tag { font-size: 8.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
+    .detect-installed { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .detect-missing { background: rgba(100, 116, 139, 0.12); color: #64748b; border: 1px solid #1e293b; }
+
+    /* PROFILE MODAL */
+    .wallet-profile-box { background: #030610; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin: 14px 0; text-align: center; }
+    .wallet-pubkey-full { font-family: monospace; font-size: 10px; color: var(--cyan); word-break: break-all; background: #060b17; padding: 7px; border-radius: 6px; margin: 8px 0; border: 1px solid #142038; }
+    .btn-copy-address { background: transparent; border: 1px solid var(--border); color: #94a3b8; font-size: 9.5px; font-weight: 800; padding: 5px 9px; border-radius: 6px; cursor: pointer; }
+    .btn-copy-address:hover { border-color: var(--cyan); color: #fff; }
+    .btn-disconnect-wallet { width: 100%; padding: 11px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 900; cursor: pointer; border: 1px solid var(--pink); background: rgba(244, 63, 94, 0.12); color: var(--pink); }
+    .btn-disconnect-wallet:hover { background: var(--pink); color: #fff; }
+
+    /* XP MODAL */
+    .xp-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 14px 0; text-align: center; }
+    .xp-summary-card { background: #030610; border: 1px solid var(--border); border-radius: 8px; padding: 8px 4px; }
+    .xp-summary-label { font-size: 7.5px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 3px; }
+    .xp-summary-val { font-size: 13px; font-weight: 900; }
+    .user-bets-list-container { max-height: 230px; overflow-y: auto; display: flex; flex-direction: column; gap: 7px; margin: 12px 0 6px; padding-right: 3px; }
+    .bet-history-card { background: #030610; border: 1px solid var(--border); border-radius: 8px; padding: 9px 10px; display: flex; justify-content: space-between; align-items: center; }
+    .bet-card-left { display: flex; align-items: center; gap: 8px; }
+    .bet-asset-tag { font-size: 10.5px; font-weight: 900; color: #fff; }
+    .bet-meta-sub { font-size: 8.5px; color: var(--text-muted); font-weight: 600; }
+    .bet-card-right { text-align: right; }
+    .bet-xp-gain-badge { font-size: 9.5px; font-weight: 900; color: var(--green); background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); padding: 1px 5px; border-radius: 4px; display: inline-block; }
+    .no-bets-empty-state { text-align: center; padding: 20px 8px; color: var(--text-muted); font-size: 10.5px; font-weight: 600; }
+
+    /* MARKETS HUB */
+    .market-hub-overlay { display: none; position: fixed; inset: 0; background: rgba(2, 5, 12, 0.95); backdrop-filter: blur(12px); z-index: 999999; overflow-y: auto; padding: 20px 14px; }
+    .market-hub-container { max-width: 1200px; margin: 0 auto; background: #050813; border: 1.5px solid #142038; border-radius: 18px; padding: 22px 16px; position: relative; }
+    .hub-close-btn { position: absolute; top: 18px; right: 20px; background: #091024; border: 1px solid var(--border); color: #94a3b8; font-size: 16px; border-radius: 8px; width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .hub-banner-box { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #0f182c; }
+    .hub-banner-box h2 { font-size: 22px; font-weight: 900; letter-spacing: 1px; color: #fff; }
+    .hub-banner-box h2 span { color: var(--cyan); }
+    .hub-banner-box p { font-size: 11px; color: var(--text-muted); }
+    .hub-filters-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .hub-filter-btn { background: #070d1e; border: 1px solid var(--border); color: #94a3b8; font-size: 10.5px; font-weight: 800; padding: 7px 12px; border-radius: 7px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+    .hub-filter-btn.active { background: rgba(0, 242, 254, 0.15); border-color: var(--cyan); color: #fff; }
+    .hub-filter-btn.locked { background: #040712; border-color: #111a2d; color: #475569; }
+    .locked-chip { font-size: 8.5px; background: rgba(244, 63, 94, 0.15); color: var(--pink); padding: 1px 4px; border-radius: 3px; }
+
     .hub-duels-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     @media (min-width: 600px) { .hub-duels-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 900px) { .hub-duels-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
@@ -707,65 +949,6 @@
     .c-metric-val { font-size: 10px; font-weight: 900; color: #fff; }
     .btn-card-action { width: 100%; padding: 9px; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: #cbd5e1; font-size: 10.5px; font-weight: 800; cursor: pointer; }
     .btn-card-action:hover { border-color: var(--cyan); color: var(--cyan); }
-
-    /* XP VIEW */
-    .xp-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 14px 0; text-align: center; }
-    .xp-summary-card { background: #030610; border: 1px solid var(--border); border-radius: 8px; padding: 10px 4px; }
-    .xp-summary-label { font-size: 8px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 3px; }
-    .xp-summary-val { font-size: 14px; font-weight: 900; }
-    .user-bets-list-container { max-height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin: 12px 0 6px; }
-    .bet-history-card { background: #030610; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; }
-    .bet-card-left { display: flex; align-items: center; gap: 8px; }
-    .bet-asset-tag { font-size: 11px; font-weight: 900; color: #fff; }
-    .bet-meta-sub { font-size: 8.5px; color: var(--text-muted); font-weight: 600; }
-    .bet-card-right { text-align: right; }
-    .bet-xp-gain-badge { font-size: 9.5px; font-weight: 900; color: var(--green); background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); padding: 1px 5px; border-radius: 4px; display: inline-block; }
-    .no-bets-empty-state { text-align: center; padding: 30px 8px; color: var(--text-muted); font-size: 11.5px; font-weight: 600; }
-
-    /* MODAL OVERLAYS */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(2, 4, 10, 0.9); backdrop-filter: blur(8px); z-index: 99999; align-items: center; justify-content: center; padding: 16px; }
-    .modal-box { background: #060b17; border: 1.5px solid var(--cyan); border-radius: 16px; width: 100%; max-width: 420px; padding: 22px; box-shadow: 0 0 40px var(--cyan-glow); position: relative; }
-    .modal-close { position: absolute; top: 16px; right: 18px; background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
-    .modal-close:hover { color: #fff; }
-    .modal-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-    .modal-avatar { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--cyan); overflow: hidden; background: #090e1a; flex-shrink: 0; }
-    .modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .modal-title-box h3 { font-size: 15px; font-weight: 900; letter-spacing: 0.5px; }
-
-    .modal-input-wrap { background: #030610; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
-    .modal-input-top { display: flex; justify-content: space-between; font-size: 9.5px; color: var(--text-muted); font-weight: 800; margin-bottom: 6px; }
-    .modal-input-row { display: flex; align-items: center; gap: 10px; }
-    .modal-input { background: transparent; border: none; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 900; width: 100%; outline: none; }
-    .modal-token-label { font-weight: 900; font-size: 15px; color: var(--cyan); }
-    .quick-pct-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
-    .btn-pct { background: #081024; border: 1px solid var(--border); color: #cbd5e1; font-weight: 800; font-size: 9.5px; padding: 7px 4px; border-radius: 6px; cursor: pointer; }
-    .btn-pct:hover { border-color: var(--cyan); color: #fff; }
-
-    .modal-summary-box { background: #030610; border: 1px solid #10192d; border-radius: 8px; padding: 10px 12px; font-size: 10.5px; font-weight: 700; margin-bottom: 16px; }
-    .modal-summary-row { display: flex; justify-content: space-between; padding: 4px 0; }
-    .modal-summary-row span.cyan { color: var(--cyan); font-size: 13px; font-weight: 900; }
-    .btn-execute-stake { width: 100%; padding: 13px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 11.5px; font-weight: 900; letter-spacing: 0.5px; cursor: pointer; border: none; background: var(--cyan); color: #020612; box-shadow: 0 0 15px var(--cyan-glow); }
-    .btn-execute-stake:hover { background: #38bdf8; }
-
-    /* WALLET SELECTOR MODAL */
-    .wallet-options-list { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
-    .wallet-option-btn { background: #030610; border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: #fff; font-family: 'Montserrat', sans-serif; }
-    .wallet-option-btn:hover { border-color: var(--cyan); background: rgba(0, 242, 254, 0.05); }
-    .wallet-opt-left { display: flex; align-items: center; gap: 10px; }
-    .wallet-opt-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; background: #070d1e; border: 1px solid var(--border); }
-    .wallet-opt-name { font-size: 12.5px; font-weight: 800; }
-    .wallet-opt-sub { font-size: 8.5px; color: var(--text-muted); font-weight: 600; }
-    .wallet-detect-tag { font-size: 8.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
-    .detect-installed { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
-    .detect-missing { background: rgba(100, 116, 139, 0.12); color: #64748b; border: 1px solid #1e293b; }
-
-    /* PROFILE MODAL */
-    .wallet-profile-box { background: #030610; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin: 14px 0; text-align: center; }
-    .wallet-pubkey-full { font-family: monospace; font-size: 10px; color: var(--cyan); word-break: break-all; background: #060b17; padding: 7px; border-radius: 6px; margin: 8px 0; border: 1px solid #142038; }
-    .btn-copy-address { background: transparent; border: 1px solid var(--border); color: #94a3b8; font-size: 9.5px; font-weight: 800; padding: 5px 9px; border-radius: 6px; cursor: pointer; }
-    .btn-copy-address:hover { border-color: var(--cyan); color: #fff; }
-    .btn-disconnect-wallet { width: 100%; padding: 11px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 900; cursor: pointer; border: 1px solid var(--pink); background: rgba(244, 63, 94, 0.12); color: var(--pink); }
-    .btn-disconnect-wallet:hover { background: var(--pink); color: #fff; }
   </style>
 </head>
 <body>
@@ -783,508 +966,464 @@
   </div>
 
   <div class="wrapper">
-    <!-- HEADER SUPERIOR: LOGO + SALDO DEMO + CONECTAR CARTEIRA -->
-    <header class="top-header">
-      <a href="https://www.bullarenaa.io/" class="brand" translate="no">
-        <div class="brand-logo-frame">
-          <img src="https://i.postimg.cc/90MP2P9d/logo-png.jpg" alt="Bull Protocol">
-        </div>
-        <div class="brand-title">BULL<span>PROTOCOL</span></div>
-      </a>
+    <!-- RESPONSIVE NAVBAR: ESPAÇAMENTO PERFEITO NO TELEMÓVEL -->
+    <nav>
+      <div class="nav-top-row">
+        <a href="https://www.bullarenaa.io/" class="brand" translate="no">
+          <div class="brand-logo-frame">
+            <img src="https://i.postimg.cc/90MP2P9d/logo-png.jpg" alt="Bull Protocol">
+          </div>
+          <div class="brand-title">BULL<span>PROTOCOL</span></div>
+        </a>
 
-      <div class="header-right">
-        <div class="protocol-pill" translate="no">
-          <span id="fake-balance-val" style="color: #fff; font-weight:900;">1,000.00 SOL</span>
-          <button type="button" class="btn-pill-action" onclick="addCredits(500)">+500</button>
+        <div class="nav-wallet-slot">
+          <button id="btn-wallet" class="btn-wallet-connect" onclick="handleWalletButtonClick()" translate="no">
+            <span>⚡</span> <span id="wallet-btn-label">CONNECT WALLET</span>
+          </button>
         </div>
-
-        <button id="btn-wallet" class="btn-wallet-connect" onclick="handleWalletButtonClick()" translate="no">
-          <span>⚡</span> <span id="wallet-btn-label">CONNECT</span>
-        </button>
       </div>
+
+      <div class="nav-bottom-row">
+        <div class="nav-bottom-left">
+          <button type="button" class="btn-open-market-hub" onclick="openMarketHub()">
+            <span>📊</span> MARKETS HUB
+          </button>
+
+          <div class="protocol-pill xp-pill" onclick="openXPModal()" title="Click to view your allocations and Protocol XP ledger" translate="no">
+            <span style="color: var(--cyan); font-size: 9px;">XP:</span>
+            <span id="user-battle-xp" style="font-weight:900;">0.00</span>
+            <span style="font-size:9px; color:var(--cyan); margin-left:2px;">↗</span>
+          </div>
+
+          <div class="protocol-pill" translate="no">
+            <span style="color: var(--text-muted); font-size: 9px;">DEMO:</span>
+            <span id="fake-balance-val" style="color: #fff; font-weight:900;">1,000.00 SOL</span>
+            <button type="button" class="btn-pill-action" onclick="addCredits(500)">+500</button>
+            <button type="button" class="btn-pill-reset" onclick="resetCredits()">✕</button>
+          </div>
+        </div>
+
+        <div class="social-nav-group" translate="no">
+          <a href="https://x.com/bullarenaio" target="_blank" rel="noopener noreferrer" class="btn-social-icon" title="Follow on X">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://t.me/bullRoyalee_io" target="_blank" rel="noopener noreferrer" class="btn-social-icon" title="Join Telegram Community">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-logo-frame">
+        <img src="https://i.postimg.cc/90MP2P9d/logo-png.jpg" alt="Bull Protocol Crest">
+      </div>
+      <div class="badge-protocol-tag" translate="no">DECENTRALIZED RELATIVE STRENGTH PROTOCOL</div>
+      <h1 class="hero-title" translate="no">BULL <span>PROTOCOL</span></h1>
+      <p class="hero-sub">
+        Capitalize on real-time asset momentum and volume velocity deltas. High-frequency dual-asset ratio settlement engine running directly on Solana via non-custodial PDA vaults and DexScreener oracles.
+      </p>
     </header>
 
-    <!-- ===================================================
-         VIEW 1: TERMINAL ARENA (PADRÃO / LIVE BETTING)
-         =================================================== -->
-    <div id="view-terminal" class="tab-view-panel active-view">
-      <div class="hero">
-        <div class="hero-logo-frame">
-          <img src="https://i.postimg.cc/90MP2P9d/logo-png.jpg" alt="Bull Protocol Crest">
-        </div>
-        <div class="badge-protocol-tag" translate="no">DECENTRALIZED RELATIVE STRENGTH PROTOCOL</div>
-        <h1 class="hero-title" translate="no">BULL <span>PROTOCOL</span></h1>
-        <p class="hero-sub">
-          High-frequency dual-asset momentum engine running directly on Solana via non-custodial PDA vaults and DexScreener oracles.
-        </p>
+    <!-- METRICS -->
+    <section class="metrics-bar">
+      <div class="metric-col">
+        <div class="metric-label">ACTIVE RATIO POOL</div>
+        <div class="metric-num cyan" translate="no">245.50 SOL</div>
+      </div>
+      <div class="metric-col">
+        <div class="metric-label">SETTLEMENT ENGINE</div>
+        <div class="metric-num green" translate="no">100% INSTANT $SOL (PDA)</div>
+      </div>
+      <div class="metric-col">
+        <div class="metric-label">ORACLE ARCHITECTURE</div>
+        <div class="metric-num slate" translate="no">DEXSCREENER DUAL-FEED</div>
+      </div>
+    </section>
+
+    <!-- DUEL RATIO ARENA -->
+    <main class="duel-ratio-arena-wrapper">
+      <div class="arena-epoch-tabs">
+        <button id="tab-epoch-30m" class="btn-epoch-tab" onclick="switchEpochMode('30m')">
+          <span>🔥 TURBO (30M)</span>
+        </button>
+        <button id="tab-epoch-1h" class="btn-epoch-tab active-epoch" onclick="switchEpochMode('1h')">
+          <span>⚡ FLASH (1H)</span>
+        </button>
+        <button id="tab-epoch-24h" class="btn-epoch-tab" onclick="switchEpochMode('24h')">
+          <span>🏆 DAILY (24H)</span>
+        </button>
       </div>
 
-      <!-- DUEL RATIO ARENA -->
-      <main class="duel-ratio-arena-wrapper">
-        <div class="arena-epoch-tabs">
-          <button id="tab-epoch-30m" class="btn-epoch-tab" onclick="switchEpochMode('30m')">
-            <span>🔥 TURBO (30M)</span>
-          </button>
-          <button id="tab-epoch-1h" class="btn-epoch-tab active-epoch" onclick="switchEpochMode('1h')">
-            <span>⚡ FLASH (1H)</span>
-          </button>
-          <button id="tab-epoch-24h" class="btn-epoch-tab" onclick="switchEpochMode('24h')">
-            <span>🏆 DAILY (24H)</span>
-          </button>
+      <div class="arena-timer-bar">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span id="epoch-round-badge" style="color:var(--cyan); background:rgba(0,242,254,0.1); border:1px solid var(--border); padding:3px 8px; border-radius:6px;">
+            ⚔️ FLASH EPOCH • DUEL #105
+          </span>
+          <span id="matchmaker-algo-badge" class="matchmaker-algo-pill">
+            🤖 ALGO: 1H 24H MOMENTUM
+          </span>
+          <span id="lock-status-chip" class="lock-status-badge badge-unlocked">
+            🟢 ALLOCATIONS OPEN
+          </span>
         </div>
 
-        <div class="arena-timer-bar">
-          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-            <span id="epoch-round-badge" style="color:var(--cyan); background:rgba(0,242,254,0.1); border:1px solid var(--border); padding:3px 8px; border-radius:6px;">
-              ⚔️ FLASH EPOCH • DUEL #105
-            </span>
-            <span id="matchmaker-algo-badge" class="matchmaker-algo-pill">
-              🤖 ALGO: 1H 24H MOMENTUM
-            </span>
-            <span id="lock-status-chip" class="lock-status-badge badge-unlocked">
-              🟢 ALLOCATIONS OPEN
-            </span>
-          </div>
+        <div class="timer-display">
+          <span>⏳ EPOCH CLOSING IN:</span>
+          <strong id="epoch-timer-clock">00:44:18</strong>
+        </div>
+      </div>
 
-          <div class="timer-display">
-            <span>⏳ CLOSING IN:</span>
-            <strong id="epoch-timer-clock">00:44:18</strong>
+      <div class="duel-ratio-header">
+        <div class="duel-ratio-brand-box">
+          <div class="solana-badge-icon" title="Solana Mainnet">
+            <svg viewBox="0 0 397 311"><path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zM64.6 3.8C67 1.4 70.3 0 73.8 0h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1L64.6 3.8zM332.4 120.8c-2.4-2.4-5.7-3.8-9.2-3.8H5.8c-5.8 0-8.7 7-4.6 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1l-62.7-62.7z"/></svg>
+          </div>
+          <div class="duel-ratio-text-title">
+            <h2>DUEL <span>RATIO</span></h2>
+            <p>REAL-TIME STRENGTH & LIVE VELOCITY RACE</p>
           </div>
         </div>
 
-        <div class="duel-ratio-header">
-          <div class="duel-ratio-brand-box">
-            <div class="solana-badge-icon" title="Solana Mainnet">
-              <svg viewBox="0 0 397 311"><path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zM64.6 3.8C67 1.4 70.3 0 73.8 0h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1L64.6 3.8zM332.4 120.8c-2.4-2.4-5.7-3.8-9.2-3.8H5.8c-5.8 0-8.7 7-4.6 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1l-62.7-62.7z"/></svg>
-            </div>
-            <div class="duel-ratio-text-title">
-              <h2>DUEL <span>RATIO</span></h2>
-              <p>REAL-TIME STRENGTH & LIVE VELOCITY RACE</p>
-            </div>
-          </div>
-
-          <div class="duel-ratio-tokens-box">
-            <div class="duel-contender-head">
-              <div class="token-head-avatar">
-                <img id="head-token-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Token A">
-              </div>
-              <div class="token-head-meta">
-                <span class="token-head-name" id="head-token-a-name">$BONK</span>
-                <span class="token-head-change" id="head-token-a-delta">Loading...</span>
-              </div>
-            </div>
-
-            <span class="vs-tag-center">VS</span>
-
-            <div class="duel-contender-head">
-              <div class="token-head-avatar b-side">
-                <img id="head-token-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Token B">
-              </div>
-              <div class="token-head-meta">
-                <span class="token-head-name" id="head-token-b-name">$WIF</span>
-                <span class="token-head-change" id="head-token-b-delta">Loading...</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- LIVE MOMENTUM RACE TRACK -->
-        <div class="meme-race-track-wrapper">
-          <div class="meme-race-header">
-            <div class="race-status-tag">
-              <span class="race-pulse-dot"></span>
-              <span>LIVE MOMENTUM RACE • REAL-TIME VELOCITY</span>
-            </div>
-            <span id="race-leader-text" style="color:var(--cyan); font-weight:900;">1ST PLACE: BONK (+14.2% VEL)</span>
-          </div>
-
-          <div class="race-lane">
-            <span class="race-finish-flag">🏁</span>
-            <div id="runner-token-a" class="race-runner" style="left: 62%;">
-              <div class="runner-avatar-bubble">
-                <img id="runner-img-a" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Runner A">
-              </div>
-              <div class="runner-badge-stats">
-                <span id="runner-symbol-a" style="color:var(--cyan);">BONK</span> <span id="runner-pct-a" style="color:#fff;">62%</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="race-lane">
-            <span class="race-finish-flag">🏁</span>
-            <div id="runner-token-b" class="race-runner" style="left: 38%;">
-              <div class="runner-avatar-bubble purple-bubble">
-                <img id="runner-img-b" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Runner B">
-              </div>
-              <div class="runner-badge-stats">
-                <span id="runner-symbol-b" style="color:var(--purple);">WIF</span> <span id="runner-pct-b" style="color:#fff;">38%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ECG HEARTBEAT VIEWPORT -->
-        <div class="duel-chart-viewport">
-          <div class="chart-canvas-box">
-            <canvas id="ratioCanvas"></canvas>
-          </div>
-        </div>
-
-        <!-- RATIO STRENGTH TRACKER -->
-        <div class="duel-ratio-bottom-card">
-          <div class="ratio-col-side">
+        <div class="duel-ratio-tokens-box">
+          <div class="duel-contender-head">
             <div class="token-head-avatar">
-              <img id="bar-token-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Token A">
+              <img id="head-token-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Token A">
             </div>
-            <div class="ratio-col-text">
-              <span class="ratio-col-name" id="bar-token-a-name">$BONK STRENGTH</span>
-              <span class="ratio-col-pct" id="bar-token-a-pct">62%</span>
-            </div>
-            <div class="ratio-track-bar">
-              <div id="bar-token-a-fill" class="ratio-fill-bar fill-cyan-glow" style="width: 62%;"></div>
+            <div class="token-head-meta">
+              <span class="token-head-name" id="head-token-a-name">$BONK</span>
+              <span class="token-head-change" id="head-token-a-delta">Loading...</span>
             </div>
           </div>
 
-          <div class="ratio-center-symbol">
-            <div class="icon">⇄</div>
-            <div class="title">RATIO</div>
-            <div class="sub" id="ratio-center-sub">BONK vs WIF</div>
-          </div>
+          <span class="vs-tag-center">VS</span>
 
-          <div class="ratio-col-side right-side">
+          <div class="duel-contender-head">
             <div class="token-head-avatar b-side">
-              <img id="bar-token-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Token B">
+              <img id="head-token-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Token B">
             </div>
-            <div class="ratio-col-text" style="text-align: right;">
-              <span class="ratio-col-name" id="bar-token-b-name">$WIF STRENGTH</span>
-              <span class="ratio-col-pct purple" id="bar-token-b-pct">38%</span>
+            <div class="token-head-meta">
+              <span class="token-head-name" id="head-token-b-name">$WIF</span>
+              <span class="token-head-change" id="head-token-b-delta">Loading...</span>
             </div>
-            <div class="ratio-track-bar">
-              <div id="bar-token-b-fill" class="ratio-fill-bar fill-purple-glow" style="width: 38%;"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- DUAL COLUMNS: POSITION BUTTONS + DEXSCREENER -->
-        <div class="dex-duel-columns-grid">
-          <div class="dex-column-side">
-            <button id="btn-stake-a" class="btn-terminal-action btn-terminal-cyan" onclick="handleStakeClick('A')">
-              <span id="btn-text-a">ALLOCATE LONG • $BONK</span>
-              <span id="mult-label-a" style="color:var(--cyan); font-weight:900;">1.85x TARGET</span>
-            </button>
-            
-            <div class="dex-embed-card">
-              <div class="dex-embed-header">
-                <div class="dex-live-indicator">
-                  <span style="color:var(--cyan);">●</span>
-                  <span id="dex-label-token-a">BONK / SOL • DEXSCREENER LIVE</span>
-                </div>
-                <span id="dex-stat-token-a" class="dex-live-badge">CONNECTING...</span>
-              </div>
-              <iframe 
-                id="iframe-dex-a"
-                class="dex-embed-frame"
-                src="https://dexscreener.com/solana/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263?embed=1&theme=dark&trades=0&info=0" 
-                loading="lazy">
-              </iframe>
-            </div>
-          </div>
-
-          <div class="dex-column-side">
-            <button id="btn-stake-b" class="btn-terminal-action btn-terminal-purple" onclick="handleStakeClick('B')">
-              <span id="btn-text-b">ALLOCATE LONG • $WIF</span>
-              <span id="mult-label-b" style="color:var(--purple); font-weight:900;">2.15x TARGET</span>
-            </button>
-            
-            <div class="dex-embed-card">
-              <div class="dex-embed-header">
-                <div class="dex-live-indicator">
-                  <span style="color:var(--purple);">●</span>
-                  <span id="dex-label-token-b">WIF / SOL • DEXSCREENER LIVE</span>
-                </div>
-                <span id="dex-stat-token-b" class="dex-live-badge">CONNECTING...</span>
-              </div>
-              <iframe 
-                id="iframe-dex-b"
-                class="dex-embed-frame"
-                src="https://dexscreener.com/solana/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm?embed=1&theme=dark&trades=0&info=0" 
-                loading="lazy">
-              </iframe>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-
-    <!-- ===================================================
-         VIEW 2: MARKETS HUB (CATÁLOGO DE DUELOS)
-         =================================================== -->
-    <div id="view-markets" class="tab-view-panel">
-      <div class="content-card-section">
-        <div class="sec-header">
-          <div class="sec-badge">MARKET CATALOGUE</div>
-          <h2 class="sec-title">MARKETS <span>HUB</span></h2>
-          <p class="sec-sub">Select dual-asset ratios to trade. Memecoins are live; synthetic vaults unlock sequentially.</p>
-        </div>
-
-        <div class="hub-duels-grid">
-          <!-- MEMECOINS (LIVE) -->
-          <div class="duel-card-item">
-            <div class="card-top-tag">
-              <span class="category-chip">🐸 Memecoins</span>
-              <span class="status-badge-chip badge-live">● LIVE</span>
-            </div>
-            <div class="card-vs-arena">
-              <div class="contender-ring-box">
-                <div class="ring-avatar"><img src="https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=035" alt="DOGE"></div>
-                <span class="ring-symbol">DOGE</span>
-                <span class="ring-pct">52%</span>
-              </div>
-              <span class="vs-divider">VS</span>
-              <div class="contender-ring-box">
-                <div class="ring-avatar purple-ring"><img src="https://cryptologos.cc/logos/pepe-pepe-logo.png?v=035" alt="PEPE"></div>
-                <span class="ring-symbol">PEPE</span>
-                <span class="ring-pct purple-text">48%</span>
-              </div>
-            </div>
-            <div class="sparkline-box">
-              <svg class="sparkline-svg" viewBox="0 0 100 20"><path d="M0 15 Q 25 5, 50 12 T 100 4" /></svg>
-            </div>
-            <div class="card-metrics-row">
-              <div><div class="c-metric-lbl">24h Volume</div><div class="c-metric-val">$2.4M</div></div>
-              <div><div class="c-metric-lbl">Holders</div><div class="c-metric-val">142.5K</div></div>
-              <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$1.2M</div></div>
-            </div>
-            <button class="btn-card-action" onclick="loadManualDuel('DOGE', 1.82, 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=035')">
-              <span>TRADE DUEL</span> <span>↗</span>
-            </button>
-          </div>
-
-          <!-- RWA EQUITIES (LOCKED) -->
-          <div class="duel-card-item">
-            <div class="card-top-tag">
-              <span class="category-chip">📊 RWA Equities</span>
-              <span class="status-badge-chip badge-lock">🔒 PHASE 3</span>
-            </div>
-            <div class="card-vs-arena">
-              <div class="contender-ring-box">
-                <div class="ring-avatar" style="border-color:#10b981;"><img src="https://i.postimg.cc/90MP2P9d/logo-png.jpg" alt="NVDA"></div>
-                <span class="ring-symbol">NVDA</span>
-                <span class="ring-pct" style="color:var(--green);">61%</span>
-              </div>
-              <span class="vs-divider">VS</span>
-              <div class="contender-ring-box">
-                <div class="ring-avatar purple-ring"><img src="https://cryptologos.cc/logos/solana-sol-logo.png?v=035" alt="SOL"></div>
-                <span class="ring-symbol">SOL</span>
-                <span class="ring-pct purple-text">39%</span>
-              </div>
-            </div>
-            <div class="sparkline-box">
-              <svg class="sparkline-svg red-spark" viewBox="0 0 100 20"><path d="M0 5 Q 25 18, 50 8 T 100 16" /></svg>
-            </div>
-            <div class="card-metrics-row">
-              <div><div class="c-metric-lbl">24h Volume</div><div class="c-metric-val">$12.8M</div></div>
-              <div><div class="c-metric-lbl">Holders</div><div class="c-metric-val">8.7K</div></div>
-              <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$6.3M</div></div>
-            </div>
-            <button class="btn-card-action" onclick="triggerLockedMarket('NVDA vs SOL (RWA Equities)', 'Phase 3 - Synthetic Equities Vault')">
-              <span>🔒 LOCKED (PHASE 3)</span>
-            </button>
-          </div>
-
-          <!-- DEFI (LOCKED) -->
-          <div class="duel-card-item">
-            <div class="card-top-tag">
-              <span class="category-chip">🔥 DeFi</span>
-              <span class="status-badge-chip badge-lock">🔒 PHASE 2</span>
-            </div>
-            <div class="card-vs-arena">
-              <div class="contender-ring-box">
-                <div class="ring-avatar"><img src="https://cryptologos.cc/logos/ethereum-eth-logo.png?v=035" alt="ETH"></div>
-                <span class="ring-symbol">ETH</span>
-                <span class="ring-pct">55%</span>
-              </div>
-              <span class="vs-divider">VS</span>
-              <div class="contender-ring-box">
-                <div class="ring-avatar purple-ring"><img src="https://cryptologos.cc/logos/uniswap-uni-logo.png?v=035" alt="UNI"></div>
-                <span class="ring-symbol">UNI</span>
-                <span class="ring-pct purple-text">45%</span>
-              </div>
-            </div>
-            <div class="sparkline-box">
-              <svg class="sparkline-svg red-spark" viewBox="0 0 100 20"><path d="M0 12 Q 30 4, 60 15 T 100 10" /></svg>
-            </div>
-            <div class="card-metrics-row">
-              <div><div class="c-metric-lbl">24h Volume</div><div class="c-metric-val">$5.2M</div></div>
-              <div><div class="c-metric-lbl">Holders</div><div class="c-metric-val">96.3K</div></div>
-              <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$3.8M</div></div>
-            </div>
-            <button class="btn-card-action" onclick="triggerLockedMarket('ETH vs UNI (DeFi)', 'Phase 2 - Multi-Pair Aggregators')">
-              <span>🔒 LOCKED (PHASE 2)</span>
-            </button>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ===================================================
-         VIEW 3: PROTOCOL XP & USER BETS LEDGER
-         =================================================== -->
-    <div id="view-xp" class="tab-view-panel">
-      <div class="content-card-section">
-        <div class="sec-header">
-          <div class="sec-badge">ACTIVITY TRACKER</div>
-          <h2 class="sec-title">PROTOCOL XP <span>LEDGER</span></h2>
-          <p class="sec-sub">Track your live betting volume and Protocol XP earnings (1.00 SOL = 1.00 XP).</p>
+      <!-- LIVE MOMENTUM RACE TRACK -->
+      <div class="meme-race-track-wrapper">
+        <div class="meme-race-header">
+          <div class="race-status-tag">
+            <span class="race-pulse-dot"></span>
+            <span>LIVE MOMENTUM RACE • REAL-TIME VELOCITY DISPLACEMENT</span>
+          </div>
+          <span id="race-leader-text" style="color:var(--cyan); font-weight:900;">1ST PLACE: BONK (+14.2% VEL)</span>
         </div>
 
-        <div class="xp-summary-grid">
-          <div class="xp-summary-card">
-            <div class="xp-summary-label">TOTAL XP</div>
-            <div class="xp-summary-val" style="color:var(--cyan);" id="view-summary-total-xp">0.00</div>
-          </div>
-          <div class="xp-summary-card">
-            <div class="xp-summary-label">TOTAL ALLOCATED</div>
-            <div class="xp-summary-val" style="color:#fff;" id="view-summary-total-sol">0.00 SOL</div>
-          </div>
-          <div class="xp-summary-card">
-            <div class="xp-summary-label">POSITIONS</div>
-            <div class="xp-summary-val" style="color:var(--green);" id="view-summary-count">0</div>
+        <div class="race-lane">
+          <span class="race-finish-flag">🏁</span>
+          <div id="runner-token-a" class="race-runner" style="left: 62%;">
+            <div class="runner-avatar-bubble">
+              <img id="runner-img-a" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Runner A">
+            </div>
+            <div class="runner-badge-stats">
+              <span id="runner-symbol-a" style="color:var(--cyan);">BONK</span> <span id="runner-pct-a" style="color:#fff;">62%</span>
+            </div>
           </div>
         </div>
 
-        <div style="font-size:10px; color:var(--text-muted); font-weight:800; text-transform:uppercase; margin:14px 0 8px; display:flex; justify-content:space-between;">
-          <span>HISTORICAL ALLOCATIONS</span>
-          <span style="color:var(--cyan);">RATE: 1.00 SOL = 1.00 XP</span>
-        </div>
-
-        <div id="view-user-bets-list-box" class="user-bets-list-container">
-        </div>
-
-        <div style="display:flex; justify-content:flex-end; margin-top:14px;">
-          <button type="button" class="btn-copy-address" onclick="clearUserBets()">🗑️ CLEAR LOCAL HISTORY</button>
+        <div class="race-lane">
+          <span class="race-finish-flag">🏁</span>
+          <div id="runner-token-b" class="race-runner" style="left: 38%;">
+            <div class="runner-avatar-bubble purple-bubble">
+              <img id="runner-img-b" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Runner B">
+            </div>
+            <div class="runner-badge-stats">
+              <span id="runner-symbol-b" style="color:var(--purple);">WIF</span> <span id="runner-pct-b" style="color:#fff;">38%</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- ===================================================
-         VIEW 4: ROADMAP
-         =================================================== -->
-    <div id="view-roadmap" class="tab-view-panel">
-      <section class="content-card-section">
-        <div class="sec-header">
-          <div class="sec-badge">EXECUTION PIPELINE</div>
-          <h2 class="sec-title">PROTOCOL <span>ROADMAP</span></h2>
-          <p class="sec-sub">Swipe cards horizontally on mobile to view roadmap phases.</p>
+      <!-- ECG HEARTBEAT PULSE VIEWPORT (CLEAN MINIMALIST CANVAS) -->
+      <div class="duel-chart-viewport">
+        <div class="chart-canvas-box">
+          <canvas id="ratioCanvas"></canvas>
         </div>
-        <div class="roadmap-grid scroll-horizontal-mobile">
-          <div class="r-card active-phase">
-            <span class="r-phase-tag" style="color:var(--cyan);">PHASE 01</span>
-            <span class="r-status status-live">LIVE BETA</span>
-            <h3 class="r-title">TERMINAL GENESIS</h3>
-            <ul class="r-list">
-              <li>Duel Ratio live terminal deployment on Solana.</li>
-              <li>Native $SOL non-custodial PDA vault integration.</li>
-              <li>DexScreener dual-feed momentum oracles.</li>
-            </ul>
-          </div>
-          <div class="r-card upcoming-phase">
-            <span class="r-phase-tag" style="color:var(--purple);">PHASE 02</span>
-            <span class="r-status status-queued">SCHEDULED</span>
-            <h3 class="r-title">PROTOCOL XP & BLINKS</h3>
-            <ul class="r-list">
-              <li><strong>Protocol XP Engine:</strong> Activity point minting (1 SOL = 1 XP).</li>
-              <li>Solana Blinks on X + Telegram Terminal Bot.</li>
-            </ul>
-          </div>
-          <div class="r-card locked-phase">
-            <span class="r-phase-tag" style="color:#64748b;">PHASE 03</span>
-            <span class="r-status status-locked">LOCKED 🔒</span>
-            <h3 class="r-title">RWA & TOKENIZED EQUITIES</h3>
-            <ul class="r-list">
-              <li>Tokenized Equities & Synthetic Ratio deployment.</li>
-              <li>Security audit and multi-market expansions.</li>
-            </ul>
-            <div class="censor-strip-wrap"><div class="censor-strip"><span class="classified-label">██████ [CONFIDENTIAL] ██████</span></div></div>
-          </div>
-          <div class="r-card locked-phase">
-            <span class="r-phase-tag" style="color:#64748b;">PHASE 04</span>
-            <span class="r-status status-locked">RESTRICTED 🔒</span>
-            <h3 class="r-title">INSTITUTIONAL EXPANSION</h3>
-            <ul class="r-list">
-              <li>Tier-1 CEX connectivity & automated market maker liquidity.</li>
-            </ul>
-            <div class="censor-strip-wrap"><div class="censor-strip"><span class="classified-label">██████ [LEVEL 5 CLASSIFIED] ██████</span></div></div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
 
-    <!-- ===================================================
-         VIEW 5: VAULT / SECURITY & MECHANICS
-         =================================================== -->
-    <div id="view-vault" class="tab-view-panel">
-      <section class="content-card-section">
-        <div class="sec-header">
-          <div class="sec-badge">EXECUTION ARCHITECTURE</div>
-          <h2 class="sec-title">PROTOCOL <span>MECHANICS</span></h2>
-          <p class="sec-sub">Deterministic capital allocation engine built natively on Solana without counterparty risk.</p>
-        </div>
-        <div class="steps-grid scroll-horizontal-mobile">
-          <div class="step-card">
-            <div class="step-num">01</div>
-            <h3 class="step-title">ANALYSIS & ALLOCATION</h3>
-            <p class="step-desc">Connect your Solana Web3 wallet. Sign capital allocation directly into an autonomous PDA vault.</p>
+      <!-- RATIO STRENGTH TRACKER -->
+      <div class="duel-ratio-bottom-card">
+        <div class="ratio-col-side">
+          <div class="token-head-avatar">
+            <img id="bar-token-a-img" src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035" alt="Token A">
           </div>
-          <div class="step-card">
-            <div class="step-num" style="color:var(--purple);">02</div>
-            <h3 class="step-title">RATIO CONVICTION</h3>
-            <p class="step-desc">Monitor real-time volume velocity via DexScreener oracle feeds. Back the asset projected to lead.</p>
+          <div class="ratio-col-text">
+            <span class="ratio-col-name" id="bar-token-a-name">$BONK STRENGTH</span>
+            <span class="ratio-col-pct" id="bar-token-a-pct">62%</span>
           </div>
-          <div class="step-card">
-            <div class="step-num" style="color:var(--green);">03</div>
-            <h3 class="step-title">AUTONOMOUS SETTLEMENT</h3>
-            <p class="step-desc">At epoch expiration, 95% of total liquidity is distributed proportionally to winning wallets in native $SOL.</p>
+          <div class="ratio-track-bar">
+            <div id="bar-token-a-fill" class="ratio-fill-bar fill-cyan-glow" style="width: 62%;"></div>
           </div>
         </div>
-      </section>
 
-      <section class="content-card-section">
-        <div class="sec-header">
-          <div class="sec-badge">SECURITY PROTOCOL</div>
-          <h2 class="sec-title">TRUST & <span>NON-CUSTODIAL VAULTS</span></h2>
+        <div class="ratio-center-symbol">
+          <div class="icon">⇄</div>
+          <div class="title">RATIO</div>
+          <div class="sub" id="ratio-center-sub">BONK vs WIF</div>
         </div>
-        <div class="security-grid scroll-horizontal-mobile">
-          <div class="sec-card">
-            <div class="sec-card-head">
-              <div class="sec-icon-wrap">🛡️</div>
-              <div class="sec-title-box">
-                <h4>PDA Vault Enforced</h4>
-                <span class="sec-status-chip">Autonomous</span>
+
+        <div class="ratio-col-side right-side">
+          <div class="token-head-avatar b-side">
+            <img id="bar-token-b-img" src="https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035" alt="Token B">
+          </div>
+          <div class="ratio-col-text" style="text-align: right;">
+            <span class="ratio-col-name" id="bar-token-b-name">$WIF STRENGTH</span>
+            <span class="ratio-col-pct purple" id="bar-token-b-pct">38%</span>
+          </div>
+          <div class="ratio-track-bar">
+            <div id="bar-token-b-fill" class="ratio-fill-bar fill-purple-glow" style="width: 38%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DUAL COLUMNS: POSITION BUTTONS + DEXSCREENER -->
+      <div class="dex-duel-columns-grid">
+        <div class="dex-column-side">
+          <button id="btn-stake-a" class="btn-terminal-action btn-terminal-cyan" onclick="handleStakeClick('A')">
+            <span id="btn-text-a">ALLOCATE LONG • $BONK</span>
+            <span id="mult-label-a" style="color:var(--cyan); font-weight:900;">1.85x TARGET</span>
+          </button>
+          
+          <div class="dex-embed-card">
+            <div class="dex-embed-header">
+              <div class="dex-live-indicator">
+                <span style="color:var(--cyan);">●</span>
+                <span id="dex-label-token-a">BONK / SOL • DEXSCREENER LIVE</span>
               </div>
+              <span id="dex-stat-token-a" class="dex-live-badge">CONNECTING...</span>
             </div>
-            <p class="sec-card-body">All allocations are locked programmatically inside deterministic Program Derived Addresses with zero administrative key interference.</p>
-          </div>
-
-          <div class="sec-card">
-            <div class="sec-card-head">
-              <div class="sec-icon-wrap">⚡</div>
-              <div class="sec-title-box">
-                <h4>Anti-Snipe Locking</h4>
-                <span class="sec-status-chip">Front-Run Immune</span>
-              </div>
-            </div>
-            <p class="sec-card-body">Strict cutoff windows prevent whales and MEV bots from exploiting end-of-candle closing states, ensuring fair multiplier payout stability.</p>
+            <iframe 
+              id="iframe-dex-a"
+              class="dex-embed-frame"
+              src="https://dexscreener.com/solana/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263?embed=1&theme=dark&trades=0&info=0" 
+              loading="lazy">
+            </iframe>
           </div>
         </div>
-      </section>
-    </div>
+
+        <div class="dex-column-side">
+          <button id="btn-stake-b" class="btn-terminal-action btn-terminal-purple" onclick="handleStakeClick('B')">
+            <span id="btn-text-b">ALLOCATE LONG • $WIF</span>
+            <span id="mult-label-b" style="color:var(--purple); font-weight:900;">2.15x TARGET</span>
+          </button>
+          
+          <div class="dex-embed-card">
+            <div class="dex-embed-header">
+              <div class="dex-live-indicator">
+                <span style="color:var(--purple);">●</span>
+                <span id="dex-label-token-b">WIF / SOL • DEXSCREENER LIVE</span>
+              </div>
+              <span id="dex-stat-token-b" class="dex-live-badge">CONNECTING...</span>
+            </div>
+            <iframe 
+              id="iframe-dex-b"
+              class="dex-embed-frame"
+              src="https://dexscreener.com/solana/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm?embed=1&theme=dark&trades=0&info=0" 
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- PROTOCOL MECHANICS COM CARROSSEL HORIZONTAL NO TELEMÓVEL -->
+    <section class="content-card-section">
+      <div class="sec-header">
+        <div class="sec-badge" translate="no">EXECUTION ARCHITECTURE</div>
+        <h2 class="sec-title" translate="no">PROTOCOL <span>MECHANICS</span></h2>
+        <p class="sec-sub">Deterministic capital allocation engine built natively on Solana without counterparty risk.</p>
+      </div>
+      <div class="steps-grid scroll-horizontal-mobile">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h3 class="step-title">ANALYSIS & ALLOCATION</h3>
+          <p class="step-desc">Connect your Solana Web3 wallet. Sign capital allocation directly into an autonomous PDA vault.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num" style="color:var(--purple);">02</div>
+          <h3 class="step-title">RATIO CONVICTION</h3>
+          <p class="step-desc">Monitor real-time volume velocity via DexScreener oracle feeds. Back the asset projected to lead.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num" style="color:var(--green);">03</div>
+          <h3 class="step-title">AUTONOMOUS SETTLEMENT</h3>
+          <p class="step-desc">At epoch expiration, 95% of total liquidity is distributed proportionally to winning wallets in native $SOL.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKENOMICS -->
+    <section class="content-card-section">
+      <div class="sec-header">
+        <div class="sec-badge" translate="no">SUSTAINABLE ARCHITECTURE</div>
+        <h2 class="sec-title" translate="no">LIQUIDITY SPECIFICATION & <span>TREASURY</span></h2>
+      </div>
+      <div class="tokenomics-grid">
+        <div class="t-card">
+          <div class="t-card-header">
+            <h3 class="t-title">EPOCH CAPITAL ALLOCATION</h3>
+            <span class="t-tag tag-cyan">PER-EPOCH</span>
+          </div>
+          <div class="t-item">
+            <div class="t-item-head">
+              <span style="color:var(--green);">WINNING PROVIDERS</span>
+              <span style="color:var(--green); font-size:13px; font-weight:900;">95%</span>
+            </div>
+            <div class="bar-shell"><div class="bar-core bar-green" style="width: 95%;"></div></div>
+            <div class="t-item-desc">Redistributed instantly and proportionally in native $SOL to accounts backing the victor.</div>
+          </div>
+          <div class="t-item">
+            <div class="t-item-head">
+              <span style="color:var(--cyan);">INFRASTRUCTURE & RELAYS</span>
+              <span style="color:var(--cyan); font-size:13px; font-weight:900;">5%</span>
+            </div>
+            <div class="bar-shell"><div class="bar-core bar-cyan" style="width: 5%;"></div></div>
+            <div class="t-item-desc">Dedicated to non-custodial PDA vault maintenance and high-throughput dedicated RPC node clustering.</div>
+          </div>
+        </div>
+        <div class="t-card">
+          <div class="t-card-header">
+            <h3 class="t-title">SETTLEMENT INTEGRITY</h3>
+            <span class="t-tag tag-green">PDA ASSURED</span>
+          </div>
+          <div class="t-item">
+            <div class="t-item-head">
+              <span style="color:var(--cyan);">AUTONOMOUS PROTOCOL VAULT</span>
+              <span style="color:var(--cyan); font-size:13px; font-weight:900;">100% PROGRAMMED</span>
+            </div>
+            <div class="bar-shell"><div class="bar-core bar-cyan" style="width: 100%;"></div></div>
+            <div class="t-item-desc">Each round executes through deterministic Program Derived Addresses on Solana.</div>
+          </div>
+          <div class="t-item">
+            <div class="t-item-head">
+              <span style="color:var(--purple);">ZERO SPECULATIVE DEBT</span>
+              <span style="color:var(--purple); font-size:13px; font-weight:900;">100% HARD $SOL</span>
+            </div>
+            <div class="bar-shell"><div class="bar-core bar-purple" style="width: 100%;"></div></div>
+            <div class="t-item-desc">No artificial leverage. All pools settle strictly against verified on-chain deposits.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECURITY COM CARROSSEL HORIZONTAL NO TELEMÓVEL -->
+    <section class="content-card-section">
+      <div class="sec-header">
+        <div class="sec-badge" translate="no">SECURITY PROTOCOL</div>
+        <h2 class="sec-title" translate="no">TRUST & <span>NON-CUSTODIAL VAULTS</span></h2>
+        <p class="sec-sub">Swipe cards horizontally on mobile to review autonomous verification standards.</p>
+      </div>
+      <div class="security-grid scroll-horizontal-mobile">
+        <div class="sec-card">
+          <div class="sec-card-head">
+            <div class="sec-icon-wrap">🛡️</div>
+            <div class="sec-title-box">
+              <h4>PDA Vault Enforced</h4>
+              <span class="sec-status-chip">Autonomous</span>
+            </div>
+          </div>
+          <p class="sec-card-body">All allocations are locked programmatically inside deterministic Program Derived Addresses with zero administrative key interference.</p>
+        </div>
+
+        <div class="sec-card">
+          <div class="sec-card-head">
+            <div class="sec-icon-wrap">⚡</div>
+            <div class="sec-title-box">
+              <h4>Anti-Snipe Locking</h4>
+              <span class="sec-status-chip">Front-Run Immune</span>
+            </div>
+          </div>
+          <p class="sec-card-body">Strict cutoff windows prevent whales and MEV bots from exploiting end-of-candle closing states, ensuring fair multiplier payout stability.</p>
+        </div>
+
+        <div class="sec-card">
+          <div class="sec-card-head">
+            <div class="sec-icon-wrap">📊</div>
+            <div class="sec-title-box">
+              <h4>DexScreener Feeds</h4>
+              <span class="sec-status-chip">Tamper-Proof</span>
+            </div>
+          </div>
+          <p class="sec-card-body">Direct cryptographic consensus querying of high-frequency Solana DEX liquidity books at the exact second of epoch expiration.</p>
+        </div>
+      </div>
+
+      <div class="audit-summary-bar">
+        <div class="audit-tag-group">
+          <span class="audit-pill">Contract: <strong>Anchor Rust</strong></span>
+          <span class="audit-pill">Audits: <strong>Phase 3 Scope</strong></span>
+          <span class="audit-pill">Network: <strong>Solana Mainnet</strong></span>
+        </div>
+        <span style="font-size:10px; color:var(--green); font-weight:800;">100% NON-CUSTODIAL</span>
+      </div>
+    </section>
+
+    <!-- ROADMAP COM CARROSSEL HORIZONTAL NO TELEMÓVEL -->
+    <section class="content-card-section">
+      <div class="sec-header">
+        <div class="sec-badge" translate="no">EXECUTION PIPELINE</div>
+        <h2 class="sec-title" translate="no">PROTOCOL <span>ROADMAP</span></h2>
+        <p class="sec-sub">Swipe cards horizontally on mobile to view roadmap phases.</p>
+      </div>
+      <div class="roadmap-grid scroll-horizontal-mobile">
+        <div class="r-card active-phase">
+          <span class="r-phase-tag" style="color:var(--cyan);">PHASE 01</span>
+          <span class="r-status status-live">LIVE BETA</span>
+          <h3 class="r-title">TERMINAL GENESIS</h3>
+          <ul class="r-list">
+            <li>Duel Ratio live terminal deployment on Solana.</li>
+            <li>Native $SOL non-custodial PDA vault integration.</li>
+            <li>DexScreener dual-feed momentum oracles.</li>
+          </ul>
+        </div>
+        <div class="r-card upcoming-phase">
+          <span class="r-phase-tag" style="color:var(--purple);">PHASE 02</span>
+          <span class="r-status status-queued">SCHEDULED</span>
+          <h3 class="r-title">PROTOCOL XP & BLINKS</h3>
+          <ul class="r-list">
+            <li><strong>Protocol XP Engine:</strong> Activity-weighted point minting (1 SOL = 1 XP).</li>
+            <li>Solana Blinks on X + Telegram Terminal Bot.</li>
+          </ul>
+        </div>
+        <div class="r-card locked-phase">
+          <span class="r-phase-tag" style="color:#64748b;">PHASE 03</span>
+          <span class="r-status status-locked">LOCKED 🔒</span>
+          <h3 class="r-title">RWA & TOKENIZED EQUITIES</h3>
+          <ul class="r-list">
+            <li>Tokenized Equities & Synthetic Ratio deployment.</li>
+            <li>Security audit and multi-market expansions.</li>
+          </ul>
+          <div class="censor-strip-wrap"><div class="censor-strip"><span class="classified-label">██████ [CONFIDENTIAL] ██████</span></div></div>
+        </div>
+        <div class="r-card locked-phase">
+          <span class="r-phase-tag" style="color:#64748b;">PHASE 04</span>
+          <span class="r-status status-locked">RESTRICTED 🔒</span>
+          <h3 class="r-title">INSTITUTIONAL EXPANSION</h3>
+          <ul class="r-list">
+            <li>Tier-1 CEX connectivity & automated market maker liquidity.</li>
+          </ul>
+          <div class="censor-strip-wrap"><div class="censor-strip"><span class="classified-label">██████ [LEVEL 5 CLASSIFIED] ██████</span></div></div>
+        </div>
+      </div>
+    </section>
 
     <!-- FAQ -->
     <section class="content-card-section">
       <div class="sec-header">
-        <div class="sec-badge">KNOWLEDGE BASE</div>
-        <h2 class="sec-title">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
+        <div class="sec-badge" translate="no">KNOWLEDGE BASE</div>
+        <h2 class="sec-title" translate="no">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
       </div>
       <div class="faq-list">
         <div class="faq-item" onclick="toggleFaq(this)">
@@ -1292,12 +1431,23 @@
           <div class="faq-answer">
             Every capital allocation directly mints Protocol XP at a 1:1 ratio with native SOL.<br>
             • <strong>1.00 SOL Allocated = 1.00 Protocol XP</strong><br>
-            • Fractional amounts mint fractional XP (e.g. 0.20 SOL = +0.20 XP, 2.50 SOL = +2.50 XP).
+            • Fractional amounts mint fractional XP (e.g. 0.20 SOL = +0.20 XP, 2.50 SOL = +2.50 XP).<br>
+            XP accumulates permanently in your connected wallet and unlocks future governance rights and fee tier discounts. Click on the XP badge in the navbar to review your full ledger!
+          </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question"><span>How do autonomous meme hype rotations work?</span><span class="faq-toggle-icon">+</span></div>
+          <div class="faq-answer">
+            Bull Protocol automatically queries Solana on-chain liquidity velocity and DexScreener momentum feeds:<br>
+            • <strong>30M Turbo:</strong> Rotates high-volatility breakout memes automatically.<br>
+            • <strong>1H Flash:</strong> Rotates the highest 24-hour volume trend leaders.<br>
+            • <strong>24H Daily:</strong> Rotates mega-cap titans for macro liquidity settlement.
           </div>
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-question"><span>How do protocol anti-manipulation security locks work?</span><span class="faq-toggle-icon">+</span></div>
           <div class="faq-answer">
+            To prevent front-running, MEV exploitation, and last-second candle sniping by whales or automated bots:<br>
             • <strong>Turbo Arena (30M):</strong> Locks capital allocations exactly 5 minutes after epoch opening.<br>
             • <strong>Flash Arena (1H):</strong> Locks capital allocations 15 minutes prior to epoch resolution.<br>
             • <strong>Daily Royale (24H):</strong> Locks capital allocations 1 hour prior to epoch resolution.
@@ -1317,33 +1467,276 @@
     </footer>
   </div>
 
-  <!-- ===================================================
-       RAYDIUM STYLE: DOCK NAVIGATION BAR (FIXA NO RODAPÉ)
-       =================================================== -->
-  <nav class="raydium-dock-nav">
-    <button class="dock-tab-btn active" onclick="switchDockTab('view-terminal')">
-      <span class="dock-tab-icon">⚔️</span>
-      <span class="dock-tab-label">Terminal</span>
-    </button>
-    <button class="dock-tab-btn" onclick="switchDockTab('view-markets')">
-      <span class="dock-tab-icon">📊</span>
-      <span class="dock-tab-label">Markets</span>
-    </button>
-    <button class="dock-tab-btn" onclick="switchDockTab('view-xp')">
-      <span class="dock-tab-icon">💎</span>
-      <span class="dock-tab-label">XP & Bets</span>
-    </button>
-    <button class="dock-tab-btn" onclick="switchDockTab('view-roadmap')">
-      <span class="dock-tab-icon">🗺️</span>
-      <span class="dock-tab-label">Roadmap</span>
-    </button>
-    <button class="dock-tab-btn" onclick="switchDockTab('view-vault')">
-      <span class="dock-tab-icon">🛡️</span>
-      <span class="dock-tab-label">Vault</span>
-    </button>
-  </nav>
+  <!-- MODAL: USER ALLOCATIONS & PROTOCOL XP LEDGER -->
+  <div id="xp-modal-overlay" class="modal-overlay" onclick="closeXPModal(event)">
+    <div class="modal-box" translate="no" onclick="event.stopPropagation()" style="max-width: 480px;">
+      <button class="modal-close" onclick="closeXPModal()">✕</button>
+      <div class="modal-head">
+        <div class="modal-avatar" style="background:rgba(0,242,254,0.1); border-color:var(--cyan); display:flex; align-items:center; justify-content:center;">
+          <span style="font-size:18px;">💎</span>
+        </div>
+        <div class="modal-title-box">
+          <h3>PROTOCOL XP & ALLOCATION LEDGER</h3>
+          <span style="font-size:10px; color:var(--text-muted); font-weight:800;">AUTONOMOUS ON-CHAIN ACTIVITY TRACKER</span>
+        </div>
+      </div>
 
-  <!-- MODAL DE EXECUÇÃO DE POSIÇÃO (STAKE) -->
+      <div class="xp-summary-grid">
+        <div class="xp-summary-card">
+          <div class="xp-summary-label">TOTAL XP</div>
+          <div class="xp-summary-val" style="color:var(--cyan);" id="modal-summary-total-xp">0.00</div>
+        </div>
+        <div class="xp-summary-card">
+          <div class="xp-summary-label">TOTAL ALLOCATED</div>
+          <div class="xp-summary-val" style="color:#fff;" id="modal-summary-total-sol">0.00 SOL</div>
+        </div>
+        <div class="xp-summary-card">
+          <div class="xp-summary-label">POSITIONS</div>
+          <div class="xp-summary-val" style="color:var(--green);" id="modal-summary-count">0</div>
+        </div>
+      </div>
+
+      <div style="font-size:10px; color:var(--text-muted); font-weight:800; text-transform:uppercase; margin-bottom:8px; display:flex; justify-content:space-between;">
+        <span>RECENT ALLOCATIONS</span>
+        <span style="color:var(--cyan);">RATE: 1.00 SOL = 1.00 XP</span>
+      </div>
+
+      <div id="user-bets-list-box" class="user-bets-list-container">
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; border-top:1px solid #141f36; padding-top:12px;">
+        <button type="button" class="btn-copy-address" onclick="clearUserBets()">🗑️ CLEAR HISTORY</button>
+        <button type="button" class="btn-copy-address" style="color:#fff; border-color:var(--cyan);" onclick="closeXPModal()">CLOSE LEDGER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WALLET SELECTOR MODAL -->
+  <div id="wallet-modal-overlay" class="modal-overlay" onclick="closeWalletModal(event)">
+    <div class="modal-box" translate="no" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeWalletModal()">✕</button>
+      <div class="modal-head">
+        <div class="modal-avatar" style="background:#0b1329; border-color:var(--cyan); display:flex; align-items:center; justify-content:center;">
+          <span style="font-size:18px;">⚡</span>
+        </div>
+        <div class="modal-title-box">
+          <h3>CONNECT WALLET</h3>
+          <span style="font-size:10px; color:var(--text-muted); font-weight:800;">SELECT YOUR PREFERRED SOLANA PROVIDER</span>
+        </div>
+      </div>
+
+      <div class="wallet-options-list">
+        <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('phantom')">
+          <div class="wallet-opt-left">
+            <div class="wallet-opt-icon">🟣</div>
+            <div>
+              <div class="wallet-opt-name">Phantom</div>
+              <div class="wallet-opt-sub">Solana Ecosystem Standard</div>
+            </div>
+          </div>
+          <span id="detect-tag-phantom" class="wallet-detect-tag detect-installed">DETECTING...</span>
+        </button>
+
+        <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('solflare')">
+          <div class="wallet-opt-left">
+            <div class="wallet-opt-icon">🔥</div>
+            <div>
+              <div class="wallet-opt-name">Solflare</div>
+              <div class="wallet-opt-sub">Institutional Non-Custodial</div>
+            </div>
+          </div>
+          <span id="detect-tag-solflare" class="wallet-detect-tag detect-installed">DETECTING...</span>
+        </button>
+
+        <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('backpack')">
+          <div class="wallet-opt-left">
+            <div class="wallet-opt-icon">🎒</div>
+            <div>
+              <div class="wallet-opt-name">Backpack</div>
+              <div class="wallet-opt-sub">Next-Gen xNFT Wallet</div>
+            </div>
+          </div>
+          <span id="detect-tag-backpack" class="wallet-detect-tag detect-installed">DETECTING...</span>
+        </button>
+
+        <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('okx')">
+          <div class="wallet-opt-left">
+            <div class="wallet-opt-icon">⬛</div>
+            <div>
+              <div class="wallet-opt-name">OKX Wallet</div>
+              <div class="wallet-opt-sub">Multi-Chain Web3 Portal</div>
+            </div>
+          </div>
+          <span id="detect-tag-okx" class="wallet-detect-tag detect-installed">DETECTING...</span>
+        </button>
+      </div>
+
+      <div style="font-size:10px; color:#64748b; text-align:center; font-weight:600; line-height:1.4;">
+        By connecting a wallet, you agree to Bull Protocol's non-custodial decentralized settlement terms on Solana Mainnet.
+      </div>
+    </div>
+  </div>
+
+  <!-- WALLET PROFILE & DISCONNECT MODAL -->
+  <div id="wallet-profile-overlay" class="modal-overlay" onclick="closeWalletProfileModal(event)">
+    <div class="modal-box" translate="no" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeWalletProfileModal()">✕</button>
+      <div class="modal-head">
+        <div class="modal-avatar" style="background:#047857; border-color:var(--green); display:flex; align-items:center; justify-content:center;">
+          <span style="font-size:16px;">🟢</span>
+        </div>
+        <div class="modal-title-box">
+          <h3 id="profile-wallet-provider-name">CONNECTED WALLET</h3>
+          <span style="font-size:10px; color:var(--green); font-weight:900;">SOLANA MAINNET ACTIVE</span>
+        </div>
+      </div>
+
+      <div class="wallet-profile-box">
+        <div style="font-size:10px; color:var(--text-muted); font-weight:800; text-transform:uppercase;">Public Key (PDA Authorization)</div>
+        <div id="profile-wallet-address" class="wallet-pubkey-full">--</div>
+        <button type="button" class="btn-copy-address" onclick="copyConnectedAddress()">📋 COPY ADDRESS</button>
+      </div>
+
+      <button type="button" class="btn-disconnect-wallet" onclick="disconnectWallet()">
+        DISCONNECT WALLET
+      </button>
+    </div>
+  </div>
+
+  <!-- MARKETS HUB MODAL -->
+  <div id="market-hub-modal" class="market-hub-overlay" onclick="closeMarketHub(event)">
+    <div class="market-hub-container" onclick="event.stopPropagation()">
+      <button class="hub-close-btn" onclick="closeMarketHub()">✕</button>
+
+      <div class="hub-banner-box">
+        <h2>BULL PROTOCOL <span>MARKETS HUB</span></h2>
+        <p>Explore relative strength duels across global Web3 liquidity pools and real-world synthetics.</p>
+      </div>
+
+      <div class="hub-filters-row">
+        <button class="hub-filter-btn active" onclick="switchHubCategory('all')">
+          <span>⚡ All Markets</span>
+        </button>
+        <button class="hub-filter-btn" onclick="switchHubCategory('memecoins')">
+          <span>🐸 Memecoins</span>
+          <span style="font-size:9px; background:rgba(16,185,129,0.15); color:var(--green); padding:1px 5px; border-radius:4px;">LIVE</span>
+        </button>
+        <button class="hub-filter-btn locked" onclick="triggerLockedMarket('RWA Equities', 'Phase 3 - Compliance Vaults')">
+          <span>📊 RWA Equities</span>
+          <span class="locked-chip">🔒 PHASE 3</span>
+        </button>
+        <button class="hub-filter-btn locked" onclick="triggerLockedMarket('DeFi Market', 'Phase 2 - Cross-Chain Oracles')">
+          <span>🔥 DeFi</span>
+          <span class="locked-chip">🔒 PHASE 2</span>
+        </button>
+        <button class="hub-filter-btn locked" onclick="triggerLockedMarket('AI Synthetics', 'Phase 2 - Model Aggregators')">
+          <span>🤖 AI</span>
+          <span class="locked-chip">🔒 PHASE 2</span>
+        </button>
+        <button class="hub-filter-btn locked" onclick="triggerLockedMarket('Others / NFTs', 'Phase 4 - Ecosystem Expansion')">
+          <span>🌐 Others</span>
+          <span class="locked-chip">🔒 PHASE 4</span>
+        </button>
+      </div>
+
+      <div class="hub-duels-grid">
+        <div class="duel-card-item">
+          <div class="card-top-tag">
+            <span class="category-chip">🐸 Memecoins</span>
+            <span class="status-badge-chip badge-live">● LIVE</span>
+          </div>
+          <div class="card-vs-arena">
+            <div class="contender-ring-box">
+              <div class="ring-avatar"><img src="https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=035" alt="DOGE"></div>
+              <span class="ring-symbol">DOGE</span>
+              <span class="ring-pct">52%</span>
+            </div>
+            <span class="vs-divider">VS</span>
+            <div class="contender-ring-box">
+              <div class="ring-avatar purple-ring"><img src="https://cryptologos.cc/logos/pepe-pepe-logo.png?v=035" alt="PEPE"></div>
+              <span class="ring-symbol">PEPE</span>
+              <span class="ring-pct purple-text">48%</span>
+            </div>
+          </div>
+          <div class="sparkline-box">
+            <svg class="sparkline-svg" viewBox="0 0 100 20"><path d="M0 15 Q 25 5, 50 12 T 100 4" /></svg>
+          </div>
+          <div class="card-metrics-row">
+            <div><div class="c-metric-lbl">24h Volume</div><div class="c-metric-val">$2.4M</div></div>
+            <div><div class="c-metric-lbl">Holders</div><div class="c-metric-val">142.5K</div></div>
+            <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$1.2M</div></div>
+          </div>
+          <button class="btn-card-action" onclick="loadManualDuel('DOGE', 1.82, 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=035')">
+            <span>TRADE DUEL</span> <span>↗</span>
+          </button>
+        </div>
+
+        <div class="duel-card-item card-locked">
+          <div class="card-top-tag">
+            <span class="category-chip">📊 RWA Equities</span>
+            <span class="status-badge-chip badge-lock">🔒 PHASE 3</span>
+          </div>
+          <div class="card-vs-arena">
+            <div class="contender-ring-box">
+              <div class="ring-avatar" style="border-color:#10b981;"><img src="https://i.postimg.cc/90MP2P9d/logo-png.jpg" alt="NVDA"></div>
+              <span class="ring-symbol">NVDA</span>
+              <span class="ring-pct" style="color:var(--green);">61%</span>
+            </div>
+            <span class="vs-divider">VS</span>
+            <div class="contender-ring-box">
+              <div class="ring-avatar purple-ring"><img src="https://cryptologos.cc/logos/solana-sol-logo.png?v=035" alt="SOL"></div>
+              <span class="ring-symbol">SOL</span>
+              <span class="ring-pct purple-text">39%</span>
+            </div>
+          </div>
+          <div class="sparkline-box">
+            <svg class="sparkline-svg red-spark" viewBox="0 0 100 20"><path d="M0 5 Q 25 18, 50 8 T 100 16" /></svg>
+          </div>
+          <div class="card-metrics-row">
+            <div><div class="c-metric-lbl">24h Volume</div><div class="c-metric-val">$12.8M</div></div>
+            <div><div class="c-metric-lbl">Holders</div><div class="c-metric-val">8.7K</div></div>
+            <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$6.3M</div></div>
+          </div>
+          <button class="btn-card-action" onclick="triggerLockedMarket('NVDA vs SOL (RWA Equities)', 'Phase 3 - Synthetic Equities Vault')">
+            <span>🔒 LOCKED (PHASE 3)</span>
+          </button>
+        </div>
+
+        <div class="duel-card-item card-locked">
+          <div class="card-top-tag">
+            <span class="category-chip">🔥 DeFi</span>
+            <span class="status-badge-chip badge-lock">🔒 PHASE 2</span>
+          </div>
+          <div class="card-vs-arena">
+            <div class="contender-ring-box">
+              <div class="ring-avatar"><img src="https://cryptologos.cc/logos/ethereum-eth-logo.png?v=035" alt="ETH"></div>
+              <span class="ring-symbol">ETH</span>
+              <span class="ring-pct">55%</span>
+            </div>
+            <span class="vs-divider">VS</span>
+            <div class="contender-ring-box">
+              <div class="ring-avatar purple-ring"><img src="https://cryptologos.cc/logos/uniswap-uni-logo.png?v=035" alt="UNI"></div>
+              <span class="ring-symbol">UNI</span>
+              <span class="ring-pct purple-text">45%</span>
+            </div>
+          </div>
+          <div class="sparkline-box">
+            <svg class="sparkline-svg red-spark" viewBox="0 0 100 20"><path d="M0 12 Q 30 4, 60 15 T 100 10" /></svg>
+          </div>
+          <div class="card-metrics-row">
+            <div><div class="c-metric-lbl">24h Volume</div><div class="c-metric-val">$5.2M</div></div>
+            <div><div class="c-metric-lbl">Holders</div><div class="c-metric-val">96.3K</div></div>
+            <div><div class="c-metric-lbl">Liquidity</div><div class="c-metric-val">$3.8M</div></div>
+          </div>
+          <button class="btn-card-action" onclick="triggerLockedMarket('ETH vs UNI (DeFi)', 'Phase 2 - Multi-Pair Aggregators')">
+            <span>🔒 LOCKED (PHASE 2)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POSITION EXECUTION MODAL -->
   <div id="stake-modal-overlay" class="modal-overlay" onclick="closeStakeModal(event)">
     <div class="modal-box" translate="no" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeStakeModal()">✕</button>
@@ -1384,98 +1777,14 @@
           <span style="color:var(--text-muted);">Protocol XP Reward:</span>
           <span style="color:var(--cyan); font-weight:800;">+<strong id="modal-est-xp">0.20</strong> XP (1:1 SOL)</span>
         </div>
+        <div class="modal-summary-row">
+          <span style="color:var(--text-muted);">Protocol Infrastructure Fee:</span>
+          <span style="color: #64748b;">5% (Autonomous PDA & RPC Relays)</span>
+        </div>
       </div>
 
       <button id="btn-modal-confirm" class="btn-execute-stake" onclick="confirmModalStake()">
         CONFIRM & EXECUTE POSITION
-      </button>
-    </div>
-  </div>
-
-  <!-- WALLET SELECTOR MODAL -->
-  <div id="wallet-modal-overlay" class="modal-overlay" onclick="closeWalletModal(event)">
-    <div class="modal-box" translate="no" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeWalletModal()">✕</button>
-      <div class="modal-head">
-        <div class="modal-avatar" style="background:#0b1329; border-color:var(--cyan); display:flex; align-items:center; justify-content:center;">
-          <span style="font-size:18px;">⚡</span>
-        </div>
-        <div class="modal-title-box">
-          <h3>CONNECT WALLET</h3>
-          <span style="font-size:10px; color:var(--text-muted); font-weight:800;">SELECT YOUR SOLANA PROVIDER</span>
-        </div>
-      </div>
-
-      <div class="wallet-options-list">
-        <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('phantom')">
-          <div class="wallet-opt-left">
-            <div class="wallet-opt-icon">🟣</div>
-            <div>
-              <div class="wallet-opt-name">Phantom</div>
-              <div class="wallet-opt-sub">Solana Standard</div>
-            </div>
-          </div>
-          <span id="detect-tag-phantom" class="wallet-detect-tag detect-installed">DETECTING...</span>
-        </button>
-
-        <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('solflare')">
-          <div class="wallet-opt-left">
-            <div class="wallet-opt-icon">🔥</div>
-            <div>
-              <div class="wallet-opt-name">Solflare</div>
-              <div class="wallet-opt-sub">Non-Custodial</div>
-            </div>
-          </div>
-          <span id="detect-tag-solflare" class="wallet-detect-tag detect-installed">DETECTING...</span>
-        </button>
-
-        <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('backpack')">
-          <div class="wallet-opt-left">
-            <div class="wallet-opt-icon">🎒</div>
-            <div>
-              <div class="wallet-opt-name">Backpack</div>
-              <div class="wallet-opt-sub">xNFT Wallet</div>
-            </div>
-          </div>
-          <span id="detect-tag-backpack" class="wallet-detect-tag detect-installed">DETECTING...</span>
-        </button>
-
-        <button type="button" class="wallet-option-btn" onclick="selectAndConnectWallet('okx')">
-          <div class="wallet-opt-left">
-            <div class="wallet-opt-icon">⬛</div>
-            <div>
-              <div class="wallet-opt-name">OKX Wallet</div>
-              <div class="wallet-opt-sub">Multi-Chain Web3</div>
-            </div>
-          </div>
-          <span id="detect-tag-okx" class="wallet-detect-tag detect-installed">DETECTING...</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROFILE / DISCONNECT MODAL -->
-  <div id="wallet-profile-overlay" class="modal-overlay" onclick="closeWalletProfileModal(event)">
-    <div class="modal-box" translate="no" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeWalletProfileModal()">✕</button>
-      <div class="modal-head">
-        <div class="modal-avatar" style="background:#047857; border-color:var(--green); display:flex; align-items:center; justify-content:center;">
-          <span style="font-size:16px;">🟢</span>
-        </div>
-        <div class="modal-title-box">
-          <h3 id="profile-wallet-provider-name">CONNECTED WALLET</h3>
-          <span style="font-size:10px; color:var(--green); font-weight:900;">SOLANA MAINNET ACTIVE</span>
-        </div>
-      </div>
-
-      <div class="wallet-profile-box">
-        <div style="font-size:10px; color:var(--text-muted); font-weight:800; text-transform:uppercase;">Public Key</div>
-        <div id="profile-wallet-address" class="wallet-pubkey-full">--</div>
-        <button type="button" class="btn-copy-address" onclick="copyConnectedAddress()">📋 COPY ADDRESS</button>
-      </div>
-
-      <button type="button" class="btn-disconnect-wallet" onclick="disconnectWallet()">
-        DISCONNECT WALLET
       </button>
     </div>
   </div>
@@ -1492,40 +1801,29 @@
     let connectedWallet = localStorage.getItem('bull_wallet_address') || null;
     let connectedWalletProvider = localStorage.getItem('bull_wallet_provider') || null;
 
-    // CONTROLE DA NAVEGAÇÃO DE ABAS ESTILO RAYDIUM
-    function switchDockTab(viewId) {
-      document.querySelectorAll('.tab-view-panel').forEach(panel => panel.classList.remove('active-view'));
-      document.querySelectorAll('.dock-tab-btn').forEach(btn => btn.classList.remove('active'));
+    // GERENCIADOR DE PROTOCOL XP & HISTÓRICO
+    function openXPModal() {
+      renderXPLedger();
+      document.getElementById('xp-modal-overlay').style.display = 'flex';
+    }
 
-      const target = document.getElementById(viewId);
-      if (target) target.classList.add('active-view');
-      event.currentTarget.classList.add('active');
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      if (viewId === 'view-xp') renderXPLedger();
+    function closeXPModal(e) {
+      if (e && e.target !== document.getElementById('xp-modal-overlay') && !e.target.classList.contains('modal-close')) return;
+      document.getElementById('xp-modal-overlay').style.display = 'none';
     }
 
     function renderXPLedger() {
-      const xpVal = userXP.toFixed(2);
-      const totalSol = userBets.reduce((acc, curr) => acc + (curr.amount || 0), 0).toFixed(2);
+      document.getElementById('modal-summary-total-xp').innerText = userXP.toFixed(2);
+      const totalSol = userBets.reduce((acc, curr) => acc + (curr.amount || 0), 0);
+      document.getElementById('modal-summary-total-sol').innerText = `${totalSol.toFixed(2)} SOL`;
+      document.getElementById('modal-summary-count').innerText = userBets.length;
 
-      const elXp = document.getElementById('view-summary-total-xp');
-      const elSol = document.getElementById('view-summary-total-sol');
-      const elCount = document.getElementById('view-summary-count');
-
-      if (elXp) elXp.innerText = xpVal;
-      if (elSol) elSol.innerText = `${totalSol} SOL`;
-      if (elCount) elCount.innerText = userBets.length;
-
-      const listBox = document.getElementById('view-user-bets-list-box');
-      if (!listBox) return;
-
+      const listBox = document.getElementById('user-bets-list-box');
       if (userBets.length === 0) {
         listBox.innerHTML = `
           <div class="no-bets-empty-state">
-            ⚡ No active allocations found.<br>
-            Execute positions in the Terminal to start accumulating Protocol XP!
+            ⚡ No active allocations found in this session.<br>
+            Execute positions in any live arena to start accumulating Protocol XP!
           </div>
         `;
         return;
@@ -1552,17 +1850,20 @@
     }
 
     function clearUserBets() {
-      if (confirm("Clear local allocation history? (Your Protocol XP total will remain intact)")) {
+      if (confirm("Are you sure you want to clear your local allocation history? (Your Protocol XP total will remain intact)")) {
         userBets = [];
         localStorage.removeItem('bull_user_bets');
         renderXPLedger();
       }
     }
 
-    // CARTEIRAS
+    // CARTEIRAS WEB3
     function handleWalletButtonClick() {
-      if (connectedWallet) openWalletProfileModal();
-      else openWalletModal();
+      if (connectedWallet) {
+        openWalletProfileModal();
+      } else {
+        openWalletModal();
+      }
     }
 
     function openWalletModal() {
@@ -1587,17 +1888,27 @@
     }
 
     function detectAvailableWallets() {
-      setDetectTag('detect-tag-phantom', window.solana && window.solana.isPhantom);
-      setDetectTag('detect-tag-solflare', window.solflare && window.solflare.isSolflare);
-      setDetectTag('detect-tag-backpack', window.backpack);
-      setDetectTag('detect-tag-okx', window.okxwallet && window.okxwallet.solana);
+      const isPhantom = window.solana && window.solana.isPhantom;
+      const isSolflare = window.solflare && window.solflare.isSolflare;
+      const isBackpack = window.backpack;
+      const isOkx = window.okxwallet && window.okxwallet.solana;
+
+      setDetectTag('detect-tag-phantom', isPhantom);
+      setDetectTag('detect-tag-solflare', isSolflare);
+      setDetectTag('detect-tag-backpack', isBackpack);
+      setDetectTag('detect-tag-okx', isOkx);
     }
 
     function setDetectTag(elementId, isInstalled) {
       const el = document.getElementById(elementId);
       if (!el) return;
-      el.className = isInstalled ? 'wallet-detect-tag detect-installed' : 'wallet-detect-tag detect-missing';
-      el.innerText = isInstalled ? 'DETECTED' : 'NOT DETECTED';
+      if (isInstalled) {
+        el.className = 'wallet-detect-tag detect-installed';
+        el.innerText = 'DETECTED';
+      } else {
+        el.className = 'wallet-detect-tag detect-missing';
+        el.innerText = 'NOT DETECTED';
+      }
     }
 
     async function selectAndConnectWallet(provider) {
@@ -1634,7 +1945,9 @@
             renderWalletState();
             closeWalletModal();
           }
-        } catch (err) {}
+        } catch (err) {
+          console.warn("Wallet connection rejected:", err);
+        }
       }
     }
 
@@ -1655,35 +1968,47 @@
         label.innerText = `${connectedWallet.slice(0, 4)}...${connectedWallet.slice(-4)}`;
       } else {
         btn.classList.remove('connected');
-        label.innerText = 'CONNECT';
+        label.innerText = 'CONNECT WALLET';
       }
     }
 
     function copyConnectedAddress() {
       if (connectedWallet) {
         navigator.clipboard.writeText(connectedWallet);
-        alert("Address copied!");
+        alert("Public Address copied to clipboard!");
       }
     }
 
-    // AUTONOMOUS POOLS
+    // AUTONOMOUS DUEL POOLS
     const ARENA_DUEL_POOLS = {
       '30m': [
         {
           tokenA: { name: 'POPCAT', symbol: 'POPCAT', mint: '7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr', icon: 'https://cryptologos.cc/logos/popcat-sol-popcat-logo.png?v=035', pairAddress: 'FRhB8L7Y9Qq41qZXY9re2NWfMQWvk5R5SmLj512Cqh4K' },
           tokenB: { name: 'MEW', symbol: 'MEW', mint: 'MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5', icon: 'https://cryptologos.cc/logos/cat-in-a-dogs-world-mew-logo.png?v=035', pairAddress: 'MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5' }
+        },
+        {
+          tokenA: { name: 'PNUT', symbol: 'PNUT', mint: '2qEHjDLDLbuBgRYvsxhc5P6uBp8R1v6QKUezeRumpump', icon: 'https://i.postimg.cc/90MP2P9d/logo-png.jpg', pairAddress: '2qEHjDLDLbuBgRYvsxhc5P6uBp8R1v6QKUezeRumpump' },
+          tokenB: { name: 'GOAT', symbol: 'GOAT', mint: 'CzLSujWBLFsSjncfkh59rQDqJgCSwUiUiMiNdkyDb44', icon: 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035', pairAddress: 'CzLSujWBLFsSjncfkh59rQDqJgCSwUiUiMiNdkyDb44' }
         }
       ],
       '1h': [
         {
           tokenA: { name: 'BONK', symbol: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', icon: 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035', pairAddress: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263' },
           tokenB: { name: 'WIF', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', icon: 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035', pairAddress: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm' }
+        },
+        {
+          tokenA: { name: 'BOME', symbol: 'BOME', mint: 'ukHH6c7mMyiWCf1b9pnWe25TSpkDDt3H5pQZgZ74J82', icon: 'https://cryptologos.cc/logos/book-of-meme-bome-logo.png?v=035', pairAddress: 'ukHH6c7mMyiWCf1b9pnWe25TSpkDDt3H5pQZgZ74J82' },
+          tokenB: { name: 'SLERF', symbol: 'SLERF', mint: '71ghuQLUtEdB8zBGugxs6CxuhbpkMeWgfK9jzYWCpump', icon: 'https://cryptologos.cc/logos/solana-sol-logo.png?v=035', pairAddress: '71ghuQLUtEdB8zBGugxs6CxuhbpkMeWgfK9jzYWCpump' }
         }
       ],
       '24h': [
         {
           tokenA: { name: 'BONK', symbol: 'BONK', mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', icon: 'https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=035', pairAddress: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263' },
           tokenB: { name: 'WIF', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', icon: 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035', pairAddress: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm' }
+        },
+        {
+          tokenA: { name: 'WIF', symbol: 'WIF', mint: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', icon: 'https://cryptologos.cc/logos/dogwifhat-wif-logo.png?v=035', pairAddress: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm' },
+          tokenB: { name: 'POPCAT', symbol: 'POPCAT', mint: '7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr', icon: 'https://cryptologos.cc/logos/popcat-sol-popcat-logo.png?v=035', pairAddress: 'FRhB8L7Y9Qq41qZXY9re2NWfMQWvk5R5SmLj512Cqh4K' }
         }
       ]
     };
@@ -1701,9 +2026,33 @@
     let currentRatioB = 38;
 
     const ARENA_CONFIG = {
-      '30m': { name: 'TURBO EPOCH', totalDuration: 30 * 60, ruleDesc: 'Closes 5 mins after opening', lockOffset: 5 * 60, lockType: 'after_open', duelId: '#312', algoName: '🤖 ALGO: 30M BREAKOUT' },
-      '1h': { name: 'FLASH EPOCH', totalDuration: 60 * 60, ruleDesc: 'Closes 15 mins before closure', lockOffset: 15 * 60, lockType: 'before_close', duelId: '#105', algoName: '🤖 ALGO: 1H MOMENTUM' },
-      '24h': { name: 'DAILY ROYALE', totalDuration: 24 * 60 * 60, ruleDesc: 'Closes 1 hour before closure', lockOffset: 60 * 60, lockType: 'before_close', duelId: '#28', algoName: '🤖 ALGO: 24H TITANS' }
+      '30m': {
+        name: 'TURBO EPOCH',
+        totalDuration: 30 * 60,
+        ruleDesc: 'Closes 5 mins after opening',
+        lockOffset: 5 * 60,
+        lockType: 'after_open',
+        duelId: '#312',
+        algoName: '🤖 ALGO: 30M BREAKOUT RADAR'
+      },
+      '1h': {
+        name: 'FLASH EPOCH',
+        totalDuration: 60 * 60,
+        ruleDesc: 'Closes 15 mins before closure',
+        lockOffset: 15 * 60,
+        lockType: 'before_close',
+        duelId: '#105',
+        algoName: '🤖 ALGO: 1H 24H MOMENTUM'
+      },
+      '24h': {
+        name: 'DAILY ROYALE',
+        totalDuration: 24 * 60 * 60,
+        ruleDesc: 'Closes 1 hour before closure',
+        lockOffset: 60 * 60,
+        lockType: 'before_close',
+        duelId: '#28',
+        algoName: '🤖 ALGO: 24H TITANS CLASH'
+      }
     };
 
     let remainingSeconds = 2658;
@@ -1740,6 +2089,9 @@
 
       document.getElementById('matchmaker-algo-badge').innerText = ARENA_CONFIG[mode].algoName;
 
+      currentRatioA = 50;
+      currentRatioB = 50;
+
       syncDexScreenerData();
     }
 
@@ -1747,9 +2099,16 @@
       const cfg = ARENA_CONFIG[currentArenaMode];
       const elapsed = cfg.totalDuration - remainingSeconds;
 
-      if (cfg.lockType === 'after_open') isCurrentArenaLocked = elapsed > cfg.lockOffset;
-      else if (cfg.lockType === 'before_close') isCurrentArenaLocked = remainingSeconds <= cfg.lockOffset;
+      if (cfg.lockType === 'after_open') {
+        isCurrentArenaLocked = elapsed > cfg.lockOffset;
+      } else if (cfg.lockType === 'before_close') {
+        isCurrentArenaLocked = remainingSeconds <= cfg.lockOffset;
+      }
 
+      updateLockUI(cfg, elapsed);
+    }
+
+    function updateLockUI(cfg, elapsed) {
       const lockChip = document.getElementById('lock-status-chip');
       const btnA = document.getElementById('btn-stake-a');
       const btnB = document.getElementById('btn-stake-b');
@@ -1763,12 +2122,23 @@
         }
         if (btnA) btnA.classList.add('btn-action-locked');
         if (btnB) btnB.classList.add('btn-action-locked');
-        if (btnTextA) btnTextA.innerText = `🔒 LOCKED • $${currentDuel.tokenA.symbol}`;
-        if (btnTextB) btnTextB.innerText = `🔒 LOCKED • $${currentDuel.tokenB.symbol}`;
+        if (btnTextA) btnTextA.innerText = `🔒 ALLOCATIONS LOCKED • $${currentDuel.tokenA.symbol}`;
+        if (btnTextB) btnTextB.innerText = `🔒 ALLOCATIONS LOCKED • $${currentDuel.tokenB.symbol}`;
       } else {
+        let lockInText = '';
+        if (cfg.lockType === 'after_open') {
+          const lockInSec = Math.max(0, cfg.lockOffset - elapsed);
+          lockInText = `LOCKS IN ${Math.floor(lockInSec/60)}m ${lockInSec%60}s`;
+        } else {
+          const lockInSec = Math.max(0, remainingSeconds - cfg.lockOffset);
+          const hrs = Math.floor(lockInSec/3600);
+          const mins = Math.floor((lockInSec%3600)/60);
+          lockInText = hrs > 0 ? `LOCKS IN ${hrs}h ${mins}m` : `LOCKS IN ${mins}m`;
+        }
+
         if (lockChip) {
           lockChip.className = 'lock-status-badge badge-unlocked';
-          lockChip.innerText = `🟢 ALLOCATIONS OPEN`;
+          lockChip.innerText = `🟢 ALLOCATIONS OPEN (${lockInText})`;
         }
         if (btnA) btnA.classList.remove('btn-action-locked');
         if (btnB) btnB.classList.remove('btn-action-locked');
@@ -1778,8 +2148,9 @@
     }
 
     function updateCountdown() {
-      if (remainingSeconds > 0) remainingSeconds--;
-      else {
+      if (remainingSeconds > 0) {
+        remainingSeconds--;
+      } else {
         poolIndices[currentArenaMode] = (poolIndices[currentArenaMode] + 1);
         remainingSeconds = ARENA_CONFIG[currentArenaMode].totalDuration;
         loadAutonomousDuel(currentArenaMode);
@@ -1788,10 +2159,12 @@
       const hours = Math.floor(remainingSeconds / 3600);
       const minutes = Math.floor((remainingSeconds % 3600) / 60);
       const seconds = remainingSeconds % 60;
-      const pad = (n) => String(n).padStart(2, '0');
 
+      const pad = (n) => String(n).padStart(2, '0');
       const clockEl = document.getElementById('epoch-timer-clock');
-      if (clockEl) clockEl.innerText = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+      if (clockEl) {
+        clockEl.innerText = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+      }
 
       checkLockStatus();
     }
@@ -1806,11 +2179,16 @@
       const badge = document.getElementById('epoch-round-badge');
       const cfg = ARENA_CONFIG[mode];
 
-      if (mode === '30m') remainingSeconds = 1260;
-      else if (mode === '1h') remainingSeconds = 2658;
-      else if (mode === '24h') remainingSeconds = 48200;
-
-      if (badge) badge.innerText = `⚔️ ${cfg.name} • DUEL ${cfg.duelId}`;
+      if (mode === '30m') {
+        remainingSeconds = 1260;
+        if (badge) badge.innerText = `🔥 ${cfg.name} • DUEL ${cfg.duelId}`;
+      } else if (mode === '1h') {
+        remainingSeconds = 2658;
+        if (badge) badge.innerText = `⚔️ ${cfg.name} • DUEL ${cfg.duelId}`;
+      } else if (mode === '24h') {
+        remainingSeconds = 48200;
+        if (badge) badge.innerText = `🏆 ${cfg.name} • EPOCH ${cfg.duelId}`;
+      }
 
       loadAutonomousDuel(mode);
       updateCountdown();
@@ -1818,7 +2196,8 @@
 
     function handleStakeClick(side) {
       if (isCurrentArenaLocked) {
-        alert(`🔒 ALLOCATIONS LOCKED!\n\n${ARENA_CONFIG[currentArenaMode].ruleDesc}`);
+        const cfg = ARENA_CONFIG[currentArenaMode];
+        alert(`🔒 ALLOCATIONS CURRENTLY LOCKED!\n\nTo prevent candle sniping and result manipulation, protocol rules enforce:\n\n• ${cfg.name}: ${cfg.ruleDesc}.\n\nPlease await this epoch's settlement or switch to an open arena above!`);
         return;
       }
       const token = side === 'A' ? currentDuel.tokenA : currentDuel.tokenB;
@@ -1826,12 +2205,42 @@
       openStakeModal(token.symbol, mult, token.icon);
     }
 
+    function renderBalances() {
+      const elTest = document.getElementById('fake-balance-val');
+      const elXP = document.getElementById('user-battle-xp');
+      if (elTest) elTest.innerText = `${testCredits.toLocaleString('en-US', { minimumFractionDigits: 2 })} SOL`;
+      if (elXP) elXP.innerText = userXP.toLocaleString('en-US', { minimumFractionDigits: 2 });
+    }
+
+    function addCredits(amt) {
+      testCredits += amt;
+      localStorage.setItem('bull_credits', testCredits);
+      renderBalances();
+    }
+
+    function resetCredits() {
+      testCredits = 1000.00;
+      localStorage.setItem('bull_credits', testCredits);
+      renderBalances();
+    }
+
+    function openMarketHub() { document.getElementById('market-hub-modal').style.display = 'block'; }
+    function closeMarketHub(e) {
+      if (e && e.target !== document.getElementById('market-hub-modal') && !e.target.classList.contains('hub-close-btn')) return;
+      document.getElementById('market-hub-modal').style.display = 'none';
+    }
+
+    function switchHubCategory(cat) {
+      document.querySelectorAll('.hub-filter-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+
     function triggerLockedMarket(marketName, phase) {
-      alert(`🔒 ACCESS RESTRICTED: ${marketName}\n\nUnlocks in ${phase}.\nCurrently, only MEMECOINS are live.`);
+      alert(`🔒 ACCESS RESTRICTED: ${marketName}\n\nThis sector is scheduled for unlock in ${phase}.\nCurrently, only the MEMECOINS sector is live on Solana.`);
     }
 
     function loadManualDuel(symbol, mult, icon) {
-      switchDockTab('view-terminal');
+      closeMarketHub();
       openStakeModal(symbol, mult, icon);
     }
 
@@ -1864,26 +2273,26 @@
     function calculateModalReturn() {
       const val = parseFloat(document.getElementById('input-stake-amount').value) || 0;
       const ret = (val * currentActiveMult).toFixed(2);
-      document.getElementById('modal-est-payout').innerText = ret;
-      document.getElementById('modal-est-xp').innerText = val.toFixed(2);
+      const payoutEl = document.getElementById('modal-est-payout');
+      const xpEl = document.getElementById('modal-est-xp');
+      
+      if (payoutEl) payoutEl.innerText = ret;
+      if (xpEl) xpEl.innerText = val.toFixed(2);
     }
 
     function confirmModalStake() {
       if (isCurrentArenaLocked) {
-        alert("🔒 Epoch locked!");
+        alert("🔒 This epoch has just been locked by the anti-snipe protocol buffer. Your allocation could not be processed.");
         document.getElementById('stake-modal-overlay').style.display = 'none';
         return;
       }
 
       const val = parseFloat(document.getElementById('input-stake-amount').value);
-      if (!val || isNaN(val) || val < MIN_WAGER || val > MAX_WAGER) {
-        alert(`Allocation range: ${MIN_WAGER.toFixed(2)} - ${MAX_WAGER.toFixed(2)} SOL!`);
-        return;
-      }
-      if (val > testCredits) {
-        alert(`Insufficient SOL! You have ${testCredits.toFixed(2)} SOL.`);
-        return;
-      }
+
+      if (!val || isNaN(val)) return alert("Please enter a valid amount!");
+      if (val < MIN_WAGER) return alert(`⚠️ Minimum capital allocation: ${MIN_WAGER.toFixed(2)} SOL!`);
+      if (val > MAX_WAGER) return alert(`⚠️ Maximum capital allocation: ${MAX_WAGER.toFixed(2)} SOL per transaction!`);
+      if (val > testCredits) return alert(`Insufficient Demo Liquidity! You have ${testCredits.toFixed(2)} SOL.`);
 
       testCredits -= val;
       userXP += val;
@@ -1907,22 +2316,14 @@
       renderBalances();
       document.getElementById('stake-modal-overlay').style.display = 'none';
 
-      alert(`🎯 POSITION EXECUTED!\n\nAsset: $${selectedFighter}\nAllocated: ${val.toFixed(2)} SOL\nReturn: +${(val * currentActiveMult).toFixed(2)} SOL\n\n⚡ XP EARNED: +${val.toFixed(2)} XP\nTotal XP: ${userXP.toFixed(2)} XP`);
-    }
-
-    function addCredits(amt) {
-      testCredits += amt;
-      localStorage.setItem('bull_credits', testCredits);
-      renderBalances();
-    }
-
-    function renderBalances() {
-      const elTest = document.getElementById('fake-balance-val');
-      if (elTest) elTest.innerText = `${testCredits.toLocaleString('en-US', { minimumFractionDigits: 2 })} SOL`;
+      const earnedXP = val.toFixed(2);
+      alert(`🎯 POSITION EXECUTED SUCCESSFULLY!\n\nAsset: $${selectedFighter}\nAllocated: ${val.toFixed(2)} SOL\nTarget Multiplier: ${parseFloat(currentActiveMult).toFixed(2)}x\nEst. Settlement Return: +${(val * currentActiveMult).toFixed(2)} SOL\n\n⚡ PROTOCOL XP EARNED: +${earnedXP} XP\n📊 New Total XP Balance: ${userXP.toFixed(2)} XP\n(Rate: 1.00 SOL = 1.00 Protocol XP)\n\nTip: Click the 'XP' badge in the navigation bar anytime to inspect your active allocations!`);
     }
 
     function toggleFaq(el) {
-      el.classList.toggle('open');
+      const isOpen = el.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('open'));
+      if (!isOpen) el.classList.add('open');
     }
 
     // DEXSCREENER LIVE POLLING
@@ -1973,7 +2374,9 @@
             updateRaceAndVisuals(deltaA, deltaB);
           }
         }
-      } catch (err) {}
+      } catch (err) {
+        console.warn("DexScreener API fallback:", err);
+      }
     }
 
     function updateRaceAndVisuals(deltaA = 12.4, deltaB = 8.7) {
@@ -2016,17 +2419,26 @@
       if (multLabelB) multLabelB.innerText = `${currentMultiplierB}x TARGET`;
     }
 
-    // ECG ENGINE
+    // MOTOR DO ECG / BATIMENTO CARDÍACO
     let ecgOffset = 0;
+
     function getEcgY(x, width, height, midY) {
       const cycleLength = 220;
       const phase = (x + ecgOffset) % cycleLength;
+
       let yOffset = 0;
-      if (phase >= 30 && phase < 50) yOffset = -Math.sin(((phase - 30) / 20) * Math.PI) * 7;
-      else if (phase >= 60 && phase < 68) yOffset = ((phase - 60) / 8) * 14;
-      else if (phase >= 68 && phase < 82) yOffset = -Math.sin(((phase - 68) / 14) * Math.PI) * 65;
-      else if (phase >= 82 && phase < 94) yOffset = Math.sin(((phase - 82) / 12) * Math.PI) * 22;
-      else if (phase >= 115 && phase < 145) yOffset = -Math.sin(((phase - 115) / 30) * Math.PI) * 12;
+      if (phase >= 30 && phase < 50) {
+        yOffset = -Math.sin(((phase - 30) / 20) * Math.PI) * 7;
+      } else if (phase >= 60 && phase < 68) {
+        yOffset = ((phase - 60) / 8) * 14;
+      } else if (phase >= 68 && phase < 82) {
+        const peakProgress = (phase - 68) / 14;
+        yOffset = -Math.sin(peakProgress * Math.PI) * 65;
+      } else if (phase >= 82 && phase < 94) {
+        yOffset = Math.sin(((phase - 82) / 12) * Math.PI) * 22;
+      } else if (phase >= 115 && phase < 145) {
+        yOffset = -Math.sin(((phase - 115) / 30) * Math.PI) * 12;
+      }
 
       const microNoise = (Math.sin(x * 0.15 + ecgOffset * 0.05) * 1.5);
       return midY + yOffset + microNoise;
@@ -2036,17 +2448,20 @@
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
+
       const w = canvas.width;
       const h = canvas.height;
       const midY = h / 2;
 
       ctx.clearRect(0, 0, w, h);
+
       ctx.beginPath();
       for (let x = 0; x <= w; x += 2) {
         const y = getEcgY(x, w, h, midY);
         if (x === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
+
       ctx.strokeStyle = '#00f2fe';
       ctx.lineWidth = 2.5;
       ctx.shadowColor = '#00f2fe';
@@ -2061,6 +2476,7 @@
       ctx.shadowColor = '#00f2fe';
       ctx.shadowBlur = 22;
       ctx.fill();
+      ctx.shadowBlur = 0;
 
       ecgOffset += 2.2;
       requestAnimationFrame(renderEcgPulse);
@@ -2069,10 +2485,12 @@
     function initEcgCanvas() {
       const canvas = document.getElementById('ratioCanvas');
       if (!canvas) return;
+
       function resize() {
         canvas.width = canvas.parentElement.clientWidth;
         canvas.height = canvas.parentElement.clientHeight;
       }
+
       resize();
       window.addEventListener('resize', resize);
       requestAnimationFrame(renderEcgPulse);
@@ -2090,6 +2508,7 @@
       renderBalances();
       renderWalletState();
       initEcgCanvas();
+
       loadAutonomousDuel('1h');
       updateCountdown();
 
