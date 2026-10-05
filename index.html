@@ -1029,3 +1029,93 @@
               </p>
             </div>
             <button class="faction-btn btn-shiba">COMMIT TO SHIBA</button>
+          </div>
+
+          <div class="faction-card faction-doge">
+            <div>
+              <div class="faction-header">
+                <span class="faction-title doge-text">DOGE POSITION</span>
+                <span class="badge-metric badge-doge">10.8M USDT POOL</span>
+              </div>
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 8px; line-height: 1.4;">
+                50 traders active in this round. Commit funds to Doge momentum against Shiba.
+              </p>
+            </div>
+            <button class="faction-btn btn-doge">COMMIT TO DOGE</button>
+          </div>
+        </div>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <script>
+    const BULL_URL = 'https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png';
+
+    // REMOVE O FUNDO ESCURO DINAMICAMENTE
+    function drawCroppedBull(canvasId, img) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imgData.data;
+
+      for (let i = 0; i < data.length; i += 4) {
+        const brightness = Math.max(data[i], data[i + 1], data[i + 2]);
+        if (brightness < 35) {
+          data[i + 3] = 0;
+        } else if (brightness < 70) {
+          data[i + 3] = Math.round(((brightness - 35) / 35) * 255);
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+    }
+
+    const baseImg = new Image();
+    baseImg.crossOrigin = 'anonymous';
+    baseImg.src = BULL_URL;
+    baseImg.onload = () => {
+      drawCroppedBull('splash-canvas', baseImg);
+      drawCroppedBull('topbar-logo-canvas', baseImg);
+      drawCroppedBull('sidebar-logo-canvas', baseImg);
+      drawCroppedBull('card-canvas', baseImg);
+    };
+
+    // SPLASH SCREEN (7 SECONDS)
+    setTimeout(() => {
+      const splash = document.getElementById('splash-screen');
+      const appLayout = document.getElementById('app-layout');
+      
+      splash.style.opacity = '0';
+      splash.style.visibility = 'hidden';
+      appLayout.classList.add('active');
+    }, 7000);
+
+    // NAVIGATION TABS
+    function selectNav(element) {
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('selected'));
+      element.classList.add('selected');
+    }
+
+    // LIVE COUNTDOWN TIMER
+    let secondsLeft = 28 * 60 + 17;
+    const clockEl = document.getElementById('clock-display');
+
+    setInterval(() => {
+      if (secondsLeft > 0) {
+        secondsLeft--;
+        const m = Math.floor(secondsLeft / 60).toString().padStart(2, '0');
+        const s = (secondsLeft % 60).toString().padStart(2, '0');
+        if (clockEl) clockEl.textContent = `${m}:${s}`;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
