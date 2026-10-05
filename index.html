@@ -1,14 +1,465 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bull Protocol | Autonomous Solana</title>
-    <!-- Tailwind CSS via CDN para renderizar as classes de estilo -->
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-[#040711] text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bull Protocol | Institutional Trading Terminal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #030508;
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* ========================================================
+       1. SPLASH SCREEN (7 SEGUNDOS) COM TOURO NEON ISOLADO
+       ======================================================== */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background-color: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999999;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+    }
+
+    .splash-glow {
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.22) 0%, rgba(168, 85, 247, 0.12) 50%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+      animation: pulseGlow 3s ease-in-out infinite alternate;
+    }
+
+    .splash-img-container {
+      position: relative;
+      width: 320px;
+      max-width: 85vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .splash-img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.85));
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(0.95); opacity: 0.6; }
+      100% { transform: scale(1.15); opacity: 1; }
+    }
+
+    /* ========================================================
+       2. APLICAÇÃO PRINCIPAL: SIDEBAR BULL PROTOCOL
+       ======================================================== */
+    #app-container {
+      width: 100%;
+      max-width: 360px;
+      min-height: 100vh;
+      background-color: #05070c;
+      border-left: 1px solid rgba(255, 255, 255, 0.06);
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 28px 16px 20px 16px;
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    #app-container.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* TOPO: LOGO */
+    .brand-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 6px 24px 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .brand-logo-img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 0 14px rgba(0, 240, 255, 0.8));
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      letterSpacing: 0.12em;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .brand-subtitle {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.38em;
+      color: #a0aec0;
+      margin-top: 4px;
+    }
+
+    /* MENU DE NAVEGAÇÃO */
+    .nav-list {
+      margin-top: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    /* ITEM ATIVO COM BORDA NEON E DEGRADÊ CIANO/ROXO */
+    .nav-item.active {
+      background: linear-gradient(90deg, rgba(168, 85, 247, 0.22) 0%, rgba(34, 211, 238, 0.22) 100%);
+      border: 1px solid rgba(34, 211, 238, 0.6);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.22), inset 0 0 15px rgba(168, 85, 247, 0.15);
+    }
+
+    .nav-item.active .nav-icon svg {
+      stroke: #22d3ee;
+      filter: drop-shadow(0 0 8px #22d3ee);
+    }
+
+    .nav-item.active .nav-title {
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    .nav-item:not(.active) {
+      background: transparent;
+      border: 1px solid transparent;
+    }
+
+    .nav-item:not(.active):hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .nav-icon {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: #718096;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      transition: stroke 0.2s;
+    }
+
+    .nav-item:not(.active):hover .nav-icon svg {
+      stroke: #cbd5e1;
+    }
+
+    .nav-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      color: #e2e8f0;
+      text-transform: uppercase;
+    }
+
+    .nav-desc {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    /* CARD INFERIOR "MORE MOMENTUM / LESS EMOTION" */
+    .rules-card {
+      margin-top: 24px;
+      position: relative;
+      background: linear-gradient(180deg, #090c14 0%, #06090e 100%);
+      border: 1px solid rgba(34, 211, 238, 0.22);
+      border-radius: 18px;
+      padding: 22px 18px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      z-index: 2;
+    }
+
+    .rules-card-logo {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      margin: 0 auto 10px auto;
+      filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8));
+    }
+
+    .rules-heading {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+
+    .rules-heading .cyan-text {
+      color: #22d3ee;
+      display: block;
+    }
+
+    .rules-heading .purple-text {
+      color: #c084fc;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .rules-body {
+      font-size: 11px;
+      line-height: 1.5;
+      color: #94a3b8;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+
+    .rules-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(34, 211, 238, 0.5);
+      border-radius: 10px;
+      padding: 10px 0;
+      color: #22d3ee;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .rules-btn:hover {
+      background: rgba(34, 211, 238, 0.1);
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+      border-color: #22d3ee;
+    }
+
+    /* ONDAS NEON DE FUNDO (RODAPÉ) */
+    .waves-bg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 140px;
+      background-image: url('https://i.postimg.cc/4yNtpNzv/site.png');
+      background-position: bottom center;
+      background-size: cover;
+      opacity: 0.65;
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. TELA DE SPLASH (7 SEGUNDOS EXATOS) -->
+  <div id="splash-screen">
+    <div class="splash-glow"></div>
+    <div class="splash-img-container">
+      <img src="https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png" alt="Bull Logo" class="splash-img" />
+    </div>
+  </div>
+
+  <!-- 2. CONTAINER EXATO DO DESIGN (BULL PROTOCOL - TUDO EM INGLÊS) -->
+  <div id="app-container">
+    
+    <div>
+      <!-- BRAND / LOGO HEADER -->
+      <header class="brand-header">
+        <img src="https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png" alt="Bull Protocol" class="brand-logo-img" />
+        <div class="brand-text">
+          <span class="brand-title">BULL</span>
+          <span class="brand-subtitle">PROTOCOL</span>
+        </div>
+      </header>
+
+      <!-- NAVIGATION MENU -->
+      <nav class="nav-list">
+        
+        <!-- ITEM 1: ROOMS -->
+        <div class="nav-item active" onclick="setActiveNav(this)">
+          <div class="nav-icon">
+            <svg viewBox="0 0 24 24">
+              <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" />
+              <line x1="13" y1="19" x2="19" y2="13" />
+              <line x1="16" y1="16" x2="20" y2="20" />
+              <line x1="19" y1="21" x2="21" y2="19" />
+              <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5" />
+              <line x1="5" y1="14" x2="9" y2="18" />
+              <line x1="7" y1="17" x2="4" y2="20" />
+              <line x1="3" y1="19" x2="5" y2="21" />
+            </svg>
+          </div>
+          <div class="nav-content">
+            <span class="nav-title">BATTLE ROOMS</span>
+            <span class="nav-desc">Join active battles</span>
+          </div>
+        </div>
+
+        <!-- ITEM 2: MY PROFILE -->
+        <div class="nav-item" onclick="setActiveNav(this)">
+          <div class="nav-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <div class="nav-content">
+            <span class="nav-title">MY PROFILE</span>
+            <span class="nav-desc">Wallet and history</span>
+          </div>
+        </div>
+
+        <!-- ITEM 3: RANKING -->
+        <div class="nav-item" onclick="setActiveNav(this)">
+          <div class="nav-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+              <path d="M4 22h16" />
+              <path d="M10 14.66V17c0 .55-.45 1-1 1H7" />
+              <path d="M14 14.66V17c0 .55.45 1 1 1h2" />
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+            </svg>
+          </div>
+          <div class="nav-content">
+            <span class="nav-title">LEADERBOARD</span>
+            <span class="nav-desc">Top traders</span>
+          </div>
+        </div>
+
+        <!-- ITEM 4: REWARDS -->
+        <div class="nav-item" onclick="setActiveNav(this)">
+          <div class="nav-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="6" />
+              <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+            </svg>
+          </div>
+          <div class="nav-content">
+            <span class="nav-title">REWARDS</span>
+            <span class="nav-desc">XP and achievements</span>
+          </div>
+        </div>
+
+        <!-- ITEM 5: SETTINGS -->
+        <div class="nav-item" onclick="setActiveNav(this)">
+          <div class="nav-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+          </div>
+          <div class="nav-content">
+            <span class="nav-title">SETTINGS</span>
+            <span class="nav-desc">Preferences</span>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+
+    <!-- REGRAS INFERIORES + ONDAS DEGRADE -->
+    <div>
+      <div class="rules-card">
+        <img src="https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png" alt="Bull Icon" class="rules-card-logo" />
+        <div class="rules-heading">
+          <span class="cyan-text">MORE MOMENTUM</span>
+          <span class="purple-text">LESS EMOTION</span>
+        </div>
+        <p class="rules-body">
+          The rule is simple: whoever loses market volume in 30 minutes pays the other side.
+        </p>
+        <button class="rules-btn">HOW IT WORKS?</button>
+      </div>
+
+      <!-- ONDAS CIANO/ROXO NO FUNDO DA IMAGEM OFICIAL -->
+      <div class="waves-bg"></div>
+    </div>
+
+  </div>
+
+  <script>
+    // 7 SEGUNDOS NO SPLASH SCREEN
+    setTimeout(() => {
+      const splash = document.getElementById('splash-screen');
+      const app = document.getElementById('app-container');
+      
+      splash.style.opacity = '0';
+      splash.style.visibility = 'hidden';
+      app.classList.add('visible');
+    }, 7000);
+
+    // CONTROLE DE NAVEGAÇÃO ENTRE OS ITENS
+    function setActiveNav(element) {
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      element.classList.add('active');
+    }
+  </script>
+</body>
 </html>
