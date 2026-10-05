@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bull Protocol | High-Yield Momentum Terminal</title>
   
-  <!-- FAVICON OFICIAL: LOGO DO TOURO (REMOVE O SÍMBOLO DO V0 DA ABA) -->
-  <link rel="icon" type="image/png" href="https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png" />
-  <link rel="shortcut icon" type="image/png" href="https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png" />
-  <link rel="apple-touch-icon" href="https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png" />
+  <!-- OFFICIAL BULL PROTOCOL FAVICON (REMOVES V0 ICON) -->
+  <link rel="icon" type="image/png" href="/bull-logo.png" />
+  <link rel="shortcut icon" type="image/png" href="/bull-logo.png" />
+  <link rel="apple-touch-icon" href="/bull-logo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +30,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ESCONDE QUALQUER MARCA D'ÁGUA OU BADGE DO V0 */
+    /* HIDE ANY LEFTOVER V0 BADGES OR WATERMARKS */
     [class*="v0-badge"], [id*="v0-badge"], a[href*="v0.dev"], div[data-v0] {
       display: none !important;
       opacity: 0 !important;
@@ -51,7 +51,7 @@
       background-attachment: fixed;
     }
 
-    /* SPLASH SCREEN DO TOURO */
+    /* BULL SPLASH SCREEN */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -62,7 +62,7 @@
       justify-content: center;
       z-index: 99999;
       cursor: pointer;
-      transition: opacity 0.8s ease;
+      transition: opacity 0.6s ease;
     }
 
     .splash-glow-core {
@@ -101,7 +101,7 @@
       text-shadow: 0 0 15px rgba(0, 240, 255, 0.8);
     }
 
-    /* APLICAÇÃO PRINCIPAL */
+    /* MAIN APP LAYOUT */
     #app-layout {
       display: flex;
       flex-direction: column;
@@ -672,4 +672,309 @@
     }
 
     .btn-shiba:hover {
-      box-
+      box-shadow: 0 0 28px rgba(168, 85, 247, 0.7);
+    }
+
+    .btn-doge {
+      background: linear-gradient(135deg, #00f0ff 0%, #0284c7 100%);
+      color: #010611;
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.4);
+    }
+
+    .btn-doge:hover {
+      box-shadow: 0 0 28px rgba(0, 240, 255, 0.7);
+    }
+
+    #web3-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 14px 22px;
+      background: #08111e;
+      border: 1px solid var(--cyan-neon);
+      border-radius: 12px;
+      color: #00f0ff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+      z-index: 100000;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BULL INTRO SPLASH SCREEN -->
+  <div id="splash-screen" onclick="dismissSplash()">
+    <div class="splash-glow-core"></div>
+    <img src="/bull-logo.png" onerror="this.src='https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png'" alt="Bull Protocol" class="splash-logo-img" />
+    <div class="splash-text">BULL PROTOCOL</div>
+    <div style="font-size: 10px; color: #64748b; margin-top: 8px; font-family: monospace;">CLICK TO ENTER</div>
+  </div>
+
+  <div id="app-layout">
+    <header id="topbar">
+      <div class="topbar-left">
+        <div class="brand-group">
+          <img src="/bull-logo.png" onerror="this.src='https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png'" alt="Bull Protocol" class="topbar-logo-img" />
+          <div class="brand-text">
+            <span class="brand-title">BULL</span>
+            <span class="brand-subtitle">PROTOCOL</span>
+          </div>
+        </div>
+
+        <div class="topbar-slogan">
+          <span class="slogan-title">MOMENTUM TRADING TERMINAL</span>
+          <span class="slogan-sub">TRADES • ROOMS • REAL PROFIT</span>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="network-pill">
+          <div class="solana-icon">
+            <div class="solana-line"></div>
+            <div class="solana-line"></div>
+            <div class="solana-line"></div>
+          </div>
+          SOLANA
+        </div>
+
+        <div class="network-pill">
+          <div class="raydium-icon">R</div>
+          RAYDIUM
+        </div>
+
+        <div class="status-online">
+          <div class="status-ring"></div>
+          Online
+        </div>
+
+        <!-- SOLANA WALLET BUTTON -->
+        <button id="connect-wallet-btn" class="wallet-btn" onclick="connectSolanaWallet()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          <span id="wallet-label">CONNECT WALLET</span>
+        </button>
+      </div>
+    </header>
+
+    <div id="main-body">
+      <aside id="sidebar-container">
+        <div>
+          <div class="sidebar-header">
+            <img src="/bull-logo.png" onerror="this.src='https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png'" alt="Bull Protocol" class="sidebar-logo-img" />
+            <div>
+              <div class="sidebar-brand-title">BULL</div>
+              <div class="sidebar-brand-subtitle">PROTOCOL</div>
+            </div>
+          </div>
+
+          <nav class="nav-group">
+            <div class="nav-btn selected" onclick="selectNav(this)">
+              <div class="btn-text">
+                <span class="btn-title">ROOMS</span>
+                <span class="btn-subtitle">Join battles</span>
+              </div>
+            </div>
+            <div class="nav-btn" onclick="selectNav(this)">
+              <div class="btn-text">
+                <span class="btn-title">MY PROFILE</span>
+                <span class="btn-subtitle" id="profile-sub">Wallet & history</span>
+              </div>
+            </div>
+            <div class="nav-btn" onclick="selectNav(this)">
+              <div class="btn-text">
+                <span class="btn-title">LAUNCHPAD</span>
+                <span class="btn-subtitle">Launch new projects</span>
+              </div>
+            </div>
+            <div class="nav-btn" onclick="selectNav(this)">
+              <div class="btn-text">
+                <span class="btn-title">LEADERBOARD</span>
+                <span class="btn-subtitle">Top traders</span>
+              </div>
+            </div>
+            <div class="nav-btn" onclick="selectNav(this)">
+              <div class="btn-text">
+                <span class="btn-title">REWARDS</span>
+                <span class="btn-subtitle">XP & achievements</span>
+              </div>
+            </div>
+            <div class="nav-btn" onclick="selectNav(this)">
+              <div class="btn-text">
+                <span class="btn-title">SETTINGS</span>
+                <span class="btn-subtitle">Preferences</span>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+        <div class="card-wrapper">
+          <div class="rules-box">
+            <img src="/bull-logo.png" onerror="this.src='https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png'" alt="Bull" class="card-logo-img" />
+            <div style="margin-bottom: 6px;">
+              <span class="rule-title-magenta">MORE</span>
+              <span class="rule-title-cyan">MOMENTUM,</span><br/>
+              <span class="rule-title-magenta">LESS</span>
+              <span class="rule-title-cyan">EMOTION</span>
+            </div>
+            <p class="rule-desc">
+              Here, every move matters. The game never stops. In the market for 30 minutes, pay and play.
+            </p>
+            <button class="btn-how-it-works" onclick="showToast('Terminal Rules: Pick your faction and win the liquidity duel!')">HOW IT WORKS?</button>
+          </div>
+        </div>
+      </aside>
+
+      <main id="content-container">
+        <div class="arena-dashboard">
+          <div class="fighter-col" onclick="commitPosition('SHIBA')">
+            <div class="fighter-avatar-wrap wrap-shiba">
+              <img src="https://assets.coingecko.com/coins/images/11939/large/shiba.png" alt="Shiba Inu" class="fighter-avatar" />
+            </div>
+            <div class="fighter-name shiba-text">SHIBA SIDE</div>
+            <div class="fighter-stats">50 PARTICIPANTS</div>
+            <div class="fighter-vol shiba-text">VOL: 12.4M USDT</div>
+          </div>
+
+          <div class="duel-center-col">
+            <div class="active-tag">ACTIVE ROOM</div>
+            <div class="duel-matchup-title">
+              SHIBA <span>VS</span> DOGE
+            </div>
+            <div class="duel-round-meta">30 MINUTES • 100 PARTICIPANTS</div>
+
+            <div class="timer-digital-box">
+              <span class="timer-label">TIME REMAINING</span>
+              <span class="timer-clock" id="clock-display">28:17</span>
+            </div>
+          </div>
+
+          <div class="fighter-col" onclick="commitPosition('DOGE')">
+            <div class="fighter-avatar-wrap wrap-doge">
+              <img src="https://assets.coingecko.com/coins/images/5/large/dogecoin.png" alt="Dogecoin" class="fighter-avatar" />
+            </div>
+            <div class="fighter-name doge-text">DOGE SIDE</div>
+            <div class="fighter-stats">50 PARTICIPANTS</div>
+            <div class="fighter-vol doge-text">VOL: 10.8M USDT</div>
+          </div>
+        </div>
+
+        <div class="battle-actions-grid">
+          <div class="faction-card faction-shiba">
+            <div>
+              <div class="faction-header">
+                <span class="faction-title shiba-text">SHIBA POSITION</span>
+                <span class="badge-metric badge-shiba">12.4M USDT POOL</span>
+              </div>
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 8px; line-height: 1.4;">
+                50 traders active in this round. Commit funds to Shiba momentum against Doge.
+              </p>
+            </div>
+            <button class="faction-btn btn-shiba" onclick="commitPosition('SHIBA')">COMMIT TO SHIBA</button>
+          </div>
+
+          <div class="faction-card faction-doge">
+            <div>
+              <div class="faction-header">
+                <span class="faction-title doge-text">DOGE POSITION</span>
+                <span class="badge-metric badge-doge">10.8M USDT POOL</span>
+              </div>
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 8px; line-height: 1.4;">
+                50 traders active in this round. Commit funds to Doge momentum against Shiba.
+              </p>
+            </div>
+            <button class="faction-btn btn-doge" onclick="commitPosition('DOGE')">COMMIT TO DOGE</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="web3-toast"></div>
+
+  <script>
+    // FULL DISMISS OF SPLASH SCREEN (UNLOCKS 100% OF INTERFACE)
+    function dismissSplash() {
+      const splash = document.getElementById('splash-screen');
+      if (splash && splash.style.display !== 'none') {
+        splash.style.opacity = '0';
+        setTimeout(() => {
+          splash.remove();
+        }, 600);
+      }
+    }
+    // Auto-dismiss after 3 seconds or on click
+    setTimeout(dismissSplash, 3000);
+
+    function selectNav(element) {
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('selected'));
+      element.classList.add('selected');
+    }
+
+    let secondsLeft = 28 * 60 + 17;
+    const clockEl = document.getElementById('clock-display');
+    setInterval(() => {
+      if (secondsLeft > 0) {
+        secondsLeft--;
+        const m = Math.floor(secondsLeft / 60).toString().padStart(2, '0');
+        const s = (secondsLeft % 60).toString().padStart(2, '0');
+        if (clockEl) clockEl.textContent = `${m}:${s}`;
+      }
+    }, 1000);
+
+    let connectedAddress = null;
+
+    function showToast(msg) {
+      const toast = document.getElementById('web3-toast');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 4000);
+    }
+
+    // DIRECT SOLANA WALLET ADAPTER (SUPPORTS PHANTOM, SOLFLARE, BACKPACK)
+    async function connectSolanaWallet() {
+      const provider = window.phantom?.solana || window.solflare || window.solana;
+
+      if (!provider) {
+        showToast("No Solana wallet found! Install Phantom at phantom.app");
+        window.open('https://phantom.app/', '_blank');
+        return;
+      }
+
+      if (connectedAddress) {
+        connectedAddress = null;
+        document.getElementById('wallet-label').textContent = "CONNECT WALLET";
+        document.getElementById('profile-sub').textContent = "Wallet & history";
+        showToast("Wallet disconnected.");
+        return;
+      }
+
+      try {
+        const resp = await provider.connect();
+        connectedAddress = resp.publicKey.toString();
+        const short = `${connectedAddress.slice(0, 4)}...${connectedAddress.slice(-4)}`;
+        document.getElementById('wallet-label').textContent = short;
+        document.getElementById('profile-sub').textContent = short;
+        showToast("Wallet connected: " + short);
+      } catch (err) {
+        showToast("Connection rejected by user.");
+      }
+    }
+
+    function commitPosition(side) {
+      if (!connectedAddress) {
+        showToast("Please connect your Solana wallet first!");
+        connectSolanaWallet();
+      } else {
+        showToast("Position committed to " + side + " team! Waiting for confirmation.");
+      }
+    }
+  </script>
+</body>
+</html>
