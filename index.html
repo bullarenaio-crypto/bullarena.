@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bull Protocol | Terminal</title>
+  <title>Bull Protocol | Momentum Trading Terminal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -22,13 +22,10 @@
       color: #ffffff;
       font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
-      display: flex;
       overflow-x: hidden;
     }
 
-    /* =========================================================
-       1. SPLASH SCREEN (7 SEGUNDOS) - SEM BORDAS NEM QUADRADO
-       ========================================================= */
+    /* 1. SPLASH SCREEN (7 SEGUNDOS) - RECORTE DINÂMICO 100% PRETO */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -59,21 +56,206 @@
       filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.8));
     }
 
-    /* =========================================================
-       2. LAYOUT PRINCIPAL: SIDEBAR + CONTEÚDO + RODAPÉ
-       ========================================================= */
-    #main-wrapper {
+    /* 2. ESTRUTURA GERAL DO SITE */
+    #app-layout {
       display: flex;
-      width: 100%;
+      flex-direction: column;
       min-height: 100vh;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.8s ease, visibility 0.8s ease;
     }
 
-    #main-wrapper.active {
+    #app-layout.active {
       opacity: 1;
       visibility: visible;
+    }
+
+    /* =========================================================
+       BARRA DE CIMA (HEADER) EXATA DO PRINT
+       ========================================================= */
+    #topbar {
+      height: 70px;
+      background-color: #03060d;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-logo-canvas {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px #00f0ff);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .brand-subtitle {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.38em;
+      color: #94a3b8;
+      margin-top: 3px;
+    }
+
+    .topbar-slogan {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      padding-left: 20px;
+    }
+
+    .slogan-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: #22d3ee;
+      text-transform: uppercase;
+    }
+
+    .slogan-sub {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: #64748b;
+      margin-top: 3px;
+      text-transform: uppercase;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* BADGE SOLANA */
+    .network-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #d1d5db;
+    }
+
+    .solana-icon {
+      width: 14px;
+      height: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .solana-line {
+      height: 2.5px;
+      background: linear-gradient(90deg, #9945ff, #14f195);
+      border-radius: 1px;
+    }
+
+    /* BADGE RAYDIUM */
+    .raydium-icon {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #a855f7;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 900;
+      color: #a855f7;
+    }
+
+    /* BADGE ONLINE */
+    .status-online {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      font-size: 11px;
+      font-weight: 700;
+      color: #10b981;
+    }
+
+    .status-ring {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    /* BOTÃO DA CARTEIRA */
+    .wallet-btn {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 16px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f3f4f6;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .wallet-btn:hover {
+      border-color: rgba(34, 211, 238, 0.4);
+      background: rgba(34, 211, 238, 0.05);
+    }
+
+    .wallet-avatar {
+      width: 16px;
+      height: 16px;
+      stroke: #94a3b8;
+    }
+
+    /* =========================================================
+       CORPO PRINCIPAL (SIDEBAR + CONTEÚDO)
+       ========================================================= */
+    #main-body {
+      display: flex;
+      flex: 1;
     }
 
     /* SIDEBAR */
@@ -84,45 +266,13 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 24px 18px 20px 18px;
+      padding: 22px 18px 20px 18px;
       border-right: 1px solid rgba(0, 240, 255, 0.08);
       position: relative;
       overflow: hidden;
     }
 
-    .brand-section {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .brand-logo-canvas {
-      width: 44px;
-      height: 44px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 10px #00f0ff);
-    }
-
-    .brand-title {
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: 0.15em;
-      color: #ffffff;
-      line-height: 1;
-    }
-
-    .brand-subtitle {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.38em;
-      color: #94a3b8;
-      margin-top: 4px;
-    }
-
     .nav-group {
-      margin-top: 18px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -289,65 +439,19 @@
       z-index: 1;
     }
 
-    /* CONTEÚDO PRINCIPAL */
+    /* ÁREA DO CONTEÚDO PRINCIPAL */
     #content-container {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 100vh;
-      background: radial-gradient(circle at top right, rgba(34, 211, 238, 0.05), transparent 50%);
-    }
-
-    .terminal-body {
       padding: 36px 40px;
+      background: radial-gradient(circle at top right, rgba(34, 211, 238, 0.04), transparent 50%);
       display: flex;
       flex-direction: column;
       gap: 28px;
     }
 
-    .header-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 24px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .header-title-block h1 {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-    }
-
-    .header-title-block p {
-      font-size: 13px;
-      color: #64748b;
-      margin-top: 4px;
-    }
-
-    .connect-btn {
-      background: #22d3ee;
-      color: #030712;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-      box-shadow: 0 0 20px rgba(34, 211, 238, 0.35);
-      transition: all 0.2s ease;
-    }
-
-    .connect-btn:hover {
-      box-shadow: 0 0 28px rgba(34, 211, 238, 0.6);
-      transform: translateY(-1px);
-    }
-
     .grid-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
     }
 
@@ -365,153 +469,80 @@
     .terminal-card:hover {
       border-color: rgba(34, 211, 238, 0.3);
     }
-
-    /* =========================================================
-       3. RODAPÉ INSTITUCIONAL (RODAPE.JPG) EM INGLÊS
-       ========================================================= */
-    .institutional-footer {
-      background: #03050a;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 28px 40px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-metrics {
-      display: flex;
-      gap: 36px;
-      flex-wrap: wrap;
-    }
-
-    .metric-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .metric-label {
-      font-size: 11px;
-      color: #64748b;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .metric-value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
-      font-weight: 700;
-      color: #22d3ee;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #10b981;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 8px #10b981;
-    }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .footer-links a {
-      color: #64748b;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      transition: color 0.2s ease;
-    }
-
-    .footer-links a:hover {
-      color: #22d3ee;
-    }
-
-    .footer-copy {
-      font-size: 12px;
-      color: #475569;
-    }
-
-    .support-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 8px 16px;
-      border-radius: 10px;
-      color: #cbd5e1;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .support-btn:hover {
-      background: rgba(34, 211, 238, 0.1);
-      border-color: rgba(34, 211, 238, 0.4);
-      color: #22d3ee;
-    }
   </style>
 </head>
 <body>
 
-  <!-- 1. SPLASH SCREEN (7 SEGUNDOS) -->
+  <!-- 1. SPLASH SCREEN (7 SEGUNDOS EXATOS) -->
   <div id="splash-screen">
     <div class="splash-glow"></div>
     <canvas id="splash-canvas"></canvas>
   </div>
 
-  <!-- 2. CONTAINER PRINCIPAL -->
-  <div id="main-wrapper">
+  <!-- 2. LAYOUT COMPLETO DA PLATAFORMA -->
+  <div id="app-layout">
     
-    <!-- SIDEBAR -->
-    <aside id="sidebar-container">
-      <div>
-        <div class="brand-section">
-          <canvas id="brand-canvas" class="brand-logo-canvas"></canvas>
+    <!-- TOPBAR / PARTE DE CIMA COMPLETA EXATA DO PRINT -->
+    <header id="topbar">
+      <!-- LADO ESQUERDO: LOGO + TITULO + SLOGAN -->
+      <div class="topbar-left">
+        <div class="brand-group">
+          <canvas id="topbar-logo-canvas" class="topbar-logo-canvas"></canvas>
           <div class="brand-text">
-            <div class="brand-title">BULL</div>
-            <div class="brand-subtitle">PROTOCOL</div>
+            <span class="brand-title">BULL</span>
+            <span class="brand-subtitle">PROTOCOL</span>
           </div>
         </div>
 
+        <div class="topbar-slogan">
+          <span class="slogan-title">MOMENTUM TRADING TERMINAL</span>
+          <span class="slogan-sub">TRADES • ROOMS • REAL PROFIT</span>
+        </div>
+      </div>
+
+      <!-- LADO DIREITO: SOLANA + RAYDIUM + STATUS ONLINE + CARTEIRA -->
+      <div class="topbar-right">
+        <!-- SOLANA -->
+        <div class="network-badge">
+          <div class="solana-icon">
+            <div class="solana-line"></div>
+            <div class="solana-line"></div>
+            <div class="solana-line"></div>
+          </div>
+          SOLANA
+        </div>
+
+        <!-- RAYDIUM -->
+        <div class="network-badge">
+          <div class="raydium-icon">R</div>
+          RAYDIUM
+        </div>
+
+        <!-- STATUS ONLINE -->
+        <div class="status-online">
+          <div class="status-ring"></div>
+          Online
+        </div>
+
+        <!-- CARTEIRA CONECTADA -->
+        <button class="wallet-btn">
+          <svg class="wallet-avatar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          4F3z...9K7a
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- CORPO COM A SIDEBAR E O TERMINAL -->
+    <div id="main-body">
+      
+      <!-- SIDEBAR LATERAL COM LAUNCHPAD E CARD INFERIOR -->
+      <aside id="sidebar-container">
         <nav class="nav-group">
           <!-- ROOMS -->
           <div class="nav-btn selected" onclick="selectNav(this)">
@@ -609,133 +640,72 @@
             </div>
           </div>
         </nav>
-      </div>
 
-      <div class="card-wrapper">
-        <div class="rules-box">
-          <canvas id="card-canvas" class="card-logo-canvas"></canvas>
-          <span class="rule-title-cyan">MORE MOMENTUM</span>
-          <span class="rule-title-purple">LESS EMOTION</span>
-          <p class="rule-desc">
-            The rule is simple: whoever loses market volume in 30 minutes pays the other side.
-          </p>
-          <button class="btn-how-it-works">HOW IT WORKS?</button>
-        </div>
-        <div class="neon-waves"></div>
-      </div>
-    </aside>
-
-    <!-- ÁREA DE CONTEÚDO E RODAPÉ -->
-    <main id="content-container">
-      
-      <!-- CORPO DO TERMINAL -->
-      <section class="terminal-body">
-        <div class="header-bar">
-          <div class="header-title-block">
-            <h1>BATTLE ROOMS & LAUNCHPAD</h1>
-            <p>Real-time volume competitions & decentralized allocation terminal</p>
+        <!-- CARD INFERIOR COM AS ONDAS -->
+        <div class="card-wrapper">
+          <div class="rules-box">
+            <canvas id="card-canvas" class="card-logo-canvas"></canvas>
+            <span class="rule-title-cyan">MORE MOMENTUM</span>
+            <span class="rule-title-purple">LESS EMOTION</span>
+            <p class="rule-desc">
+              The rule is simple: whoever loses market volume in 30 minutes pays the other side.
+            </p>
+            <button class="btn-how-it-works">HOW IT WORKS?</button>
           </div>
-          <button class="connect-btn">CONNECT WALLET</button>
+          <div class="neon-waves"></div>
+        </div>
+      </aside>
+
+      <!-- ÁREA CENTRAL DO TERMINAL -->
+      <main id="content-container">
+        <div>
+          <h2 style="font-size: 24px; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 6px;">BATTLE ARENA</h2>
+          <p style="font-size: 13px; color: #64748b;">Live decentralized momentum battles on Solana</p>
         </div>
 
         <div class="grid-cards">
           <!-- CARD 1 -->
           <div class="terminal-card">
             <div>
-              <span style="font-size: 12px; color: #22d3ee; font-weight: 700; letter-spacing: 0.05em;">LIVE POOL</span>
-              <h3 style="font-size: 20px; font-weight: 800; margin-top: 6px;">BTC / USDT</h3>
-              <p style="font-size: 13px; color: #64748b; margin-top: 4px;">30-minute volume duel round</p>
+              <span style="font-size: 12px; color: #22d3ee; font-weight: 700; letter-spacing: 0.05em;">ACTIVE DUEL</span>
+              <h3 style="font-size: 20px; font-weight: 800; margin-top: 6px;">SOL / USDT</h3>
+              <p style="font-size: 13px; color: #64748b; margin-top: 4px;">30-minute volume confrontation</p>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: flex-end;">
               <div>
-                <span style="font-size: 11px; color: #64748b;">PRIZE POOL</span>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 800; color: #10b981;">2.40 ETH</div>
+                <span style="font-size: 11px; color: #64748b;">POOL PRIZE</span>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 800; color: #10b981;">185.5 SOL</div>
               </div>
-              <button style="background: rgba(34, 211, 238, 0.15); border: 1px solid #22d3ee; color: #22d3ee; padding: 8px 16px; border-radius: 8px; font-weight: 700; cursor: pointer;">JOIN</button>
+              <button style="background: rgba(34, 211, 238, 0.15); border: 1px solid #22d3ee; color: #22d3ee; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer;">ENTER</button>
             </div>
           </div>
 
           <!-- CARD 2 -->
           <div class="terminal-card">
             <div>
-              <span style="font-size: 12px; color: #a855f7; font-weight: 700; letter-spacing: 0.05em;">UPCOMING LAUNCHPAD</span>
+              <span style="font-size: 12px; color: #a855f7; font-weight: 700; letter-spacing: 0.05em;">LAUNCHPAD</span>
               <h3 style="font-size: 20px; font-weight: 800; margin-top: 6px;">$BULL GENESIS</h3>
-              <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Exclusive allocation tier access</p>
+              <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Early allocation & token presale</p>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: flex-end;">
               <div>
-                <span style="font-size: 11px; color: #64748b;">HARD CAP</span>
+                <span style="font-size: 11px; color: #64748b;">TARGET</span>
                 <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 800; color: #c084fc;">$500,000</div>
               </div>
-              <button style="background: rgba(168, 85, 247, 0.15); border: 1px solid #a855f7; color: #a855f7; padding: 8px 16px; border-radius: 8px; font-weight: 700; cursor: pointer;">EXPLORE</button>
+              <button style="background: rgba(168, 85, 247, 0.15); border: 1px solid #a855f7; color: #a855f7; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer;">VIEW POOL</button>
             </div>
           </div>
         </div>
-      </section>
+      </main>
 
-      <!-- RODAPÉ INSTITUCIONAL (RODAPE.JPG) -->
-      <footer class="institutional-footer">
-        <!-- MÉTRICAS DO SISTEMA -->
-        <div class="footer-top">
-          <div class="footer-metrics">
-            <div class="metric-item">
-              <span class="metric-label">24h Volume Duel</span>
-              <span class="metric-value">$4,892,150.00</span>
-            </div>
-            <div class="metric-item">
-              <span class="metric-label">Total Battles Resolved</span>
-              <span class="metric-value">18,492</span>
-            </div>
-            <div class="metric-item">
-              <span class="metric-label">Active Traders</span>
-              <span class="metric-value">1,420 Live</span>
-            </div>
-            <div class="metric-item">
-              <span class="metric-label">Protocol Yield Pool</span>
-              <span class="metric-value">14.8% APY</span>
-            </div>
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 16px;">
-            <div class="status-badge">
-              <span class="status-dot"></span>
-              ALL SYSTEMS OPERATIONAL
-            </div>
-            <button class="support-btn">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                <line x1="12" y1="17" x2="12.01" y2="17"/>
-              </svg>
-              SUPPORT
-            </button>
-          </div>
-        </div>
-
-        <!-- LINKS, TERMOS E COPYRIGHT -->
-        <div class="footer-bottom">
-          <div class="footer-links">
-            <a href="#docs">DOCUMENTATION</a>
-            <a href="#terms">TERMS OF SERVICE</a>
-            <a href="#privacy">PRIVACY POLICY</a>
-            <a href="#security">SECURITY AUDIT</a>
-            <a href="#api">API STATS</a>
-          </div>
-
-          <div class="footer-copy">
-            © 2026 BULL PROTOCOL. ALL RIGHTS RESERVED. DECENTRALIZED PROTOCOL INFRASTRUCTURE.
-          </div>
-        </div>
-      </footer>
-
-    </main>
+    </div>
 
   </div>
 
   <script>
     const BULL_URL = 'https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png';
 
-    // REMOVE O QUADRADO PRETO AUTOMATICAMENTE VIA CANVAS
+    // REMOVE O QUADRADO PRETO AUTOMATICAMENTE EM TODOS OS CANVASES
     function drawCroppedBull(canvasId, img) {
       const canvas = document.getElementById(canvasId);
       if (!canvas) return;
@@ -751,7 +721,7 @@
       for (let i = 0; i < data.length; i += 4) {
         const brightness = Math.max(data[i], data[i + 1], data[i + 2]);
         if (brightness < 35) {
-          data[i + 3] = 0; // Transparente total no quadrado
+          data[i + 3] = 0;
         } else if (brightness < 70) {
           data[i + 3] = Math.round(((brightness - 35) / 35) * 255);
         }
@@ -760,4 +730,29 @@
     }
 
     const baseImg = new Image();
-    baseImg.crossOrigin
+    baseImg.crossOrigin = 'anonymous';
+    baseImg.src = BULL_URL;
+    baseImg.onload = () => {
+      drawCroppedBull('splash-canvas', baseImg);
+      drawCroppedBull('topbar-logo-canvas', baseImg);
+      drawCroppedBull('card-canvas', baseImg);
+    };
+
+    // 7 SEGUNDOS NO SPLASH SCREEN
+    setTimeout(() => {
+      const splash = document.getElementById('splash-screen');
+      const appLayout = document.getElementById('app-layout');
+      
+      splash.style.opacity = '0';
+      splash.style.visibility = 'hidden';
+      appLayout.classList.add('active');
+    }, 7000);
+
+    // SELEÇÃO DO MENU
+    function selectNav(element) {
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('selected'));
+      element.classList.add('selected');
+    }
+  </script>
+</body>
+</html>
