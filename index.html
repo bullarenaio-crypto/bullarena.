@@ -28,7 +28,7 @@
       overflow-x: hidden;
     }
 
-    /* 1. TELA DE SPLASH (7 SEGUNDOS) */
+    /* 1. SPLASH SCREEN (7 SEGUNDOS) - 100% PRETO COM RECORTE DINÂMICO */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -44,19 +44,18 @@
       position: absolute;
       width: 340px;
       height: 340px;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.25) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.22) 0%, transparent 70%);
       border-radius: 50%;
       filter: blur(80px);
       pointer-events: none;
     }
 
-    .splash-img {
+    #splash-canvas {
       position: relative;
       width: 300px;
       max-width: 85vw;
       height: auto;
       object-fit: contain;
-      mix-blend-mode: screen;
       filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.8));
     }
 
@@ -87,15 +86,14 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding-bottom: 22px;
+      padding-bottom: 20px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .brand-logo {
+    .brand-logo-canvas {
       width: 44px;
       height: 44px;
       object-fit: contain;
-      mix-blend-mode: screen;
       filter: drop-shadow(0 0 10px #00f0ff);
     }
 
@@ -117,17 +115,17 @@
 
     /* MENU DE NAVEGAÇÃO */
     .nav-group {
-      margin-top: 24px;
+      margin-top: 18px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .nav-btn {
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 14px 16px;
+      padding: 12px 16px;
       border-radius: 14px;
       cursor: pointer;
       text-decoration: none;
@@ -136,7 +134,7 @@
       border: 1px solid transparent;
     }
 
-    /* BOTÃO ROOMS (DEGRADÊ NEON ROXO/CIANO IGUAL À IMAGEM) */
+    /* ITEM ROOMS SELECIONADO COM GRADIENTE NEON */
     .nav-btn.selected {
       background: linear-gradient(90deg, rgba(168, 85, 247, 0.35) 0%, rgba(34, 211, 238, 0.35) 100%);
       border: 1px solid rgba(34, 211, 238, 0.6);
@@ -197,33 +195,32 @@
     .btn-subtitle {
       font-size: 11px;
       color: #64748b;
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     /* CARD DE REGRAS INFERIOR */
     .card-wrapper {
       position: relative;
       z-index: 2;
-      margin-top: 24px;
+      margin-top: 18px;
     }
 
     .rules-box {
       background: rgba(8, 12, 22, 0.95);
       border: 1px solid rgba(34, 211, 238, 0.25);
       border-radius: 18px;
-      padding: 22px 18px;
+      padding: 18px 16px;
       text-align: center;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
       position: relative;
       z-index: 2;
     }
 
-    .card-logo {
+    .card-logo-canvas {
       width: 36px;
       height: 36px;
       object-fit: contain;
-      mix-blend-mode: screen;
-      margin: 0 auto 8px auto;
+      margin: 0 auto 6px auto;
       filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8));
     }
 
@@ -242,7 +239,7 @@
       letter-spacing: 0.08em;
       color: #c084fc;
       display: block;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       text-transform: uppercase;
     }
 
@@ -250,7 +247,7 @@
       font-size: 11px;
       line-height: 1.45;
       color: #94a3b8;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .btn-how-it-works {
@@ -258,7 +255,7 @@
       background: transparent;
       border: 1px solid rgba(34, 211, 238, 0.5);
       border-radius: 10px;
-      padding: 10px 0;
+      padding: 9px 0;
       color: #22d3ee;
       font-size: 11px;
       font-weight: 800;
@@ -274,13 +271,13 @@
       border-color: #22d3ee;
     }
 
-    /* ONDAS NEON DO RODAPÉ (DIRETAMENTE DA IMAGEM OFICIAL) */
+    /* ONDAS NEON DO RODAPÉ */
     .neon-waves {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 120px;
+      height: 110px;
       background: url('https://i.postimg.cc/4yNtpNzv/site.png') no-repeat bottom center;
       background-size: cover;
       opacity: 0.65;
@@ -291,19 +288,19 @@
 </head>
 <body>
 
-  <!-- 1. SPLASH SCREEN: APENAS O TOURO CENTRALIZADO POR 7 SEGUNDOS -->
+  <!-- 1. SPLASH SCREEN: TOURO ISOLADO NO CANVAS SEM FUNDO/QUADRADO -->
   <div id="splash-screen">
     <div class="splash-glow"></div>
-    <img src="https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png" alt="Bull Logo" class="splash-img" />
+    <canvas id="splash-canvas"></canvas>
   </div>
 
-  <!-- 2. SIDEBAR COMPLETA (BULL PROTOCOL EM INGLÊS) -->
+  <!-- 2. SIDEBAR BULL PROTOCOL -->
   <aside id="sidebar-container">
     
     <div>
-      <!-- HEADER COM LOGO E TEXTO -->
+      <!-- HEADER COM LOGO RECORTADO E NOME -->
       <div class="brand-section">
-        <img src="https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png" alt="Bull Protocol" class="brand-logo" />
+        <canvas id="brand-canvas" class="brand-logo-canvas"></canvas>
         <div class="brand-text">
           <div class="brand-title">BULL</div>
           <div class="brand-subtitle">PROTOCOL</div>
@@ -313,7 +310,7 @@
       <!-- ITENS DE MENU -->
       <nav class="nav-group">
         
-        <!-- BATTLE ROOMS (ATIVO) -->
+        <!-- ROOMS (ATIVO) -->
         <div class="nav-btn selected" onclick="selectNav(this)">
           <div class="nav-icon">
             <svg viewBox="0 0 24 24">
@@ -330,6 +327,22 @@
           <div class="btn-text">
             <span class="btn-title">ROOMS</span>
             <span class="btn-subtitle">Join battles</span>
+          </div>
+        </div>
+
+        <!-- LAUNCHPAD (NOVO ITEM) -->
+        <div class="nav-btn" onclick="selectNav(this)">
+          <div class="nav-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+              <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+              <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+              <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+          </div>
+          <div class="btn-text">
+            <span class="btn-title">LAUNCHPAD</span>
+            <span class="btn-subtitle">New token drops</span>
           </div>
         </div>
 
@@ -396,10 +409,10 @@
       </nav>
     </div>
 
-    <!-- CARD INFERIOR E ONDAS NEON -->
+    <!-- CARD INFERIOR E ONDAS -->
     <div class="card-wrapper">
       <div class="rules-box">
-        <img src="https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png" alt="Mini Bull" class="card-logo" />
+        <canvas id="card-canvas" class="card-logo-canvas"></canvas>
         <span class="rule-title-cyan">MORE MOMENTUM</span>
         <span class="rule-title-purple">LESS EMOTION</span>
         <p class="rule-desc">
@@ -414,7 +427,43 @@
   </aside>
 
   <script>
-    // 7 segundos no splash screen e ativação da sidebar
+    const BULL_URL = 'https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png';
+
+    // FUNÇÃO QUE RECORTA MATEMATICAMENTE QUALQUER FUNDO ESCURO/QUADRADO
+    function drawCroppedBull(canvasId, img) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imgData.data;
+
+      for (let i = 0; i < data.length; i += 4) {
+        const brightness = Math.max(data[i], data[i + 1], data[i + 2]);
+        if (brightness < 35) {
+          data[i + 3] = 0; // Transparência total no quadrado preto
+        } else if (brightness < 70) {
+          data[i + 3] = Math.round(((brightness - 35) / 35) * 255); // Suavização nas bordas neon
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+    }
+
+    // CARREGA A IMAGEM E APLICA NOS TRÊS LOCAIS (SPLASH, HEADER E CARD)
+    const baseImg = new Image();
+    baseImg.crossOrigin = 'anonymous';
+    baseImg.src = BULL_URL;
+    baseImg.onload = () => {
+      drawCroppedBull('splash-canvas', baseImg);
+      drawCroppedBull('brand-canvas', baseImg);
+      drawCroppedBull('card-canvas', baseImg);
+    };
+
+    // 7 SEGUNDOS NO SPLASH SCREEN
     setTimeout(() => {
       const splash = document.getElementById('splash-screen');
       const sidebar = document.getElementById('sidebar-container');
@@ -424,7 +473,7 @@
       sidebar.classList.add('active');
     }, 7000);
 
-    // Alternar clique entre os menus
+    // ALTERNÂNCIA DOS MENUS
     function selectNav(element) {
       document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('selected'));
       element.classList.add('selected');
