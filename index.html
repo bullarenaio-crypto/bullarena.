@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bull Protocol | High-Yield Momentum Terminal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-dark: #020408;
-      --panel-bg: rgba(6, 10, 18, 0.72);
-      --panel-border: rgba(255, 255, 255, 0.08);
+      --bg-dark: #020409;
+      --sidebar-bg: #050811;
       --cyan-neon: #00f0ff;
       --cyan-glow: rgba(0, 240, 255, 0.45);
       --purple-neon: #c084fc;
+      --magenta-neon: #d946ef;
       --purple-glow: rgba(192, 132, 252, 0.45);
     }
 
@@ -41,7 +41,7 @@
       background-attachment: fixed;
     }
 
-    /* 1. SPLASH SCREEN (7 SEGUNDOS) */
+    /* 1. SPLASH SCREEN (7 SECONDS) */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -73,7 +73,7 @@
       filter: drop-shadow(0 0 35px rgba(0, 240, 255, 0.85)) drop-shadow(0 0 70px rgba(0, 240, 255, 0.35));
     }
 
-    /* 2. ESTRUTURA PRINCIPAL */
+    /* 2. MAIN APPLICATION */
     #app-layout {
       display: flex;
       flex-direction: column;
@@ -88,10 +88,10 @@
       visibility: visible;
     }
 
-    /* TOPBAR SUPERIOR */
+    /* TOPBAR */
     #topbar {
       height: 68px;
-      background: rgba(4, 7, 14, 0.85);
+      background: rgba(4, 7, 14, 0.88);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.07);
       display: flex;
@@ -116,8 +116,8 @@
     }
 
     .topbar-logo-canvas {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       object-fit: contain;
       filter: drop-shadow(0 0 14px rgba(0, 240, 255, 0.7));
     }
@@ -249,26 +249,63 @@
       cursor: pointer;
     }
 
-    /* CORPO PRINCIPAL */
+    /* BODY */
     #main-body {
       display: flex;
       flex: 1;
     }
 
-    /* SIDEBAR */
+    /* =========================================================
+       SIDEBAR EXATA DA IMAGEM LATERAL
+       ========================================================= */
     #sidebar-container {
       width: 300px;
       min-width: 300px;
-      background: linear-gradient(180deg, rgba(5, 8, 16, 0.96) 0%, rgba(3, 5, 10, 0.98) 100%);
+      background: #040712;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 20px 16px;
-      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 22px 16px 18px 16px;
+      border-right: 1px solid rgba(0, 240, 255, 0.08);
       position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 6px 18px 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .sidebar-logo-canvas {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 12px #00f0ff);
+    }
+
+    .sidebar-brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .sidebar-brand-subtitle {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.38em;
+      color: var(--cyan-neon);
+      margin-top: 4px;
     }
 
     .nav-group {
+      margin-top: 16px;
       display: flex;
       flex-direction: column;
       gap: 7px;
@@ -287,15 +324,31 @@
       border: 1px solid transparent;
     }
 
+    /* BOTÃO ROOMS COM AS CORES EXATAS DO PRINT: GRADIENTE ROXO PARA CIANO */
     .nav-btn.selected {
-      background: linear-gradient(90deg, rgba(168, 85, 247, 0.22) 0%, rgba(0, 240, 255, 0.22) 100%);
-      border: 1px solid rgba(0, 240, 255, 0.55);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+      background: linear-gradient(90deg, rgba(168, 85, 247, 0.3) 0%, rgba(0, 240, 255, 0.3) 100%);
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      position: relative;
+      box-shadow: 0 0 22px rgba(0, 240, 255, 0.22);
+    }
+
+    .nav-btn.selected::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 12px;
+      padding: 1px;
+      background: linear-gradient(90deg, #c084fc, #00f0ff);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
     }
 
     .nav-btn.selected .nav-icon svg {
       stroke: var(--cyan-neon);
-      filter: drop-shadow(0 0 6px var(--cyan-neon));
+      filter: drop-shadow(0 0 8px var(--cyan-neon));
     }
 
     .nav-btn.selected .btn-title {
@@ -319,11 +372,16 @@
     .nav-icon svg {
       width: 100%;
       height: 100%;
-      stroke: #64748b;
+      stroke: #718096;
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
       fill: none;
+      transition: stroke 0.2s ease;
+    }
+
+    .nav-btn:not(.selected):hover .nav-icon svg {
+      stroke: #cbd5e1;
     }
 
     .btn-text {
@@ -340,11 +398,12 @@
     }
 
     .btn-subtitle {
-      font-size: 10.5px;
+      font-size: 10px;
       color: #64748b;
+      margin-top: 1px;
     }
 
-    /* CARD DE REGRAS */
+    /* CARD DE REGRAS INFERIOR */
     .card-wrapper {
       position: relative;
       z-index: 2;
@@ -352,9 +411,9 @@
     }
 
     .rules-box {
-      background: linear-gradient(180deg, rgba(8, 13, 25, 0.95) 0%, rgba(4, 7, 15, 0.98) 100%);
-      border: 1px solid rgba(0, 240, 255, 0.26);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      background: linear-gradient(180deg, rgba(8, 12, 24, 0.95) 0%, rgba(4, 7, 15, 0.98) 100%);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
       border-radius: 16px;
       padding: 16px 14px;
       text-align: center;
@@ -363,11 +422,19 @@
     }
 
     .card-logo-canvas {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       object-fit: contain;
       margin: 0 auto 6px auto;
-      filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.8));
+      filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.8));
+    }
+
+    .rule-title-magenta {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: var(--magenta-neon);
+      display: inline-block;
     }
 
     .rule-title-cyan {
@@ -375,37 +442,40 @@
       font-weight: 900;
       letter-spacing: 0.08em;
       color: var(--cyan-neon);
-      display: block;
+      display: inline-block;
+      margin-left: 4px;
     }
 
-    .rule-title-purple {
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      color: #d8b4fe;
-      display: block;
-      margin-bottom: 8px;
+    .rule-title-row {
+      margin-bottom: 6px;
     }
 
     .rule-desc {
-      font-size: 10.5px;
-      line-height: 1.4;
+      font-size: 10px;
+      line-height: 1.45;
       color: #94a3b8;
       margin-bottom: 12px;
+      padding: 0 4px;
     }
 
     .btn-how-it-works {
       width: 100%;
-      background: linear-gradient(180deg, rgba(0, 240, 255, 0.08) 0%, transparent 100%);
-      border: 1px solid rgba(0, 240, 255, 0.45);
+      background: transparent;
+      border: 1px solid rgba(0, 240, 255, 0.5);
       border-radius: 9px;
       padding: 8px 0;
       color: var(--cyan-neon);
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.1em;
       cursor: pointer;
       text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .btn-how-it-works:hover {
+      background: rgba(0, 240, 255, 0.12);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
     }
 
     .neon-waves {
@@ -413,17 +483,15 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 95px;
+      height: 90px;
       background: url('https://i.postimg.cc/4yNtpNzv/site.png') no-repeat bottom center;
       background-size: cover;
-      opacity: 0.55;
+      opacity: 0.65;
       pointer-events: none;
       z-index: 1;
     }
 
-    /* =========================================================
-       ÁREA CENTRAL: ARENA CORRIGIDA (SEM CORTES E PROPORCIONAL)
-       ========================================================= */
+    /* CENTRAL ARENA */
     #content-container {
       flex: 1;
       padding: 24px 28px;
@@ -431,41 +499,185 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      gap: 18px;
+      gap: 20px;
       max-width: 100%;
     }
 
-    /* VIEWPORT COMPACTO E PROPORCIONAL PARA A ARTE SHIBA VS DOGE */
-    .arena-viewport {
+    .arena-dashboard {
       width: 100%;
-      max-width: 860px; /* Largura reduzida para caber sem cortar */
-      border-radius: 16px;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 40%, rgba(168, 85, 247, 0.5) 100%);
-      box-shadow: 
-        0 14px 40px rgba(0, 0, 0, 0.9),
-        0 0 25px rgba(0, 240, 255, 0.15);
+      max-width: 860px;
+      background: linear-gradient(135deg, rgba(16, 12, 34, 0.95) 0%, rgba(5, 10, 24, 0.95) 100%);
+      border: 1.5px solid rgba(0, 240, 255, 0.35);
+      border-radius: 18px;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 240, 255, 0.12);
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .arena-inner-frame {
-      background: #02050b;
-      border-radius: 15px;
-      overflow: hidden;
+    .arena-glow-left {
+      position: absolute;
+      left: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .arena-glow-right {
+      position: absolute;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.35) 0%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .fighter-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      width: 190px;
+    }
+
+    .fighter-avatar-wrap {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      padding: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-bottom: 12px;
     }
 
-    .arena-img-banner {
+    .wrap-shiba {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
+    }
+
+    .wrap-doge {
+      background: linear-gradient(135deg, #00f0ff, #38bdf8);
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
+    }
+
+    .fighter-avatar {
       width: 100%;
-      max-height: 270px; /* Limita a altura para que não estoure o monitor */
-      height: auto;
-      display: block;
-      object-fit: contain;
-      filter: contrast(106%) saturate(108%);
+      height: 100%;
+      border-radius: 50%;
+      background: #000;
+      object-fit: cover;
     }
 
-    /* CARDS DE AÇÃO COMPACTOS */
+    .fighter-name {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .shiba-text { color: #d8b4fe; }
+    .doge-text { color: #38bdf8; }
+
+    .fighter-stats {
+      font-size: 11px;
+      color: #cbd5e1;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .fighter-vol {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .duel-center-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .active-tag {
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      color: var(--cyan-neon);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      padding: 4px 14px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .duel-matchup-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .duel-matchup-title span {
+      color: #94a3b8;
+      font-size: 14px;
+      margin: 0 6px;
+      font-weight: 700;
+    }
+
+    .duel-round-meta {
+      font-size: 11px;
+      color: #94a3b8;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    .timer-digital-box {
+      margin-top: 14px;
+      background: rgba(2, 6, 18, 0.9);
+      border: 1px solid rgba(0, 240, 255, 0.5);
+      border-radius: 12px;
+      padding: 10px 28px;
+      box-shadow: inset 0 0 14px rgba(0, 240, 255, 0.15), 0 0 20px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .timer-label {
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    .timer-clock {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #ffffff;
+      text-shadow: 0 0 18px rgba(0, 240, 255, 0.8);
+      margin-top: 2px;
+    }
+
     .battle-actions-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -505,16 +717,6 @@
       font-size: 16px;
       font-weight: 900;
       letter-spacing: 0.08em;
-    }
-
-    .shiba-accent {
-      color: #d8b4fe;
-      text-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
-    }
-
-    .doge-accent {
-      color: var(--cyan-neon);
-      text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
     }
 
     .badge-metric {
@@ -575,16 +777,16 @@
 </head>
 <body>
 
-  <!-- 1. SPLASH SCREEN (7 SEGUNDOS) -->
+  <!-- 1. SPLASH SCREEN (7 SECONDS) -->
   <div id="splash-screen">
     <div class="splash-glow-core"></div>
     <canvas id="splash-canvas"></canvas>
   </div>
 
-  <!-- 2. LAYOUT COMPLETO DA PLATAFORMA -->
+  <!-- 2. MAIN APPLICATION -->
   <div id="app-layout">
     
-    <!-- TOPBAR SUPERIOR -->
+    <!-- TOPBAR -->
     <header id="topbar">
       <div class="topbar-left">
         <div class="brand-group">
@@ -634,117 +836,136 @@
       </div>
     </header>
 
-    <!-- CORPO COM A SIDEBAR E A ARENA -->
+    <!-- MAIN BODY -->
     <div id="main-body">
       
-      <!-- SIDEBAR LATERAL -->
+      <!-- SIDEBAR EXATA DO ARQUIVO LATERAL -->
       <aside id="sidebar-container">
-        <nav class="nav-group">
-          <!-- ROOMS -->
-          <div class="nav-btn selected" onclick="selectNav(this)">
-            <div class="nav-icon">
-              <svg viewBox="0 0 24 24">
-                <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" />
-                <line x1="13" y1="19" x2="19" y2="13" />
-                <line x1="16" y1="16" x2="20" y2="20" />
-                <line x1="19" y1="21" x2="21" y2="19" />
-                <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5" />
-                <line x1="5" y1="14" x2="9" y2="18" />
-                <line x1="7" y1="17" x2="4" y2="20" />
-                <line x1="3" y1="19" x2="5" y2="21" />
-              </svg>
-            </div>
-            <div class="btn-text">
-              <span class="btn-title">ROOMS</span>
-              <span class="btn-subtitle">Join battles</span>
+        <div>
+          <!-- BRAND HEADER -->
+          <div class="sidebar-header">
+            <canvas id="sidebar-logo-canvas" class="sidebar-logo-canvas"></canvas>
+            <div>
+              <div class="sidebar-brand-title">BULL</div>
+              <div class="sidebar-brand-subtitle">PROTOCOL</div>
             </div>
           </div>
 
-          <!-- LAUNCHPAD -->
-          <div class="nav-btn" onclick="selectNav(this)">
-            <div class="nav-icon">
-              <svg viewBox="0 0 24 24">
-                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-                <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
-                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
-              </svg>
+          <!-- NAVIGATION MENU -->
+          <nav class="nav-group">
+            
+            <!-- 1. ROOMS (SELECTED) -->
+            <div class="nav-btn selected" onclick="selectNav(this)">
+              <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                  <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" />
+                  <line x1="13" y1="19" x2="19" y2="13" />
+                  <line x1="16" y1="16" x2="20" y2="20" />
+                  <line x1="19" y1="21" x2="21" y2="19" />
+                  <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5" />
+                  <line x1="5" y1="14" x2="9" y2="18" />
+                  <line x1="7" y1="17" x2="4" y2="20" />
+                  <line x1="3" y1="19" x2="5" y2="21" />
+                </svg>
+              </div>
+              <div class="btn-text">
+                <span class="btn-title">ROOMS</span>
+                <span class="btn-subtitle">Join battles</span>
+              </div>
             </div>
-            <div class="btn-text">
-              <span class="btn-title">LAUNCHPAD</span>
-              <span class="btn-subtitle">New token drops</span>
-            </div>
-          </div>
 
-          <!-- MY PROFILE -->
-          <div class="nav-btn" onclick="selectNav(this)">
-            <div class="nav-icon">
-              <svg viewBox="0 0 24 24">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
+            <!-- 2. MY PROFILE -->
+            <div class="nav-btn" onclick="selectNav(this)">
+              <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <div class="btn-text">
+                <span class="btn-title">MY PROFILE</span>
+                <span class="btn-subtitle">Wallet & history</span>
+              </div>
             </div>
-            <div class="btn-text">
-              <span class="btn-title">MY PROFILE</span>
-              <span class="btn-subtitle">Wallet and history</span>
-            </div>
-          </div>
 
-          <!-- RANKING -->
-          <div class="nav-btn" onclick="selectNav(this)">
-            <div class="nav-icon">
-              <svg viewBox="0 0 24 24">
-                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-                <path d="M4 22h16" />
-                <path d="M10 14.66V17c0 .55-.45 1-1 1H7" />
-                <path d="M14 14.66V17c0 .55.45 1 1 1h2" />
-                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-              </svg>
+            <!-- 3. LAUNCHPAD -->
+            <div class="nav-btn" onclick="selectNav(this)">
+              <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                  <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+                </svg>
+              </div>
+              <div class="btn-text">
+                <span class="btn-title">LAUNCHPAD</span>
+                <span class="btn-subtitle">Launch new projects</span>
+              </div>
             </div>
-            <div class="btn-text">
-              <span class="btn-title">RANKING</span>
-              <span class="btn-subtitle">Top traders</span>
-            </div>
-          </div>
 
-          <!-- REWARDS -->
-          <div class="nav-btn" onclick="selectNav(this)">
-            <div class="nav-icon">
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="8" r="6" />
-                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
-              </svg>
+            <!-- 4. LEADERBOARD -->
+            <div class="nav-btn" onclick="selectNav(this)">
+              <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                  <path d="M4 22h16" />
+                  <path d="M10 14.66V17c0 .55-.45 1-1 1H7" />
+                  <path d="M14 14.66V17c0 .55.45 1 1 1h2" />
+                  <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                </svg>
+              </div>
+              <div class="btn-text">
+                <span class="btn-title">LEADERBOARD</span>
+                <span class="btn-subtitle">Top traders</span>
+              </div>
             </div>
-            <div class="btn-text">
-              <span class="btn-title">REWARDS</span>
-              <span class="btn-subtitle">XP and achievements</span>
-            </div>
-          </div>
 
-          <!-- SETTINGS -->
-          <div class="nav-btn" onclick="selectNav(this)">
-            <div class="nav-icon">
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-              </svg>
+            <!-- 5. REWARDS -->
+            <div class="nav-btn" onclick="selectNav(this)">
+              <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="8" r="6" />
+                  <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+                </svg>
+              </div>
+              <div class="btn-text">
+                <span class="btn-title">REWARDS</span>
+                <span class="btn-subtitle">XP & achievements</span>
+              </div>
             </div>
-            <div class="btn-text">
-              <span class="btn-title">SETTINGS</span>
-              <span class="btn-subtitle">Preferences</span>
-            </div>
-          </div>
-        </nav>
 
-        <!-- CARD INFERIOR -->
+            <!-- 6. SETTINGS -->
+            <div class="nav-btn" onclick="selectNav(this)">
+              <div class="nav-icon">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
+              </div>
+              <div class="btn-text">
+                <span class="btn-title">SETTINGS</span>
+                <span class="btn-subtitle">Preferences</span>
+              </div>
+            </div>
+
+          </nav>
+        </div>
+
+        <!-- CARD INFERIOR COM AS CORES DO PRINT -->
         <div class="card-wrapper">
           <div class="rules-box">
             <canvas id="card-canvas" class="card-logo-canvas"></canvas>
-            <span class="rule-title-cyan">MORE MOMENTUM</span>
-            <span class="rule-title-purple">LESS EMOTION</span>
+            <div class="rule-title-row">
+              <span class="rule-title-magenta">MORE</span>
+              <span class="rule-title-cyan">MOMENTUM,</span>
+              <br/>
+              <span class="rule-title-magenta">LESS</span>
+              <span class="rule-title-cyan">EMOTION</span>
+            </div>
             <p class="rule-desc">
-              The rule is simple: whoever loses market volume in 30 minutes pays the other side.
+              Here, every move matters. The game never stops. In the market for 30 minutes, pay and play.
             </p>
             <button class="btn-how-it-works">HOW IT WORKS?</button>
           </div>
@@ -752,106 +973,59 @@
         </div>
       </aside>
 
-      <!-- ÁREA CENTRAL DA ARENA (ENQUADRADA E PROPORCIONAL) -->
+      <!-- CENTRAL ARENA -->
       <main id="content-container">
         
-        <!-- BANNER PROPORCIONAL SEM CORTES -->
-        <div class="arena-viewport">
-          <div class="arena-inner-frame">
-            <img src="https://i.postimg.cc/PxQgJhzr/shiba.jpg" alt="SHIBA VS DOGE Arena" class="arena-img-banner" />
+        <!-- ARENA DASHBOARD -->
+        <div class="arena-dashboard">
+          <div class="arena-glow-left"></div>
+          <div class="arena-glow-right"></div>
+
+          <!-- SHIBA SIDE -->
+          <div class="fighter-col">
+            <div class="fighter-avatar-wrap wrap-shiba">
+              <img src="https://assets.coingecko.com/coins/images/11939/large/shiba.png" alt="Shiba Inu" class="fighter-avatar" />
+            </div>
+            <div class="fighter-name shiba-text">SHIBA SIDE</div>
+            <div class="fighter-stats">50 PARTICIPANTS</div>
+            <div class="fighter-vol shiba-text">VOL: 12.4M USDT</div>
+          </div>
+
+          <!-- DUEL MATCHUP & COUNTDOWN -->
+          <div class="duel-center-col">
+            <div class="active-tag">ACTIVE ROOM</div>
+            <div class="duel-matchup-title">
+              SHIBA <span>VS</span> DOGE
+            </div>
+            <div class="duel-round-meta">30 MINUTES • 100 PARTICIPANTS</div>
+
+            <div class="timer-digital-box">
+              <span class="timer-label">TIME REMAINING</span>
+              <span class="timer-clock" id="clock-display">28:17</span>
+            </div>
+          </div>
+
+          <!-- DOGE SIDE -->
+          <div class="fighter-col">
+            <div class="fighter-avatar-wrap wrap-doge">
+              <img src="https://assets.coingecko.com/coins/images/5/large/dogecoin.png" alt="Dogecoin" class="fighter-avatar" />
+            </div>
+            <div class="fighter-name doge-text">DOGE SIDE</div>
+            <div class="fighter-stats">50 PARTICIPANTS</div>
+            <div class="fighter-vol doge-text">VOL: 10.8M USDT</div>
           </div>
         </div>
 
-        <!-- CARDS DE ENTRADA NA BATALHA -->
+        <!-- COMMITMENT ACTIONS -->
         <div class="battle-actions-grid">
-          
-          <!-- LADO SHIBA -->
           <div class="faction-card faction-shiba">
             <div>
               <div class="faction-header">
-                <span class="faction-title shiba-accent">SHIBA SIDE</span>
-                <span class="badge-metric badge-shiba">12.4M USDT VOL</span>
+                <span class="faction-title shiba-text">SHIBA POSITION</span>
+                <span class="badge-metric badge-shiba">12.4M USDT POOL</span>
               </div>
               <p style="font-size: 12px; color: #94a3b8; margin-top: 8px; line-height: 1.4;">
-                50 traders active. Back SHIBA momentum against DOGE.
+                50 traders active in this round. Commit funds to Shiba momentum against Doge.
               </p>
             </div>
             <button class="faction-btn btn-shiba">COMMIT TO SHIBA</button>
-          </div>
-
-          <!-- LADO DOGE -->
-          <div class="faction-card faction-doge">
-            <div>
-              <div class="faction-header">
-                <span class="faction-title doge-accent">DOGE SIDE</span>
-                <span class="badge-metric badge-doge">10.8M USDT VOL</span>
-              </div>
-              <p style="font-size: 12px; color: #94a3b8; margin-top: 8px; line-height: 1.4;">
-                50 traders active. Back DOGE momentum against SHIBA.
-              </p>
-            </div>
-            <button class="faction-btn btn-doge">COMMIT TO DOGE</button>
-          </div>
-
-        </div>
-
-      </main>
-
-    </div>
-
-  </div>
-
-  <script>
-    const BULL_URL = 'https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png';
-
-    // REMOVE O FUNDO PRETO VIA CANVAS AUTOMATICAMENTE
-    function drawCroppedBull(canvasId, img) {
-      const canvas = document.getElementById(canvasId);
-      if (!canvas) return;
-      
-      const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imgData.data;
-
-      for (let i = 0; i < data.length; i += 4) {
-        const brightness = Math.max(data[i], data[i + 1], data[i + 2]);
-        if (brightness < 35) {
-          data[i + 3] = 0;
-        } else if (brightness < 70) {
-          data[i + 3] = Math.round(((brightness - 35) / 35) * 255);
-        }
-      }
-      ctx.putImageData(imgData, 0, 0);
-    }
-
-    const baseImg = new Image();
-    baseImg.crossOrigin = 'anonymous';
-    baseImg.src = BULL_URL;
-    baseImg.onload = () => {
-      drawCroppedBull('splash-canvas', baseImg);
-      drawCroppedBull('topbar-logo-canvas', baseImg);
-      drawCroppedBull('card-canvas', baseImg);
-    };
-
-    // 7 SEGUNDOS NO SPLASH SCREEN
-    setTimeout(() => {
-      const splash = document.getElementById('splash-screen');
-      const appLayout = document.getElementById('app-layout');
-      
-      splash.style.opacity = '0';
-      splash.style.visibility = 'hidden';
-      appLayout.classList.add('active');
-    }, 7000);
-
-    // ALTERNAR MENU
-    function selectNav(element) {
-      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('selected'));
-      element.classList.add('selected');
-    }
-  </script>
-</body>
-</html>
