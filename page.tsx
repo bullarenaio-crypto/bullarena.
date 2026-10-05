@@ -1,10 +1,31 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  ConnectionProvider,
+  WalletProvider,
+  useWallet,
+  useConnection,
+} from "@solana/wallet-adapter-react";
+import {
+  WalletModalProvider,
+  WalletMultiButton,
+} from "@solana/wallet-adapter-react-ui";
+import { PhantomWalletAdapter, SolflareWalletAdapter } from "@solana/wallet-adapter-wallets";
+import { clusterApiUrl, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
-export default function TradingTerminal() {
+// Estilos obrigatórios do modal de carteira da Solana
+import "@solana/wallet-adapter-react-ui/styles.css";
+
+function TerminalContent() {
+  const { publicKey, connected } = useWallet();
+  const { connection } = useConnection();
+  const [balance, setBalance] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState(28 * 60 + 17);
+  const [selectedSide, setSelectedSide] = useState<"shiba" | "doge">("shiba");
+  const [roomNotification, setRoomNotification] = useState<string | null>(null);
 
+  // Contador regressivo da rodada
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
@@ -12,16 +33,42 @@ export default function TradingTerminal() {
     return () => clearInterval(timer);
   }, []);
 
+  // Busca o saldo real em SOL da carteira conectada
+  useEffect(() => {
+    async function fetchBalance() {
+      if (connected && publicKey) {
+        try {
+          const bal = await connection.getBalance(publicKey);
+          setBalance(bal / LAMPORTS_PER_SOL);
+        } catch {
+          setBalance(null);
+        }
+      } else {
+        setBalance(null);
+      }
+    }
+    fetchBalance();
+  }, [connected, publicKey, connection]);
+
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   };
 
+  const handleEnterRoom = () => {
+    if (!connected) {
+      setRoomNotification("Conecte sua carteira Solana no botão acima para participar!");
+    } else {
+      setRoomNotification(`Carteira confirmada! Registrado no time ${selectedSide.toUpperCase()}.`);
+    }
+    setTimeout(() => setRoomNotification(null), 5000);
+  };
+
   return (
     <div className="min-h-screen bg-[#060b13] text-slate-100 flex flex-col font-sans select-none overflow-x-hidden">
       {/* Top Header */}
-      <header className="h-16 border-b border-cyan-900/40 bg-[#080f1a]/80 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-50">
+      <header className="h-16 border-b border-cyan-900/40 bg-[#080f1a]/90 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-50">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 text-cyan-400 drop-shadow-[0_0_10px_#00f0ff]">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -51,20 +98,34 @@ export default function TradingTerminal() {
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
             Online
           </div>
-          <button className="flex items-center gap-2 bg-[#0c1827] hover:bg-[#122238] border border-cyan-500/50 hover:border-cyan-400 px-4 py-1.5 rounded-lg text-xs font-mono text-cyan-300 transition-all shadow-[0_0_15px_rgba(6,182,212,0.25)]">
-            <span>4F3...9K7a</span>
-            <span className="text-[10px]">▼</span>
-          </button>
+
+          {connected && balance !== null && (
+            <div className="hidden sm:block text-xs font-mono text-cyan-300 bg-[#0c1827] border border-cyan-800/50 px-3 py-1.5 rounded-lg">
+              {balance.toFixed(3)} SOL
+            </div>
+          )}
+
+          {/* Botão Oficial Solana Wallet Adapter */}
+          <div className="solana-button-wrapper">
+            <WalletMultiButton className="!bg-[#0c1827] hover:!bg-[#122238] !border !border-cyan-500/50 hover:!border-cyan-400 !h-9 !px-4 !rounded-lg !text-xs !font-mono !text-cyan-300 !shadow-[0_0_15px_rgba(6,182,212,0.25)] !transition-all !cursor-pointer" />
+          </div>
         </div>
       </header>
 
+      {/* Alerta / Notificação */}
+      {roomNotification && (
+        <div className="bg-cyan-950/90 border-b border-cyan-500 text-cyan-200 text-xs text-center py-2 font-mono px-4 shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all">
+          {roomNotification}
+        </div>
+      )}
+
       <div className="flex flex-1">
-        {/* Sidebar */}
+        {/* Barra Lateral */}
         <aside className="w-64 border-r border-cyan-900/30 bg-[#080f1a]/50 p-4 flex flex-col justify-between hidden lg:flex">
           <div className="space-y-2">
             {[
               { label: "ROOMS", sub: "Join battles", active: true },
-              { label: "MY PROFILE", sub: "Wallet & history" },
+              { label: "MY PROFILE", sub: connected && publicKey ? `${publicKey.toBase58().slice(0, 4)}...${publicKey.toBase58().slice(-4)}` : "Wallet & history" },
               { label: "LAUNCHPAD", sub: "Launch new projects" },
               { label: "LEADERBOARD", sub: "Top traders" },
               { label: "REWARDS", sub: "XP & achievements" },
@@ -84,7 +145,7 @@ export default function TradingTerminal() {
             ))}
           </div>
 
-          {/* Sidebar Banner */}
+          {/* Banner do Touro em Neon */}
           <div className="p-4 rounded-xl border border-fuchsia-500/30 bg-gradient-to-b from-[#1a0f28]/80 to-[#0e0717]/80 text-center relative overflow-hidden group">
             <div className="w-12 h-12 mx-auto mb-2 text-cyan-400 drop-shadow-[0_0_10px_#00f0ff]">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -101,9 +162,8 @@ export default function TradingTerminal() {
           </div>
         </aside>
 
-        {/* Main Content Area */}
+        {/* Área Central */}
         <main className="flex-1 p-6 space-y-6">
-          {/* Top Battle Arena Cards */}
           <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
             <div className="xl:col-span-3 bg-[#0a1322]/70 border border-cyan-900/40 rounded-2xl p-6 relative overflow-hidden backdrop-blur-md">
               <div className="flex justify-center mb-2">
@@ -121,12 +181,15 @@ export default function TradingTerminal() {
                 <div className="text-xs font-mono text-slate-400 mt-1">30 MINUTES • 100 PARTICIPANTS</div>
               </div>
 
-              {/* Meme Avatars & Glow Rings */}
+              {/* Arena com Avatares e Iluminação Neon */}
               <div className="flex items-center justify-around my-6">
                 {/* Shiba Side */}
-                <div className="flex flex-col items-center">
-                  <div className="relative flex items-center justify-center p-3 rounded-full border border-fuchsia-500/30 bg-fuchsia-950/20">
-                    <div className="w-24 h-24 rounded-full border-2 border-fuchsia-500 shadow-[0_0_30px_rgba(217,70,239,0.8)] flex items-center justify-center bg-black/60 overflow-hidden">
+                <div 
+                  onClick={() => setSelectedSide("shiba")}
+                  className={`flex flex-col items-center cursor-pointer p-3 rounded-2xl transition-all ${selectedSide === "shiba" ? "ring-2 ring-fuchsia-500/80 bg-fuchsia-950/20" : "opacity-80 hover:opacity-100"}`}
+                >
+                  <div className="relative flex items-center justify-center p-3 rounded-full border border-fuchsia-500/40 bg-fuchsia-950/30">
+                    <div className="w-24 h-24 rounded-full border-2 border-fuchsia-500 shadow-[0_0_30px_rgba(217,70,239,0.9)] flex items-center justify-center bg-black/60 overflow-hidden">
                       <img src="https://assets.coingecko.com/coins/images/11939/large/shiba.png" alt="Shiba" className="w-20 h-20 object-contain" />
                     </div>
                   </div>
@@ -137,7 +200,7 @@ export default function TradingTerminal() {
                   </div>
                 </div>
 
-                {/* Central Countdown Timer */}
+                {/* Temporizador Central */}
                 <div className="flex flex-col items-center">
                   <span className="text-[11px] font-mono text-slate-400 uppercase tracking-widest mb-1">TIME REMAINING</span>
                   <div className="text-4xl lg:text-5xl font-black font-mono tracking-widest text-cyan-300 drop-shadow-[0_0_20px_rgba(6,182,212,0.8)] px-6 py-2 rounded-xl border border-cyan-500/40 bg-black/40">
@@ -146,9 +209,12 @@ export default function TradingTerminal() {
                 </div>
 
                 {/* Doge Side */}
-                <div className="flex flex-col items-center">
-                  <div className="relative flex items-center justify-center p-3 rounded-full border border-cyan-500/30 bg-cyan-950/20">
-                    <div className="w-24 h-24 rounded-full border-2 border-cyan-400 shadow-[0_0_30px_rgba(6,182,212,0.8)] flex items-center justify-center bg-black/60 overflow-hidden">
+                <div 
+                  onClick={() => setSelectedSide("doge")}
+                  className={`flex flex-col items-center cursor-pointer p-3 rounded-2xl transition-all ${selectedSide === "doge" ? "ring-2 ring-cyan-400/80 bg-cyan-950/20" : "opacity-80 hover:opacity-100"}`}
+                >
+                  <div className="relative flex items-center justify-center p-3 rounded-full border border-cyan-500/40 bg-cyan-950/30">
+                    <div className="w-24 h-24 rounded-full border-2 border-cyan-400 shadow-[0_0_30px_rgba(6,182,212,0.9)] flex items-center justify-center bg-black/60 overflow-hidden">
                       <img src="https://assets.coingecko.com/coins/images/5/large/dogecoin.png" alt="Doge" className="w-20 h-20 object-contain" />
                     </div>
                   </div>
@@ -160,7 +226,7 @@ export default function TradingTerminal() {
                 </div>
               </div>
 
-              {/* Chart Representation */}
+              {/* Gráfico Representativo */}
               <div className="mt-8 border border-slate-800/80 bg-black/40 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-4">
                   <div className="text-xs font-mono text-slate-300">VOLUME ON DEX (LAST 30 MIN)</div>
@@ -173,22 +239,9 @@ export default function TradingTerminal() {
                   </div>
                 </div>
 
-                {/* Chart SVG Canvas */}
                 <div className="h-44 w-full relative">
                   <svg className="w-full h-full" viewBox="0 0 500 150" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="shibaGlow" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#d946ef" stopOpacity="0.3" />
-                        <stop offset="100%" stopColor="#d946ef" stopOpacity="0.0" />
-                      </linearGradient>
-                      <linearGradient id="dogeGlow" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.3" />
-                        <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.0" />
-                      </linearGradient>
-                    </defs>
-                    {/* Doge Line */}
                     <path d="M0,110 C80,105 150,115 250,90 C350,65 420,70 500,40" fill="none" stroke="#06b6d4" strokeWidth="2.5" className="drop-shadow-[0_0_8px_#06b6d4]" />
-                    {/* Shiba Line */}
                     <path d="M0,130 C80,120 180,140 260,110 C340,80 430,90 500,55" fill="none" stroke="#d946ef" strokeWidth="2.5" className="drop-shadow-[0_0_8px_#d946ef]" />
                   </svg>
                 </div>
@@ -197,12 +250,12 @@ export default function TradingTerminal() {
                     <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-fuchsia-500" /> Shiba (12.4M)</span>
                     <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-cyan-400" /> Doge (10.8M)</span>
                   </div>
-                  <span className="text-slate-500">DEXSCREENER</span>
+                  <span className="text-slate-500 font-mono text-[10px]">SOLANA LIVE FEED</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Panel / Enter Room */}
+            {/* Painel Lateral / Ação de Entrada */}
             <div className="space-y-6">
               <div className="bg-[#0a1322]/70 border border-cyan-900/40 rounded-2xl p-5 backdrop-blur-md">
                 <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
@@ -225,16 +278,25 @@ export default function TradingTerminal() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-500">Blockchain</span>
-                    <span className="text-cyan-400">Solana / Base</span>
+                    <span className="text-cyan-400 font-bold">Solana</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Lado Selecionado</span>
+                    <span className={selectedSide === "shiba" ? "text-fuchsia-400 font-bold" : "text-cyan-400 font-bold"}>
+                      {selectedSide.toUpperCase()}
+                    </span>
                   </div>
                 </div>
 
-                <button className="w-full py-3 rounded-xl bg-gradient-to-r from-fuchsia-600 to-cyan-500 hover:from-fuchsia-500 hover:to-cyan-400 font-bold text-xs uppercase tracking-widest text-white shadow-[0_0_20px_rgba(217,70,239,0.4)] transition-all">
-                  ENTER ROOM →
+                <button 
+                  onClick={handleEnterRoom}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-fuchsia-600 to-cyan-500 hover:from-fuchsia-500 hover:to-cyan-400 font-bold text-xs uppercase tracking-widest text-white shadow-[0_0_20px_rgba(217,70,239,0.4)] transition-all cursor-pointer"
+                >
+                  {connected ? "ENTER ROOM →" : "CONECTE CARTEIRA PRIMEIRO"}
                 </button>
               </div>
 
-              {/* Participants Live Feed */}
+              {/* Feed de Participantes */}
               <div className="bg-[#0a1322]/70 border border-cyan-900/40 rounded-2xl p-5 backdrop-blur-md">
                 <div className="text-xs font-mono text-slate-400 mb-3">PARTICIPANTS (100)</div>
                 <div className="space-y-2">
@@ -256,5 +318,20 @@ export default function TradingTerminal() {
         </main>
       </div>
     </div>
+  );
+}
+
+export default function App() {
+  const endpoint = useMemo(() => clusterApiUrl("mainnet-beta"), []);
+  const wallets = useMemo(() => [new PhantomWalletAdapter(), new SolflareWalletAdapter()], []);
+
+  return (
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>
+          <TerminalContent />
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
   );
 }
