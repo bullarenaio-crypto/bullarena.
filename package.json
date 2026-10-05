@@ -1,8 +1,8 @@
 {
   "name": "bull-protocol-trading-terminal",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "build": "echo 'No build step required'",
-    "start": "node index.js"
+    "build": "echo 'Static HTML - No build needed'"
   }
 }
