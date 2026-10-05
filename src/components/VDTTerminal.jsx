@@ -1,481 +1,624 @@
-import React, { useEffect, useState } from "react";
-import {
-  Swords,
-  UserRound,
-  Trophy,
-  Award,
-  Settings,
-  WalletCards,
-  Link2,
-  Clock3,
-  UsersRound,
-  Zap,
-  Target,
-  CircleDollarSign,
-  ChevronRight,
-  Check,
-  Activity,
-  Copy,
-  Menu,
-  X,
-} from "lucide-react";
-import logo from "../../logo.png";
-
-const navItems = [
-  { label: "SALAS", sub: "Participe de batalhas", icon: Swords },
-  { label: "MEU PERFIL", sub: "Carteira e histórico", icon: UserRound },
-  { label: "RANKING", sub: "Top traders", icon: Trophy },
-  { label: "RECOMPENSAS", sub: "XP e conquistas", icon: Award },
-  { label: "CONFIGURAÇÕES", sub: "Preferências", icon: Settings },
-];
-
-const participants = [
-  ["ShibaTeam_97...", "Entrou no time Shiba", "2 min", "🦊"],
-  ["DogeWolf_72...", "Entrou no time Doge", "2 min", "🐕"],
-  ["CryptoLuna", "Entrou no time Shiba", "3 min", "👩🏻"],
-  ["TraderAlpha", "Entrou no time Doge", "4 min", "🧑🏽"],
-  ["SolMaster", "Entrou no time Shiba", "5 min", "👨🏻"],
-];
-
-function NeonButton({ children, className = "", ...props }) {
-  return (
-    <button
-      {...props}
-      className={`group relative flex items-center justify-center gap-2 overflow-hidden rounded-md border border-cyan-400/60 bg-gradient-to-r from-fuchsia-600/90 to-cyan-500/80 px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-white shadow-[0_0_24px_rgba(34,211,238,.12)] transition hover:brightness-125 ${className}`}
-    >
-      {children}
-      <span className="absolute inset-0 -translate-x-full bg-white/15 transition-transform duration-500 group-hover:translate-x-full" />
-    </button>
-  );
-}
-
-function Panel({ children, className = "" }) {
-  return (
-    <section
-      className={`relative overflow-hidden rounded-lg border border-cyan-400/35 bg-[#020817]/90 shadow-[inset_0_0_30px_rgba(20,80,150,.07),0_0_18px_rgba(0,0,0,.3)] ${className}`}
-    >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/80 to-transparent" />
-      {children}
-    </section>
-  );
-}
-
-function TeamOrb({ type }) {
-  const shiba = type === "shiba";
-  return (
-    <div
-      className={`relative flex h-[78px] w-[78px] items-center justify-center rounded-full border-[3px] ${
-        shiba
-          ? "border-fuchsia-400 bg-fuchsia-500/10 shadow-[0_0_25px_rgba(217,70,239,.75),inset_0_0_18px_rgba(168,85,247,.5)]"
-          : "border-cyan-300 bg-cyan-400/10 shadow-[0_0_25px_rgba(34,211,238,.75),inset_0_0_18px_rgba(20,184,166,.5)]"
-      }`}
-    >
-      <div
-        className={`absolute inset-[7px] rounded-full border ${
-          shiba ? "border-purple-300/70" : "border-emerald-300/70"
-        }`}
-      />
-      <span className="relative text-[38px] drop-shadow-[0_0_10px_rgba(255,255,255,.5)]">
-        {shiba ? "🦊" : "🐕"}
-      </span>
-    </div>
-  );
-}
-
-function Chart() {
-  return (
-    <svg
-      viewBox="0 0 760 220"
-      preserveAspectRatio="none"
-      className="absolute inset-0 h-full w-full"
-    >
-      <defs>
-        <linearGradient id="shibaArea" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stopColor="#d946ef" stopOpacity=".20" />
-          <stop offset="1" stopColor="#d946ef" stopOpacity="0" />
-        </linearGradient>
-        <linearGradient id="dogeArea" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stopColor="#14e6c7" stopOpacity=".18" />
-          <stop offset="1" stopColor="#14e6c7" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-
-      <path
-        d="M0 175 C30 165 55 150 78 160 C105 171 124 145 150 154 C178 164 200 140 224 143 C252 146 268 121 292 135 C322 151 345 127 372 137 C402 148 424 126 449 136 C478 148 500 113 528 120 C555 127 578 95 602 112 C630 132 650 100 674 108 C700 116 720 78 760 85 L760 220 L0 220Z"
-        fill="url(#shibaArea)"
-      />
-      <path
-        d="M0 190 C30 181 50 178 80 185 C108 192 132 178 156 185 C184 194 207 179 232 184 C260 190 286 169 312 178 C341 187 360 158 390 169 C418 180 441 155 466 163 C494 172 518 137 542 145 C570 154 596 130 620 138 C646 147 671 113 700 122 C725 130 742 108 760 116 L760 220 L0 220Z"
-        fill="url(#dogeArea)"
-      />
-
-      <polyline
-        points="0,175 30,165 55,150 78,160 105,171 124,145 150,154 178,164 200,140 224,143 252,146 268,121 292,135 322,151 345,127 372,137 402,148 424,126 449,136 478,148 500,113 528,120 555,127 578,95 602,112 630,132 650,100 674,108 700,116 720,78 760,85"
-        fill="none"
-        stroke="#d946ef"
-        strokeWidth="2.5"
-      />
-      <polyline
-        points="0,190 30,181 50,178 80,185 108,192 132,178 156,185 184,194 207,179 232,184 260,190 286,169 312,178 341,187 360,158 390,169 418,180 441,155 466,163 494,172 518,137 542,145 570,154 596,130 620,138 646,147 671,113 700,122 725,130 742,108 760,116"
-        fill="none"
-        stroke="#12e6c7"
-        strokeWidth="2.5"
-      />
-    </svg>
-  );
-}
+import React, { useState } from 'react';
+import { 
+  Zap, 
+  User, 
+  Trophy, 
+  Gift, 
+  Settings, 
+  Clock, 
+  Users, 
+  ChevronDown,
+  LineChart,
+  Target
+} from 'lucide-react';
 
 export default function VDTTerminal() {
-  const [secondsLeft, setSecondsLeft] = useState(28 * 60 + 17);
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const [tab, setTab] = useState("TOTAL");
-  const [copied, setCopied] = useState(false);
+  const [chartTab, setChartTab] = useState('total');
 
-  useEffect(() => {
-    const id = setInterval(() => {
-      setSecondsLeft((v) => (v > 0 ? v - 1 : 0));
-    }, 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  const mm = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
-  const ss = String(secondsLeft % 60).padStart(2, "0");
-
-  const copyRoom = async () => {
-    try {
-      await navigator.clipboard.writeText("#4827");
-    } catch {}
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1400);
-  };
+  const participantsList = [
+    { name: 'ShibaTeam_1F...', action: 'Joined Team Shiba', time: '2m', color: 'bg-purple-500', side: 'shiba' },
+    { name: 'DogeWolf_7a...', action: 'Joined Team Doge', time: '2m', color: 'bg-emerald-400', side: 'doge' },
+    { name: 'CryptoLuna', action: 'Joined Team Shiba', time: '3m', color: 'bg-purple-500', side: 'shiba' },
+    { name: 'TraderAlpha', action: 'Joined Team Doge', time: '4m', color: 'bg-emerald-400', side: 'doge' },
+    { name: 'SolMaster', action: 'Joined Team Shiba', time: '5m', color: 'bg-purple-500', side: 'shiba' }
+  ];
 
   return (
-    <div className="min-h-screen bg-[#01040d] text-white">
-      <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(circle_at_48%_25%,rgba(74,25,155,.13),transparent_34%),radial-gradient(circle_at_78%_60%,rgba(0,193,255,.06),transparent_30%)]" />
-
-      <header className="relative z-30 h-[64px] border-b border-cyan-400/20 bg-[#02050c]/95 px-4 backdrop-blur-md lg:px-7">
-        <div className="mx-auto flex h-full max-w-[1500px] items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              className="lg:hidden text-cyan-300"
-              onClick={() => setMobileMenu((v) => !v)}
-            >
-              {mobileMenu ? <X size={20} /> : <Menu size={20} />}
-            </button>
-
-            <img src={logo} alt="Bull Protocol" className="h-[44px] w-auto object-contain" />
-
-            <div className="hidden border-l border-white/15 pl-4 sm:block">
-              <div className="text-[10px] font-black tracking-[0.25em] text-cyan-300">
-                MOMENTUM TRADING TERMINAL
+    <div className="min-h-screen bg-[#02050e] text-white font-sans text-xs select-none p-2 sm:p-3 leading-tight">
+      
+      {/* 1. TOP HEADER BAR */}
+      <header className="flex flex-wrap items-center justify-between border-b border-[#0b162c] pb-2.5 mb-3 px-2 gap-2">
+        <div className="flex items-center gap-3">
+          {/* Neon Bull Emblem */}
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 via-blue-600 to-purple-600 p-[1.5px] shadow-[0_0_12px_rgba(34,211,238,0.5)]">
+              <div className="w-full h-full bg-[#02050e] rounded-lg flex items-center justify-center font-black text-cyan-400 text-sm">
+                🐂
               </div>
-              <div className="mt-1 text-[7px] font-bold tracking-[0.22em] text-slate-400">
-                TRADES • SALAS • LUCRO REAL
+            </div>
+            <div>
+              <div className="text-xl font-black tracking-widest leading-none text-white font-mono">
+                BULL
+              </div>
+              <div className="text-[9px] font-bold tracking-[0.25em] text-gray-400 font-mono leading-tight">
+                PROTOCOL
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5 text-[8px] font-bold">
-            <div className="hidden items-center gap-1.5 sm:flex text-slate-300">
-              <span className="text-cyan-400">◆</span> SOLANA
-            </div>
-            <div className="hidden items-center gap-1.5 sm:flex text-slate-300">
-              <span className="rounded border border-purple-400/50 px-1 text-purple-300">R</span> RAYDIUM
-            </div>
-            <div className="flex items-center gap-1.5 rounded-full border border-emerald-400/35 px-3 py-2 text-emerald-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-              Online
-            </div>
-            <button className="hidden items-center gap-2 rounded-lg border border-cyan-400/30 bg-white/[.02] px-3 py-2 sm:flex">
-              <UserRound size={12} />
-              4F3...9K7a
-              <span>⌄</span>
-            </button>
+          <div className="hidden md:block h-6 w-[1px] bg-[#102042] mx-2"></div>
+
+          <div className="hidden md:flex flex-col">
+            <span className="text-[9px] font-bold text-gray-300 tracking-wider font-mono">MOMENTUM TRADING TERMINAL</span>
+            <span className="text-[8px] text-gray-500 tracking-widest font-mono">TRADES • ROOMS • REAL PROFIT</span>
           </div>
+        </div>
+
+        {/* Network Indicators & Wallet Pill */}
+        <div className="flex items-center gap-2 font-mono text-[10px]">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#050b18] border border-[#112349] text-gray-300 font-bold">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
+            SOLANA
+          </div>
+
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#050b18] border border-[#112349] text-gray-300 font-bold">
+            <span className="w-3.5 h-3.5 rounded-full bg-indigo-950 border border-indigo-500/40 text-indigo-300 text-[8px] flex items-center justify-center font-bold">R</span>
+            RAYDIUM
+          </div>
+
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#031512] border border-[#093d32] text-emerald-400 font-bold">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
+            Online
+          </div>
+
+          <button className="flex items-center gap-2 px-3 py-1 rounded bg-[#070f22] border border-[#1a3469] text-gray-200 font-bold hover:border-cyan-400/60 transition-all">
+            <User className="w-3.5 h-3.5 text-gray-400" />
+            <span>4F3z...9K7a</span>
+            <ChevronDown className="w-3 h-3 text-gray-500" />
+          </button>
         </div>
       </header>
 
-      <div className="relative z-10 mx-auto flex max-w-[1500px] gap-3 p-3 lg:p-4">
-        <aside
-          className={`${
-            mobileMenu ? "flex" : "hidden"
-          } fixed left-3 top-[73px] z-40 w-[235px] flex-col rounded-lg border border-cyan-400/25 bg-[#020716]/98 p-3 shadow-2xl lg:static lg:flex lg:w-[225px] lg:shrink-0 lg:bg-transparent lg:shadow-none`}
-        >
-          <div className="space-y-1">
-            {navItems.map(({ label, sub, icon: Icon }, index) => (
-              <button
-                key={label}
-                className={`flex w-full items-center gap-3 rounded-md border px-3 py-3 text-left ${
-                  index === 0
-                    ? "border-cyan-300/50 bg-gradient-to-r from-fuchsia-600/25 to-cyan-500/15 shadow-[0_0_18px_rgba(168,85,247,.12)]"
-                    : "border-transparent hover:border-white/10 hover:bg-white/[.03]"
-                }`}
-              >
-                <Icon
-                  size={18}
-                  className={index === 0 ? "text-fuchsia-300" : "text-cyan-200"}
-                />
-                <span className="min-w-0">
-                  <span className="block text-[10px] font-black tracking-[.08em] text-white">
-                    {label}
-                  </span>
-                  <span className="mt-0.5 block text-[8px] text-slate-500">{sub}</span>
-                </span>
-              </button>
-            ))}
-          </div>
+      {/* 2. THREE COLUMN LAYOUT */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
+        
+        {/* LEFT COLUMN (Col 1-2) */}
+        <div className="lg:col-span-2 space-y-2.5">
+          {/* Navigation Pill List */}
+          <div className="bg-[#030714] border border-[#0b1836] rounded-xl p-1.5 space-y-1">
+            <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-700/40 to-transparent border-l-2 border-cyan-400 text-white font-bold text-[11px] shadow-[inset_0_0_12px_rgba(34,211,238,0.15)]">
+              <Zap className="w-4 h-4 text-cyan-400" />
+              <div className="text-left">
+                <div className="leading-tight">ROOMS</div>
+                <div className="text-[8px] text-gray-400 font-normal">Join live battles</div>
+              </div>
+            </button>
 
-          <div className="mt-5 rounded-lg border border-cyan-400/30 bg-[#030a19]/90 p-4 text-center">
-            <div className="mb-2 text-3xl">🐂</div>
-            <div className="text-[12px] font-black uppercase tracking-[.06em] text-fuchsia-400">
-              MAIS MOMENTUM
-              <br />
-              MENOS EMOÇÃO
-            </div>
-            <p className="mt-3 text-[9px] leading-4 text-slate-300">
-              Aqui o jogo é simples: quem perde volume no mercado em 30 minutos, paga o outro lado.
-            </p>
-            <button className="mt-3 w-full rounded-md border border-cyan-400/50 py-2 text-[8px] font-black uppercase tracking-[.1em] text-cyan-300">
-              COMO FUNCIONA?
+            <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:bg-[#071126] transition-all text-[11px]">
+              <User className="w-4 h-4 text-gray-500" />
+              <div className="text-left">
+                <div className="font-semibold text-gray-300 leading-tight">MY PROFILE</div>
+                <div className="text-[8px] text-gray-500 font-normal">Wallet & history</div>
+              </div>
+            </button>
+
+            <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:bg-[#071126] transition-all text-[11px]">
+              <Trophy className="w-4 h-4 text-gray-500" />
+              <div className="text-left">
+                <div className="font-semibold text-gray-300 leading-tight">LEADERBOARD</div>
+                <div className="text-[8px] text-gray-500 font-normal">Top traders</div>
+              </div>
+            </button>
+
+            <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:bg-[#071126] transition-all text-[11px]">
+              <Gift className="w-4 h-4 text-gray-500" />
+              <div className="text-left">
+                <div className="font-semibold text-gray-300 leading-tight">REWARDS</div>
+                <div className="text-[8px] text-gray-500 font-normal">XP & badges</div>
+              </div>
+            </button>
+
+            <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:bg-[#071126] transition-all text-[11px]">
+              <Settings className="w-4 h-4 text-gray-500" />
+              <div className="text-left">
+                <div className="font-semibold text-gray-300 leading-tight">SETTINGS</div>
+                <div className="text-[8px] text-gray-500 font-normal">Preferences</div>
+              </div>
             </button>
           </div>
 
-          <div className="mt-auto hidden pt-10 lg:block">
-            <div className="text-[7px] font-bold uppercase tracking-[.15em] text-slate-600">Powered by</div>
-            <div className="mt-2 flex gap-4 text-[8px] font-bold text-slate-400">
-              <span>◆ SOLANA</span>
-              <span>Ⓡ RAYDIUM</span>
+          {/* Left Promo Card */}
+          <div className="bg-[#030714] border border-[#0b1836] rounded-xl p-3 text-center relative overflow-hidden">
+            <div className="w-8 h-8 mx-auto mb-2 text-cyan-400 flex items-center justify-center font-bold text-xl drop-shadow-[0_0_8px_#22d3ee]">
+              🐂
+            </div>
+            <div className="text-[10px] font-black text-cyan-400 tracking-wider uppercase leading-tight font-mono">
+              MORE MOMENTUM
+            </div>
+            <div className="text-[10px] font-black text-purple-400 tracking-wider uppercase mb-2 leading-tight font-mono">
+              LESS EMOTION
+            </div>
+            <p className="text-[8px] text-gray-400 leading-normal mb-3 font-sans">
+              The rules are simple: whichever market loses volume within 30 minutes settles the pool to the counterparty.
+            </p>
+            <button className="w-full py-1.5 rounded bg-[#071329] border border-[#142854] text-[9px] font-bold text-cyan-400 hover:bg-[#0c1f44] transition-all font-mono uppercase">
+              HOW IT WORKS?
+            </button>
+          </div>
+
+          {/* Left Powered By */}
+          <div className="px-2 pt-1">
+            <div className="text-[8px] font-bold text-gray-500 uppercase tracking-widest mb-1 font-mono">POWERED BY</div>
+            <div className="flex items-center gap-3 text-gray-400 text-[9px] font-bold font-mono">
+              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> SOLANA</span>
+              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span> RAYDIUM</span>
             </div>
           </div>
-        </aside>
+        </div>
 
-        <main className="min-w-0 flex-1">
-          <div className="grid gap-3">
-            <Panel className="min-h-[168px]">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_45%,rgba(168,85,247,.18),transparent_35%),radial-gradient(circle_at_80%_45%,rgba(20,230,199,.15),transparent_35%)]" />
-              <div className="relative grid h-full grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 py-3 md:px-5">
-                <div className="text-left">
-                  <div className="flex items-center gap-3">
-                    <TeamOrb type="shiba" />
-                    <div>
-                      <div className="text-[13px] font-black uppercase tracking-[.08em] text-fuchsia-400">
-                        LADO SHIBA
-                      </div>
-                      <div className="mt-1 text-[10px] font-bold">50 PARTICIPANTES</div>
-                      <div className="mt-1 text-[8px] text-slate-400">
-                        VOLUME DEX: <b className="text-fuchsia-300">12.4M USDT</b>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <div className="mx-auto mb-2 inline-flex items-center gap-1 rounded-full border border-cyan-300/50 px-3 py-1 text-[7px] font-black uppercase tracking-[.15em] text-cyan-300">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                    SALA ATIVA
-                  </div>
-                  <h1 className="text-[22px] font-black tracking-[.08em] text-cyan-100">
-                    SHIBA <span className="text-white/70">VS</span> DOGE
-                  </h1>
-                  <div className="text-[10px] font-black tracking-[.08em] text-cyan-300">
-                    30 MINUTOS • 100 PARTICIPANTES
-                  </div>
-                  <div className="mx-auto mt-3 w-[185px] border border-cyan-400/60 bg-[#031426]/80 px-5 py-2 shadow-[0_0_20px_rgba(34,211,238,.08)]">
-                    <div className="text-[7px] font-bold tracking-[.15em] text-slate-500">TEMPO RESTANTE</div>
-                    <div className="font-mono text-[25px] font-black tracking-widest text-cyan-300">
-                      {mm}:{ss}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-right">
-                  <div className="flex items-center justify-end gap-3">
-                    <div>
-                      <div className="text-[13px] font-black uppercase tracking-[.08em] text-cyan-300">
-                        LADO DOGE
-                      </div>
-                      <div className="mt-1 text-[10px] font-bold">50 PARTICIPANTES</div>
-                      <div className="mt-1 text-[8px] text-slate-400">
-                        VOLUME DEX: <b className="text-cyan-300">10.8M USDT</b>
-                      </div>
-                    </div>
-                    <TeamOrb type="doge" />
-                  </div>
-                </div>
-              </div>
-            </Panel>
-
-            <Panel className="p-3">
-              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                <div className="text-[9px] font-black uppercase tracking-[.12em] text-slate-300">
-                  <Activity size={12} className="mr-2 inline text-cyan-300" />
-                  VOLUME NO DEX <span className="text-slate-500">(ÚLTIMOS 30 MIN)</span>
-                </div>
-                <div className="flex rounded-md border border-cyan-400/20 p-0.5">
-                  {["TOTAL", "SHIBA", "DOGE"].map((v) => (
-                    <button
-                      key={v}
-                      onClick={() => setTab(v)}
-                      className={`rounded px-3 py-1 text-[7px] font-black ${
-                        tab === v ? "bg-cyan-400/15 text-cyan-300" : "text-slate-500"
-                      }`}
-                    >
-                      {v}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative h-[220px] overflow-hidden rounded border border-cyan-400/10 bg-[#020817]">
-                <div
-                  className="absolute inset-0 opacity-60"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(rgba(50,150,220,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(50,150,220,.10) 1px,transparent 1px)",
-                    backgroundSize: "12.5% 20%",
-                  }}
+        {/* CENTER COLUMN (Col 3-9) */}
+        <div className="lg:col-span-7 space-y-2.5">
+          
+          {/* Main Versus Arena Card com os Animais Silhuetados Exatos */}
+          <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-4 relative overflow-hidden shadow-2xl">
+            
+            {/* SILHUETA ANIMAL MÍSTICO ROXO (Esquerda) */}
+            <div className="absolute -top-6 left-2 w-72 h-72 pointer-events-none opacity-35 mix-blend-screen">
+              <svg viewBox="0 0 200 200" className="w-full h-full">
+                <path 
+                  d="M30 170 C35 140 45 120 65 105 C60 85 55 60 60 40 C68 45 75 52 80 60 C95 45 120 40 140 50 C145 30 155 12 170 5 C160 25 156 45 154 60 C166 80 170 108 156 136 C142 160 114 174 80 174 C50 174 38 164 30 170 Z" 
+                  fill="#9333ea" 
+                  filter="drop-shadow(0 0 15px #c084fc)"
                 />
-                <Chart />
-                <div className="absolute bottom-2 left-4 right-4 flex justify-between text-[7px] text-slate-500">
-                  <span>14:05</span><span>14:10</span><span>14:15</span><span>14:20</span><span>14:25</span><span>14:30</span>
-                </div>
-                <div className="absolute right-1 top-[39%] rounded bg-cyan-400 px-1.5 py-1 text-[8px] font-black text-[#00121a]">10.8M</div>
-                <div className="absolute right-1 top-[55%] rounded bg-fuchsia-500 px-1.5 py-1 text-[8px] font-black text-white">12.4M</div>
-                <div className="absolute bottom-1 left-4 flex gap-4 text-[7px]">
-                  <span className="text-fuchsia-300">■ Shiba (12.4M)</span>
-                  <span className="text-cyan-300">■ Doge (10.8M)</span>
-                </div>
-              </div>
-            </Panel>
-
-            <div className="grid gap-3 lg:grid-cols-[1fr_1.2fr]">
-              <Panel className="p-4">
-                <div className="mb-3 text-[9px] font-black uppercase tracking-[.12em]">COMO FUNCIONA?</div>
-                <div className="space-y-2">
-                  {[
-                    ["1", "Escolha um lado", "Shiba ou Doge."],
-                    ["2", "Entre na sala", "Junte-se aos participantes."],
-                    ["3", "Acompanhe o volume", "O lado que tiver MENOS volume no mercado (Dexscreener) em 30 minutos, paga o outro lado."],
-                  ].map(([n, title, text]) => (
-                    <div key={n} className="flex gap-3">
-                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-cyan-300 text-[9px] font-black text-cyan-300">{n}</div>
-                      <div>
-                        <div className="text-[8px] font-bold">{title}</div>
-                        <div className="text-[7px] leading-3 text-slate-500">{text}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-3 rounded border border-yellow-400/30 bg-yellow-400/5 p-2 text-[7px] font-bold text-yellow-300">
-                  ⚠ Não é sobre quem compra mais. É sobre quem movimenta menos.
-                </div>
-              </Panel>
-
-              <Panel className="p-4">
-                <div className="mb-3 text-[9px] font-black uppercase tracking-[.12em] text-cyan-300">ESTATÍSTICAS DA SALA</div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="border-r border-white/10 pr-3">
-                    <div className="flex items-center gap-2">
-                      <TeamOrb type="shiba" />
-                      <div><b className="text-[11px] text-fuchsia-400">SHIBA</b><div className="text-[8px]">50 participantes</div></div>
-                    </div>
-                    <div className="mt-3 text-[8px] text-cyan-300">Volume Atual (30m)</div>
-                    <div className="text-[15px] font-black text-fuchsia-300">12.4M USDT</div>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <TeamOrb type="doge" />
-                      <div><b className="text-[11px] text-cyan-300">DOGE</b><div className="text-[8px]">50 participantes</div></div>
-                    </div>
-                    <div className="mt-3 text-[8px] text-cyan-300">Volume Atual (30m)</div>
-                    <div className="text-[15px] font-black text-cyan-300">10.8M USDT</div>
-                  </div>
-                </div>
-                <div className="mt-3 flex items-center gap-3 border-t border-white/10 pt-3 text-[7px] text-slate-400">
-                  Diferença de Volume:
-                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-800">
-                    <div className="h-full w-[62%] rounded-full bg-gradient-to-r from-fuchsia-500 to-cyan-400" />
-                  </div>
-                  <b className="text-cyan-300">1.6M USDT</b>
-                </div>
-              </Panel>
+              </svg>
             </div>
 
-            <Panel className="grid grid-cols-3 divide-x divide-white/10">
-              {[
-                [Zap, "ENTRE NO MOMENTO", "Seja rápido, as salas são limitadas."],
-                [Target, "APOSTE COM ESTRATÉGIA", "O volume do mercado decide."],
-                [Trophy, "CONQUISTE O LUCRO", "O lado que perder paga."],
-              ].map(([Icon, title, text]) => (
-                <div key={title} className="flex items-center gap-3 p-3">
-                  <Icon size={23} className="text-fuchsia-400" />
-                  <div className="min-w-0">
-                    <div className="text-[7px] font-black text-cyan-300">{title}</div>
-                    <div className="mt-1 text-[7px] text-slate-500">{text}</div>
+            {/* SILHUETA TOURO MÍSTICO VERDE (Direita) */}
+            <div className="absolute -top-6 right-2 w-72 h-72 pointer-events-none opacity-35 mix-blend-screen">
+              <svg viewBox="0 0 200 200" className="w-full h-full">
+                <path 
+                  d="M170 170 C165 140 155 120 135 105 C140 85 145 60 140 40 C132 45 125 52 120 60 C105 45 80 40 60 50 C55 30 45 12 30 5 C40 25 44 45 46 60 C34 80 30 108 44 136 C58 160 86 174 120 174 C150 174 162 164 170 170 Z" 
+                  fill="#10b981" 
+                  filter="drop-shadow(0 0 15px #34d399)"
+                />
+              </svg>
+            </div>
+
+            {/* Glows de ambientação */}
+            <div className="absolute top-1/2 left-16 -translate-y-1/2 w-44 h-44 bg-purple-600/30 rounded-full blur-[70px] pointer-events-none"></div>
+            <div className="absolute top-1/2 right-16 -translate-y-1/2 w-44 h-44 bg-emerald-500/30 rounded-full blur-[70px] pointer-events-none"></div>
+
+            {/* Top Pill Status */}
+            <div className="flex justify-center mb-1 relative z-10">
+              <span className="px-2.5 py-0.5 rounded text-[8px] font-black tracking-widest uppercase bg-[#02131b] border border-cyan-400 text-cyan-300 font-mono shadow-[0_0_12px_rgba(34,211,238,0.4)]">
+                ● ACTIVE ROOM
+              </span>
+            </div>
+
+            {/* Match Header */}
+            <div className="text-center mb-3 relative z-10">
+              <h2 className="text-xl sm:text-2xl font-black tracking-wider text-white font-mono">
+                SHIBA <span className="text-cyan-400 text-xs px-1">VS</span> DOGE
+              </h2>
+              <div className="text-[9px] font-bold text-gray-400 tracking-wider uppercase mt-0.5 font-mono">
+                30 MINUTES • 100 PARTICIPANTS
+              </div>
+            </div>
+
+            {/* Dueling Mascots and Countdown HUD */}
+            <div className="flex items-center justify-between px-3 sm:px-8 relative z-10">
+              
+              {/* SHIBA SIDE */}
+              <div className="text-center w-36">
+                <div className="relative inline-block mb-2">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-purple-600 via-pink-500 to-indigo-600 shadow-[0_0_24px_#a855f7]">
+                    <div className="w-full h-full rounded-full bg-[#0a0418] flex items-center justify-center border-2 border-purple-400/90 shadow-inner">
+                      {/* Shiba Mascot Vector */}
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-b from-orange-400 to-amber-600 flex items-center justify-center text-3xl shadow-lg">
+                        🦊
+                      </div>
+                    </div>
                   </div>
-                  <ChevronRight size={14} className="ml-auto text-slate-500" />
+                </div>
+                <div className="text-[10px] font-black text-purple-400 uppercase tracking-wider font-mono">SHIBA SIDE</div>
+                <div className="text-[9px] font-bold text-gray-300 font-mono">50 PARTICIPANTS</div>
+                <div className="text-[9px] font-bold text-purple-400 mt-0.5 font-mono">DEX VOLUME: 12.4M USDT</div>
+              </div>
+
+              {/* CENTER COUNTDOWN HUD HEXAGONAL */}
+              <div className="text-center px-2 z-10">
+                <div className="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1.5 font-mono">TIME REMAINING</div>
+                <div className="relative inline-block">
+                  <div 
+                    className="bg-[#02050f] border-2 border-cyan-400 px-6 py-2 shadow-[0_0_25px_rgba(34,211,238,0.5)] font-mono text-2xl sm:text-3xl font-black text-cyan-400 tracking-widest"
+                    style={{ clipPath: 'polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px)' }}
+                  >
+                    28:17
+                  </div>
+                </div>
+              </div>
+
+              {/* DOGE SIDE */}
+              <div className="text-center w-36">
+                <div className="relative inline-block mb-2">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-500 shadow-[0_0_24px_#10b981]">
+                    <div className="w-full h-full rounded-full bg-[#02130e] flex items-center justify-center border-2 border-emerald-400/90 shadow-inner">
+                      {/* Doge Mascot Vector */}
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-b from-yellow-300 to-amber-500 flex items-center justify-center text-3xl shadow-lg">
+                        🐶
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-[10px] font-black text-emerald-400 uppercase tracking-wider font-mono">DOGE SIDE</div>
+                <div className="text-[9px] font-bold text-gray-300 font-mono">50 PARTICIPANTS</div>
+                <div className="text-[9px] font-bold text-emerald-400 mt-0.5 font-mono">DEX VOLUME: 10.8M USDT</div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* DexScreener Chart Block */}
+          <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-4 shadow-xl">
+            <div className="flex flex-wrap items-center justify-between pb-2 border-b border-gray-800/80 gap-2 mb-2">
+              <div className="flex items-center gap-1.5 text-[9px] font-bold text-gray-300 uppercase tracking-wider font-mono">
+                <LineChart className="w-3.5 h-3.5 text-cyan-400" />
+                DEXSCREENER VOLUME (LAST 30 MIN)
+              </div>
+              <div className="flex items-center gap-1 bg-[#02050f] p-0.5 rounded-lg border border-gray-800 text-[8px] font-bold font-mono">
+                <button 
+                  onClick={() => setChartTab('total')}
+                  className={`px-2 py-0.5 rounded ${chartTab === 'total' ? 'bg-[#0f1f3d] text-cyan-300' : 'text-gray-400'}`}
+                >
+                  TOTAL
+                </button>
+                <button 
+                  onClick={() => setChartTab('shiba')}
+                  className={`px-2 py-0.5 rounded ${chartTab === 'shiba' ? 'bg-[#0f1f3d] text-purple-300' : 'text-gray-400'}`}
+                >
+                  SHIBA
+                </button>
+                <button 
+                  onClick={() => setChartTab('doge')}
+                  className={`px-2 py-0.5 rounded ${chartTab === 'doge' ? 'bg-[#0f1f3d] text-emerald-300' : 'text-gray-400'}`}
+                >
+                  DOGE
+                </button>
+              </div>
+            </div>
+
+            {/* Undulating DexScreener Waveform Graphic */}
+            <div className="h-44 w-full relative flex flex-col justify-between pt-1">
+              <div className="flex h-36 w-full">
+                {/* Y-Axis Labels */}
+                <div className="flex flex-col justify-between text-[8px] font-mono text-gray-500 pr-2 pb-1 text-right w-8">
+                  <span>25M</span>
+                  <span>20M</span>
+                  <span>15M</span>
+                  <span>10M</span>
+                  <span>5M</span>
+                  <span>0</span>
+                </div>
+
+                {/* SVG Curve Graphic Area */}
+                <div className="flex-1 relative overflow-hidden">
+                  <svg className="w-full h-full" viewBox="0 0 500 100" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="shibaWaveGlow" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#a855f7" stopOpacity="0.4" />
+                        <stop offset="100%" stopColor="#a855f7" stopOpacity="0.0" />
+                      </linearGradient>
+                      <linearGradient id="dogeWaveGlow" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#10b981" stopOpacity="0.4" />
+                        <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Horizontal Grid lines */}
+                    <line x1="0" y1="2" x2="500" y2="2" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="0" y1="20" x2="500" y2="20" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="0" y1="40" x2="500" y2="40" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="0" y1="60" x2="500" y2="60" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="0" y1="80" x2="500" y2="80" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="0" y1="99" x2="500" y2="99" stroke="#0e172a" strokeWidth="1" />
+
+                    {/* Shiba Wave (Roxo) */}
+                    <path
+                      d="M 0,78 C 30,85 50,72 80,75 C 110,80 130,68 160,70 C 190,72 210,82 240,78 C 270,72 290,62 320,60 C 350,58 380,66 410,64 C 440,60 470,55 500,54 L 500,100 L 0,100 Z"
+                      fill="url(#shibaWaveGlow)"
+                    />
+                    <path
+                      d="M 0,78 C 30,85 50,72 80,75 C 110,80 130,68 160,70 C 190,72 210,82 240,78 C 270,72 290,62 320,60 C 350,58 380,66 410,64 C 440,60 470,55 500,54"
+                      fill="none"
+                      stroke="#c084fc"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+
+                    {/* Doge Wave (Verde Esmeralda) */}
+                    <path
+                      d="M 0,85 C 25,82 45,90 70,80 C 95,72 125,78 150,68 C 180,60 205,72 235,64 C 265,56 295,48 325,46 C 355,44 385,52 415,40 C 445,30 475,36 500,34 L 500,100 L 0,100 Z"
+                      fill="url(#dogeWaveGlow)"
+                    />
+                    <path
+                      d="M 0,85 C 25,82 45,90 70,80 C 95,72 125,78 150,68 C 180,60 205,72 235,64 C 265,56 295,48 325,46 C 355,44 385,52 415,40 C 445,30 475,36 500,34"
+                      fill="none"
+                      stroke="#34d399"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+
+                  {/* Volume Pills on right edge */}
+                  <div className="absolute right-0 top-6 flex flex-col gap-1.5 items-end pointer-events-none font-mono">
+                    <span className="bg-[#10b981] text-black font-black text-[9px] px-1.5 py-0.5 rounded shadow-[0_0_12px_#10b981]">
+                      10.8M
+                    </span>
+                    <span className="bg-[#9333ea] text-white font-black text-[9px] px-1.5 py-0.5 rounded shadow-[0_0_12px_#9333ea]">
+                      12.4M
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Time axis */}
+              <div className="flex justify-between items-center text-[8px] font-mono text-gray-500 border-t border-gray-900 pt-1 pl-8">
+                <span>14:05</span>
+                <span>14:10</span>
+                <span>14:15</span>
+                <span>14:20</span>
+                <span>14:25</span>
+                <span>14:30</span>
+              </div>
+            </div>
+
+            {/* Bottom Chart Footer */}
+            <div className="flex items-center justify-between pt-2 text-[9px] font-mono">
+              <div className="flex items-center gap-3">
+                <span className="flex items-center gap-1 font-bold text-purple-400">
+                  <span className="w-2.5 h-1 bg-purple-500 rounded"></span> Shiba (12.4M)
+                </span>
+                <span className="flex items-center gap-1 font-bold text-emerald-400">
+                  <span className="w-2.5 h-1 bg-emerald-500 rounded"></span> Doge (10.8M)
+                </span>
+              </div>
+              <div className="text-[8px] text-gray-500 uppercase tracking-widest font-bold flex items-center gap-1">
+                🦅 DEXSCREENER
+              </div>
+            </div>
+          </div>
+
+          {/* Two-Column Mini Info: How it works & Room Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+            
+            {/* How It Works */}
+            <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-3.5 space-y-2">
+              <div className="text-[10px] font-black uppercase text-white tracking-wider font-mono">
+                HOW IT WORKS?
+              </div>
+              <div className="space-y-1.5 text-[9px] text-gray-400">
+                <div className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-cyan-950 border border-cyan-600 text-cyan-400 text-[8px] font-bold flex items-center justify-center shrink-0 font-mono">1</span>
+                  <div>
+                    <span className="font-bold text-gray-200">Pick a side</span>
+                    <p className="text-[8px] text-gray-500">Shiba or Doge</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-cyan-950 border border-cyan-600 text-cyan-400 text-[8px] font-bold flex items-center justify-center shrink-0 font-mono">2</span>
+                  <div>
+                    <span className="font-bold text-gray-200">Enter the room</span>
+                    <p className="text-[8px] text-gray-500">Join the 50 participants on either side</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-cyan-950 border border-cyan-600 text-cyan-400 text-[8px] font-bold flex items-center justify-center shrink-0 font-mono">3</span>
+                  <div>
+                    <span className="font-bold text-gray-200">Track volume performance</span>
+                    <p className="text-[8px] text-gray-500">Whichever side generates LESS market volume on DEXScreener over 30 minutes settles the pool to the counterparty.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-gray-800 text-[8px] text-cyan-400 font-medium">
+                💡 It's not about who buys more. It's about who loses momentum.
+              </div>
+            </div>
+
+            {/* Room Statistics */}
+            <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-3.5 space-y-2.5">
+              <div className="text-[10px] font-black uppercase text-white tracking-wider font-mono">
+                ROOM STATISTICS
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 text-center font-mono">
+                <div className="bg-[#050b18] p-2 rounded-xl border border-gray-800">
+                  <div className="flex items-center justify-center gap-1.5 mb-1">
+                    <span className="text-base">🦊</span>
+                    <div className="text-left">
+                      <div className="text-[8px] font-bold text-purple-400">SHIBA</div>
+                      <div className="text-[7px] text-gray-400">50 participants</div>
+                    </div>
+                  </div>
+                  <div className="text-[8px] text-gray-400">Current Volume (30m)</div>
+                  <div className="text-[11px] font-black text-purple-400">12.4M USDT</div>
+                </div>
+
+                <div className="bg-[#050b18] p-2 rounded-xl border border-gray-800">
+                  <div className="flex items-center justify-center gap-1.5 mb-1">
+                    <span className="text-base">🐶</span>
+                    <div className="text-left">
+                      <div className="text-[8px] font-bold text-emerald-400">DOGE</div>
+                      <div className="text-[7px] text-gray-400">50 participants</div>
+                    </div>
+                  </div>
+                  <div className="text-[8px] text-gray-400">Current Volume (30m)</div>
+                  <div className="text-[11px] font-black text-emerald-400">10.8M USDT</div>
+                </div>
+              </div>
+
+              {/* Progress bar Difference */}
+              <div className="space-y-1 font-mono">
+                <div className="flex justify-between text-[8px] text-gray-400 font-bold">
+                  <span>Volume Delta</span>
+                  <span className="text-emerald-400 font-black">1.6M USDT</span>
+                  <span className="text-gray-500">Live spread</span>
+                </div>
+                <div className="h-1.5 w-full bg-gray-950 rounded-full overflow-hidden flex">
+                  <div className="bg-purple-500 h-full w-[54%] shadow-[0_0_10px_#a855f7]"></div>
+                  <div className="bg-emerald-400 h-full w-[46%] shadow-[0_0_10px_#34d399]"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* RIGHT COLUMN (Col 10-12) */}
+        <div className="lg:col-span-3 space-y-2.5">
+          
+          {/* Card Enter Room */}
+          <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-4 shadow-xl space-y-3 font-mono">
+            <div className="flex items-center justify-between pb-2 border-b border-gray-800">
+              <span className="text-[9px] font-bold text-gray-400 bg-gray-900 px-2 py-0.5 rounded">
+                ROOM #4827
+              </span>
+              <span className="text-[9px] font-bold text-emerald-400 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> IN PROGRESS
+              </span>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-black text-white font-sans">SHIBA vs DOGE</h3>
+              <p className="text-[8px] text-gray-400 font-sans">Stake on lowest market volume delta</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 text-[9px] bg-[#050b18] p-2.5 rounded-xl border border-gray-800">
+              <div className="flex items-center gap-1.5 text-gray-400">
+                <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                <div>
+                  <div className="text-[7px] text-gray-500">Duration</div>
+                  <div className="font-bold text-gray-200">30 minutes</div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 text-gray-400">
+                <Users className="w-3.5 h-3.5 text-cyan-400" />
+                <div>
+                  <div className="text-[7px] text-gray-500">Participants</div>
+                  <div className="font-bold text-gray-200">100 / 100</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center text-[9px] text-gray-400 px-1">
+              <span>Blockchain</span>
+              <span className="font-bold text-gray-200">Solana (Raydium)</span>
+            </div>
+
+            {/* Glowing Purple CTA Button */}
+            <button className="w-full py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 text-white shadow-[0_0_20px_rgba(147,51,234,0.5)] hover:opacity-95 transition-all flex items-center justify-center gap-2">
+              <span>ENTER ROOM</span>
+              <span className="text-sm">→</span>
+            </button>
+          </div>
+
+          {/* Card Participants (100) */}
+          <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-4 shadow-xl space-y-3 font-mono">
+            <div className="text-[10px] font-black uppercase text-white tracking-wider">
+              PARTICIPANTS (100)
+            </div>
+
+            {/* Quick Filter Badges */}
+            <div className="grid grid-cols-2 gap-2">
+              <div className="bg-[#100624] border border-purple-800/60 p-2 rounded-xl flex items-center gap-2.5">
+                <span className="text-base">🦊</span>
+                <div>
+                  <div className="text-[8px] text-purple-400 font-bold">SHIBA</div>
+                  <div className="text-xs font-black text-white">50</div>
+                </div>
+              </div>
+
+              <div className="bg-[#031713] border border-emerald-800/60 p-2 rounded-xl flex items-center gap-2.5">
+                <span className="text-base">🐶</span>
+                <div>
+                  <div className="text-[8px] text-emerald-400 font-bold">DOGE</div>
+                  <div className="text-xs font-black text-white">50</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Participant Real-time List with avatars */}
+            <div className="space-y-2 pt-1 font-sans">
+              {participantsList.map((item, idx) => (
+                <div key={idx} className="flex items-center justify-between text-[9px] bg-[#050b18] p-2 rounded-xl border border-gray-800/60">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-5 h-5 rounded-full ${item.color} flex items-center justify-center text-[10px] text-black font-bold`}>
+                      {item.side === 'shiba' ? '🦊' : '🐶'}
+                    </div>
+                    <div>
+                      <div className="font-bold text-gray-200 font-mono">{item.name}</div>
+                      <div className="text-[7px] text-gray-500">{item.action}</div>
+                    </div>
+                  </div>
+                  <span className="text-[8px] text-gray-500 font-mono">{item.time}</span>
                 </div>
               ))}
-            </Panel>
+            </div>
+
+            <button className="w-full text-center text-[9px] font-bold text-gray-400 hover:text-white pt-1 flex items-center justify-center gap-1 font-mono">
+              <span>View all (100)</span>
+              <span>→</span>
+            </button>
           </div>
-        </main>
 
-        <aside className="hidden w-[280px] shrink-0 xl:block">
-          <div className="grid gap-3">
-            <Panel className="p-3">
-              <div className="mb-3 flex items-center justify-between">
-                <span className="rounded border border-cyan-300/40 px-2 py-1 text-[7px] font-black">SALA #4827</span>
-                <span className="text-[7px] font-bold text-emerald-300">● EM ANDAMENTO</span>
-              </div>
-              <div className="text-[16px] font-black">SHIBA VS DOGE</div>
-              <div className="text-[8px] text-slate-400">Aposta no menor volume de mercado</div>
+        </div>
 
-              <div className="mt-3 grid grid-cols-2 gap-2 rounded border border-cyan-400/25 p-3">
-                <div><Clock3 size={14} className="mb-1 text-cyan-300" /><div className="text-[7px] text-slate-500">Duração</div><b className="text-[8px]">30 minutos</b></div>
-                <div><UsersRound size={14} className="mb-1 text-cyan-300" /><div className="text-[7px] text-slate-500">Participantes</div><b className="text-[8px] text-cyan-300">100 / 100</b></div>
-                <div className="col-span-2 border-t border-white/10 pt-2"><Link2 size={14} className="mr-2 inline text-cyan-300" /><span className="text-[7px] text-slate-500">Blockchain</span><b className="float-right text-[8px]">Solana (Raydium)</b></div>
-              </div>
-
-              <NeonButton className="mt-3 w-full">ENTRAR NA SALA <ChevronRight size={13} /></NeonButton>
-            </Panel>
-
-            <Panel className="p-3">
-              <div className="mb-3 flex items-center justify-between">
-                <div className="text-[10px] font-black uppercase tracking-[.1em]">PARTICIPANTES (100)</div>
-                <UsersRound size={15} className="text-cyan-300" />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <div className="rounded-md border border-fuchsia-400/40 bg-fuchsia-500/5 p-2 text-center">
-                  <TeamOrb type="shiba" />
-                  <div className="mt-1 text-[8px] font-black text-fuchsia-300">SHIBA</div>
-                  <div className="text-[16px] font-black">50</div>
-                </div>
-                <div className="rounded-md border border-cyan-400/40 bg-cyan-500/5 p-2 text-center">
-                  <TeamOrb type="doge" />
-                  <div className="mt-1 text-[8px] font-black text-cyan-300">DOGE</div>
-                  <div className="text-[16px] font-black">50</div>
-                </div>
-              </div>
-
-              <div className="mt-2 divide-y divide-white/10">
-                {participants.map(([name, status, time, avatar]) => (
-                  <div key={name} className="flex items-center gap-2 py-2">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full border border-fuchsia-300/30 bg-slate-900 text-sm">{avatar}</div>
-                    <div className="min-w-0 flex-1">
-                      <div className="truncate text-[8px] font-bold">{name}</div>
-                      <div className="truncate text-[6px] text-cyan-300">{status}</div>
-                    </div>
-                    <span className="text-[7px] text-slate-500">{time}</span>
-                  </div>
-                ))}
-              </div>
-
-              <button className="mt-2 flex items-center gap-1 text-[8px] font-bold text-cyan-300">Ver todos (100) <ChevronRight size={11} /></button>
-            </Panel>
-          </div>
-        </aside>
       </div>
+
+      {/* 3. BOTTOM FOOTER STEPS & BANNER */}
+      <footer className="mt-3 pt-2.5 border-t border-[#0b162c] flex flex-col md:flex-row items-center justify-between gap-4 px-2">
+        <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-[9px]">
+          <div className="flex items-center gap-2 text-gray-300">
+            <Zap className="w-4 h-4 text-purple-400 shrink-0" />
+            <div>
+              <div className="font-black uppercase text-white font-mono">ENTER ON MOMENTUM</div>
+              <div className="text-[8px] text-gray-500">Act fast, room caps are limited</div>
+            </div>
+          </div>
+
+          <span className="text-gray-700 hidden sm:inline">&gt;</span>
+
+          <div className="flex items-center gap-2 text-gray-300">
+            <Target className="w-4 h-4 text-cyan-400 shrink-0" />
+            <div>
+              <div className="font-black uppercase text-white font-mono">STRATEGIC ALLOCATION</div>
+              <div className="text-[8px] text-gray-500">Market volume delta determines victor</div>
+            </div>
+          </div>
+
+          <span className="text-gray-700 hidden sm:inline">&gt;</span>
+
+          <div className="flex items-center gap-2 text-gray-300">
+            <Trophy className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div>
+              <div className="font-black uppercase text-white font-mono">COLLECT YIELD</div>
+              <div className="text-[8px] text-gray-500">The counterparty settles the pool</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Corner Watermark */}
+        <div className="flex items-center gap-2 text-right">
+          <div>
+            <div className="text-[10px] font-black tracking-wider text-white font-mono">BULL PROTOCOL</div>
+            <div className="text-[7px] text-gray-500 uppercase tracking-widest font-bold font-mono">MOMENTUM WINS</div>
+          </div>
+          <span className="text-xl">🐂</span>
+        </div>
+      </footer>
+
     </div>
   );
 }
