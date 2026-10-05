@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const BULL_IMAGE_URL = 'https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -13,7 +14,46 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // 1. SPLASH SCREEN: PURE BLACK BACKGROUND WITH ONLY THE NEON BULL HEAD
+  // Recorte dinâmico: remove o fundo e o quadrado escuro, mantendo apenas o touro néon
+  useEffect(() => {
+    if (!loading) return;
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = BULL_IMAGE_URL;
+
+    img.onload = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      ctx.drawImage(img, 0, 0);
+
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imgData.data;
+
+      // Percorre os píxeis e torna transparente qualquer fundo escuro
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const brightness = Math.max(r, g, b);
+
+        if (brightness < 35) {
+          data[i + 3] = 0; // Transparência total para o fundo/quadrado
+        } else if (brightness < 70) {
+          data[i + 3] = Math.round(((brightness - 35) / 35) * 255); // Suavização das bordas
+        }
+      }
+
+      ctx.putImageData(imgData, 0, 0);
+    };
+  }, [loading]);
+
+  // 1. SPLASH SCREEN: 100% PURE BLACK WITH ONLY THE EXTRACTED BULL HEAD
   if (loading) {
     return (
       <div
@@ -29,30 +69,28 @@ export default function App() {
         }}
       >
         <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          {/* Subtle cyan glow behind the logo */}
+          {/* Cyan neon glow */}
           <div
             style={{
               position: 'absolute',
               width: '320px',
               height: '320px',
-              backgroundColor: 'rgba(0, 240, 255, 0.2)',
+              backgroundColor: 'rgba(0, 240, 255, 0.22)',
               borderRadius: '50%',
               filter: 'blur(90px)',
               pointerEvents: 'none'
             }}
           />
 
-          <img
-            src={BULL_IMAGE_URL}
-            alt="Bull Logo"
+          <canvas
+            ref={canvasRef}
             style={{
               position: 'relative',
               width: '320px',
               maxWidth: '85vw',
               height: 'auto',
               objectFit: 'contain',
-              mixBlendMode: 'screen',
-              filter: 'drop-shadow(0 0 25px rgba(0, 240, 255, 0.6))'
+              filter: 'drop-shadow(0 0 25px rgba(0, 240, 255, 0.75))'
             }}
           />
         </div>
