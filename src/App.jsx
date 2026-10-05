@@ -1,424 +1,791 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  ConnectionProvider,
+  WalletProvider,
+  useConnection,
+  useWallet,
+} from "@solana/wallet-adapter-react";
+import {
+  WalletModalProvider,
+  WalletMultiButton,
+} from "@solana/wallet-adapter-react-ui";
+import {
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
+import { clusterApiUrl, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
-const BULL_LOGO_URL = 'https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png';
+const ENDPOINT = clusterApiUrl("mainnet-beta");
+const BULL_LOGO_URL = "/bull-logo.png";
 
-export default function App() {
-  const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('rooms');
-  const canvasRef = useRef(null);
+const navigationItems = [
+  { id: "rooms", label: "Battle Rooms", icon: "⚔" },
+  { id: "profile", label: "My Profile", icon: "◉" },
+  { id: "launchpad", label: "Launchpad", icon: "◆" },
+  { id: "leaderboard", label: "Leaderboard", icon: "♛" },
+  { id: "rewards", label: "Rewards", icon: "✦" },
+  { id: "settings", label: "Settings", icon: "⚙" },
+];
 
-  // Splash Screen de 7 segundos
+function Terminal() {
+  const { connection } = useConnection();
+  const { publicKey, connected, disconnect } = useWallet();
+
+  const [activeTab, setActiveTab] = useState("rooms");
+  const [balance, setBalance] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(28 * 60 + 17);
+  const [selectedSide, setSelectedSide] = useState(null);
+  const [notification, setNotification] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  const shortAddress = publicKey
+    ? `${publicKey.toString().slice(0, 4)}...${publicKey
+        .toString()
+        .slice(-4)}`
+    : "Not Connected";
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false);
-    }, 7000);
+      setIsLoading(false);
+    }, 1800);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Recorte dinâmico da imagem do touro para a tela de abertura
   useEffect(() => {
-    if (!loading) return;
+    const interval = setInterval(() => {
+      setTimeLeft((current) => (current > 0 ? current - 1 : 28 * 60 + 17));
+    }, 1000);
 
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = BULL_LOGO_URL;
+    return () => clearInterval(interval);
+  }, []);
 
-    img.onload = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
+  useEffect(() => {
+    if (!publicKey) {
+      setBalance(null);
+      return;
+    }
 
-      const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
+    let active = true;
 
-      ctx.drawImage(img, 0, 0);
+    async function loadBalance() {
+      try {
+        const lamports = await connection.getBalance(publicKey);
 
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imgData.data;
+        if (active) {
+          setBalance(lamports / LAMPORTS_PER_SOL);
+        }
+      } catch (error) {
+        console.error("Unable to load wallet balance:", error);
 
-      for (let i = 0; i < data.length; i += 4) {
-        const brightness = Math.max(data[i], data[i + 1], data[i + 2]);
-        if (brightness < 35) {
-          data[i + 3] = 0;
-        } else if (brightness < 70) {
-          data[i + 3] = Math.round(((brightness - 35) / 35) * 255);
+        if (active) {
+          setBalance(null);
         }
       }
+    }
 
-      ctx.putImageData(imgData, 0, 0);
+    loadBalance();
+
+    return () => {
+      active = false;
     };
-  }, [loading]);
+  }, [connection, publicKey]);
 
-  // 1. SPLASH SCREEN (7 SEGUNDOS)
-  if (loading) {
+  useEffect(() => {
+    if (!notification) return;
+
+    const timeout = setTimeout(() => {
+      setNotification("");
+    }, 3500);
+
+    return () => clearTimeout(timeout);
+  }, [notification]);
+
+  const formattedTime = useMemo(() => {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+      2,
+      "0"
+    )}`;
+  }, [timeLeft]);
+
+  function handleNavigation(tab) {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function handleBattleSelection(side) {
+    if (!connected) {
+      setNotification("Connect your wallet before entering a battle.");
+      return;
+    }
+
+    setSelectedSide(side);
+
+    setNotification(
+      `${side} selected. Your wallet is connected and ready for the next step.`
+    );
+  }
+
+  async function handleDisconnect() {
+    try {
+      await disconnect();
+      setNotification("Wallet disconnected.");
+    } catch (error) {
+      console.error("Wallet disconnect failed:", error);
+    }
+  }
+
+  function renderRooms() {
     return (
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          backgroundColor: '#000000',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 9999,
-          overflow: 'hidden'
-        }}
-      >
-        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div
-            style={{
-              position: 'absolute',
-              width: '320px',
-              height: '320px',
-              backgroundColor: 'rgba(0, 240, 255, 0.22)',
-              borderRadius: '50%',
-              filter: 'blur(90px)',
-              pointerEvents: 'none'
-            }}
-          />
+      <section className="content-section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">LIVE ARENA</span>
+            <h1>Battle Rooms</h1>
+            <p>
+              Choose your side, follow the momentum, and enter the next live
+              round.
+            </p>
+          </div>
 
-          <canvas
-            ref={canvasRef}
-            style={{
-              position: 'relative',
-              width: '320px',
-              maxWidth: '85vw',
-              height: 'auto',
-              objectFit: 'contain',
-              filter: 'drop-shadow(0 0 25px rgba(0, 240, 255, 0.75))'
-            }}
-          />
+          <div className="live-status">
+            <span className="status-dot" />
+            LIVE
+          </div>
         </div>
+
+        <div className="market-overview">
+          <div className="overview-card">
+            <span>ACTIVE PLAYERS</span>
+            <strong>100</strong>
+          </div>
+
+          <div className="overview-card">
+            <span>ROUND POOL</span>
+            <strong>245.50</strong>
+            <small>TEST SOL</small>
+          </div>
+
+          <div className="overview-card">
+            <span>ROUND TIME</span>
+            <strong>{formattedTime}</strong>
+          </div>
+
+          <div className="overview-card">
+            <span>MARKET MOMENTUM</span>
+            <strong className="positive">+8.42%</strong>
+          </div>
+        </div>
+
+        <div className="battle-card">
+          <div className="battle-card-header">
+            <div>
+              <span className="eyebrow">ROOM #001</span>
+              <h2>SHIBA <span>VS</span> DOGE</h2>
+            </div>
+
+            <div className="round-badge">30 MINUTE ROUND</div>
+          </div>
+
+          <div className="battle-graph">
+            <div className="graph-grid">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+
+            <svg
+              viewBox="0 0 900 260"
+              preserveAspectRatio="none"
+              className="market-line"
+              aria-label="Market momentum chart"
+            >
+              <defs>
+                <linearGradient
+                  id="lineGradient"
+                  x1="0"
+                  x2="1"
+                  y1="0"
+                  y2="0"
+                >
+                  <stop offset="0%" stopColor="#16e0ff" />
+                  <stop offset="100%" stopColor="#ffd84d" />
+                </linearGradient>
+              </defs>
+
+              <path
+                d="M0 210
+                   C50 205 55 160 105 174
+                   C150 187 150 130 205 145
+                   C250 158 270 105 320 126
+                   C370 148 380 80 430 98
+                   C480 116 505 62 550 88
+                   C600 115 620 45 670 72
+                   C720 98 735 42 785 56
+                   C830 68 850 35 900 28"
+                fill="none"
+                stroke="url(#lineGradient)"
+                strokeWidth="5"
+                strokeLinecap="round"
+              />
+            </svg>
+
+            <div className="chart-label chart-label-top">
+              MARKET MOMENTUM
+            </div>
+
+            <div className="chart-label chart-label-bottom">
+              LIVE FEED
+            </div>
+          </div>
+
+          <div className="fighters">
+            <button
+              type="button"
+              className={`fighter-card shiba ${
+                selectedSide === "SHIBA" ? "selected" : ""
+              }`}
+              onClick={() => handleBattleSelection("SHIBA")}
+            >
+              <div className="fighter-avatar">🐕</div>
+
+              <div className="fighter-information">
+                <span className="fighter-name">SHIBA</span>
+                <span className="fighter-symbol">SHIB</span>
+              </div>
+
+              <div className="fighter-stat">
+                <span>Momentum</span>
+                <strong>+12.8%</strong>
+              </div>
+
+              <div className="fighter-action">
+                {selectedSide === "SHIBA" ? "SELECTED" : "ENTER"}
+              </div>
+            </button>
+
+            <div className="versus">
+              <span>VS</span>
+            </div>
+
+            <button
+              type="button"
+              className={`fighter-card doge ${
+                selectedSide === "DOGE" ? "selected" : ""
+              }`}
+              onClick={() => handleBattleSelection("DOGE")}
+            >
+              <div className="fighter-avatar">🐕‍🦺</div>
+
+              <div className="fighter-information">
+                <span className="fighter-name">DOGE</span>
+                <span className="fighter-symbol">DOGE</span>
+              </div>
+
+              <div className="fighter-stat">
+                <span>Momentum</span>
+                <strong>+7.4%</strong>
+              </div>
+
+              <div className="fighter-action">
+                {selectedSide === "DOGE" ? "SELECTED" : "ENTER"}
+              </div>
+            </button>
+          </div>
+
+          <div className="battle-footer">
+            <div>
+              <span>ROUND STATUS</span>
+              <strong>OPEN FOR ENTRY</strong>
+            </div>
+
+            <div>
+              <span>PARTICIPANTS</span>
+              <strong>100 / 250</strong>
+            </div>
+
+            <div>
+              <span>SETTLEMENT</span>
+              <strong>INSTANT</strong>
+            </div>
+
+            <div>
+              <span>PROTOCOL FEE</span>
+              <strong>5%</strong>
+            </div>
+          </div>
+        </div>
+
+        <div className="info-grid">
+          <div className="info-panel">
+            <span className="eyebrow">HOW IT WORKS</span>
+            <h3>Choose your momentum.</h3>
+            <p>
+              Select the asset you believe will show stronger momentum during
+              the active round.
+            </p>
+          </div>
+
+          <div className="info-panel">
+            <span className="eyebrow">ROUND PROTECTION</span>
+            <h3>Transparent settlement.</h3>
+            <p>
+              Each round has a defined duration, participant pool, and
+              settlement process.
+            </p>
+          </div>
+
+          <div className="info-panel">
+            <span className="eyebrow">YOUR POSITION</span>
+            <h3>
+              {selectedSide
+                ? `${selectedSide} selected`
+                : "No side selected"}
+            </h3>
+            <p>
+              {connected
+                ? "Your wallet is connected and ready."
+                : "Connect your wallet to continue."}
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  function renderProfile() {
+    return (
+      <section className="content-section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">ACCOUNT</span>
+            <h1>My Profile</h1>
+            <p>Manage your connected wallet and account information.</p>
+          </div>
+        </div>
+
+        <div className="profile-layout">
+          <div className="profile-card profile-main">
+            <div className="profile-logo">
+              <img src={BULL_LOGO_URL} alt="Bull Protocol" />
+            </div>
+
+            <span className="eyebrow">WALLET STATUS</span>
+
+            <h2>{connected ? "Wallet Connected" : "Wallet Not Connected"}</h2>
+
+            <p className="wallet-address">
+              {connected ? publicKey.toString() : "Connect a wallet to begin."}
+            </p>
+
+            {connected && (
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={handleDisconnect}
+              >
+                Disconnect Wallet
+              </button>
+            )}
+          </div>
+
+          <div className="profile-card">
+            <span className="eyebrow">BALANCE</span>
+            <div className="big-number">
+              {balance !== null ? balance.toFixed(4) : "0.0000"}
+            </div>
+            <span className="muted-label">Wallet balance</span>
+          </div>
+
+          <div className="profile-card">
+            <span className="eyebrow">BATTLE XP</span>
+            <div className="big-number">0.00</div>
+            <span className="muted-label">Experience points</span>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  function renderLaunchpad() {
+    return (
+      <section className="content-section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">TOKEN PLATFORM</span>
+            <h1>Launchpad</h1>
+            <p>
+              Discover upcoming projects and manage new launches inside the
+              Bull ecosystem.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            className="primary-button"
+            onClick={() =>
+              setNotification("Launch creation will be available soon.")
+            }
+          >
+            CREATE LAUNCH
+          </button>
+        </div>
+
+        <div className="launchpad-grid">
+          <article className="launch-card featured">
+            <div className="launch-status">FEATURED</div>
+
+            <div className="launch-icon">B</div>
+
+            <h2>Bull Protocol</h2>
+
+            <p>
+              The core trading ecosystem powering the Bull Arena experience.
+            </p>
+
+            <div className="launch-metrics">
+              <div>
+                <span>STATUS</span>
+                <strong>LIVE</strong>
+              </div>
+
+              <div>
+                <span>COMMUNITY</span>
+                <strong>ACTIVE</strong>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="secondary-button full-width"
+              onClick={() => setNotification("Bull Protocol is already live.")}
+            >
+              VIEW PROJECT
+            </button>
+          </article>
+
+          <article className="launch-card">
+            <div className="launch-status upcoming">UPCOMING</div>
+
+            <div className="launch-icon">01</div>
+
+            <h2>Next Launch</h2>
+
+            <p>
+              New projects will appear here once their launch profile is
+              published.
+            </p>
+
+            <div className="launch-progress">
+              <div>
+                <span>PROGRESS</span>
+                <strong>COMING SOON</strong>
+              </div>
+
+              <div className="progress-track">
+                <div className="progress-value" />
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="secondary-button full-width"
+              onClick={() => setNotification("No new launch is available yet.")}
+            >
+              VIEW DETAILS
+            </button>
+          </article>
+        </div>
+      </section>
+    );
+  }
+
+  function renderLeaderboard() {
+    const players = [
+      ["01", "BullMaster", "12,840 XP"],
+      ["02", "MomentumKing", "11,420 XP"],
+      ["03", "ArenaWolf", "10,885 XP"],
+      ["04", "MarketBull", "9,740 XP"],
+      ["05", "AlphaTrader", "8,920 XP"],
+    ];
+
+    return (
+      <section className="content-section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">COMPETITION</span>
+            <h1>Leaderboard</h1>
+            <p>Top performers across the Bull Arena.</p>
+          </div>
+        </div>
+
+        <div className="leaderboard-card">
+          {players.map(([rank, name, xp]) => (
+            <div className="leaderboard-row" key={rank}>
+              <span className="rank">#{rank}</span>
+
+              <div className="player-avatar">
+                {name.charAt(0)}
+              </div>
+
+              <div className="player-name">
+                <strong>{name}</strong>
+                <span>Active Trader</span>
+              </div>
+
+              <strong className="player-xp">{xp}</strong>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  function renderRewards() {
+    return (
+      <section className="content-section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">REWARD CENTER</span>
+            <h1>Rewards</h1>
+            <p>Track your progress and available Bull Arena rewards.</p>
+          </div>
+        </div>
+
+        <div className="reward-grid">
+          <div className="reward-card">
+            <span className="reward-icon">✦</span>
+            <span className="eyebrow">BATTLE XP</span>
+            <strong>0.00</strong>
+            <p>Earn XP through eligible arena activity.</p>
+          </div>
+
+          <div className="reward-card">
+            <span className="reward-icon">♛</span>
+            <span className="eyebrow">RANK</span>
+            <strong>ROOKIE</strong>
+            <p>Keep participating to unlock higher ranks.</p>
+          </div>
+
+          <div className="reward-card">
+            <span className="reward-icon">◆</span>
+            <span className="eyebrow">REWARDS</span>
+            <strong>LOCKED</strong>
+            <p>Reward claims will appear here when available.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  function renderSettings() {
+    return (
+      <section className="content-section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">SYSTEM</span>
+            <h1>Settings</h1>
+            <p>Manage your Bull Arena experience.</p>
+          </div>
+        </div>
+
+        <div className="settings-card">
+          <div className="setting-row">
+            <div>
+              <strong>Network Status</strong>
+              <span>Primary trading network connection</span>
+            </div>
+
+            <div className="setting-value online">
+              <span className="status-dot" />
+              ACTIVE
+            </div>
+          </div>
+
+          <div className="setting-row">
+            <div>
+              <strong>Wallet</strong>
+              <span>{connected ? shortAddress : "Not connected"}</span>
+            </div>
+
+            <div className="setting-value">
+              {connected ? "CONNECTED" : "DISCONNECTED"}
+            </div>
+          </div>
+
+          <div className="setting-row">
+            <div>
+              <strong>Interface Language</strong>
+              <span>United States English</span>
+            </div>
+
+            <div className="setting-value">EN-US</div>
+          </div>
+
+          <div className="setting-row">
+            <div>
+              <strong>Notifications</strong>
+              <span>In-app trading notifications</span>
+            </div>
+
+            <div className="toggle active">
+              <span />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  function renderContent() {
+    switch (activeTab) {
+      case "profile":
+        return renderProfile();
+
+      case "launchpad":
+        return renderLaunchpad();
+
+      case "leaderboard":
+        return renderLeaderboard();
+
+      case "rewards":
+        return renderRewards();
+
+      case "settings":
+        return renderSettings();
+
+      case "rooms":
+      default:
+        return renderRooms();
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="splash-screen">
+        <div className="splash-logo">
+          <img src={BULL_LOGO_URL} alt="Bull Protocol" />
+        </div>
+
+        <div className="splash-title">
+          BULL<span>PROTOCOL</span>
+        </div>
+
+        <div className="splash-loader">
+          <div />
+        </div>
+
+        <p>INITIALIZING TRADING TERMINAL...</p>
       </div>
     );
   }
 
-  // 2. APLICAÇÃO COMPLETA: BULL PROTOCOL (TUDO EM INGLÊS E DARK CYBERPUNK)
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#07090e', color: '#f3f4f6', fontFamily: 'sans-serif' }}>
-      
-      {/* SIDEBAR LATERAL */}
-      <aside
-        style={{
-          width: '280px',
-          backgroundColor: '#0a0d14',
-          borderRight: '1px solid rgba(255, 255, 255, 0.07)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: '24px 16px'
-        }}
-      >
-        <div>
-          {/* LOGO BULL PROTOCOL */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '0 8px 24px 8px', borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-            <img
-              src={BULL_LOGO_URL}
-              alt="Bull Protocol"
-              style={{ width: '42px', height: '42px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'drop-shadow(0 0 10px #00f0ff)' }}
-            />
-            <div>
-              <div style={{ fontSize: '18px', fontWeight: '900', letterSpacing: '0.15em', color: '#ffffff' }}>BULL</div>
-              <div style={{ fontSize: '10px', fontWeight: '700', letterSpacing: '0.3em', color: '#22d3ee' }}>PROTOCOL</div>
-            </div>
-          </div>
-
-          {/* MENU DE NAVEGAÇÃO */}
-          <nav style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            
-            {/* ITEM: BATTLE ROOMS */}
-            <button
-              onClick={() => setActiveTab('rooms')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
-                width: '100%',
-                padding: '12px 16px',
-                borderRadius: '12px',
-                border: activeTab === 'rooms' ? '1px solid rgba(34, 211, 238, 0.4)' : '1px solid transparent',
-                background: activeTab === 'rooms' ? 'linear-gradient(90deg, rgba(168, 85, 247, 0.25) 0%, rgba(34, 211, 238, 0.25) 100%)' : 'transparent',
-                color: '#ffffff',
-                cursor: 'pointer',
-                textAlign: 'left'
-              }}
-            >
-              <span style={{ fontSize: '20px' }}>⚔️</span>
-              <div>
-                <div style={{ fontSize: '13px', fontWeight: 'bold' }}>BATTLE ROOMS</div>
-                <div style={{ fontSize: '11px', color: '#9ca3af' }}>Join active battles</div>
-              </div>
-            </button>
-
-            {/* ITEM: MY PROFILE */}
-            <button
-              onClick={() => setActiveTab('profile')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
-                width: '100%',
-                padding: '12px 16px',
-                borderRadius: '12px',
-                border: '1px solid transparent',
-                background: activeTab === 'profile' ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
-                color: '#9ca3af',
-                cursor: 'pointer',
-                textAlign: 'left'
-              }}
-            >
-              <span style={{ fontSize: '18px' }}>👤</span>
-              <div>
-                <div style={{ fontSize: '13px', fontWeight: 'bold', color: activeTab === 'profile' ? '#fff' : '#d1d5db' }}>MY PROFILE</div>
-                <div style={{ fontSize: '11px', color: '#6b7280' }}>Wallet and history</div>
-              </div>
-            </button>
-
-            {/* ITEM: LEADERBOARD */}
-            <button
-              onClick={() => setActiveTab('leaderboard')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
-                width: '100%',
-                padding: '12px 16px',
-                borderRadius: '12px',
-                border: '1px solid transparent',
-                background: activeTab === 'leaderboard' ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
-                color: '#9ca3af',
-                cursor: 'pointer',
-                textAlign: 'left'
-              }}
-            >
-              <span style={{ fontSize: '18px' }}>🏆</span>
-              <div>
-                <div style={{ fontSize: '13px', fontWeight: 'bold', color: activeTab === 'leaderboard' ? '#fff' : '#d1d5db' }}>LEADERBOARD</div>
-                <div style={{ fontSize: '11px', color: '#6b7280' }}>Top traders</div>
-              </div>
-            </button>
-
-            {/* ITEM: REWARDS */}
-            <button
-              onClick={() => setActiveTab('rewards')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
-                width: '100%',
-                padding: '12px 16px',
-                borderRadius: '12px',
-                border: '1px solid transparent',
-                background: activeTab === 'rewards' ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
-                color: '#9ca3af',
-                cursor: 'pointer',
-                textAlign: 'left'
-              }}
-            >
-              <span style={{ fontSize: '18px' }}>🛡️</span>
-              <div>
-                <div style={{ fontSize: '13px', fontWeight: 'bold', color: activeTab === 'rewards' ? '#fff' : '#d1d5db' }}>REWARDS</div>
-                <div style={{ fontSize: '11px', color: '#6b7280' }}>XP and badges</div>
-              </div>
-            </button>
-
-            {/* ITEM: SETTINGS */}
-            <button
-              onClick={() => setActiveTab('settings')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
-                width: '100%',
-                padding: '12px 16px',
-                borderRadius: '12px',
-                border: '1px solid transparent',
-                background: activeTab === 'settings' ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
-                color: '#9ca3af',
-                cursor: 'pointer',
-                textAlign: 'left'
-              }}
-            >
-              <span style={{ fontSize: '18px' }}>⚙️</span>
-              <div>
-                <div style={{ fontSize: '13px', fontWeight: 'bold', color: activeTab === 'settings' ? '#fff' : '#d1d5db' }}>SETTINGS</div>
-                <div style={{ fontSize: '11px', color: '#6b7280' }}>Preferences</div>
-              </div>
-            </button>
-          </nav>
+    <div className="app-shell">
+      {notification && (
+        <div className="notification">
+          <span className="notification-dot" />
+          {notification}
         </div>
+      )}
 
-        {/* CARD INFORMATIVO INFERIOR */}
-        <div
-          style={{
-            position: 'relative',
-            padding: '18px',
-            borderRadius: '16px',
-            backgroundColor: '#0d111c',
-            border: '1px solid rgba(34, 211, 238, 0.2)',
-            overflow: 'hidden'
-          }}
-        >
-          <div style={{ textAlign: 'center', marginBottom: '8px' }}>
-            <img
-              src={BULL_LOGO_URL}
-              alt="Mini Bull"
-              style={{ width: '38px', height: '38px', objectFit: 'contain', mixBlendMode: 'screen' }}
-            />
+      <header className="topbar">
+        <div className="brand">
+          <div className="brand-mark">
+            <img src={BULL_LOGO_URL} alt="Bull Protocol" />
           </div>
-          <div style={{ fontSize: '11px', fontWeight: '800', textAlign: 'center', color: '#a855f7', letterSpacing: '0.05em' }}>
-            MORE MOMENTUM
-          </div>
-          <div style={{ fontSize: '11px', fontWeight: '800', textAlign: 'center', color: '#22d3ee', marginBottom: '8px', letterSpacing: '0.05em' }}>
-            LESS EMOTION
-          </div>
-          <p style={{ fontSize: '11px', color: '#9ca3af', textAlign: 'center', lineHeight: '1.4', margin: '0 0 14px 0' }}>
-            The rule is simple: whichever side loses market volume in 30 minutes pays the other side.
-          </p>
-          <button
-            style={{
-              width: '100%',
-              padding: '8px',
-              backgroundColor: 'transparent',
-              border: '1px solid #22d3ee',
-              color: '#22d3ee',
-              borderRadius: '8px',
-              fontSize: '11px',
-              fontWeight: '700',
-              cursor: 'pointer',
-              letterSpacing: '0.05em'
-            }}
-          >
-            HOW IT WORKS?
-          </button>
-        </div>
-      </aside>
 
-      {/* ÁREA PRINCIPAL DO PAINEL */}
-      <main style={{ flex: 1, padding: '32px', display: 'flex', flexDirection: 'column', gap: '28px' }}>
-        
-        {/* TOPO: STATUS E CONEXÃO */}
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h1 style={{ fontSize: '24px', fontWeight: 'bold', margin: '0 0 4px 0', color: '#ffffff' }}>
-              BATTLE ROOMS
-            </h1>
-            <p style={{ fontSize: '13px', color: '#6b7280', margin: 0 }}>
-              Live real-time decentralized volume confrontations
-            </p>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: '#0f1422', padding: '8px 16px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }} />
-              <span style={{ fontSize: '12px', fontFamily: 'monospace', color: '#9ca3af' }}>NETWORK ACTIVE</span>
+            <div className="brand-name">
+              BULL<span>PROTOCOL</span>
             </div>
 
-            <button
-              style={{
-                backgroundColor: '#22d3ee',
-                color: '#000000',
-                fontWeight: '700',
-                padding: '10px 20px',
-                borderRadius: '10px',
-                border: 'none',
-                cursor: 'pointer',
-                letterSpacing: '0.05em'
-              }}
-            >
-              CONNECT WALLET
-            </button>
-          </div>
-        </header>
-
-        {/* CARDS DE SALAS DE BATALHA */}
-        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-          
-          {/* CARD 1: BTC/USDT */}
-          <div
-            style={{
-              backgroundColor: '#0c101b',
-              borderRadius: '16px',
-              padding: '24px',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between'
-            }}
-          >
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <span style={{ fontSize: '16px', fontWeight: 'bold' }}>BTC / USDT</span>
-                <span style={{ fontSize: '12px', backgroundColor: 'rgba(34, 211, 238, 0.1)', color: '#22d3ee', padding: '4px 8px', borderRadius: '6px' }}>30m Round</span>
-              </div>
-              <div style={{ fontSize: '28px', fontWeight: '900', color: '#10b981', marginBottom: '6px' }}>
-                $96,450.00
-              </div>
-              <p style={{ fontSize: '12px', color: '#6b7280', margin: 0 }}>Current pool prize: 2.50 ETH</p>
+            <div className="brand-subtitle">
+              HIGH-YIELD MOMENTUM TERMINAL
             </div>
+          </div>
+        </div>
 
-            <div style={{ marginTop: '24px' }}>
+        <div className="topbar-actions">
+          <div className="network-pill">
+            <span className="status-dot" />
+            NETWORK ACTIVE
+          </div>
+
+          {connected && (
+            <div className="balance-pill">
+              {balance !== null ? balance.toFixed(4) : "0.0000"} SOL
+            </div>
+          )}
+
+          <WalletMultiButton className="wallet-button" />
+        </div>
+      </header>
+
+      <div className="terminal-layout">
+        <aside className="sidebar">
+          <div className="sidebar-title">NAVIGATION</div>
+
+          <nav>
+            {navigationItems.map((item) => (
               <button
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  backgroundColor: 'rgba(34, 211, 238, 0.15)',
-                  border: '1px solid #22d3ee',
-                  color: '#22d3ee',
-                  fontWeight: 'bold',
-                  borderRadius: '10px',
-                  cursor: 'pointer'
-                }}
+                type="button"
+                key={item.id}
+                className={`nav-item ${
+                  activeTab === item.id ? "active" : ""
+                }`}
+                onClick={() => handleNavigation(item.id)}
               >
-                ENTER BATTLE
+                <span className="nav-icon">{item.icon}</span>
+                <span>{item.label}</span>
+
+                {item.id === "rooms" && (
+                  <span className="nav-live">LIVE</span>
+                )}
               </button>
+            ))}
+          </nav>
+
+          <div className="sidebar-footer">
+            <div className="protocol-card">
+              <span className="protocol-indicator" />
+              <div>
+                <strong>PROTOCOL ONLINE</strong>
+                <span>All systems operational</span>
+              </div>
             </div>
           </div>
+        </aside>
 
-          {/* CARD 2: SOL/USDT */}
-          <div
-            style={{
-              backgroundColor: '#0c101b',
-              borderRadius: '16px',
-              padding: '24px',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between'
-            }}
-          >
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <span style={{ fontSize: '16px', fontWeight: 'bold' }}>SOL / USDT</span>
-                <span style={{ fontSize: '12px', backgroundColor: 'rgba(168, 85, 247, 0.1)', color: '#a855f7', padding: '4px 8px', borderRadius: '6px' }}>30m Round</span>
-              </div>
-              <div style={{ fontSize: '28px', fontWeight: '900', color: '#22d3ee', marginBottom: '6px' }}>
-                $218.40
-              </div>
-              <p style={{ fontSize: '12px', color: '#6b7280', margin: 0 }}>Current pool prize: 45.00 SOL</p>
-            </div>
+        <main className="main-content">{renderContent()}</main>
+      </div>
 
-            <div style={{ marginTop: '24px' }}>
-              <button
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  backgroundColor: 'rgba(168, 85, 247, 0.15)',
-                  border: '1px solid #a855f7',
-                  color: '#a855f7',
-                  fontWeight: 'bold',
-                  borderRadius: '10px',
-                  cursor: 'pointer'
-                }}
-              >
-                ENTER BATTLE
-              </button>
-            </div>
-          </div>
-
-        </section>
-      </main>
+      <footer className="terminal-footer">
+        <span>© 2026 BULL PROTOCOL</span>
+        <span>NON-CUSTODIAL TRADING TERMINAL</span>
+        <span>ALL SYSTEMS OPERATIONAL</span>
+      </footer>
     </div>
+  );
+}
+
+export default function App() {
+  const wallets = useMemo(
+    () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
+    []
+  );
+
+  return (
+    <ConnectionProvider endpoint={ENDPOINT}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>
+          <Terminal />
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
   );
 }
