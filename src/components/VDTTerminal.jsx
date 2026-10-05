@@ -8,8 +8,6 @@ import {
   Clock, 
   Users, 
   ChevronRight, 
-  ExternalLink,
-  Wallet,
   ChevronDown,
   LineChart,
   Target
@@ -19,9 +17,9 @@ export default function VDTTerminal() {
   const [chartTab, setChartTab] = useState('total');
 
   const participantsList = [
-    { name: 'ShibaTeam_1F...', action: 'Entrou no time Shiba', time: '2 min', img: '🐕', side: 'shiba' },
+    { name: 'ShibaTeam_1F...', action: 'Entrou no time Shiba', time: '2 min', img: '🦊', side: 'shiba' },
     { name: 'DogeWolf_7a...', action: 'Entrou no time Doge', time: '2 min', img: '🐶', side: 'doge' },
-    { name: 'CryptoLuna', action: 'Entrou no time Shiba', time: '3 min', img: '👩‍‍🎤', side: 'shiba' },
+    { name: 'CryptoLuna', action: 'Entrou no time Shiba', time: '3 min', img: '👩‍🎤', side: 'shiba' },
     { name: 'TraderAlpha', action: 'Entrou no time Doge', time: '4 min', img: '🧑‍💻', side: 'doge' },
     { name: 'SolMaster', action: 'Entrou no time Shiba', time: '5 min', img: '👨‍🚀', side: 'shiba' }
   ];
@@ -245,43 +243,49 @@ export default function VDTTerminal() {
             {/* Simulated Chart Container */}
             <div className="h-44 w-full relative flex flex-col justify-between pt-1">
               
-              {/* Vector Lines */}
-              <svg className="w-full h-32 overflow-visible" viewBox="0 0 500 100" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="purpleGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#a855f7" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#a855f7" stopOpacity="0.0" />
-                  </linearGradient>
-                  <linearGradient id="greenGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
-                  </linearGradient>
-                </defs>
+              <div className="flex h-36 w-full">
+                {/* Y-Axis Labels */}
+                <div className="flex flex-col justify-between text-[8px] font-mono text-gray-500 pr-2 pb-2 text-right w-8">
+                  <span>25M</span>
+                  <span>20M</span>
+                  <span>15M</span>
+                  <span>10M</span>
+                  <span>5M</span>
+                  <span>0</span>
+                </div>
 
-                {/* Grid Lines */}
-                <line x1="0" y1="20" x2="500" y2="20" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
-                <line x1="0" y1="50" x2="500" y2="50" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
-                <line x1="0" y1="80" x2="500" y2="80" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                {/* SVG Curve Graphic Area */}
+                <div className="flex-1 relative">
+                  <svg className="w-full h-full overflow-visible" viewBox="0 0 500 100" preserveAspectRatio="none">
+                    {/* Grid Lines */}
+                    <line x1="0" y1="0" x2="500" y2="0" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="0" y1="20" x2="500" y2="20" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="0" y1="40" x2="500" y2="40" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="0" y1="60" x2="500" y2="60" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="0" y1="80" x2="500" y2="80" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="0" y1="100" x2="500" y2="100" stroke="#0e172a" strokeWidth="1" />
 
-                {/* Shiba Purple Curve */}
-                <path d="M0,65 Q80,75 160,50 T320,60 T500,55" fill="none" stroke="#a855f7" strokeWidth="2" />
-                
-                {/* Doge Green Curve */}
-                <path d="M0,75 Q90,60 180,70 T360,40 T500,45" fill="none" stroke="#10b981" strokeWidth="2" />
-              </svg>
+                    {/* Shiba Purple Curve */}
+                    <path d="M0,75 Q70,72 140,65 T280,55 T420,50 L500,48" fill="none" stroke="#a855f7" strokeWidth="2.5" />
+                    
+                    {/* Doge Green Curve */}
+                    <path d="M0,82 Q80,80 160,70 T320,58 T440,42 L500,38" fill="none" stroke="#10b981" strokeWidth="2.5" />
+                  </svg>
 
-              {/* Badges on right edge */}
-              <div className="absolute right-0 top-10 flex flex-col gap-1 items-end pointer-events-none">
-                <span className="bg-emerald-500 text-black font-black text-[9px] px-1.5 py-0.5 rounded shadow">
-                  10.8M
-                </span>
-                <span className="bg-purple-600 text-white font-black text-[9px] px-1.5 py-0.5 rounded shadow">
-                  12.4M
-                </span>
+                  {/* Badges on right edge */}
+                  <div className="absolute right-0 top-6 flex flex-col gap-1 items-end pointer-events-none">
+                    <span className="bg-emerald-500 text-black font-black text-[9px] px-1.5 py-0.5 rounded shadow">
+                      10.8M
+                    </span>
+                    <span className="bg-purple-600 text-white font-black text-[9px] px-1.5 py-0.5 rounded shadow">
+                      12.4M
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* Chart Time Labels */}
-              <div className="flex justify-between items-center text-[8px] font-mono text-gray-500 border-t border-gray-900 pt-1.5">
+              <div className="flex justify-between items-center text-[8px] font-mono text-gray-500 border-t border-gray-900 pt-1.5 pl-8">
                 <span>14:05</span>
                 <span>14:10</span>
                 <span>14:15</span>
