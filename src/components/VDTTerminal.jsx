@@ -153,16 +153,35 @@ export default function VDTTerminal() {
         {/* CENTER STAGE (Col 3-9) */}
         <div className="lg:col-span-7 space-y-3">
           
-          {/* Main Versus Arena Card */}
-          <div className="bg-[#050b18]/90 border border-[#0f1f3d] rounded-2xl p-4 relative overflow-hidden shadow-2xl">
+          {/* Main Versus Arena Card com Animais Místicos e Efeitos Néon */}
+          <div className="bg-[#040816] border border-[#0f1f3d] rounded-2xl p-4 relative overflow-hidden shadow-2xl">
+            
+            {/* ANIMAL MÍSTICO ROXO (SOLANA) NO FUNDO ESQUERDO */}
+            <div className="absolute -top-3 left-4 w-60 h-60 pointer-events-none opacity-20">
+              <svg viewBox="0 0 200 200" className="w-full h-full text-purple-500 fill-current filter drop-shadow-[0_0_20px_#9333ea]">
+                <path d="M35,165 C45,130 65,110 85,95 C75,80 70,55 75,35 C82,38 90,46 95,55 C112,40 138,34 158,45 C162,25 172,10 188,5 C176,25 172,45 170,60 C182,82 186,112 170,142 C154,168 124,182 88,182 C58,182 42,172 35,165 Z" />
+              </svg>
+            </div>
+
+            {/* ANIMAL MÍSTICO VERDE NÉON (RAYDIUM) NO FUNDO DIREITO */}
+            <div className="absolute -top-3 right-4 w-60 h-60 pointer-events-none opacity-20">
+              <svg viewBox="0 0 200 200" className="w-full h-full text-emerald-400 fill-current filter drop-shadow-[0_0_20px_#10b981]">
+                <path d="M165,165 C155,130 135,110 115,95 C125,80 130,55 125,35 C118,38 110,46 105,55 C88,40 62,34 42,45 C38,25 28,10 12,5 C24,25 28,45 30,60 C18,82 14,112 30,142 C46,168 76,182 112,182 C142,182 158,172 165,165 Z" />
+              </svg>
+            </div>
+
+            {/* Glows Difusos Néon */}
+            <div className="absolute top-1/2 left-12 -translate-y-1/2 w-48 h-48 bg-purple-600/25 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute top-1/2 right-12 -translate-y-1/2 w-48 h-48 bg-emerald-500/25 rounded-full blur-3xl pointer-events-none"></div>
+
             {/* Arena Top Tag */}
-            <div className="flex justify-center mb-1">
-              <span className="px-2.5 py-0.5 rounded text-[8px] font-black tracking-widest uppercase bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 font-mono">
+            <div className="flex justify-center mb-1 relative z-10">
+              <span className="px-2.5 py-0.5 rounded text-[8px] font-black tracking-widest uppercase bg-cyan-950/80 border border-cyan-400 text-cyan-300 font-mono shadow-[0_0_12px_rgba(34,211,238,0.35)]">
                 ● ACTIVE ROOM
               </span>
             </div>
 
-            <div className="text-center mb-3">
+            <div className="text-center mb-3 relative z-10">
               <h2 className="text-xl sm:text-2xl font-black tracking-wider text-white font-mono">
                 SHIBA <span className="text-cyan-400 text-xs px-1">VS</span> DOGE
               </h2>
@@ -172,12 +191,13 @@ export default function VDTTerminal() {
             </div>
 
             {/* Duel Face-Off Display */}
-            <div className="flex items-center justify-between px-2 sm:px-6 relative">
+            <div className="flex items-center justify-between px-2 sm:px-6 relative z-10">
               
-              {/* SHIBA SIDE */}
+              {/* SHIBA SIDE - ROXO SOLANA NÉON */}
               <div className="text-center w-36">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-tr from-purple-900 to-indigo-700 p-0.5 shadow-lg shadow-purple-500/20 mb-2">
-                  <div className="w-full h-full bg-[#070c1a] rounded-full flex items-center justify-center text-3xl sm:text-4xl">
+                <div className="relative inline-block mb-2">
+                  <div className="absolute -inset-1.5 rounded-full bg-purple-600 opacity-70 blur-md animate-pulse"></div>
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-purple-400 bg-[#070c1a] flex items-center justify-center text-3xl sm:text-4xl shadow-[0_0_22px_#9333ea]">
                     🦊
                   </div>
                 </div>
@@ -186,20 +206,21 @@ export default function VDTTerminal() {
                 <div className="text-[9px] font-bold text-purple-400 mt-0.5 font-mono">DEX VOLUME: 12.4M USDT</div>
               </div>
 
-              {/* CENTER COUNTDOWN HUD */}
+              {/* CENTER COUNTDOWN HUD HEXAGONAL */}
               <div className="text-center px-2 z-10">
                 <div className="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1 font-mono">TIME REMAINING</div>
                 <div className="relative inline-block">
-                  <div className="bg-[#030712] border-2 border-cyan-400/80 px-4 py-1.5 rounded-xl shadow-lg shadow-cyan-500/20 font-mono text-xl sm:text-2xl font-black text-cyan-400 tracking-widest">
+                  <div className="bg-[#030712] border-2 border-cyan-400 px-5 py-2 rounded-xl shadow-[0_0_22px_rgba(34,211,238,0.45)] font-mono text-xl sm:text-2xl font-black text-cyan-400 tracking-widest">
                     28:17
                   </div>
                 </div>
               </div>
 
-              {/* DOGE SIDE */}
+              {/* DOGE SIDE - VERDE RAYDIUM NÉON */}
               <div className="text-center w-36">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-tr from-cyan-900 to-emerald-700 p-0.5 shadow-lg shadow-cyan-500/20 mb-2">
-                  <div className="w-full h-full bg-[#070c1a] rounded-full flex items-center justify-center text-3xl sm:text-4xl">
+                <div className="relative inline-block mb-2">
+                  <div className="absolute -inset-1.5 rounded-full bg-emerald-500 opacity-70 blur-md animate-pulse"></div>
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-emerald-400 bg-[#070c1a] flex items-center justify-center text-3xl sm:text-4xl shadow-[0_0_22px_#10b981]">
                     🐶
                   </div>
                 </div>
@@ -211,7 +232,7 @@ export default function VDTTerminal() {
             </div>
           </div>
 
-          {/* DexScreener Chart Block */}
+          {/* DexScreener Chart Block com Ondas Orgânicas Reais e Néons */}
           <div className="bg-[#050b18]/90 border border-[#0f1f3d] rounded-2xl p-4 shadow-xl">
             <div className="flex flex-wrap items-center justify-between pb-2.5 border-b border-gray-800/80 gap-2 mb-3">
               <div className="flex items-center gap-1.5 text-[9px] font-bold text-gray-300 uppercase tracking-wider font-mono">
@@ -240,9 +261,8 @@ export default function VDTTerminal() {
               </div>
             </div>
 
-            {/* Simulated Chart Container */}
+            {/* Ondulações com Gradientes Néon */}
             <div className="h-44 w-full relative flex flex-col justify-between pt-1">
-              
               <div className="flex h-36 w-full">
                 {/* Y-Axis Labels */}
                 <div className="flex flex-col justify-between text-[8px] font-mono text-gray-500 pr-2 pb-2 text-right w-8">
@@ -254,37 +274,72 @@ export default function VDTTerminal() {
                   <span>0</span>
                 </div>
 
-                {/* SVG Curve Graphic Area */}
-                <div className="flex-1 relative">
-                  <svg className="w-full h-full overflow-visible" viewBox="0 0 500 100" preserveAspectRatio="none">
-                    {/* Grid Lines */}
-                    <line x1="0" y1="0" x2="500" y2="0" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                {/* Área Gráfica com Ondas Suaves */}
+                <div className="flex-1 relative overflow-hidden">
+                  <svg className="w-full h-full" viewBox="0 0 500 100" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="shibaWaveGlow" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#a855f7" stopOpacity="0.45" />
+                        <stop offset="70%" stopColor="#a855f7" stopOpacity="0.08" />
+                        <stop offset="100%" stopColor="#a855f7" stopOpacity="0.0" />
+                      </linearGradient>
+                      <linearGradient id="dogeWaveGlow" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#10b981" stopOpacity="0.4" />
+                        <stop offset="70%" stopColor="#10b981" stopOpacity="0.08" />
+                        <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Linhas de Grelha Horizontais */}
+                    <line x1="0" y1="1" x2="500" y2="1" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
                     <line x1="0" y1="20" x2="500" y2="20" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
                     <line x1="0" y1="40" x2="500" y2="40" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
                     <line x1="0" y1="60" x2="500" y2="60" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
                     <line x1="0" y1="80" x2="500" y2="80" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="0" y1="100" x2="500" y2="100" stroke="#0e172a" strokeWidth="1" />
+                    <line x1="0" y1="99" x2="500" y2="99" stroke="#0e172a" strokeWidth="1" />
 
-                    {/* Shiba Purple Curve */}
-                    <path d="M0,75 Q70,72 140,65 T280,55 T420,50 L500,48" fill="none" stroke="#a855f7" strokeWidth="2.5" />
-                    
-                    {/* Doge Green Curve */}
-                    <path d="M0,82 Q80,80 160,70 T320,58 T440,42 L500,38" fill="none" stroke="#10b981" strokeWidth="2.5" />
+                    {/* Preenchimento Ondulado Shiba (Roxo Solana) */}
+                    <path
+                      d="M 0,82 C 30,85 50,75 80,78 C 110,82 130,68 160,70 C 190,72 210,80 240,76 C 270,72 290,62 320,60 C 350,58 380,66 410,62 C 440,58 470,52 500,52 L 500,100 L 0,100 Z"
+                      fill="url(#shibaWaveGlow)"
+                    />
+                    {/* Linha Ondulada Shiba */}
+                    <path
+                      d="M 0,82 C 30,85 50,75 80,78 C 110,82 130,68 160,70 C 190,72 210,80 240,76 C 270,72 290,62 320,60 C 350,58 380,66 410,62 C 440,58 470,52 500,52"
+                      fill="none"
+                      stroke="#c084fc"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+
+                    {/* Preenchimento Ondulado Doge (Verde Raydium) */}
+                    <path
+                      d="M 0,88 C 25,84 45,90 70,82 C 95,74 125,79 150,71 C 180,63 205,73 235,66 C 265,58 295,49 325,48 C 355,47 385,55 415,44 C 445,35 475,40 500,38 L 500,100 L 0,100 Z"
+                      fill="url(#dogeWaveGlow)"
+                    />
+                    {/* Linha Ondulada Doge */}
+                    <path
+                      d="M 0,88 C 25,84 45,90 70,82 C 95,74 125,79 150,71 C 180,63 205,73 235,66 C 265,58 295,49 325,48 C 355,47 385,55 415,44 C 445,35 475,40 500,38"
+                      fill="none"
+                      stroke="#34d399"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
                   </svg>
 
-                  {/* Badges on right edge */}
-                  <div className="absolute right-0 top-6 flex flex-col gap-1 items-end pointer-events-none font-mono">
-                    <span className="bg-emerald-500 text-black font-black text-[9px] px-1.5 py-0.5 rounded shadow">
+                  {/* Badges de Cotação de Volume na Borda Direita */}
+                  <div className="absolute right-0 top-7 flex flex-col gap-1.5 items-end pointer-events-none font-mono">
+                    <span className="bg-[#10b981] text-black font-black text-[9px] px-1.5 py-0.5 rounded shadow-[0_0_12px_#10b981]">
                       10.8M
                     </span>
-                    <span className="bg-purple-600 text-white font-black text-[9px] px-1.5 py-0.5 rounded shadow">
+                    <span className="bg-[#9333ea] text-white font-black text-[9px] px-1.5 py-0.5 rounded shadow-[0_0_12px_#9333ea]">
                       12.4M
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Chart Time Labels */}
+              {/* Rótulos de Tempo */}
               <div className="flex justify-between items-center text-[8px] font-mono text-gray-500 border-t border-gray-900 pt-1.5 pl-8">
                 <span>14:05</span>
                 <span>14:10</span>
@@ -295,7 +350,7 @@ export default function VDTTerminal() {
               </div>
             </div>
 
-            {/* Legend Footer */}
+            {/* Legenda Inferior */}
             <div className="flex items-center justify-between pt-2 text-[9px] font-mono">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1 font-bold text-purple-400">
@@ -388,8 +443,8 @@ export default function VDTTerminal() {
                   <span className="text-gray-500">Live spread</span>
                 </div>
                 <div className="h-1.5 w-full bg-gray-900 rounded-full overflow-hidden flex">
-                  <div className="bg-purple-500 h-full w-[54%]"></div>
-                  <div className="bg-emerald-400 h-full w-[46%]"></div>
+                  <div className="bg-purple-500 h-full w-[54%] shadow-[0_0_10px_#a855f7]"></div>
+                  <div className="bg-emerald-400 h-full w-[46%] shadow-[0_0_10px_#34d399]"></div>
                 </div>
               </div>
             </div>
@@ -441,7 +496,7 @@ export default function VDTTerminal() {
             </div>
 
             {/* Big Purple CTA Button */}
-            <button className="w-full py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 text-white shadow-lg shadow-purple-600/30 hover:opacity-95 transition-all flex items-center justify-center gap-2">
+            <button className="w-full py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 text-white shadow-[0_0_18px_rgba(147,51,234,0.45)] hover:opacity-95 transition-all flex items-center justify-center gap-2">
               <span>ENTER ROOM</span>
               <span className="text-sm">→</span>
             </button>
