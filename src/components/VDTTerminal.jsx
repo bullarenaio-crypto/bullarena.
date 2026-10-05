@@ -1,423 +1,540 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
-  Users, 
-  Clock, 
-  TrendingUp, 
   Zap, 
-  ChevronRight,
-  ArrowUpRight,
-  ShieldCheck,
-  Activity,
-  Layers,
-  CheckCircle2,
-  AlertCircle
+  User, 
+  Trophy, 
+  Gift, 
+  Settings, 
+  Clock, 
+  Users, 
+  ChevronRight, 
+  ExternalLink,
+  Wallet,
+  ChevronDown,
+  LineChart,
+  Target
 } from 'lucide-react';
 
 export default function VDTTerminal() {
-  const [selectedSide, setSelectedSide] = useState('shiba');
-  const [betAmount, setBetAmount] = useState('0.5');
-  const [secondsRemaining, setSecondsRemaining] = useState(1122); // 18m 42s
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [txHash, setTxHash] = useState(null);
+  const [chartTab, setChartTab] = useState('total');
 
-  // Live Participants Feed State
-  const [participants, setParticipants] = useState([
-    { id: 1, name: '0x71a...92b4', side: 'shiba', sol: '1.20 SOL', time: '12s ago', color: 'text-cyan-400' },
-    { id: 2, name: '4F8k...33d1', side: 'doge', sol: '0.80 SOL', time: '28s ago', color: 'text-amber-400' },
-    { id: 3, name: '9J2m...11aa', side: 'shiba', sol: '2.50 SOL', time: '45s ago', color: 'text-cyan-400' },
-    { id: 4, name: '3Lk9...88cc', side: 'doge', sol: '0.40 SOL', time: '1m ago', color: 'text-amber-400' },
-    { id: 5, name: '8Pn2...55e0', side: 'shiba', sol: '0.50 SOL', time: '2m ago', color: 'text-cyan-400' },
-    { id: 6, name: '2Zt4...77fa', side: 'doge', sol: '1.00 SOL', time: '2m ago', color: 'text-amber-400' }
-  ]);
-
-  // Live countdown loop
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSecondsRemaining((prev) => (prev > 0 ? prev - 1 : 1800));
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTimer = (totalSeconds) => {
-    const mins = Math.floor(totalSeconds / 60);
-    const secs = totalSeconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const handleAllocate = () => {
-    setIsSubmitting(true);
-    setTxHash(null);
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      const generatedHash = `5K${Math.random().toString(36).substring(2, 8)}...${Math.random().toString(36).substring(2, 6)}`;
-      setTxHash(generatedHash);
-
-      const newEntry = {
-        id: Date.now(),
-        name: '4F3z...9K7a (You)',
-        side: selectedSide,
-        sol: `${parseFloat(betAmount).toFixed(2)} SOL`,
-        time: 'Just now',
-        color: selectedSide === 'shiba' ? 'text-cyan-400' : 'text-amber-400'
-      };
-
-      setParticipants((prev) => [newEntry, ...prev.slice(0, 7)]);
-    }, 900);
-  };
+  const participantsList = [
+    { name: 'ShibaTeam_1F...', action: 'Entrou no time Shiba', time: '2 min', img: '🐕', side: 'shiba' },
+    { name: 'DogeWolf_7a...', action: 'Entrou no time Doge', time: '2 min', img: '🐶', side: 'doge' },
+    { name: 'CryptoLuna', action: 'Entrou no time Shiba', time: '3 min', img: '👩‍‍🎤', side: 'shiba' },
+    { name: 'TraderAlpha', action: 'Entrou no time Doge', time: '4 min', img: '🧑‍💻', side: 'doge' },
+    { name: 'SolMaster', action: 'Entrou no time Shiba', time: '5 min', img: '👨‍🚀', side: 'shiba' }
+  ];
 
   return (
-    <div className="space-y-6 max-w-[1400px] mx-auto text-gray-200">
+    <div className="min-h-screen bg-[#02050e] text-white font-sans text-xs select-none p-2 sm:p-4">
       
-      {/* Top Tactical Status Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-[#070b16]/90 border border-cyan-500/20 px-5 py-3 rounded-2xl shadow-xl backdrop-blur-md">
+      {/* 1. TOP HEADER BAR */}
+      <header className="flex flex-wrap items-center justify-between border-b border-[#0f1d38] pb-3 mb-4 gap-4 px-2">
         <div className="flex items-center gap-3">
-          <div className="flex h-3 w-3 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
+          {/* Logo Bull Protocol */}
+          <div className="flex items-center gap-2">
+            <span className="text-2xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-400 to-purple-500">
+              🐂 BULL
+            </span>
+            <span className="text-[10px] text-gray-400 uppercase tracking-widest block font-bold leading-none">
+              PROTOCOL
+            </span>
           </div>
-          <span className="text-xs font-mono font-bold tracking-wider text-cyan-400 uppercase">
-            VDT ARENA • SOLANA HIGH-FREQUENCY DUEL
-          </span>
-          <span className="text-[11px] text-gray-600 hidden sm:inline">|</span>
-          <span className="text-xs text-gray-400 hidden sm:inline font-mono">
-            PDA Escrow: <span className="text-cyan-300">BuLLvdt...9aP1</span>
-          </span>
+
+          <div className="hidden md:block h-6 w-[1px] bg-gray-800 mx-2"></div>
+
+          <div className="hidden md:flex flex-col">
+            <span className="text-[9px] font-bold text-gray-400 tracking-wider">MOMENTUM TRADING TERMINAL</span>
+            <span className="text-[8px] text-gray-500 tracking-widest">TRADES • SALAS • LUCRO REAL</span>
+          </div>
         </div>
 
-        <div className="flex items-center gap-3 text-xs font-mono">
-          <div className="flex items-center gap-2 bg-[#0d1424] px-3 py-1.5 rounded-xl border border-gray-800">
-            <Activity className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-gray-400">TOTAL VOLUME:</span>
-            <span className="text-emerald-400 font-bold">$26,129,530</span>
+        {/* Network & Wallet Controls */}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#070e1e] border border-[#132347] text-[10px] font-bold text-gray-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+            SOLANA
           </div>
-          <div className="flex items-center gap-2 bg-[#0d1424] px-3 py-1.5 rounded-xl border border-gray-800">
-            <span className="text-gray-400">POOL:</span>
-            <span className="text-cyan-400 font-bold">142.8 SOL</span>
-          </div>
-        </div>
-      </div>
 
-      {/* Main Terminal Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#070e1e] border border-[#132347] text-[10px] font-bold text-gray-300">
+            <span className="w-3.5 h-3.5 rounded-full bg-indigo-900/60 text-indigo-400 text-[8px] flex items-center justify-center font-bold">R</span>
+            RAYDIUM
+          </div>
+
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#071a17] border border-[#0d3d34] text-[10px] font-bold text-emerald-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Online
+          </div>
+
+          <button className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#091224] border border-[#1d325e] text-[11px] font-mono font-bold text-gray-200 hover:bg-[#122247] transition-all">
+            <User className="w-3.5 h-3.5 text-gray-400" />
+            <span>4F3z...9K7a</span>
+            <ChevronDown className="w-3 h-3 text-gray-500" />
+          </button>
+        </div>
+      </header>
+
+      {/* 2. MAIN 3-COLUMN WORKSPACE */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
         
-        {/* Core Match Arena */}
-        <div className="xl:col-span-2 space-y-6">
-          <div className="bg-[#070c18] border border-cyan-900/30 rounded-2xl p-6 relative overflow-hidden shadow-2xl">
-            
-            {/* Ambient Background Glows */}
-            <div className="absolute -top-32 -left-32 w-80 h-80 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-            {/* Duel Header */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-5 border-b border-gray-800/80">
-              <div>
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-black uppercase tracking-wider bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
-                    ROUND #0482 • ACTIVE
-                  </span>
-                  <span className="text-xs text-gray-400 font-mono">DEX Pair Oracle • 30M Window</span>
-                </div>
-                <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-3 font-mono">
-                  SHIBA <span className="text-xs px-2 py-0.5 rounded bg-gray-800 text-gray-400 font-sans font-bold">VS</span> DOGE
-                </h1>
+        {/* LEFT SIDEBAR (Col 1-2) */}
+        <div className="lg:col-span-2 space-y-3">
+          {/* Main Navigation */}
+          <div className="bg-[#050b18]/80 border border-[#0e1b36] rounded-xl p-2 space-y-1">
+            <button className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-600/30 to-purple-600/20 border-l-2 border-cyan-400 text-white font-bold text-[11px]">
+              <Zap className="w-4 h-4 text-cyan-400" />
+              <div className="text-left">
+                <div>SALAS</div>
+                <div className="text-[8px] text-gray-400 font-normal">Participe de batalhas</div>
               </div>
+            </button>
 
-              {/* Live Expiration Clock */}
-              <div className="bg-[#030610] border border-cyan-500/30 px-5 py-2.5 rounded-2xl text-center shadow-lg">
-                <div className="text-[10px] uppercase font-bold text-gray-400 flex items-center gap-1.5 justify-center font-mono">
-                  <Clock className="w-3 h-3 text-cyan-400 animate-spin" /> Round Closes In
-                </div>
-                <div className="text-cyan-400 font-mono text-2xl font-black tracking-wider mt-0.5">
-                  {formatTimer(secondsRemaining)}
-                </div>
+            <button className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-400 hover:bg-[#091326] transition-all text-[11px]">
+              <User className="w-4 h-4 text-gray-500" />
+              <div className="text-left">
+                <div className="font-semibold text-gray-300">MEU PERFIL</div>
+                <div className="text-[8px] text-gray-500 font-normal">Carteira e histórico</div>
               </div>
-            </div>
+            </button>
 
-            {/* Opponent Selection Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              
-              {/* Shiba Long Card */}
-              <div 
-                onClick={() => setSelectedSide('shiba')}
-                className={`cursor-pointer p-5 rounded-2xl border transition-all duration-200 relative group ${
-                  selectedSide === 'shiba'
-                    ? 'bg-gradient-to-b from-cyan-950/50 to-[#070f20] border-cyan-400 shadow-xl shadow-cyan-500/10 ring-1 ring-cyan-400/50'
-                    : 'bg-[#030610]/70 border-gray-800/80 hover:border-cyan-700/50'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-2xl shadow-inner">
-                      🐕
-                    </div>
-                    <div>
-                      <div className="text-xs font-black text-cyan-400 font-mono tracking-wider">SHIBA INU</div>
-                      <div className="text-[11px] text-gray-400 font-mono">54 Backers (54.6%)</div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-xs font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg">
-                      1.78x
-                    </span>
-                    <div className="text-[9px] text-gray-500 font-mono mt-1">PAYOUT MULTIPLIER</div>
-                  </div>
-                </div>
-
-                <div className="space-y-1 pt-2 border-t border-gray-800/60">
-                  <div className="text-[10px] text-gray-400 font-mono uppercase tracking-wider">Accumulated DEX Volume</div>
-                  <div className="text-2xl font-mono font-black text-white">$14,289,420</div>
-                  <div className="text-[11px] text-emerald-400 font-mono flex items-center gap-1">
-                    <TrendingUp className="w-3.5 h-3.5" /> +18.4% Momentum Speed
-                  </div>
-                </div>
+            <button className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-400 hover:bg-[#091326] transition-all text-[11px]">
+              <Trophy className="w-4 h-4 text-gray-500" />
+              <div className="text-left">
+                <div className="font-semibold text-gray-300">RANKING</div>
+                <div className="text-[8px] text-gray-500 font-normal">Top traders</div>
               </div>
+            </button>
 
-              {/* Doge Long Card */}
-              <div 
-                onClick={() => setSelectedSide('doge')}
-                className={`cursor-pointer p-5 rounded-2xl border transition-all duration-200 relative group ${
-                  selectedSide === 'doge'
-                    ? 'bg-gradient-to-b from-amber-950/50 to-[#1f1505] border-amber-400 shadow-xl shadow-amber-500/10 ring-1 ring-amber-400/50'
-                    : 'bg-[#030610]/70 border-gray-800/80 hover:border-amber-700/50'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl shadow-inner">
-                      🐶
-                    </div>
-                    <div>
-                      <div className="text-xs font-black text-amber-400 font-mono tracking-wider">DOGECOIN</div>
-                      <div className="text-[11px] text-gray-400 font-mono">46 Backers (45.4%)</div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2.5 py-1 rounded-lg">
-                      2.24x
-                    </span>
-                    <div className="text-[9px] text-gray-500 font-mono mt-1">PAYOUT MULTIPLIER</div>
-                  </div>
-                </div>
-
-                <div className="space-y-1 pt-2 border-t border-gray-800/60">
-                  <div className="text-[10px] text-gray-400 font-mono uppercase tracking-wider">Accumulated DEX Volume</div>
-                  <div className="text-2xl font-mono font-black text-white">$11,840,110</div>
-                  <div className="text-[11px] text-amber-400 font-mono flex items-center gap-1">
-                    <TrendingUp className="w-3.5 h-3.5" /> +7.2% Momentum Speed
-                  </div>
-                </div>
+            <button className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-400 hover:bg-[#091326] transition-all text-[11px]">
+              <Gift className="w-4 h-4 text-gray-500" />
+              <div className="text-left">
+                <div className="font-semibold text-gray-300">RECOMPENSAS</div>
+                <div className="text-[8px] text-gray-500 font-normal">XP e conquistas</div>
               </div>
+            </button>
 
-            </div>
-
-            {/* Tactical SVG Line Chart (Volume Velocity) */}
-            <div className="bg-[#030610] border border-gray-800/80 rounded-2xl p-4 mb-6">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2 border-b border-gray-900">
-                <span className="text-xs font-mono font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
-                  Raydium Velocity Convergence (Past 30 min)
-                </span>
-                <div className="flex gap-2 font-mono text-[10px]">
-                  <span className="bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">SHIBA: $14.2M</span>
-                  <span className="bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded">DOGE: $11.8M</span>
-                </div>
+            <button className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-400 hover:bg-[#091326] transition-all text-[11px]">
+              <Settings className="w-4 h-4 text-gray-500" />
+              <div className="text-left">
+                <div className="font-semibold text-gray-300">CONFIGURAÇÕES</div>
+                <div className="text-[8px] text-gray-500 font-normal">Preferências</div>
               </div>
-
-              {/* Vector Chart Representation */}
-              <div className="h-36 w-full relative">
-                <svg className="w-full h-full overflow-visible" viewBox="0 0 500 120" preserveAspectRatio="none">
-                  <defs>
-                    <linearGradient id="shibaGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.25" />
-                      <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.0" />
-                    </linearGradient>
-                    <linearGradient id="dogeGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.15" />
-                      <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.0" />
-                    </linearGradient>
-                  </defs>
-
-                  {/* Horizontal grid guide lines */}
-                  <line x1="0" y1="20" x2="500" y2="20" stroke="#141f36" strokeDasharray="3 3" />
-                  <line x1="0" y1="60" x2="500" y2="60" stroke="#141f36" strokeDasharray="3 3" />
-                  <line x1="0" y1="100" x2="500" y2="100" stroke="#141f36" strokeDasharray="3 3" />
-
-                  {/* Shiba path & area */}
-                  <path d="M0,90 Q120,70 240,45 T500,20 L500,120 L0,120 Z" fill="url(#shibaGradient)" />
-                  <path d="M0,90 Q120,70 240,45 T500,20" fill="none" stroke="#22d3ee" strokeWidth="2.5" />
-                  <circle cx="500" cy="20" r="4" fill="#22d3ee" className="animate-pulse" />
-
-                  {/* Doge path & area */}
-                  <path d="M0,105 Q140,95 260,75 T500,50 L500,120 L0,120 Z" fill="url(#dogeGradient)" />
-                  <path d="M0,105 Q140,95 260,75 T500,50" fill="none" stroke="#f59e0b" strokeWidth="2.5" strokeDasharray="4 2" />
-                  <circle cx="500" cy="50" r="4" fill="#f59e0b" />
-                </svg>
-              </div>
-
-              <div className="flex justify-between items-center text-[10px] font-mono text-gray-600 mt-2">
-                <span>T-30m (Opening Block)</span>
-                <span>T-15m (Midpoint Check)</span>
-                <span className="text-cyan-400">NOW (Live Oracle Tick)</span>
-              </div>
-            </div>
-
-            {/* Strength Proportional Bar */}
-            <div className="mb-6 space-y-2">
-              <div className="flex justify-between text-xs font-mono font-bold">
-                <span className="text-cyan-400">SHIBA SHARE 54.6%</span>
-                <span className="text-amber-400">DOGE SHARE 45.4%</span>
-              </div>
-              <div className="h-3 w-full bg-gray-950 rounded-full overflow-hidden flex p-0.5 border border-gray-800">
-                <div className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-l-full transition-all duration-500 shadow-md shadow-cyan-500/50" style={{ width: '54.6%' }}></div>
-                <div className="h-full bg-gradient-to-r from-amber-400 to-amber-500 rounded-r-full transition-all duration-500 shadow-md shadow-amber-500/50" style={{ width: '45.4%' }}></div>
-              </div>
-            </div>
-
-            {/* Quick Action Stance Order Module */}
-            <div className="bg-[#030610] border border-cyan-500/20 rounded-2xl p-5 shadow-2xl">
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-5">
-                
-                <div className="w-full lg:w-auto space-y-1">
-                  <div className="text-xs font-bold text-gray-200 uppercase flex items-center gap-1.5 font-mono">
-                    <Zap className="w-4 h-4 text-cyan-400" />
-                    Deploy Stance Collateral
-                  </div>
-                  <div className="text-[11px] text-gray-400 font-mono">
-                    Target: <span className={selectedSide === 'shiba' ? 'text-cyan-400 font-bold' : 'text-amber-400 font-bold'}>
-                      {selectedSide.toUpperCase()} LONG
-                    </span> • Vault Protection Active
-                  </div>
-                </div>
-
-                {/* Preset Chips */}
-                <div className="flex items-center gap-2 w-full lg:w-auto">
-                  {['0.1', '0.5', '1.0', '5.0'].map((val) => (
-                    <button
-                      key={val}
-                      onClick={() => setBetAmount(val)}
-                      className={`flex-1 lg:flex-initial px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all ${
-                        betAmount === val 
-                          ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/30' 
-                          : 'bg-[#0d1424] text-gray-300 hover:bg-[#152038] border border-gray-800'
-                      }`}
-                    >
-                      {val} SOL
-                    </button>
-                  ))}
-                </div>
-
-                {/* Submit Stance Button */}
-                <button 
-                  onClick={handleAllocate}
-                  disabled={isSubmitting}
-                  className={`w-full lg:w-auto px-7 py-3.5 rounded-xl font-black text-xs font-mono uppercase tracking-wider transition-all shadow-xl flex items-center justify-center gap-2 ${
-                    isSubmitting 
-                      ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
-                      : selectedSide === 'shiba'
-                        ? 'bg-gradient-to-r from-cyan-400 to-blue-600 text-black hover:opacity-95 shadow-cyan-500/30'
-                        : 'bg-gradient-to-r from-amber-400 to-orange-500 text-black hover:opacity-95 shadow-amber-500/30'
-                  }`}
-                >
-                  <span>{isSubmitting ? 'SIGNING TRANSACTION...' : `ALLOCATE ${betAmount} SOL`}</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Dynamic Confirmed Toast */}
-              {txHash && (
-                <div className="mt-4 pt-3 border-t border-gray-900 flex items-center justify-between text-xs font-mono text-emerald-400 bg-emerald-950/20 px-3 py-2 rounded-xl border border-emerald-800/40">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>Allocated {betAmount} SOL to {selectedSide.toUpperCase()}. Signature: {txHash}</span>
-                  </div>
-                  <span className="text-[10px] text-gray-400 underline cursor-pointer">Solana Explorer ↗</span>
-                </div>
-              )}
-            </div>
-
+            </button>
           </div>
 
-          {/* Protocol Mechanics Footer Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono">
-            <div className="bg-[#070c18] border border-gray-800/80 p-4 rounded-xl">
-              <div className="text-cyan-400 text-xs font-black uppercase mb-1">01. DEX Webhook</div>
-              <p className="text-[11px] text-gray-400 leading-relaxed font-sans">
-                Real-time transaction indexing across Raydium liquidity pools with slippage-resistant volume calculation.
-              </p>
+          {/* Left Side Promo Banner */}
+          <div className="bg-[#050b18]/80 border border-[#0e1b36] rounded-xl p-3.5 text-center relative overflow-hidden">
+            <div className="w-10 h-10 mx-auto mb-2 text-cyan-400 flex items-center justify-center">
+              🐂
             </div>
-            <div className="bg-[#070c18] border border-gray-800/80 p-4 rounded-xl">
-              <div className="text-cyan-400 text-xs font-black uppercase mb-1">02. Autonomous PDA</div>
-              <p className="text-[11px] text-gray-400 leading-relaxed font-sans">
-                Zero custody backdoors. Staking tokens reside inside deterministic Solana Program Derived Addresses.
-              </p>
+            <div className="text-[10px] font-black text-cyan-400 tracking-wider uppercase leading-tight">
+              MAIS MOMENTUM
             </div>
-            <div className="bg-[#070c18] border border-gray-800/80 p-4 rounded-xl">
-              <div className="text-cyan-400 text-xs font-black uppercase mb-1">03. Automated Payout</div>
-              <p className="text-[11px] text-gray-400 leading-relaxed font-sans">
-                Losing stance funds automatically stream to victorious participants proportionally at block expiration.
-              </p>
+            <div className="text-[10px] font-black text-purple-400 tracking-wider uppercase mb-2 leading-tight">
+              MENOS EMOÇÃO
             </div>
+            <p className="text-[8px] text-gray-400 leading-normal mb-3">
+              Aqui o jogo é simples: quem perder volume no mercado em 30 minutos, paga o outro lado.
+            </p>
+            <button className="w-full py-1.5 rounded bg-[#09152b] border border-[#162c59] text-[9px] font-bold text-cyan-400 hover:bg-[#0e2144] transition-all">
+              COMO FUNCIONA?
+            </button>
           </div>
 
+          {/* Left Powered By */}
+          <div className="px-2 pt-2">
+            <div className="text-[8px] font-bold text-gray-600 uppercase tracking-widest mb-1.5">POWERED BY</div>
+            <div className="flex items-center gap-3 text-gray-500 text-[9px] font-bold">
+              <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> SOLANA</span>
+              <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span> RAYDIUM</span>
+            </div>
+          </div>
         </div>
 
-        {/* Live Arena Participants Feed Sidebar */}
-        <div className="space-y-6">
-          <div className="bg-[#070c18] border border-gray-800/80 rounded-2xl p-5 shadow-2xl">
-            <div className="flex items-center justify-between pb-4 border-b border-gray-800 mb-4">
-              <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-cyan-400" />
-                <span className="text-xs font-black uppercase text-white tracking-wider font-mono">
-                  Participants ({participants.length + 94})
-                </span>
-              </div>
-              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-800/40 px-2 py-0.5 rounded">
-                Live Feed
+        {/* CENTER STAGE (Col 3-9) */}
+        <div className="lg:col-span-7 space-y-3">
+          
+          {/* Main Versus Arena Card */}
+          <div className="bg-[#050b18]/90 border border-[#0f1f3d] rounded-2xl p-4 relative overflow-hidden shadow-2xl">
+            {/* Arena Top Tag */}
+            <div className="flex justify-center mb-1">
+              <span className="px-2.5 py-0.5 rounded text-[8px] font-black tracking-widest uppercase bg-cyan-950/60 border border-cyan-500/40 text-cyan-300">
+                ● SALA ATIVA
               </span>
             </div>
 
-            {/* Real-time Stance Feed */}
-            <div className="space-y-2.5 max-h-[540px] overflow-y-auto pr-1">
-              {participants.map((item) => (
-                <div 
-                  key={item.id}
-                  className="bg-[#030610] border border-gray-800/60 hover:border-gray-700 p-3 rounded-xl flex items-center justify-between text-xs transition-all"
+            <div className="text-center mb-3">
+              <h2 className="text-xl sm:text-2xl font-black tracking-wider text-white">
+                SHIBA <span className="text-cyan-400 text-xs font-mono px-1">VS</span> DOGE
+              </h2>
+              <div className="text-[9px] font-bold text-gray-400 tracking-wider uppercase mt-0.5">
+                30 MINUTOS • 100 PARTICIPANTES
+              </div>
+            </div>
+
+            {/* Duel Face-Off Display */}
+            <div className="flex items-center justify-between px-2 sm:px-6 relative">
+              
+              {/* SHIBA SIDE */}
+              <div className="text-center w-36">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-tr from-purple-900 to-indigo-700 p-0.5 shadow-lg shadow-purple-500/20 mb-2">
+                  <div className="w-full h-full bg-[#070c1a] rounded-full flex items-center justify-center text-3xl sm:text-4xl">
+                    🦊
+                  </div>
+                </div>
+                <div className="text-[10px] font-black text-purple-400 uppercase tracking-wider">LADO SHIBA</div>
+                <div className="text-[9px] font-bold text-gray-300">50 PARTICIPANTES</div>
+                <div className="text-[9px] font-bold text-purple-400 mt-0.5">VOLUME DEX: 12.4M USDT</div>
+              </div>
+
+              {/* CENTER COUNTDOWN HUD */}
+              <div className="text-center px-2 z-10">
+                <div className="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1">TEMPO RESTANTE</div>
+                <div className="relative inline-block">
+                  <div className="bg-[#030712] border-2 border-cyan-400/80 px-4 py-1.5 rounded-xl shadow-lg shadow-cyan-500/20 font-mono text-xl sm:text-2xl font-black text-cyan-400 tracking-widest">
+                    28:17
+                  </div>
+                </div>
+              </div>
+
+              {/* DOGE SIDE */}
+              <div className="text-center w-36">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-tr from-cyan-900 to-emerald-700 p-0.5 shadow-lg shadow-cyan-500/20 mb-2">
+                  <div className="w-full h-full bg-[#070c1a] rounded-full flex items-center justify-center text-3xl sm:text-4xl">
+                    🐶
+                  </div>
+                </div>
+                <div className="text-[10px] font-black text-emerald-400 uppercase tracking-wider">LADO DOGE</div>
+                <div className="text-[9px] font-bold text-gray-300">50 PARTICIPANTES</div>
+                <div className="text-[9px] font-bold text-emerald-400 mt-0.5">VOLUME DEX: 10.8M USDT</div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* DexScreener Chart Block */}
+          <div className="bg-[#050b18]/90 border border-[#0f1f3d] rounded-2xl p-4 shadow-xl">
+            <div className="flex flex-wrap items-center justify-between pb-2.5 border-b border-gray-800/80 gap-2 mb-3">
+              <div className="flex items-center gap-1.5 text-[9px] font-bold text-gray-300 uppercase tracking-wider">
+                <LineChart className="w-3.5 h-3.5 text-cyan-400" />
+                VOLUME NO DEXSCREENER (ÚLTIMOS 30 MIN)
+              </div>
+              <div className="flex items-center gap-1 bg-[#030610] p-0.5 rounded-lg border border-gray-800 text-[8px] font-bold">
+                <button 
+                  onClick={() => setChartTab('total')}
+                  className={`px-2 py-0.5 rounded ${chartTab === 'total' ? 'bg-[#0f1f3d] text-cyan-300' : 'text-gray-400'}`}
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className={`w-2 h-2 rounded-full ${item.side === 'shiba' ? 'bg-cyan-400 shadow-sm shadow-cyan-400' : 'bg-amber-400 shadow-sm shadow-amber-400'}`}></span>
-                    <div>
-                      <div className="font-mono font-bold text-gray-200">{item.name}</div>
-                      <div className="text-[10px] text-gray-500 uppercase font-mono">{item.side} Long</div>
+                  TOTAL
+                </button>
+                <button 
+                  onClick={() => setChartTab('shiba')}
+                  className={`px-2 py-0.5 rounded ${chartTab === 'shiba' ? 'bg-[#0f1f3d] text-purple-300' : 'text-gray-400'}`}
+                >
+                  SHIBA
+                </button>
+                <button 
+                  onClick={() => setChartTab('doge')}
+                  className={`px-2 py-0.5 rounded ${chartTab === 'doge' ? 'bg-[#0f1f3d] text-emerald-300' : 'text-gray-400'}`}
+                >
+                  DOGE
+                </button>
+              </div>
+            </div>
+
+            {/* Simulated Chart Container */}
+            <div className="h-44 w-full relative flex flex-col justify-between pt-1">
+              
+              {/* Vector Lines */}
+              <svg className="w-full h-32 overflow-visible" viewBox="0 0 500 100" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="purpleGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#a855f7" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#a855f7" stopOpacity="0.0" />
+                  </linearGradient>
+                  <linearGradient id="greenGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                  </linearGradient>
+                </defs>
+
+                {/* Grid Lines */}
+                <line x1="0" y1="20" x2="500" y2="20" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                <line x1="0" y1="50" x2="500" y2="50" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+                <line x1="0" y1="80" x2="500" y2="80" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
+
+                {/* Shiba Purple Curve */}
+                <path d="M0,65 Q80,75 160,50 T320,60 T500,55" fill="none" stroke="#a855f7" strokeWidth="2" />
+                
+                {/* Doge Green Curve */}
+                <path d="M0,75 Q90,60 180,70 T360,40 T500,45" fill="none" stroke="#10b981" strokeWidth="2" />
+              </svg>
+
+              {/* Badges on right edge */}
+              <div className="absolute right-0 top-10 flex flex-col gap-1 items-end pointer-events-none">
+                <span className="bg-emerald-500 text-black font-black text-[9px] px-1.5 py-0.5 rounded shadow">
+                  10.8M
+                </span>
+                <span className="bg-purple-600 text-white font-black text-[9px] px-1.5 py-0.5 rounded shadow">
+                  12.4M
+                </span>
+              </div>
+
+              {/* Chart Time Labels */}
+              <div className="flex justify-between items-center text-[8px] font-mono text-gray-500 border-t border-gray-900 pt-1.5">
+                <span>14:05</span>
+                <span>14:10</span>
+                <span>14:15</span>
+                <span>14:20</span>
+                <span>14:25</span>
+                <span>14:30</span>
+              </div>
+            </div>
+
+            {/* Legend Footer */}
+            <div className="flex items-center justify-between pt-2 text-[9px]">
+              <div className="flex items-center gap-3">
+                <span className="flex items-center gap-1 font-bold text-purple-400">
+                  <span className="w-2.5 h-1 bg-purple-500 rounded"></span> Shiba (12.4M)
+                </span>
+                <span className="flex items-center gap-1 font-bold text-emerald-400">
+                  <span className="w-2.5 h-1 bg-emerald-500 rounded"></span> Doge (10.8M)
+                </span>
+              </div>
+              <div className="text-[8px] text-gray-500 uppercase tracking-widest font-bold flex items-center gap-1">
+                🦅 DEXSCREENER
+              </div>
+            </div>
+          </div>
+
+          {/* Two-Column Mini Info: Como Funciona & Estatísticas */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            
+            {/* Como Funciona */}
+            <div className="bg-[#050b18]/90 border border-[#0f1f3d] rounded-2xl p-3.5 space-y-2">
+              <div className="text-[10px] font-black uppercase text-white tracking-wider">
+                COMO FUNCIONA?
+              </div>
+              <div className="space-y-1.5 text-[9px] text-gray-400">
+                <div className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-cyan-950 border border-cyan-600 text-cyan-400 text-[8px] font-bold flex items-center justify-center shrink-0">1</span>
+                  <div>
+                    <span className="font-bold text-gray-200">Escolha um lado</span>
+                    <p className="text-[8px] text-gray-500">Shiba ou Doge</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-cyan-950 border border-cyan-600 text-cyan-400 text-[8px] font-bold flex items-center justify-center shrink-0">2</span>
+                  <div>
+                    <span className="font-bold text-gray-200">Entre na sala</span>
+                    <p className="text-[8px] text-gray-500">Junte-se aos 50 participantes</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-cyan-950 border border-cyan-600 text-cyan-400 text-[8px] font-bold flex items-center justify-center shrink-0">3</span>
+                  <div>
+                    <span className="font-bold text-gray-200">Acompanhe o volume</span>
+                    <p className="text-[8px] text-gray-500">O lado que tiver MENOS volume no mercado (Dexscreener) em 30 minutos, paga o outro lado.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-gray-800 text-[8px] text-cyan-400/90 font-medium">
+                💡 Não é sobre quem compra mais. É sobre quem movimenta menos.
+              </div>
+            </div>
+
+            {/* Estatísticas da Sala */}
+            <div className="bg-[#050b18]/90 border border-[#0f1f3d] rounded-2xl p-3.5 space-y-2.5">
+              <div className="text-[10px] font-black uppercase text-white tracking-wider">
+                ESTATÍSTICAS DA SALA
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 text-center">
+                <div className="bg-[#070d1e] p-2 rounded-xl border border-gray-800">
+                  <div className="flex items-center justify-center gap-1.5 mb-1">
+                    <span className="text-base">🦊</span>
+                    <div className="text-left">
+                      <div className="text-[8px] font-bold text-purple-400">SHIBA</div>
+                      <div className="text-[7px] text-gray-400">50 participantes</div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="font-mono font-bold text-emerald-400">{item.sol}</div>
-                    <div className="text-[10px] text-gray-500 font-mono">{item.time}</div>
+                  <div className="text-[8px] text-gray-400">Volume Atual (30m)</div>
+                  <div className="text-[11px] font-black text-purple-400">12.4M USDT</div>
+                </div>
+
+                <div className="bg-[#070d1e] p-2 rounded-xl border border-gray-800">
+                  <div className="flex items-center justify-center gap-1.5 mb-1">
+                    <span className="text-base">🐶</span>
+                    <div className="text-left">
+                      <div className="text-[8px] font-bold text-emerald-400">DOGE</div>
+                      <div className="text-[7px] text-gray-400">50 participantes</div>
+                    </div>
                   </div>
+                  <div className="text-[8px] text-gray-400">Volume Atual (30m)</div>
+                  <div className="text-[11px] font-black text-emerald-400">10.8M USDT</div>
+                </div>
+              </div>
+
+              {/* Progress bar Difference */}
+              <div className="space-y-1">
+                <div className="flex justify-between text-[8px] text-gray-400 font-bold">
+                  <span>Diferença de Volume</span>
+                  <span className="text-emerald-400 font-black">1.6M USDT</span>
+                  <span className="text-gray-500">Lado em disputa</span>
+                </div>
+                <div className="h-1.5 w-full bg-gray-900 rounded-full overflow-hidden flex">
+                  <div className="bg-purple-500 h-full w-[54%]"></div>
+                  <div className="bg-emerald-400 h-full w-[46%]"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* RIGHT SIDEBAR (Col 10-12) */}
+        <div className="lg:col-span-3 space-y-3">
+          
+          {/* Card Entrada na Sala */}
+          <div className="bg-[#050b18]/90 border border-[#0f1f3d] rounded-2xl p-4 shadow-xl space-y-3">
+            <div className="flex items-center justify-between pb-2 border-b border-gray-800">
+              <span className="text-[9px] font-mono font-bold text-gray-400 bg-gray-900 px-2 py-0.5 rounded">
+                SALA #4827
+              </span>
+              <span className="text-[9px] font-bold text-emerald-400 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> EM ANDAMENTO
+              </span>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-black text-white">SHIBA vs DOGE</h3>
+              <p className="text-[8px] text-gray-400">Aposta no menor volume de mercado</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 text-[9px] bg-[#070d1e] p-2.5 rounded-xl border border-gray-800">
+              <div className="flex items-center gap-1.5 text-gray-400">
+                <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                <div>
+                  <div className="text-[7px] text-gray-500">Duração</div>
+                  <div className="font-bold text-gray-200">30 minutos</div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 text-gray-400">
+                <Users className="w-3.5 h-3.5 text-cyan-400" />
+                <div>
+                  <div className="text-[7px] text-gray-500">Participantes</div>
+                  <div className="font-bold text-gray-200">100 / 100</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center text-[9px] text-gray-400 px-1">
+              <span>Blockchain</span>
+              <span className="font-bold text-gray-200">Solana (Raydium)</span>
+            </div>
+
+            {/* Big Purple CTA Button */}
+            <button className="w-full py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 text-white shadow-lg shadow-purple-600/30 hover:opacity-95 transition-all flex items-center justify-center gap-2">
+              <span>ENTRAR NA SALA</span>
+              <span className="text-sm">→</span>
+            </button>
+          </div>
+
+          {/* Card Participantes (100) */}
+          <div className="bg-[#050b18]/90 border border-[#0f1f3d] rounded-2xl p-4 shadow-xl space-y-3">
+            <div className="text-[10px] font-black uppercase text-white tracking-wider">
+              PARTICIPANTES (100)
+            </div>
+
+            {/* Quick Filter Badges */}
+            <div className="grid grid-cols-2 gap-2">
+              <div className="bg-[#140a2b] border border-purple-800/60 p-1.5 rounded-xl flex items-center gap-2">
+                <span className="text-base">🦊</span>
+                <div>
+                  <div className="text-[8px] text-purple-400 font-bold">SHIBA</div>
+                  <div className="text-xs font-black text-white">50</div>
+                </div>
+              </div>
+
+              <div className="bg-[#071f1a] border border-emerald-800/60 p-1.5 rounded-xl flex items-center gap-2">
+                <span className="text-base">🐶</span>
+                <div>
+                  <div className="text-[8px] text-emerald-400 font-bold">DOGE</div>
+                  <div className="text-xs font-black text-white">50</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Participant Real-time List */}
+            <div className="space-y-2 pt-1">
+              {participantsList.map((item, idx) => (
+                <div key={idx} className="flex items-center justify-between text-[9px] bg-[#070d1e] p-2 rounded-xl border border-gray-800/60">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">{item.img}</span>
+                    <div>
+                      <div className="font-bold text-gray-200">{item.name}</div>
+                      <div className="text-[7px] text-gray-500">{item.action}</div>
+                    </div>
+                  </div>
+                  <span className="text-[8px] text-gray-500 font-mono">{item.time}</span>
                 </div>
               ))}
             </div>
 
-            <button className="w-full mt-4 py-2.5 bg-[#030610] border border-gray-800 hover:border-cyan-500/50 rounded-xl text-xs font-mono font-bold text-gray-400 hover:text-white transition-all flex items-center justify-center gap-1.5">
-              <span>View On-Chain Explorer Ledger</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+            <button className="w-full text-center text-[9px] font-bold text-gray-400 hover:text-white pt-1 flex items-center justify-center gap-1">
+              <span>Ver todos (100)</span>
+              <span>→</span>
             </button>
           </div>
 
-          {/* Protocol Integrity Shield */}
-          <div className="bg-[#070c18] border border-emerald-500/20 rounded-2xl p-4 flex items-start gap-3">
-            <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-            <div className="text-xs font-mono">
-              <div className="text-emerald-400 font-bold uppercase">Audited Invariant Logic</div>
-              <div className="text-[11px] text-gray-400 font-sans mt-0.5">
-                Funds are mathematically locked until slot signature verification completes.
-              </div>
+        </div>
+
+      </div>
+
+      {/* 3. BOTTOM FOOTER STEPS & BANNER */}
+      <footer className="mt-4 pt-3 border-t border-[#0e1b36] flex flex-col md:flex-row items-center justify-between gap-4 px-2">
+        <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-[9px]">
+          <div className="flex items-center gap-2 text-gray-300">
+            <Zap className="w-4 h-4 text-purple-400 shrink-0" />
+            <div>
+              <div className="font-black uppercase text-white">ENTRE NO MOMENTO</div>
+              <div className="text-[8px] text-gray-500">Seja rápido, as salas são limitadas</div>
+            </div>
+          </div>
+
+          <span className="text-gray-700 hidden sm:inline">&gt;</span>
+
+          <div className="flex items-center gap-2 text-gray-300">
+            <Target className="w-4 h-4 text-cyan-400 shrink-0" />
+            <div>
+              <div className="font-black uppercase text-white">APOSTE COM ESTRATÉGIA</div>
+              <div className="text-[8px] text-gray-500">O volume do mercado decide</div>
+            </div>
+          </div>
+
+          <span className="text-gray-700 hidden sm:inline">&gt;</span>
+
+          <div className="flex items-center gap-2 text-gray-300">
+            <Trophy className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div>
+              <div className="font-black uppercase text-white">CONQUISTE O LUCRO</div>
+              <div className="text-[8px] text-gray-500">O lado que perder paga</div>
             </div>
           </div>
         </div>
 
-      </div>
+        {/* Right Corner Watermark */}
+        <div className="flex items-center gap-2 text-right">
+          <div>
+            <div className="text-[10px] font-black tracking-wider text-white">BULL PROTOCOL</div>
+            <div className="text-[7px] text-gray-500 uppercase tracking-widest font-bold">MOMENTUM WINS</div>
+          </div>
+          <span className="text-xl">🐂</span>
+        </div>
+      </footer>
 
     </div>
   );
