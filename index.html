@@ -6,7 +6,7 @@
   <title>Bull Protocol | Momentum Trading Terminal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -71,9 +71,7 @@
       visibility: visible;
     }
 
-    /* =========================================================
-       BARRA DE CIMA (HEADER) EXATA DO PRINT
-       ========================================================= */
+    /* TOPBAR SUPERIOR */
     #topbar {
       height: 70px;
       background-color: #03060d;
@@ -157,7 +155,6 @@
       gap: 16px;
     }
 
-    /* BADGE SOLANA */
     .network-badge {
       display: flex;
       align-items: center;
@@ -186,7 +183,6 @@
       border-radius: 1px;
     }
 
-    /* BADGE RAYDIUM */
     .raydium-icon {
       width: 16px;
       height: 16px;
@@ -200,7 +196,6 @@
       color: #a855f7;
     }
 
-    /* BADGE ONLINE */
     .status-online {
       display: flex;
       align-items: center;
@@ -222,7 +217,6 @@
       box-shadow: 0 0 8px #10b981;
     }
 
-    /* BOTÃO DA CARTEIRA */
     .wallet-btn {
       display: flex;
       align-items: center;
@@ -250,9 +244,7 @@
       stroke: #94a3b8;
     }
 
-    /* =========================================================
-       CORPO PRINCIPAL (SIDEBAR + CONTEÚDO)
-       ========================================================= */
+    /* CORPO (SIDEBAR + CONTEÚDO) */
     #main-body {
       display: flex;
       flex: 1;
@@ -329,10 +321,6 @@
       stroke-linejoin: round;
       fill: none;
       transition: stroke 0.2s ease;
-    }
-
-    .nav-btn:not(.selected):hover .nav-icon svg {
-      stroke: #cbd5e1;
     }
 
     .btn-text {
@@ -439,35 +427,115 @@
       z-index: 1;
     }
 
-    /* ÁREA DO CONTEÚDO PRINCIPAL */
+    /* =========================================================
+       ÁREA PRINCIPAL DA ARENA (SHIBA VS DOGE)
+       ========================================================= */
     #content-container {
       flex: 1;
-      padding: 36px 40px;
-      background: radial-gradient(circle at top right, rgba(34, 211, 238, 0.04), transparent 50%);
+      padding: 28px 36px;
+      background: radial-gradient(circle at 70% 30%, rgba(168, 85, 247, 0.06), transparent 60%);
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 24px;
     }
 
-    .grid-cards {
+    /* BANNER COMPLETO DA ARENA COM A ARTE OFICIAL */
+    .arena-banner-container {
+      width: 100%;
+      max-width: 1200px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1.5px solid rgba(0, 240, 255, 0.35);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 240, 255, 0.15);
+      background-color: #03060f;
+      position: relative;
+    }
+
+    .arena-img-banner {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* CARDS DE AÇÃO DAS BATALHAS (SHIBA SIDE VS DOGE SIDE) */
+    .battle-actions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1200px;
+      width: 100%;
     }
 
-    .terminal-card {
-      background: #070a14;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+    .faction-card {
       border-radius: 16px;
-      padding: 22px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 16px;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .terminal-card:hover {
-      border-color: rgba(34, 211, 238, 0.3);
+    .faction-shiba {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(10, 13, 24, 0.95) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.1);
+    }
+
+    .faction-doge {
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.12) 0%, rgba(10, 13, 24, 0.95) 100%);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      box-shadow: 0 8px 30px rgba(34, 211, 238, 0.1);
+    }
+
+    .faction-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faction-title {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .shiba-text { color: #c084fc; }
+    .doge-text { color: #22d3ee; }
+
+    .faction-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      text-transform: uppercase;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-shiba {
+      background: #a855f7;
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+    }
+    .btn-shiba:hover {
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
+      transform: translateY(-1px);
+    }
+
+    .btn-doge {
+      background: #22d3ee;
+      color: #030712;
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+    }
+    .btn-doge:hover {
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.7);
+      transform: translateY(-1px);
     }
   </style>
 </head>
@@ -482,9 +550,8 @@
   <!-- 2. LAYOUT COMPLETO DA PLATAFORMA -->
   <div id="app-layout">
     
-    <!-- TOPBAR / PARTE DE CIMA COMPLETA EXATA DO PRINT -->
+    <!-- TOPBAR SUPERIOR (PARTE DE CIMA DO SITE) -->
     <header id="topbar">
-      <!-- LADO ESQUERDO: LOGO + TITULO + SLOGAN -->
       <div class="topbar-left">
         <div class="brand-group">
           <canvas id="topbar-logo-canvas" class="topbar-logo-canvas"></canvas>
@@ -500,7 +567,6 @@
         </div>
       </div>
 
-      <!-- LADO DIREITO: SOLANA + RAYDIUM + STATUS ONLINE + CARTEIRA -->
       <div class="topbar-right">
         <!-- SOLANA -->
         <div class="network-badge">
@@ -538,10 +604,10 @@
       </div>
     </header>
 
-    <!-- CORPO COM A SIDEBAR E O TERMINAL -->
+    <!-- CORPO COM A SIDEBAR E A ARENA -->
     <div id="main-body">
       
-      <!-- SIDEBAR LATERAL COM LAUNCHPAD E CARD INFERIOR -->
+      <!-- SIDEBAR LATERAL -->
       <aside id="sidebar-container">
         <nav class="nav-group">
           <!-- ROOMS -->
@@ -656,46 +722,47 @@
         </div>
       </aside>
 
-      <!-- ÁREA CENTRAL DO TERMINAL -->
+      <!-- ÁREA CENTRAL DA ARENA (SHIBA VS DOGE) -->
       <main id="content-container">
-        <div>
-          <h2 style="font-size: 24px; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 6px;">BATTLE ARENA</h2>
-          <p style="font-size: 13px; color: #64748b;">Live decentralized momentum battles on Solana</p>
+        
+        <!-- BANNER ORIGINAL SHIBA VS DOGE (DA IMAGEM) -->
+        <div class="arena-banner-container">
+          <img src="https://i.postimg.cc/PxQgJhzr/shiba.jpg" alt="SHIBA VS DOGE Live Arena" class="arena-img-banner" />
         </div>
 
-        <div class="grid-cards">
-          <!-- CARD 1 -->
-          <div class="terminal-card">
+        <!-- CARDS DE ENTRADA NA BATALHA -->
+        <div class="battle-actions-grid">
+          
+          <!-- LADO SHIBA -->
+          <div class="faction-card faction-shiba">
             <div>
-              <span style="font-size: 12px; color: #22d3ee; font-weight: 700; letter-spacing: 0.05em;">ACTIVE DUEL</span>
-              <h3 style="font-size: 20px; font-weight: 800; margin-top: 6px;">SOL / USDT</h3>
-              <p style="font-size: 13px; color: #64748b; margin-top: 4px;">30-minute volume confrontation</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-              <div>
-                <span style="font-size: 11px; color: #64748b;">POOL PRIZE</span>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 800; color: #10b981;">185.5 SOL</div>
+              <div class="faction-header">
+                <span class="faction-title shiba-text">SHIBA SIDE</span>
+                <span style="font-size: 11px; background: rgba(168, 85, 247, 0.2); color: #c084fc; padding: 4px 10px; border-radius: 6px; font-weight: 700;">VOL: 12.4M USDT</span>
               </div>
-              <button style="background: rgba(34, 211, 238, 0.15); border: 1px solid #22d3ee; color: #22d3ee; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer;">ENTER</button>
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 8px;">
+                50 traders active in this round. Back SHIBA momentum against DOGE.
+              </p>
             </div>
+            <button class="faction-btn btn-shiba">ENTER WITH SHIBA</button>
           </div>
 
-          <!-- CARD 2 -->
-          <div class="terminal-card">
+          <!-- LADO DOGE -->
+          <div class="faction-card faction-doge">
             <div>
-              <span style="font-size: 12px; color: #a855f7; font-weight: 700; letter-spacing: 0.05em;">LAUNCHPAD</span>
-              <h3 style="font-size: 20px; font-weight: 800; margin-top: 6px;">$BULL GENESIS</h3>
-              <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Early allocation & token presale</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-              <div>
-                <span style="font-size: 11px; color: #64748b;">TARGET</span>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 800; color: #c084fc;">$500,000</div>
+              <div class="faction-header">
+                <span class="faction-title doge-text">DOGE SIDE</span>
+                <span style="font-size: 11px; background: rgba(34, 211, 238, 0.2); color: #22d3ee; padding: 4px 10px; border-radius: 6px; font-weight: 700;">VOL: 10.8M USDT</span>
               </div>
-              <button style="background: rgba(168, 85, 247, 0.15); border: 1px solid #a855f7; color: #a855f7; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer;">VIEW POOL</button>
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 8px;">
+                50 traders active in this round. Back DOGE momentum against SHIBA.
+              </p>
             </div>
+            <button class="faction-btn btn-doge">ENTER WITH DOGE</button>
           </div>
+
         </div>
+
       </main>
 
     </div>
@@ -705,7 +772,7 @@
   <script>
     const BULL_URL = 'https://i.postimg.cc/kXMHjQJ2/bull-logo-png.png';
 
-    // REMOVE O QUADRADO PRETO AUTOMATICAMENTE EM TODOS OS CANVASES
+    // REMOVE O FUNDO PRETO VIA CANVAS AUTOMATICAMENTE
     function drawCroppedBull(canvasId, img) {
       const canvas = document.getElementById(canvasId);
       if (!canvas) return;
@@ -748,7 +815,7 @@
       appLayout.classList.add('active');
     }, 7000);
 
-    // SELEÇÃO DO MENU
+    // ALTERNAR BOTÕES DO MENU
     function selectNav(element) {
       document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('selected'));
       element.classList.add('selected');
