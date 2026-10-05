@@ -1,1 +1,21 @@
+.arena-panel {
+  position: relative;
+}
 
+.arena-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(168, 85, 247, 0.08),
+      transparent 45%
+    );
+}
+
+@media (max-width: 1024px) {
+  .arena-panel {
+    width: 100%;
+  }
+}
