@@ -6,24 +6,25 @@ import {
   Briefcase, 
   ShieldCheck, 
   Settings, 
-  Zap
+  Zap,
+  Activity
 } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab }) {
   const menuItems = [
-    { id: 'launchpad', label: 'Launchpad', icon: Layers, desc: 'Create • Launch • Grow' },
-    { id: 'vdt', label: 'Salas VDT', icon: Zap, desc: 'Participe de batalhas' },
-    { id: 'tokens', label: 'My Tokens', icon: Cpu, desc: 'View your assets' },
-    { id: 'staking', label: 'Staking', icon: Coins, desc: 'Earn rewards' },
-    { id: 'portfolio', label: 'Portfolio', icon: Briefcase, desc: 'Track performance' },
-    { id: 'security', label: 'Security', icon: ShieldCheck, desc: 'Audits & Locks' },
-    { id: 'settings', label: 'Settings', icon: Settings, desc: 'Preferences' },
+    { id: 'vdt', label: 'VDT Arenas', icon: Zap, desc: 'Volume Dueling Terminal' },
+    { id: 'launchpad', label: 'Launchpad', icon: Layers, desc: 'Bonding Curve & Pools' },
+    { id: 'tokens', label: 'My Tokens', icon: Cpu, desc: 'Deployed Assets' },
+    { id: 'staking', label: 'Staking Vaults', icon: Coins, desc: 'Yield & Governance' },
+    { id: 'portfolio', label: 'Portfolio', icon: Briefcase, desc: 'PnL Analytics' },
+    { id: 'security', label: 'Security & Locks', icon: ShieldCheck, desc: 'PDA Audit Logs' },
+    { id: 'settings', label: 'System Settings', icon: Settings, desc: 'RPC & Slippage' },
   ];
 
   return (
     <aside className="w-64 bg-[#050813] border-r border-[#142038] flex flex-col justify-between p-5 select-none min-h-screen">
       <div>
-        {/* Logo / Brand Header */}
+        {/* Brand Header */}
         <div className="flex items-center gap-3 px-1 mb-8">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 border border-cyan-300/30">
             <span className="text-xl">🐂</span>
@@ -32,11 +33,11 @@ export default function Sidebar({ activeTab, setActiveTab }) {
             <h1 className="text-white font-black tracking-wider text-sm flex items-center gap-1">
               BULL PROTOCOL
             </h1>
-            <p className="text-[9px] text-gray-400 uppercase tracking-widest font-semibold">Autonomous Solana</p>
+            <p className="text-[9px] text-gray-400 uppercase tracking-widest font-mono">Autonomous Solana</p>
           </div>
         </div>
 
-        {/* Navigation Links */}
+        {/* Navigation Elements */}
         <nav className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -62,15 +63,15 @@ export default function Sidebar({ activeTab, setActiveTab }) {
         </nav>
       </div>
 
-      {/* Footer Network Badge */}
+      {/* Network Verification Badge */}
       <div className="pt-4 border-t border-gray-800/60">
         <div className="bg-[#091021] border border-cyan-500/20 rounded-xl p-3 flex items-center gap-3">
           <div className="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-xs">
             ⚡
           </div>
           <div className="overflow-hidden">
-            <div className="text-[10px] font-bold text-gray-200">BUILT ON SOLANA</div>
-            <div className="text-[9px] text-gray-400 truncate">Faster • Cheaper • Together</div>
+            <div className="text-[10px] font-mono font-bold text-gray-200">HIGH-THROUGHPUT ENGINE</div>
+            <div className="text-[9px] text-gray-400 truncate font-mono">Sub-Second Finality</div>
           </div>
         </div>
       </div>
