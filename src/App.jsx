@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
-  const [imgSrc, setImgSrc] = useState('/bull-logo.png.jpg');
 
   useEffect(() => {
-    // 7 segundos de splash screen
+    // 7 segundos exatos no splash screen
     const timer = setTimeout(() => {
       setLoading(false);
     }, 7000);
@@ -13,16 +12,7 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleImageError = () => {
-    // Se por acaso tiver mudado no GitHub, testa as outras alternativas
-    if (imgSrc === '/bull-logo.png.jpg') {
-      setImgSrc('/bull-logo.png.png');
-    } else if (imgSrc === '/bull-logo.png.png') {
-      setImgSrc('/bull-logo.png');
-    }
-  };
-
-  // 1. SPLASH SCREEN: 100% PRETO COM A CABEÇA DO TOURO NEON CENTRALIZADA
+  // 1. SPLASH SCREEN: FUNDO 100% PRETO COM A CABEÇA DO TOURO NEON CENTRALIZADA
   if (loading) {
     return (
       <div
@@ -44,7 +34,7 @@ export default function App() {
               position: 'absolute',
               width: '320px',
               height: '320px',
-              backgroundColor: 'rgba(34, 211, 238, 0.25)',
+              backgroundColor: 'rgba(34, 211, 238, 0.22)',
               borderRadius: '50%',
               filter: 'blur(90px)',
               pointerEvents: 'none'
@@ -52,9 +42,8 @@ export default function App() {
           />
 
           <img
-            src={imgSrc}
+            src="/bull.logo.png"
             alt="Bull Logo"
-            onError={handleImageError}
             style={{
               position: 'relative',
               width: '300px',
