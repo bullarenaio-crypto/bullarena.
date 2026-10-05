@@ -55,7 +55,9 @@ export default function VDTTerminal() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#02050d] text-white font-sans text-xs select-none p-2 sm:p-3 leading-relaxed">
+    <div className="min-h-screen bg-[#01040b] text-white font-sans text-xs select-none p-2 sm:p-3 leading-relaxed relative overflow-hidden">
+      <div className="pointer-events-none fixed inset-0 opacity-40 bg-[radial-gradient(circle_at_25%_20%,rgba(124,58,237,0.10),transparent_28%),radial-gradient(circle_at_75%_30%,rgba(6,182,212,0.08),transparent_30%)]"></div>
+      <div className="relative z-10">
       
       {/* 1. TOP HEADER BAR */}
       <header className="flex flex-wrap items-center justify-between border-b border-[#0e182f] pb-2.5 mb-3 px-2 gap-3">
@@ -86,7 +88,7 @@ export default function VDTTerminal() {
 
           <div className="hidden md:flex flex-col">
             <span className="text-[9px] font-bold text-gray-300 tracking-wider font-mono">MOMENTUM TRADING TERMINAL</span>
-            <span className="text-[8px] text-gray-500 tracking-widest font-mono">TRADES • ROOMS • REAL PROFIT</span>
+            <span className="text-[8px] text-gray-500 tracking-widest font-mono">TRADES • ROOMS • REAL YIELD</span>
           </div>
         </div>
 
@@ -116,10 +118,10 @@ export default function VDTTerminal() {
       </header>
 
       {/* 2. MAIN 3-COLUMN WORKSPACE */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5">
         
         {/* LEFT COLUMN (Col 1-2) */}
-        <div className="lg:col-span-2 space-y-2.5">
+        <div className="lg:col-span-2 space-y-2">
           
           {/* Main Navigation */}
           <div className="bg-[#040815]/90 border border-[#0d1c3a] rounded-xl p-1.5 space-y-1">
@@ -178,7 +180,7 @@ export default function VDTTerminal() {
               LESS EMOTION
             </div>
             <p className="text-[8px] text-gray-400 leading-normal mb-3 font-sans">
-              The rules are simple: whichever market loses volume within 30 minutes settles the pool to the counterparty.
+              The rules are simple: whichever side loses market volume over 30 minutes settles the pool to the counterparty.
             </p>
             <button className="w-full py-1 rounded bg-[#071329] border border-[#142854] text-[9px] font-bold text-cyan-400 hover:bg-[#0c1f44] transition-all font-mono uppercase">
               HOW IT WORKS?
@@ -196,10 +198,10 @@ export default function VDTTerminal() {
         </div>
 
         {/* CENTER COLUMN (Col 3-9) */}
-        <div className="lg:col-span-7 space-y-2.5">
+        <div className="lg:col-span-7 space-y-2">
           
           {/* Main Versus Arena Card */}
-          <div className="bg-[#030612] border border-[#0d1c3a] rounded-2xl p-4 relative overflow-hidden shadow-2xl">
+          <div className="bg-[#030612] border border-[#0d1c3a] rounded-xl p-3.5 relative overflow-hidden shadow-2xl">
             
             {/* UNICÓRNIO/CAVALO MÍSTICO NEON ROXO (Fundo Esquerdo) */}
             <div className="absolute -top-3 left-4 w-64 h-64 pointer-events-none opacity-40 mix-blend-screen">
@@ -335,7 +337,7 @@ export default function VDTTerminal() {
           </div>
 
           {/* DexScreener Chart Block */}
-          <div className="bg-[#030612] border border-[#0d1c3a] rounded-2xl p-4 shadow-xl">
+          <div className="bg-[#030612] border border-[#0d1c3a] rounded-xl p-3.5 shadow-xl">
             <div className="flex flex-wrap items-center justify-between pb-2 border-b border-gray-800/80 gap-2 mb-2">
               <div className="flex items-center gap-1.5 text-[9px] font-bold text-gray-300 uppercase tracking-wider font-mono">
                 <LineChart className="w-3.5 h-3.5 text-cyan-400" />
@@ -468,7 +470,7 @@ export default function VDTTerminal() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
             
             {/* How It Works */}
-            <div className="bg-[#030612] border border-[#0d1c3a] rounded-2xl p-3.5 space-y-2">
+            <div className="bg-[#030612] border border-[#0d1c3a] rounded-xl p-3 space-y-2">
               <div className="text-[10px] font-black uppercase text-white tracking-wider font-mono">
                 HOW IT WORKS?
               </div>
@@ -502,7 +504,7 @@ export default function VDTTerminal() {
             </div>
 
             {/* Room Statistics */}
-            <div className="bg-[#030612] border border-[#0d1c3a] rounded-2xl p-3.5 space-y-2.5">
+            <div className="bg-[#030612] border border-[#0d1c3a] rounded-xl p-3 space-y-2.5">
               <div className="text-[10px] font-black uppercase text-white tracking-wider font-mono">
                 ROOM STATISTICS
               </div>
@@ -552,10 +554,10 @@ export default function VDTTerminal() {
         </div>
 
         {/* RIGHT COLUMN (Col 10-12) */}
-        <div className="lg:col-span-3 space-y-2.5">
+        <div className="lg:col-span-3 space-y-2">
           
           {/* Card Enter Room */}
-          <div className="bg-[#030612] border border-[#0d1c3a] rounded-2xl p-4 shadow-xl space-y-3 font-mono">
+          <div className="bg-[#030612] border border-[#0d1c3a] rounded-xl p-3.5 shadow-xl space-y-3 font-mono">
             <div className="flex items-center justify-between pb-2 border-b border-gray-800">
               <span className="text-[9px] font-bold text-gray-400 bg-gray-900 px-2 py-0.5 rounded">
                 ROOM #4827
@@ -594,14 +596,14 @@ export default function VDTTerminal() {
             </div>
 
             {/* Glowing Purple CTA Button */}
-            <button className="w-full py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 text-white shadow-[0_0_20px_rgba(147,51,234,0.5)] hover:opacity-95 transition-all flex items-center justify-center gap-2">
+            <button className="w-full py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-gradient-to-r from-purple-700 via-indigo-600 to-cyan-600 text-white shadow-[0_0_20px_rgba(147,51,234,0.5)] hover:opacity-95 transition-all flex items-center justify-center gap-2">
               <span>ENTER ROOM</span>
               <span className="text-sm">→</span>
             </button>
           </div>
 
           {/* Card Participants (100) */}
-          <div className="bg-[#030612] border border-[#0d1c3a] rounded-2xl p-4 shadow-xl space-y-3 font-mono">
+          <div className="bg-[#030612] border border-[#0d1c3a] rounded-xl p-3.5 shadow-xl space-y-3 font-mono">
             <div className="text-[10px] font-black uppercase text-white tracking-wider">
               PARTICIPANTS (100)
             </div>
@@ -667,8 +669,8 @@ export default function VDTTerminal() {
           <div className="flex items-center gap-2 text-gray-300">
             <Target className="w-4 h-4 text-cyan-400 shrink-0" />
             <div>
-              <div className="font-black uppercase text-white font-mono">STRATEGIC ALLOCATION</div>
-              <div className="text-[8px] text-gray-500">Market volume delta determines victor</div>
+              <div className="font-black uppercase text-white font-mono">BET WITH STRATEGY</div>
+              <div className="text-[8px] text-gray-500">Market volume determines the winner</div>
             </div>
           </div>
 
@@ -677,8 +679,8 @@ export default function VDTTerminal() {
           <div className="flex items-center gap-2 text-gray-300">
             <Trophy className="w-4 h-4 text-emerald-400 shrink-0" />
             <div>
-              <div className="font-black uppercase text-white font-mono">COLLECT YIELD</div>
-              <div className="text-[8px] text-gray-500">The counterparty settles the pool</div>
+              <div className="font-black uppercase text-white font-mono">COLLECT YOUR YIELD</div>
+              <div className="text-[8px] text-gray-500">The losing side funds the winning side</div>
             </div>
           </div>
         </div>
@@ -695,6 +697,7 @@ export default function VDTTerminal() {
         </div>
       </footer>
 
+      </div>
     </div>
   );
 }
