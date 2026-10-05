@@ -16,11 +16,11 @@ export default function App() {
   const [chartTab, setChartTab] = useState('total');
 
   const participantsList = [
-    { name: 'ShibaTeam_1F...', action: 'Joined Team Shiba', time: '2m', color: 'bg-purple-600', icon: 'S' },
-    { name: 'DogeWolf_7a...', action: 'Joined Team Doge', time: '2m', color: 'bg-emerald-500', icon: 'D' },
-    { name: 'CryptoLuna', action: 'Joined Team Shiba', time: '3m', color: 'bg-purple-600', icon: 'S' },
-    { name: 'TraderAlpha', action: 'Joined Team Doge', time: '4m', color: 'bg-emerald-500', icon: 'D' },
-    { name: 'SolMaster', action: 'Joined Team Shiba', time: '5m', color: 'bg-purple-600', icon: 'S' }
+    { name: 'ShibaTeam_1F...', action: 'Joined Team Shiba', time: '2m', color: 'bg-purple-600', icon: '🦊' },
+    { name: 'DogeWolf_7a...', action: 'Joined Team Doge', time: '2m', color: 'bg-emerald-500', icon: '🐶' },
+    { name: 'CryptoLuna', action: 'Joined Team Shiba', time: '3m', color: 'bg-purple-600', icon: '👩‍🎤' },
+    { name: 'TraderAlpha', action: 'Joined Team Doge', time: '4m', color: 'bg-emerald-500', icon: '🧑‍💻' },
+    { name: 'SolMaster', action: 'Joined Team Shiba', time: '5m', color: 'bg-purple-600', icon: '👨‍🚀' }
   ];
 
   return (
@@ -29,9 +29,9 @@ export default function App() {
       {/* 1. TOP HEADER BAR */}
       <header className="flex flex-wrap items-center justify-between border-b border-[#0b162c] pb-2.5 mb-3 px-2 gap-2">
         <div className="flex items-center gap-3">
-          {/* Logo Bull Protocol com gradiente azul/púrpura */}
+          {/* Logo Bull Protocol com gradiente neon */}
           <div className="flex items-center gap-2">
-            <svg className="w-8 h-8 drop-shadow-[0_0_10px_#3b82f6]" viewBox="0 0 100 100" fill="none">
+            <svg className="w-8 h-8 drop-shadow-[0_0_12px_#38bdf8]" viewBox="0 0 100 100" fill="none">
               <path d="M18 28 C12 12, 4 18, 8 32 C12 42, 22 46, 30 52 C35 56, 44 66, 42 78 C38 90, 48 94, 52 82 C55 70, 62 60, 72 54 C80 48, 90 42, 92 30 C94 18, 84 12, 80 28 C74 38, 66 44, 58 48 C54 36, 44 36, 40 48 C32 44, 24 38, 18 28 Z" fill="url(#bullGlow)" />
               <defs>
                 <linearGradient id="bullGlow" x1="0" y1="0" x2="100" y2="100">
@@ -165,32 +165,32 @@ export default function App() {
         {/* CENTER COLUMN (Col 3-9) */}
         <div className="lg:col-span-7 space-y-2.5">
           
-          {/* Main Versus Arena Card com os Animais Silhuetados Exatos */}
-          <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-4 relative overflow-hidden shadow-2xl">
+          {/* Main Versus Arena Card com fundo de iluminação neon atmosférica */}
+          <div className="bg-[#030612] border border-[#0d1c3a] rounded-2xl p-4 relative overflow-hidden shadow-2xl">
             
-            {/* SILHUETA CAVALO/UNICÓRNIO MÍSTICO ROXO (Esquerda) */}
-            <div className="absolute -top-4 left-4 w-72 h-72 pointer-events-none opacity-40 mix-blend-screen">
-              <svg viewBox="0 0 200 200" className="w-full h-full">
-                <path 
-                  d="M30 170 C35 140 45 120 65 105 C60 85 55 60 60 40 C68 45 75 52 80 60 C95 45 120 40 140 50 C145 30 155 12 170 5 C160 25 156 45 154 60 C166 80 170 108 156 136 C142 160 114 174 80 174 C50 174 38 164 30 170 Z" 
-                  fill="#a855f7" 
-                />
+            {/* Linhas neon estilizadas do cavalo místico (esquerda) */}
+            <div className="absolute top-0 left-0 w-80 h-full pointer-events-none opacity-30 mix-blend-screen overflow-hidden">
+              <svg viewBox="0 0 300 200" className="w-full h-full">
+                <path d="M20,180 C40,140 70,120 110,110 C90,85 75,50 85,20 C100,28 115,45 125,60 C150,45 190,40 220,55" fill="none" stroke="#a855f7" strokeWidth="2" strokeDasharray="6 4" />
+                <path d="M60,190 C85,150 120,135 160,130 C180,105 175,70 190,45" fill="none" stroke="#ec4899" strokeWidth="1.5" />
+                <circle cx="85" cy="20" r="3" fill="#f472b6" />
+                <circle cx="220" cy="55" r="4" fill="#a855f7" />
               </svg>
             </div>
 
-            {/* SILHUETA TOURO MÍSTICO VERDE (Direita) */}
-            <div className="absolute -top-4 right-4 w-72 h-72 pointer-events-none opacity-40 mix-blend-screen">
-              <svg viewBox="0 0 200 200" className="w-full h-full">
-                <path 
-                  d="M170 170 C165 140 155 120 135 105 C140 85 145 60 140 40 C132 45 125 52 120 60 C105 45 80 40 60 50 C55 30 45 12 30 5 C40 25 44 45 46 60 C34 80 30 108 44 136 C58 160 86 174 120 174 C150 174 162 164 170 170 Z" 
-                  fill="#10b981" 
-                />
+            {/* Linhas neon estilizadas da fera/touro (direita) */}
+            <div className="absolute top-0 right-0 w-80 h-full pointer-events-none opacity-30 mix-blend-screen overflow-hidden">
+              <svg viewBox="0 0 300 200" className="w-full h-full">
+                <path d="M280,180 C260,140 230,120 190,110 C210,85 225,50 215,20 C200,28 185,45 175,60 C150,45 110,40 80,55" fill="none" stroke="#10b981" strokeWidth="2" strokeDasharray="6 4" />
+                <path d="M240,190 C215,150 180,135 140,130 C120,105 125,70 110,45" fill="none" stroke="#06b6d4" strokeWidth="1.5" />
+                <circle cx="215" cy="20" r="3" fill="#34d399" />
+                <circle cx="80" cy="55" r="4" fill="#06b6d4" />
               </svg>
             </div>
 
-            {/* Glows de ambientação difusos */}
-            <div className="absolute top-1/2 left-16 -translate-y-1/2 w-48 h-48 bg-purple-600/30 rounded-full blur-[80px] pointer-events-none"></div>
-            <div className="absolute top-1/2 right-16 -translate-y-1/2 w-48 h-48 bg-emerald-500/30 rounded-full blur-[80px] pointer-events-none"></div>
+            {/* Brilhos atmosféricos difusos */}
+            <div className="absolute top-1/2 left-20 -translate-y-1/2 w-48 h-48 bg-purple-600/25 rounded-full blur-[80px] pointer-events-none"></div>
+            <div className="absolute top-1/2 right-20 -translate-y-1/2 w-48 h-48 bg-emerald-500/25 rounded-full blur-[80px] pointer-events-none"></div>
 
             {/* Top Pill Status */}
             <div className="flex justify-center mb-1 relative z-10">
@@ -217,7 +217,7 @@ export default function App() {
                 <div className="relative inline-block mb-2">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-purple-600 via-pink-500 to-indigo-600 shadow-[0_0_24px_#a855f7]">
                     <div className="w-full h-full rounded-full bg-[#0a0418] flex items-center justify-center border-2 border-purple-400/90 shadow-inner">
-                      {/* Shiba Inu Vector Graphic */}
+                      {/* Shiba Inu Vector Ilustrado com sombras volumétricas */}
                       <svg viewBox="0 0 100 100" className="w-14 h-14 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
                         <circle cx="50" cy="50" r="45" fill="#ea580c" />
                         <path d="M22 25 L38 42 L18 48 Z" fill="#c2410c" />
@@ -240,7 +240,7 @@ export default function App() {
                 <div className="text-[9px] font-bold text-purple-400 mt-0.5 font-mono">DEX VOLUME: 12.4M USDT</div>
               </div>
 
-              {/* CENTER COUNTDOWN HUD COM CORTE CHANFRADO TÁTICO */}
+              {/* CENTER COUNTDOWN HUD HEXAGONAL */}
               <div className="text-center px-2 z-10">
                 <div className="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1.5 font-mono">TIME REMAINING</div>
                 <div className="relative inline-block">
@@ -258,7 +258,7 @@ export default function App() {
                 <div className="relative inline-block mb-2">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-500 shadow-[0_0_24px_#10b981]">
                     <div className="w-full h-full rounded-full bg-[#02130e] flex items-center justify-center border-2 border-emerald-400/90 shadow-inner">
-                      {/* Doge Vector Graphic */}
+                      {/* Doge Vector Ilustrado volumétrico */}
                       <svg viewBox="0 0 100 100" className="w-14 h-14 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
                         <circle cx="50" cy="50" r="45" fill="#eab308" />
                         <path d="M24 24 L38 40 L20 44 Z" fill="#ca8a04" />
@@ -284,7 +284,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* DexScreener Chart Block com grelha e ondas autênticas */}
+          {/* DexScreener Chart Block com fundo técnico escuro e ondas finas */}
           <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-4 shadow-xl">
             <div className="flex flex-wrap items-center justify-between pb-2 border-b border-gray-800/80 gap-2 mb-2">
               <div className="flex items-center gap-1.5 text-[9px] font-bold text-gray-300 uppercase tracking-wider font-mono">
@@ -325,23 +325,21 @@ export default function App() {
                   <span>0</span>
                 </div>
 
-                {/* Área Vetorial com Curvas Sinuosas e Preenchimentos Gradientes */}
-                <div className="flex-1 relative overflow-hidden">
+                {/* Área Vetorial com Curvas Sinuosas sem bloco azul pesado */}
+                <div className="flex-1 relative overflow-hidden bg-[#02050e]/60 rounded-lg border border-gray-900/60">
                   <svg className="w-full h-full" viewBox="0 0 500 100" preserveAspectRatio="none">
                     <defs>
                       <linearGradient id="shibaWaveGlow" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#a855f7" stopOpacity="0.45" />
-                        <stop offset="70%" stopColor="#a855f7" stopOpacity="0.1" />
+                        <stop offset="0%" stopColor="#a855f7" stopOpacity="0.25" />
                         <stop offset="100%" stopColor="#a855f7" stopOpacity="0.0" />
                       </linearGradient>
                       <linearGradient id="dogeWaveGlow" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#10b981" stopOpacity="0.45" />
-                        <stop offset="70%" stopColor="#10b981" stopOpacity="0.1" />
+                        <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
                         <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
                       </linearGradient>
                     </defs>
 
-                    {/* Grelha de Fundo Horizontal */}
+                    {/* Grelha técnica pontilhada */}
                     <line x1="0" y1="2" x2="500" y2="2" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
                     <line x1="0" y1="20" x2="500" y2="20" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
                     <line x1="0" y1="40" x2="500" y2="40" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
@@ -358,7 +356,7 @@ export default function App() {
                       d="M 0,78 C 30,85 50,72 80,75 C 110,80 130,68 160,70 C 190,72 210,82 240,78 C 270,72 290,62 320,60 C 350,58 380,66 410,64 C 440,60 470,55 500,54"
                       fill="none"
                       stroke="#c084fc"
-                      strokeWidth="2.5"
+                      strokeWidth="2"
                       strokeLinecap="round"
                     />
 
@@ -371,7 +369,7 @@ export default function App() {
                       d="M 0,85 C 25,82 45,90 70,80 C 95,72 125,78 150,68 C 180,60 205,72 235,64 C 265,56 295,48 325,46 C 355,44 385,52 415,40 C 445,30 475,36 500,34"
                       fill="none"
                       stroke="#34d399"
-                      strokeWidth="2.5"
+                      strokeWidth="2"
                       strokeLinecap="round"
                     />
                   </svg>
@@ -561,9 +559,7 @@ export default function App() {
               {participantsList.map((item, idx) => (
                 <div key={idx} className="flex items-center justify-between text-[9px] bg-[#050b18] p-2 rounded-xl border border-gray-800/60">
                   <div className="flex items-center gap-2">
-                    <div className={`w-5 h-5 rounded-full ${item.color} flex items-center justify-center text-[7px] text-white font-bold font-mono`}>
-                      {item.icon}
-                    </div>
+                    <span className="text-sm">{item.icon}</span>
                     <div>
                       <div className="font-bold text-gray-200 font-mono">{item.name}</div>
                       <div className="text-[7px] text-gray-500">{item.action}</div>
