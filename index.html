@@ -13,12 +13,10 @@
       --bg-dark: #020408;
       --panel-bg: rgba(6, 10, 18, 0.72);
       --panel-border: rgba(255, 255, 255, 0.08);
-      --panel-border-glow: rgba(0, 240, 255, 0.35);
       --cyan-neon: #00f0ff;
       --cyan-glow: rgba(0, 240, 255, 0.45);
       --purple-neon: #c084fc;
       --purple-glow: rgba(192, 132, 252, 0.45);
-      --green-online: #10b981;
     }
 
     * {
@@ -43,9 +41,7 @@
       background-attachment: fixed;
     }
 
-    /* =========================================================
-       1. SPLASH SCREEN ULTRA-HD 4K (7 SEGUNDOS)
-       ========================================================= */
+    /* 1. SPLASH SCREEN (7 SEGUNDOS) */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -55,37 +51,29 @@
       align-items: center;
       justify-content: center;
       z-index: 999999;
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.9s;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
     }
 
     .splash-glow-core {
       position: absolute;
-      width: 420px;
-      height: 420px;
+      width: 380px;
+      height: 380px;
       background: radial-gradient(circle, rgba(0, 240, 255, 0.28) 0%, rgba(192, 132, 252, 0.12) 45%, transparent 70%);
       border-radius: 50%;
-      filter: blur(95px);
+      filter: blur(90px);
       pointer-events: none;
-      animation: ambientPulse 3.5s ease-in-out infinite alternate;
     }
 
     #splash-canvas {
       position: relative;
-      width: 320px;
+      width: 290px;
       max-width: 85vw;
       height: auto;
       object-fit: contain;
       filter: drop-shadow(0 0 35px rgba(0, 240, 255, 0.85)) drop-shadow(0 0 70px rgba(0, 240, 255, 0.35));
     }
 
-    @keyframes ambientPulse {
-      0% { transform: scale(0.94); opacity: 0.7; }
-      100% { transform: scale(1.12); opacity: 1; }
-    }
-
-    /* =========================================================
-       2. ESTRUTURA PRINCIPAL 4K
-       ========================================================= */
+    /* 2. ESTRUTURA PRINCIPAL */
     #app-layout {
       display: flex;
       flex-direction: column;
@@ -100,17 +88,16 @@
       visibility: visible;
     }
 
-    /* TOPBAR INSTITUCIONAL 4K */
+    /* TOPBAR SUPERIOR */
     #topbar {
-      height: 72px;
-      background: rgba(4, 7, 14, 0.82);
-      backdrop-filter: blur(24px) saturate(180%);
+      height: 68px;
+      background: rgba(4, 7, 14, 0.85);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 28px;
+      padding: 0 24px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -119,53 +106,51 @@
     .topbar-left {
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: 20px;
     }
 
     .brand-group {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .topbar-logo-canvas {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       object-fit: contain;
-      filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.7));
+      filter: drop-shadow(0 0 14px rgba(0, 240, 255, 0.7));
     }
 
     .brand-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 23px;
+      font-size: 21px;
       font-weight: 700;
       letter-spacing: 0.14em;
       color: #ffffff;
       line-height: 1;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     }
 
     .brand-subtitle {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
-      letter-spacing: 0.42em;
+      letter-spacing: 0.4em;
       color: var(--cyan-neon);
-      margin-top: 4px;
-      opacity: 0.9;
+      margin-top: 3px;
     }
 
     .topbar-slogan {
       display: flex;
       flex-direction: column;
       border-left: 1px solid rgba(255, 255, 255, 0.1);
-      padding-left: 22px;
+      padding-left: 18px;
     }
 
     .slogan-title {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.14em;
       background: linear-gradient(90deg, #00f0ff 0%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -173,9 +158,9 @@
     }
 
     .slogan-sub {
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 700;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.25em;
       color: #64748b;
       margin-top: 3px;
       text-transform: uppercase;
@@ -184,164 +169,147 @@
     .topbar-right {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .network-pill {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 7px 14px;
-      border-radius: 10px;
+      gap: 7px;
+      padding: 6px 12px;
+      border-radius: 9px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.08em;
       color: #e2e8f0;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
 
     .solana-icon {
-      width: 15px;
-      height: 12px;
+      width: 14px;
+      height: 11px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
     .solana-line {
-      height: 2.2px;
+      height: 2px;
       background: linear-gradient(90deg, #9945ff 0%, #14f195 100%);
       border-radius: 2px;
     }
 
     .raydium-icon {
-      width: 17px;
-      height: 17px;
+      width: 16px;
+      height: 16px;
       border: 1.5px solid #a855f7;
-      border-radius: 5px;
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 900;
       color: #c084fc;
-      box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
     }
 
     .status-online {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 7px 16px;
-      border-radius: 22px;
+      gap: 7px;
+      padding: 6px 14px;
+      border-radius: 20px;
       background: rgba(16, 185, 129, 0.08);
       border: 1px solid rgba(16, 185, 129, 0.45);
-      box-shadow: 0 0 18px rgba(16, 185, 129, 0.22);
       font-size: 11px;
       font-weight: 800;
       color: #34d399;
-      letter-spacing: 0.05em;
     }
 
     .status-ring {
-      width: 6.5px;
-      height: 6.5px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: #10b981;
-      box-shadow: 0 0 10px #10b981, 0 0 18px #10b981;
+      box-shadow: 0 0 10px #10b981;
     }
 
     .wallet-btn {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 18px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      gap: 8px;
+      padding: 7px 15px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: #ffffff;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .wallet-btn:hover {
-      border-color: var(--cyan-neon);
-      box-shadow: 0 0 20px var(--cyan-glow);
-      transform: translateY(-1px);
-    }
-
-    /* CORPO */
+    /* CORPO PRINCIPAL */
     #main-body {
       display: flex;
       flex: 1;
     }
 
-    /* SIDEBAR 4K GLASS */
+    /* SIDEBAR */
     #sidebar-container {
-      width: 325px;
-      min-width: 325px;
-      background: linear-gradient(180deg, rgba(5, 8, 16, 0.95) 0%, rgba(3, 5, 10, 0.98) 100%);
-      backdrop-filter: blur(30px);
+      width: 300px;
+      min-width: 300px;
+      background: linear-gradient(180deg, rgba(5, 8, 16, 0.96) 0%, rgba(3, 5, 10, 0.98) 100%);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 24px 20px 22px 20px;
+      padding: 20px 16px;
       border-right: 1px solid rgba(255, 255, 255, 0.06);
       position: relative;
-      overflow: hidden;
     }
 
     .nav-group {
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 7px;
     }
 
     .nav-btn {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 13px 18px;
-      border-radius: 14px;
+      gap: 14px;
+      padding: 11px 14px;
+      border-radius: 12px;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.22s ease;
+      transition: all 0.2s ease;
       background: transparent;
       border: 1px solid transparent;
-      position: relative;
     }
 
     .nav-btn.selected {
       background: linear-gradient(90deg, rgba(168, 85, 247, 0.22) 0%, rgba(0, 240, 255, 0.22) 100%);
       border: 1px solid rgba(0, 240, 255, 0.55);
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
     }
 
     .nav-btn.selected .nav-icon svg {
       stroke: var(--cyan-neon);
-      filter: drop-shadow(0 0 8px var(--cyan-neon));
+      filter: drop-shadow(0 0 6px var(--cyan-neon));
     }
 
     .nav-btn.selected .btn-title {
       color: #ffffff;
       font-weight: 800;
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
     }
 
     .nav-btn:not(.selected):hover {
       background: rgba(255, 255, 255, 0.035);
-      border-color: rgba(255, 255, 255, 0.06);
     }
 
     .nav-icon {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -356,11 +324,6 @@
       stroke-linecap: round;
       stroke-linejoin: round;
       fill: none;
-      transition: stroke 0.2s ease;
-    }
-
-    .nav-btn:not(.selected):hover .nav-icon svg {
-      stroke: #cbd5e1;
     }
 
     .btn-text {
@@ -369,7 +332,7 @@
     }
 
     .btn-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.08em;
       color: #e2e8f0;
@@ -377,85 +340,72 @@
     }
 
     .btn-subtitle {
-      font-size: 11px;
+      font-size: 10.5px;
       color: #64748b;
-      margin-top: 1.5px;
     }
 
-    /* CARD DE REGRAS INFERIOR */
+    /* CARD DE REGRAS */
     .card-wrapper {
       position: relative;
       z-index: 2;
-      margin-top: 20px;
+      margin-top: 14px;
     }
 
     .rules-box {
-      background: linear-gradient(180deg, rgba(8, 13, 25, 0.92) 0%, rgba(4, 7, 15, 0.98) 100%);
+      background: linear-gradient(180deg, rgba(8, 13, 25, 0.95) 0%, rgba(4, 7, 15, 0.98) 100%);
       border: 1px solid rgba(0, 240, 255, 0.26);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      padding: 20px 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      border-radius: 16px;
+      padding: 16px 14px;
       text-align: center;
       position: relative;
       z-index: 2;
-      backdrop-filter: blur(20px);
     }
 
     .card-logo-canvas {
-      width: 38px;
-      height: 38px;
+      width: 32px;
+      height: 32px;
       object-fit: contain;
-      margin: 0 auto 8px auto;
-      filter: drop-shadow(0 0 14px rgba(168, 85, 247, 0.9));
+      margin: 0 auto 6px auto;
+      filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.8));
     }
 
     .rule-title-cyan {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 900;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       color: var(--cyan-neon);
       display: block;
-      text-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
     }
 
     .rule-title-purple {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 900;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       color: #d8b4fe;
       display: block;
-      margin-bottom: 10px;
-      text-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+      margin-bottom: 8px;
     }
 
     .rule-desc {
-      font-size: 11px;
-      line-height: 1.5;
+      font-size: 10.5px;
+      line-height: 1.4;
       color: #94a3b8;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .btn-how-it-works {
       width: 100%;
       background: linear-gradient(180deg, rgba(0, 240, 255, 0.08) 0%, transparent 100%);
-      border: 1px solid rgba(0, 240, 255, 0.5);
-      border-radius: 11px;
-      padding: 10px 0;
+      border: 1px solid rgba(0, 240, 255, 0.45);
+      border-radius: 9px;
+      padding: 8px 0;
       color: var(--cyan-neon);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       cursor: pointer;
       text-transform: uppercase;
-      box-shadow: 0 0 16px rgba(0, 240, 255, 0.15);
-      transition: all 0.25s ease;
-    }
-
-    .btn-how-it-works:hover {
-      background: rgba(0, 240, 255, 0.16);
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.45);
-      border-color: var(--cyan-neon);
-      transform: translateY(-1px);
     }
 
     .neon-waves {
@@ -463,7 +413,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 115px;
+      height: 95px;
       background: url('https://i.postimg.cc/4yNtpNzv/site.png') no-repeat bottom center;
       background-size: cover;
       opacity: 0.55;
@@ -472,89 +422,77 @@
     }
 
     /* =========================================================
-       ÁREA CENTRAL 4K (ARENA DE BATALHA COM AMBIENTE REAL)
+       ÁREA CENTRAL: ARENA CORRIGIDA (SEM CORTES E PROPORCIONAL)
        ========================================================= */
     #content-container {
       flex: 1;
-      padding: 32px 42px;
+      padding: 24px 28px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 18px;
+      max-width: 100%;
     }
 
-    /* MOLDURA DE ALTA DEFINIÇÃO PARA A ARTE DA ARENA */
-    .arena-4k-viewport {
+    /* VIEWPORT COMPACTO E PROPORCIONAL PARA A ARTE SHIBA VS DOGE */
+    .arena-viewport {
       width: 100%;
-      max-width: 1240px;
-      border-radius: 22px;
-      position: relative;
+      max-width: 860px; /* Largura reduzida para caber sem cortar */
+      border-radius: 16px;
       padding: 1px;
       background: linear-gradient(135deg, rgba(0, 240, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 40%, rgba(168, 85, 247, 0.5) 100%);
       box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.95),
-        0 0 45px rgba(0, 240, 255, 0.14),
-        0 0 70px rgba(168, 85, 247, 0.1);
+        0 14px 40px rgba(0, 0, 0, 0.9),
+        0 0 25px rgba(0, 240, 255, 0.15);
     }
 
     .arena-inner-frame {
       background: #02050b;
-      border-radius: 21px;
+      border-radius: 15px;
       overflow: hidden;
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .arena-img-banner {
       width: 100%;
+      max-height: 270px; /* Limita a altura para que não estoure o monitor */
       height: auto;
       display: block;
       object-fit: contain;
       filter: contrast(106%) saturate(108%);
     }
 
-    /* CARDS DE ENTRADA NA BATALHA COM VISUAL 4K */
+    /* CARDS DE AÇÃO COMPACTOS */
     .battle-actions-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 26px;
-      max-width: 1240px;
+      gap: 18px;
       width: 100%;
+      max-width: 860px;
     }
 
     .faction-card {
-      border-radius: 18px;
-      padding: 26px 28px;
+      border-radius: 14px;
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 20px;
+      gap: 14px;
       position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     }
 
     .faction-shiba {
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(8, 10, 22, 0.92) 100%);
-      border: 1px solid rgba(168, 85, 247, 0.38);
-    }
-
-    .faction-shiba::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.8), transparent);
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.14) 0%, rgba(8, 10, 22, 0.94) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.35);
     }
 
     .faction-doge {
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.14) 0%, rgba(6, 11, 24, 0.92) 100%);
-      border: 1px solid rgba(0, 240, 255, 0.38);
-    }
-
-    .faction-doge::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.8), transparent);
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.13) 0%, rgba(6, 11, 24, 0.94) 100%);
+      border: 1px solid rgba(0, 240, 255, 0.35);
     }
 
     .faction-header {
@@ -564,80 +502,80 @@
     }
 
     .faction-title {
-      font-size: 19px;
+      font-size: 16px;
       font-weight: 900;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
     }
 
     .shiba-accent {
       color: #d8b4fe;
-      text-shadow: 0 0 16px rgba(168, 85, 247, 0.6);
+      text-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
     }
 
     .doge-accent {
       color: var(--cyan-neon);
-      text-shadow: 0 0 16px rgba(0, 240, 255, 0.6);
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
     }
 
     .badge-metric {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 5px 12px;
-      border-radius: 8px;
+      padding: 4px 10px;
+      border-radius: 6px;
     }
 
     .badge-shiba {
-      background: rgba(168, 85, 247, 0.22);
-      border: 1px solid rgba(168, 85, 247, 0.5);
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid rgba(168, 85, 247, 0.45);
       color: #e9d5ff;
     }
 
     .badge-doge {
-      background: rgba(0, 240, 255, 0.18);
-      border: 1px solid rgba(0, 240, 255, 0.5);
+      background: rgba(0, 240, 255, 0.16);
+      border: 1px solid rgba(0, 240, 255, 0.45);
       color: #cffafe;
     }
 
     .faction-btn {
       width: 100%;
-      padding: 15px;
-      border-radius: 12px;
-      font-size: 13px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 12px;
       font-weight: 800;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       cursor: pointer;
       text-transform: uppercase;
       border: none;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s ease;
     }
 
     .btn-shiba {
       background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
       color: #ffffff;
-      box-shadow: 0 0 25px rgba(168, 85, 247, 0.45);
+      box-shadow: 0 0 18px rgba(168, 85, 247, 0.4);
     }
 
     .btn-shiba:hover {
-      box-shadow: 0 0 38px rgba(168, 85, 247, 0.8);
-      transform: translateY(-2px);
+      box-shadow: 0 0 28px rgba(168, 85, 247, 0.7);
+      transform: translateY(-1px);
     }
 
     .btn-doge {
       background: linear-gradient(135deg, #00f0ff 0%, #0284c7 100%);
       color: #010611;
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.45);
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.4);
     }
 
     .btn-doge:hover {
-      box-shadow: 0 0 38px rgba(0, 240, 255, 0.8);
-      transform: translateY(-2px);
+      box-shadow: 0 0 28px rgba(0, 240, 255, 0.7);
+      transform: translateY(-1px);
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. SPLASH SCREEN (7 SEGUNDOS EXATOS) -->
+  <!-- 1. SPLASH SCREEN (7 SEGUNDOS) -->
   <div id="splash-screen">
     <div class="splash-glow-core"></div>
     <canvas id="splash-canvas"></canvas>
@@ -646,7 +584,7 @@
   <!-- 2. LAYOUT COMPLETO DA PLATAFORMA -->
   <div id="app-layout">
     
-    <!-- TOPBAR SUPERIOR (PARTE DE CIMA DO SITE) -->
+    <!-- TOPBAR SUPERIOR -->
     <header id="topbar">
       <div class="topbar-left">
         <div class="brand-group">
@@ -664,7 +602,6 @@
       </div>
 
       <div class="topbar-right">
-        <!-- SOLANA -->
         <div class="network-pill">
           <div class="solana-icon">
             <div class="solana-line"></div>
@@ -674,26 +611,23 @@
           SOLANA
         </div>
 
-        <!-- RAYDIUM -->
         <div class="network-pill">
           <div class="raydium-icon">R</div>
           RAYDIUM
         </div>
 
-        <!-- STATUS ONLINE -->
         <div class="status-online">
           <div class="status-ring"></div>
           Online
         </div>
 
-        <!-- CARTEIRA CONECTADA -->
         <button class="wallet-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
             <circle cx="12" cy="7" r="4" />
           </svg>
           4F3z...9K7a
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2">
             <polyline points="6 9 12 15 18 9"/>
           </svg>
         </button>
@@ -803,7 +737,7 @@
           </div>
         </nav>
 
-        <!-- CARD INFERIOR COM AS ONDAS -->
+        <!-- CARD INFERIOR -->
         <div class="card-wrapper">
           <div class="rules-box">
             <canvas id="card-canvas" class="card-logo-canvas"></canvas>
@@ -818,11 +752,11 @@
         </div>
       </aside>
 
-      <!-- ÁREA CENTRAL DA ARENA 4K -->
+      <!-- ÁREA CENTRAL DA ARENA (ENQUADRADA E PROPORCIONAL) -->
       <main id="content-container">
         
-        <!-- BANNER DE ALTA FIDELIDADE SHIBA VS DOGE -->
-        <div class="arena-4k-viewport">
+        <!-- BANNER PROPORCIONAL SEM CORTES -->
+        <div class="arena-viewport">
           <div class="arena-inner-frame">
             <img src="https://i.postimg.cc/PxQgJhzr/shiba.jpg" alt="SHIBA VS DOGE Arena" class="arena-img-banner" />
           </div>
@@ -838,8 +772,8 @@
                 <span class="faction-title shiba-accent">SHIBA SIDE</span>
                 <span class="badge-metric badge-shiba">12.4M USDT VOL</span>
               </div>
-              <p style="font-size: 13px; color: #94a3b8; margin-top: 10px; line-height: 1.5;">
-                50 traders active in this round. Back SHIBA momentum against DOGE to capture pool allocation.
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 8px; line-height: 1.4;">
+                50 traders active. Back SHIBA momentum against DOGE.
               </p>
             </div>
             <button class="faction-btn btn-shiba">COMMIT TO SHIBA</button>
@@ -852,8 +786,8 @@
                 <span class="faction-title doge-accent">DOGE SIDE</span>
                 <span class="badge-metric badge-doge">10.8M USDT VOL</span>
               </div>
-              <p style="font-size: 13px; color: #94a3b8; margin-top: 10px; line-height: 1.5;">
-                50 traders active in this round. Back DOGE momentum against SHIBA to capture pool allocation.
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 8px; line-height: 1.4;">
+                50 traders active. Back DOGE momentum against SHIBA.
               </p>
             </div>
             <button class="faction-btn btn-doge">COMMIT TO DOGE</button>
@@ -913,7 +847,7 @@
       appLayout.classList.add('active');
     }, 7000);
 
-    // ALTERNAR SELEÇÃO DO MENU
+    // ALTERNAR MENU
     function selectNav(element) {
       document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('selected'));
       element.classList.add('selected');
