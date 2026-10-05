@@ -16,11 +16,11 @@ export default function VDTTerminal() {
   const [chartTab, setChartTab] = useState('total');
 
   const participantsList = [
-    { name: 'ShibaTeam_1F...', action: 'Joined Team Shiba', time: '2m', color: 'bg-purple-500', side: 'shiba' },
-    { name: 'DogeWolf_7a...', action: 'Joined Team Doge', time: '2m', color: 'bg-emerald-400', side: 'doge' },
-    { name: 'CryptoLuna', action: 'Joined Team Shiba', time: '3m', color: 'bg-purple-500', side: 'shiba' },
-    { name: 'TraderAlpha', action: 'Joined Team Doge', time: '4m', color: 'bg-emerald-400', side: 'doge' },
-    { name: 'SolMaster', action: 'Joined Team Shiba', time: '5m', color: 'bg-purple-500', side: 'shiba' }
+    { name: 'ShibaTeam_1F...', action: 'Joined Team Shiba', time: '2m', color: 'bg-purple-500', side: 'shiba', icon: 'SHIB' },
+    { name: 'DogeWolf_7a...', action: 'Joined Team Doge', time: '2m', color: 'bg-emerald-400', side: 'doge', icon: 'DOGE' },
+    { name: 'CryptoLuna', action: 'Joined Team Shiba', time: '3m', color: 'bg-purple-500', side: 'shiba', icon: 'SHIB' },
+    { name: 'TraderAlpha', action: 'Joined Team Doge', time: '4m', color: 'bg-emerald-400', side: 'doge', icon: 'DOGE' },
+    { name: 'SolMaster', action: 'Joined Team Shiba', time: '5m', color: 'bg-purple-500', side: 'shiba', icon: 'SHIB' }
   ];
 
   return (
@@ -29,11 +29,10 @@ export default function VDTTerminal() {
       {/* 1. TOP HEADER BAR */}
       <header className="flex flex-wrap items-center justify-between border-b border-[#0b162c] pb-2.5 mb-3 px-2 gap-2">
         <div className="flex items-center gap-3">
-          {/* Neon Bull Emblem */}
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 via-blue-600 to-purple-600 p-[1.5px] shadow-[0_0_12px_rgba(34,211,238,0.5)]">
-              <div className="w-full h-full bg-[#02050e] rounded-lg flex items-center justify-center font-black text-cyan-400 text-sm">
-                🐂
+              <div className="w-full h-full bg-[#02050e] rounded-lg flex items-center justify-center font-black text-cyan-400 text-xs">
+                BULL
               </div>
             </div>
             <div>
@@ -54,7 +53,6 @@ export default function VDTTerminal() {
           </div>
         </div>
 
-        {/* Network Indicators & Wallet Pill */}
         <div className="flex items-center gap-2 font-mono text-[10px]">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#050b18] border border-[#112349] text-gray-300 font-bold">
             <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
@@ -82,9 +80,8 @@ export default function VDTTerminal() {
       {/* 2. THREE COLUMN LAYOUT */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
         
-        {/* LEFT COLUMN (Col 1-2) */}
+        {/* LEFT COLUMN */}
         <div className="lg:col-span-2 space-y-2.5">
-          {/* Navigation Pill List */}
           <div className="bg-[#030714] border border-[#0b1836] rounded-xl p-1.5 space-y-1">
             <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-700/40 to-transparent border-l-2 border-cyan-400 text-white font-bold text-[11px] shadow-[inset_0_0_12px_rgba(34,211,238,0.15)]">
               <Zap className="w-4 h-4 text-cyan-400" />
@@ -127,10 +124,9 @@ export default function VDTTerminal() {
             </button>
           </div>
 
-          {/* Left Promo Card */}
           <div className="bg-[#030714] border border-[#0b1836] rounded-xl p-3 text-center relative overflow-hidden">
-            <div className="w-8 h-8 mx-auto mb-2 text-cyan-400 flex items-center justify-center font-bold text-xl drop-shadow-[0_0_8px_#22d3ee]">
-              🐂
+            <div className="w-8 h-8 mx-auto mb-2 text-cyan-400 flex items-center justify-center font-bold text-sm border border-cyan-500/40 rounded-lg">
+              BULL
             </div>
             <div className="text-[10px] font-black text-cyan-400 tracking-wider uppercase leading-tight font-mono">
               MORE MOMENTUM
@@ -146,7 +142,6 @@ export default function VDTTerminal() {
             </button>
           </div>
 
-          {/* Left Powered By */}
           <div className="px-2 pt-1">
             <div className="text-[8px] font-bold text-gray-500 uppercase tracking-widest mb-1 font-mono">POWERED BY</div>
             <div className="flex items-center gap-3 text-gray-400 text-[9px] font-bold font-mono">
@@ -156,46 +151,38 @@ export default function VDTTerminal() {
           </div>
         </div>
 
-        {/* CENTER COLUMN (Col 3-9) */}
+        {/* CENTER COLUMN */}
         <div className="lg:col-span-7 space-y-2.5">
           
-          {/* Main Versus Arena Card com os Animais Silhuetados Exatos */}
+          {/* Main Versus Arena Card */}
           <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-4 relative overflow-hidden shadow-2xl">
             
-            {/* SILHUETA ANIMAL MÍSTICO ROXO (Esquerda) */}
-            <div className="absolute -top-6 left-2 w-72 h-72 pointer-events-none opacity-35 mix-blend-screen">
+            {/* Background Mythic Unicorn Silhouette */}
+            <div className="absolute -top-6 left-2 w-72 h-72 pointer-events-none opacity-30 mix-blend-screen">
               <svg viewBox="0 0 200 200" className="w-full h-full">
                 <path 
                   d="M30 170 C35 140 45 120 65 105 C60 85 55 60 60 40 C68 45 75 52 80 60 C95 45 120 40 140 50 C145 30 155 12 170 5 C160 25 156 45 154 60 C166 80 170 108 156 136 C142 160 114 174 80 174 C50 174 38 164 30 170 Z" 
                   fill="#9333ea" 
-                  filter="drop-shadow(0 0 15px #c084fc)"
                 />
               </svg>
             </div>
 
-            {/* SILHUETA TOURO MÍSTICO VERDE (Direita) */}
-            <div className="absolute -top-6 right-2 w-72 h-72 pointer-events-none opacity-35 mix-blend-screen">
+            {/* Background Mythic Bull Silhouette */}
+            <div className="absolute -top-6 right-2 w-72 h-72 pointer-events-none opacity-30 mix-blend-screen">
               <svg viewBox="0 0 200 200" className="w-full h-full">
                 <path 
                   d="M170 170 C165 140 155 120 135 105 C140 85 145 60 140 40 C132 45 125 52 120 60 C105 45 80 40 60 50 C55 30 45 12 30 5 C40 25 44 45 46 60 C34 80 30 108 44 136 C58 160 86 174 120 174 C150 174 162 164 170 170 Z" 
                   fill="#10b981" 
-                  filter="drop-shadow(0 0 15px #34d399)"
                 />
               </svg>
             </div>
 
-            {/* Glows de ambientação */}
-            <div className="absolute top-1/2 left-16 -translate-y-1/2 w-44 h-44 bg-purple-600/30 rounded-full blur-[70px] pointer-events-none"></div>
-            <div className="absolute top-1/2 right-16 -translate-y-1/2 w-44 h-44 bg-emerald-500/30 rounded-full blur-[70px] pointer-events-none"></div>
-
-            {/* Top Pill Status */}
             <div className="flex justify-center mb-1 relative z-10">
               <span className="px-2.5 py-0.5 rounded text-[8px] font-black tracking-widest uppercase bg-[#02131b] border border-cyan-400 text-cyan-300 font-mono shadow-[0_0_12px_rgba(34,211,238,0.4)]">
                 ● ACTIVE ROOM
               </span>
             </div>
 
-            {/* Match Header */}
             <div className="text-center mb-3 relative z-10">
               <h2 className="text-xl sm:text-2xl font-black tracking-wider text-white font-mono">
                 SHIBA <span className="text-cyan-400 text-xs px-1">VS</span> DOGE
@@ -205,17 +192,16 @@ export default function VDTTerminal() {
               </div>
             </div>
 
-            {/* Dueling Mascots and Countdown HUD */}
+            {/* Duel Face-Off Display */}
             <div className="flex items-center justify-between px-3 sm:px-8 relative z-10">
               
               {/* SHIBA SIDE */}
               <div className="text-center w-36">
                 <div className="relative inline-block mb-2">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-purple-600 via-pink-500 to-indigo-600 shadow-[0_0_24px_#a855f7]">
-                    <div className="w-full h-full rounded-full bg-[#0a0418] flex items-center justify-center border-2 border-purple-400/90 shadow-inner">
-                      {/* Shiba Mascot Vector */}
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-b from-orange-400 to-amber-600 flex items-center justify-center text-3xl shadow-lg">
-                        🦊
+                    <div className="w-full h-full rounded-full bg-[#0a0418] flex items-center justify-center border-2 border-purple-400/90">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-b from-orange-400 to-amber-600 flex items-center justify-center font-bold text-white text-xs shadow-lg font-mono">
+                        SHIBA
                       </div>
                     </div>
                   </div>
@@ -225,16 +211,11 @@ export default function VDTTerminal() {
                 <div className="text-[9px] font-bold text-purple-400 mt-0.5 font-mono">DEX VOLUME: 12.4M USDT</div>
               </div>
 
-              {/* CENTER COUNTDOWN HUD HEXAGONAL */}
+              {/* CENTER COUNTDOWN */}
               <div className="text-center px-2 z-10">
                 <div className="text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-1.5 font-mono">TIME REMAINING</div>
-                <div className="relative inline-block">
-                  <div 
-                    className="bg-[#02050f] border-2 border-cyan-400 px-6 py-2 shadow-[0_0_25px_rgba(34,211,238,0.5)] font-mono text-2xl sm:text-3xl font-black text-cyan-400 tracking-widest"
-                    style={{ clipPath: 'polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px)' }}
-                  >
-                    28:17
-                  </div>
+                <div className="bg-[#02050f] border-2 border-cyan-400 rounded-xl px-5 py-2 shadow-[0_0_25px_rgba(34,211,238,0.5)] font-mono text-2xl sm:text-3xl font-black text-cyan-400 tracking-widest">
+                  28:17
                 </div>
               </div>
 
@@ -242,10 +223,9 @@ export default function VDTTerminal() {
               <div className="text-center w-36">
                 <div className="relative inline-block mb-2">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-500 shadow-[0_0_24px_#10b981]">
-                    <div className="w-full h-full rounded-full bg-[#02130e] flex items-center justify-center border-2 border-emerald-400/90 shadow-inner">
-                      {/* Doge Mascot Vector */}
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-b from-yellow-300 to-amber-500 flex items-center justify-center text-3xl shadow-lg">
-                        🐶
+                    <div className="w-full h-full rounded-full bg-[#02130e] flex items-center justify-center border-2 border-emerald-400/90">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-b from-yellow-300 to-amber-500 flex items-center justify-center font-bold text-black text-xs shadow-lg font-mono">
+                        DOGE
                       </div>
                     </div>
                   </div>
@@ -287,10 +267,8 @@ export default function VDTTerminal() {
               </div>
             </div>
 
-            {/* Undulating DexScreener Waveform Graphic */}
             <div className="h-44 w-full relative flex flex-col justify-between pt-1">
               <div className="flex h-36 w-full">
-                {/* Y-Axis Labels */}
                 <div className="flex flex-col justify-between text-[8px] font-mono text-gray-500 pr-2 pb-1 text-right w-8">
                   <span>25M</span>
                   <span>20M</span>
@@ -300,7 +278,6 @@ export default function VDTTerminal() {
                   <span>0</span>
                 </div>
 
-                {/* SVG Curve Graphic Area */}
                 <div className="flex-1 relative overflow-hidden">
                   <svg className="w-full h-full" viewBox="0 0 500 100" preserveAspectRatio="none">
                     <defs>
@@ -314,7 +291,6 @@ export default function VDTTerminal() {
                       </linearGradient>
                     </defs>
 
-                    {/* Horizontal Grid lines */}
                     <line x1="0" y1="2" x2="500" y2="2" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
                     <line x1="0" y1="20" x2="500" y2="20" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
                     <line x1="0" y1="40" x2="500" y2="40" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
@@ -322,7 +298,6 @@ export default function VDTTerminal() {
                     <line x1="0" y1="80" x2="500" y2="80" stroke="#0e172a" strokeWidth="1" strokeDasharray="3 3" />
                     <line x1="0" y1="99" x2="500" y2="99" stroke="#0e172a" strokeWidth="1" />
 
-                    {/* Shiba Wave (Roxo) */}
                     <path
                       d="M 0,78 C 30,85 50,72 80,75 C 110,80 130,68 160,70 C 190,72 210,82 240,78 C 270,72 290,62 320,60 C 350,58 380,66 410,64 C 440,60 470,55 500,54 L 500,100 L 0,100 Z"
                       fill="url(#shibaWaveGlow)"
@@ -335,7 +310,6 @@ export default function VDTTerminal() {
                       strokeLinecap="round"
                     />
 
-                    {/* Doge Wave (Verde Esmeralda) */}
                     <path
                       d="M 0,85 C 25,82 45,90 70,80 C 95,72 125,78 150,68 C 180,60 205,72 235,64 C 265,56 295,48 325,46 C 355,44 385,52 415,40 C 445,30 475,36 500,34 L 500,100 L 0,100 Z"
                       fill="url(#dogeWaveGlow)"
@@ -349,7 +323,6 @@ export default function VDTTerminal() {
                     />
                   </svg>
 
-                  {/* Volume Pills on right edge */}
                   <div className="absolute right-0 top-6 flex flex-col gap-1.5 items-end pointer-events-none font-mono">
                     <span className="bg-[#10b981] text-black font-black text-[9px] px-1.5 py-0.5 rounded shadow-[0_0_12px_#10b981]">
                       10.8M
@@ -361,7 +334,6 @@ export default function VDTTerminal() {
                 </div>
               </div>
 
-              {/* Time axis */}
               <div className="flex justify-between items-center text-[8px] font-mono text-gray-500 border-t border-gray-900 pt-1 pl-8">
                 <span>14:05</span>
                 <span>14:10</span>
@@ -372,7 +344,6 @@ export default function VDTTerminal() {
               </div>
             </div>
 
-            {/* Bottom Chart Footer */}
             <div className="flex items-center justify-between pt-2 text-[9px] font-mono">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1 font-bold text-purple-400">
@@ -383,15 +354,13 @@ export default function VDTTerminal() {
                 </span>
               </div>
               <div className="text-[8px] text-gray-500 uppercase tracking-widest font-bold flex items-center gap-1">
-                🦅 DEXSCREENER
+                DEXSCREENER
               </div>
             </div>
           </div>
 
-          {/* Two-Column Mini Info: How it works & Room Stats */}
+          {/* Two-Column Mini Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-            
-            {/* How It Works */}
             <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-3.5 space-y-2">
               <div className="text-[10px] font-black uppercase text-white tracking-wider font-mono">
                 HOW IT WORKS?
@@ -421,11 +390,10 @@ export default function VDTTerminal() {
               </div>
 
               <div className="pt-2 border-t border-gray-800 text-[8px] text-cyan-400 font-medium">
-                💡 It's not about who buys more. It's about who loses momentum.
+                Tip: It is not about who buys more. It is about who loses momentum.
               </div>
             </div>
 
-            {/* Room Statistics */}
             <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-3.5 space-y-2.5">
               <div className="text-[10px] font-black uppercase text-white tracking-wider font-mono">
                 ROOM STATISTICS
@@ -433,31 +401,20 @@ export default function VDTTerminal() {
 
               <div className="grid grid-cols-2 gap-2 text-center font-mono">
                 <div className="bg-[#050b18] p-2 rounded-xl border border-gray-800">
-                  <div className="flex items-center justify-center gap-1.5 mb-1">
-                    <span className="text-base">🦊</span>
-                    <div className="text-left">
-                      <div className="text-[8px] font-bold text-purple-400">SHIBA</div>
-                      <div className="text-[7px] text-gray-400">50 participants</div>
-                    </div>
-                  </div>
-                  <div className="text-[8px] text-gray-400">Current Volume (30m)</div>
+                  <div className="text-[8px] font-bold text-purple-400 mb-0.5">SHIBA</div>
+                  <div className="text-[7px] text-gray-400">50 participants</div>
+                  <div className="text-[8px] text-gray-400 mt-1">Current Volume (30m)</div>
                   <div className="text-[11px] font-black text-purple-400">12.4M USDT</div>
                 </div>
 
                 <div className="bg-[#050b18] p-2 rounded-xl border border-gray-800">
-                  <div className="flex items-center justify-center gap-1.5 mb-1">
-                    <span className="text-base">🐶</span>
-                    <div className="text-left">
-                      <div className="text-[8px] font-bold text-emerald-400">DOGE</div>
-                      <div className="text-[7px] text-gray-400">50 participants</div>
-                    </div>
-                  </div>
-                  <div className="text-[8px] text-gray-400">Current Volume (30m)</div>
+                  <div className="text-[8px] font-bold text-emerald-400 mb-0.5">DOGE</div>
+                  <div className="text-[7px] text-gray-400">50 participants</div>
+                  <div className="text-[8px] text-gray-400 mt-1">Current Volume (30m)</div>
                   <div className="text-[11px] font-black text-emerald-400">10.8M USDT</div>
                 </div>
               </div>
 
-              {/* Progress bar Difference */}
               <div className="space-y-1 font-mono">
                 <div className="flex justify-between text-[8px] text-gray-400 font-bold">
                   <span>Volume Delta</span>
@@ -470,15 +427,12 @@ export default function VDTTerminal() {
                 </div>
               </div>
             </div>
-
           </div>
 
         </div>
 
-        {/* RIGHT COLUMN (Col 10-12) */}
+        {/* RIGHT COLUMN */}
         <div className="lg:col-span-3 space-y-2.5">
-          
-          {/* Card Enter Room */}
           <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-4 shadow-xl space-y-3 font-mono">
             <div className="flex items-center justify-between pb-2 border-b border-gray-800">
               <span className="text-[9px] font-bold text-gray-400 bg-gray-900 px-2 py-0.5 rounded">
@@ -517,45 +471,41 @@ export default function VDTTerminal() {
               <span className="font-bold text-gray-200">Solana (Raydium)</span>
             </div>
 
-            {/* Glowing Purple CTA Button */}
             <button className="w-full py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 text-white shadow-[0_0_20px_rgba(147,51,234,0.5)] hover:opacity-95 transition-all flex items-center justify-center gap-2">
               <span>ENTER ROOM</span>
               <span className="text-sm">→</span>
             </button>
           </div>
 
-          {/* Card Participants (100) */}
           <div className="bg-[#030714] border border-[#0d1c3a] rounded-2xl p-4 shadow-xl space-y-3 font-mono">
             <div className="text-[10px] font-black uppercase text-white tracking-wider">
               PARTICIPANTS (100)
             </div>
 
-            {/* Quick Filter Badges */}
             <div className="grid grid-cols-2 gap-2">
-              <div className="bg-[#100624] border border-purple-800/60 p-2 rounded-xl flex items-center gap-2.5">
-                <span className="text-base">🦊</span>
+              <div className="bg-[#100624] border border-purple-800/60 p-2 rounded-xl flex items-center justify-between">
                 <div>
                   <div className="text-[8px] text-purple-400 font-bold">SHIBA</div>
                   <div className="text-xs font-black text-white">50</div>
                 </div>
+                <span className="w-2 h-2 rounded-full bg-purple-400"></span>
               </div>
 
-              <div className="bg-[#031713] border border-emerald-800/60 p-2 rounded-xl flex items-center gap-2.5">
-                <span className="text-base">🐶</span>
+              <div className="bg-[#031713] border border-emerald-800/60 p-2 rounded-xl flex items-center justify-between">
                 <div>
                   <div className="text-[8px] text-emerald-400 font-bold">DOGE</div>
                   <div className="text-xs font-black text-white">50</div>
                 </div>
+                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
               </div>
             </div>
 
-            {/* Participant Real-time List with avatars */}
             <div className="space-y-2 pt-1 font-sans">
               {participantsList.map((item, idx) => (
                 <div key={idx} className="flex items-center justify-between text-[9px] bg-[#050b18] p-2 rounded-xl border border-gray-800/60">
                   <div className="flex items-center gap-2">
-                    <div className={`w-5 h-5 rounded-full ${item.color} flex items-center justify-center text-[10px] text-black font-bold`}>
-                      {item.side === 'shiba' ? '🦊' : '🐶'}
+                    <div className={`w-5 h-5 rounded-full ${item.color} flex items-center justify-center text-[7px] text-black font-bold font-mono`}>
+                      {item.icon}
                     </div>
                     <div>
                       <div className="font-bold text-gray-200 font-mono">{item.name}</div>
@@ -577,7 +527,7 @@ export default function VDTTerminal() {
 
       </div>
 
-      {/* 3. BOTTOM FOOTER STEPS & BANNER */}
+      {/* 3. BOTTOM FOOTER */}
       <footer className="mt-3 pt-2.5 border-t border-[#0b162c] flex flex-col md:flex-row items-center justify-between gap-4 px-2">
         <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-[9px]">
           <div className="flex items-center gap-2 text-gray-300">
@@ -609,13 +559,11 @@ export default function VDTTerminal() {
           </div>
         </div>
 
-        {/* Right Corner Watermark */}
         <div className="flex items-center gap-2 text-right">
           <div>
             <div className="text-[10px] font-black tracking-wider text-white font-mono">BULL PROTOCOL</div>
             <div className="text-[7px] text-gray-500 uppercase tracking-widest font-bold font-mono">MOMENTUM WINS</div>
           </div>
-          <span className="text-xl">🐂</span>
         </div>
       </footer>
 
