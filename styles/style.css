@@ -729,6 +729,8 @@ input:focus-visible {
 }
 
 .arena-lightning {
+  display: none;
+}
   position: absolute;
   inset: 0;
   width: 100%;
