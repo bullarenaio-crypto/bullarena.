@@ -18,83 +18,78 @@ import { clusterApiUrl, LAMPORTS_PER_SOL } from "@solana/web3.js";
 const ENDPOINT = clusterApiUrl("mainnet-beta");
 const BULL_LOGO_URL = "/bull-logo.png";
 
+const PROTOCOL_FEE_PERCENT = 1.5;
+const WINNER_POOL_PERCENT = 98.5;
+
 const navigationItems = [
   {
     id: "rooms",
     label: "ROOMS",
-    description: "Live battles",
+    subtitle: "Join battles",
     icon: "⚔",
   },
   {
     id: "profile",
     label: "MY PROFILE",
-    description: "Wallet & history",
-    icon: "♟",
+    subtitle: "Wallet & history",
+    icon: "♙",
   },
   {
     id: "launchpad",
     label: "LAUNCHPAD",
-    description: "Launch new projects",
-    icon: "◆",
+    subtitle: "Launch new projects",
+    icon: "◇",
   },
   {
     id: "leaderboard",
     label: "LEADERBOARD",
-    description: "Top traders",
-    icon: "♛",
+    subtitle: "Top traders",
+    icon: "♜",
   },
   {
     id: "rewards",
     label: "REWARDS",
-    description: "XP & achievements",
-    icon: "✦",
+    subtitle: "XP & achievements",
+    icon: "✧",
   },
   {
     id: "settings",
     label: "SETTINGS",
-    description: "Preferences",
+    subtitle: "Preferences",
     icon: "⚙",
   },
 ];
 
 const participants = [
-  { name: "ShibaTeam_99", side: "SHIBA", time: "1m" },
-  { name: "DogeWolf_78", side: "DOGE", time: "2m" },
-  { name: "CryptoLion", side: "SHIBA", time: "3m" },
-  { name: "TraderAlpha", side: "DOGE", time: "4m" },
-  { name: "BullMatrix", side: "SHIBA", time: "5m" },
+  { name: "ShibaTeam_97", side: "SHIBA", time: "2 min" },
+  { name: "DogeWolf_72", side: "DOGE", time: "2 min" },
+  { name: "CryptoLuna", side: "SHIBA", time: "3 min" },
+  { name: "TraderAlpha", side: "DOGE", time: "4 min" },
+  { name: "SolMaster", side: "SHIBA", time: "5 min" },
 ];
 
-const leaderboardPlayers = [
-  { rank: "01", name: "BullMaster", wins: 128, xp: "12,840 XP" },
-  { rank: "02", name: "MomentumKing", wins: 114, xp: "11,420 XP" },
-  { rank: "03", name: "ArenaWolf", wins: 106, xp: "10,885 XP" },
-  { rank: "04", name: "MarketBull", wins: 97, xp: "9,740 XP" },
-  { rank: "05", name: "AlphaTrader", wins: 89, xp: "8,920 XP" },
-];
-
-function Terminal() {
+function ArenaTerminal() {
   const { connection } = useConnection();
   const { publicKey, connected, disconnect } = useWallet();
 
   const [activeTab, setActiveTab] = useState("rooms");
   const [balance, setBalance] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(14 * 60 + 38);
+  const [timeLeft, setTimeLeft] = useState(28 * 60 + 17);
   const [selectedSide, setSelectedSide] = useState(null);
   const [notification, setNotification] = useState("");
+  const [chartMode, setChartMode] = useState("TOTAL");
   const [isLoading, setIsLoading] = useState(true);
-  const [chartFilter, setChartFilter] = useState("TOTAL");
 
   const shortAddress = publicKey
     ? `${publicKey.toString().slice(0, 4)}...${publicKey
         .toString()
         .slice(-4)}`
-    : "NOT CONNECTED";
+    : "Not Connected";
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setIsLoading(false);
-    }, 1200);
+    }, 900);
 
     return () => window.clearTimeout(timer);
   }, []);
@@ -139,13 +134,13 @@ function Terminal() {
   }, [connection, publicKey]);
 
   useEffect(() => {
-    if (!notification) return;
+    if (!notification) return undefined;
 
-    const timeout = window.setTimeout(() => {
+    const timer = window.setTimeout(() => {
       setNotification("");
     }, 3500);
 
-    return () => window.clearTimeout(timeout);
+    return () => window.clearTimeout(timer);
   }, [notification]);
 
   const formattedTime = useMemo(() => {
@@ -158,17 +153,22 @@ function Terminal() {
     )}`;
   }, [timeLeft]);
 
-  function handleNavigation(tab) {
+  function navigateTo(tab) {
     setActiveTab(tab);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function handleSideSelection(side) {
+  function selectSide(side) {
+    if (!connected) {
+      setNotification("Connect your wallet before choosing a side.");
+      return;
+    }
+
     setSelectedSide(side);
-    setNotification(`${side} selected for this room.`);
+    setNotification(`${side} selected for this battle.`);
   }
 
-  function handleEnterRoom() {
+  function enterRoom() {
     if (!connected) {
       setNotification("Connect your wallet before entering the room.");
       return;
@@ -180,7 +180,7 @@ function Terminal() {
     }
 
     setNotification(
-      `${selectedSide} selected. Entry execution will be enabled when the arena contract is connected.`
+      `${selectedSide} selected. Battle entry will be enabled when settlement is connected.`
     );
   }
 
@@ -193,494 +193,510 @@ function Terminal() {
     }
   }
 
-  function renderMomentumChart() {
-    return (
-      <div className="chart-panel">
-        <div className="panel-heading chart-heading">
-          <div>
-            <span className="panel-kicker">LIVE MARKET FEED</span>
-            <h3>VOLUME ON DEX <small>(LAST 30 MIN)</small></h3>
-          </div>
-
-          <div className="chart-filters">
-            {["TOTAL", "SHIBA", "DOGE"].map((filter) => (
-              <button
-                key={filter}
-                type="button"
-                className={chartFilter === filter ? "active" : ""}
-                onClick={() => setChartFilter(filter)}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className={`volume-chart filter-${chartFilter.toLowerCase()}`}>
-          <div className="chart-grid-lines">
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
-
-          <div className="chart-y-axis">
-            <span>25M</span>
-            <span>20M</span>
-            <span>15M</span>
-            <span>10M</span>
-            <span>5M</span>
-            <span>0</span>
-          </div>
-
-          <svg
-            className="volume-lines"
-            viewBox="0 0 1000 300"
-            preserveAspectRatio="none"
-            aria-label="SHIBA and DOGE market volume chart"
-          >
-            <defs>
-              <linearGradient
-                id="shibaArea"
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
-                <stop offset="0%" stopColor="#ef48ff" stopOpacity="0.34" />
-                <stop offset="100%" stopColor="#ef48ff" stopOpacity="0" />
-              </linearGradient>
-
-              <linearGradient
-                id="dogeArea"
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
-                <stop offset="0%" stopColor="#1ee8ff" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="#1ee8ff" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-
-            <path
-              className="chart-area shiba-area"
-              d="M0,228
-                 C70,210 100,196 145,202
-                 C195,208 230,165 285,177
-                 C345,190 365,151 420,159
-                 C480,168 515,128 570,144
-                 C630,163 670,120 725,132
-                 C785,145 825,99 880,113
-                 C930,126 970,76 1000,88
-                 L1000,300 L0,300 Z"
-              fill="url(#shibaArea)"
-            />
-
-            <path
-              className="chart-area doge-area"
-              d="M0,260
-                 C55,270 95,218 150,229
-                 C210,242 245,199 300,210
-                 C360,223 400,177 455,191
-                 C515,205 550,166 610,179
-                 C675,194 710,145 765,161
-                 C825,178 865,137 915,146
-                 C955,154 980,119 1000,126
-                 L1000,300 L0,300 Z"
-              fill="url(#dogeArea)"
-            />
-
-            <path
-              className="chart-line shiba-line"
-              d="M0,228
-                 C70,210 100,196 145,202
-                 C195,208 230,165 285,177
-                 C345,190 365,151 420,159
-                 C480,168 515,128 570,144
-                 C630,163 670,120 725,132
-                 C785,145 825,99 880,113
-                 C930,126 970,76 1000,88"
-            />
-
-            <path
-              className="chart-line doge-line"
-              d="M0,260
-                 C55,270 95,218 150,229
-                 C210,242 245,199 300,210
-                 C360,223 400,177 455,191
-                 C515,205 550,166 610,179
-                 C675,194 710,145 765,161
-                 C825,178 865,137 915,146
-                 C955,154 980,119 1000,126"
-            />
-          </svg>
-
-          <div className="chart-time-axis">
-            <span>14:00</span>
-            <span>14:05</span>
-            <span>14:10</span>
-            <span>14:15</span>
-            <span>14:20</span>
-            <span>14:25</span>
-            <span>14:30</span>
-          </div>
-
-          <div className="chart-value shiba-value">12.4M</div>
-          <div className="chart-value doge-value">10.8M</div>
-        </div>
-
-        <div className="chart-legend">
-          <span className="legend-shiba">
-            <i /> SHIBA 12.4M
-          </span>
-
-          <span className="legend-doge">
-            <i /> DOGE 10.8M
-          </span>
-
-          <span className="chart-source">LIVE MARKET DATA</span>
-        </div>
-      </div>
-    );
-  }
-
-  function renderRooms() {
+  function renderArena() {
     return (
       <section className="arena-page">
-        <div className="arena-grid">
-          <div className="arena-main-column">
-            <div className="battle-hero">
-              <div className="energy energy-left" />
-              <div className="energy energy-right" />
+        <div className="arena-main-column">
+          <section className="battle-hero">
+            <div className="energy energy-shiba" />
+            <div className="energy energy-doge" />
 
-              <div className="battle-side shiba-side">
-                <div className="asset-orb shiba-orb">
-                  <span>SH</span>
-                </div>
-
-                <div className="side-stats">
-                  <span>SHIBA SIDE</span>
-                  <strong>50 PARTICIPANTS</strong>
-                  <small>VOLUME DEX: 12.4M USDT</small>
-                </div>
+            <button
+              type="button"
+              className={`hero-team hero-team-shiba ${
+                selectedSide === "SHIBA" ? "selected" : ""
+              }`}
+              onClick={() => selectSide("SHIBA")}
+            >
+              <div className="team-orbit shiba-orbit">
+                <div className="team-avatar">SH</div>
               </div>
 
-              <div className="battle-center">
-                <div className="active-room-badge">
-                  <span className="status-dot" />
-                  ACTIVE ROOM
-                </div>
-
-                <h1>
-                  SHIBA <span>VS</span> DOGE
-                </h1>
-
-                <p>30 MINUTES • 100 PARTICIPANTS</p>
-
-                <div className="hero-timer">
-                  <span>TIME REMAINING</span>
-                  <strong>{formattedTime}</strong>
-                </div>
+              <div className="hero-side-data">
+                <strong>SHIBA SIDE</strong>
+                <span>50 PARTICIPANTS</span>
+                <small>VOLUME DEX: 12.4M USDT</small>
               </div>
+            </button>
 
-              <div className="battle-side doge-side">
-                <div className="asset-orb doge-orb">
-                  <span>DG</span>
-                </div>
+            <div className="battle-center">
+              <span className="active-room-badge">● ACTIVE ROOM</span>
 
-                <div className="side-stats">
-                  <span>DOGE SIDE</span>
-                  <strong>50 PARTICIPANTS</strong>
-                  <small>VOLUME DEX: 10.8M USDT</small>
-                </div>
+              <h1>
+                SHIBA <span>VS</span> DOGE
+              </h1>
+
+              <p>30 MINUTES • 100 PARTICIPANTS</p>
+
+              <div className="timer-frame">
+                <span>TIME REMAINING</span>
+                <strong>{formattedTime}</strong>
               </div>
             </div>
 
-            {renderMomentumChart()}
-
-            <div className="arena-information-grid">
-              <div className="arena-panel how-it-works">
-                <div className="panel-heading">
-                  <div>
-                    <span className="panel-kicker">ARENA GUIDE</span>
-                    <h3>HOW IT WORKS</h3>
-                  </div>
-                </div>
-
-                <div className="steps-list">
-                  <div>
-                    <span>01</span>
-                    <p>
-                      <strong>Choose a side</strong>
-                      Select SHIBA or DOGE.
-                    </p>
-                  </div>
-
-                  <div>
-                    <span>02</span>
-                    <p>
-                      <strong>Enter the room</strong>
-                      Join before the active round closes.
-                    </p>
-                  </div>
-
-                  <div>
-                    <span>03</span>
-                    <p>
-                      <strong>Track the market</strong>
-                      Follow live volume throughout the round.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="winner-rule">
-                  <span>!</span>
-                  <p>
-                    <strong>WIN CONDITION</strong>
-                    The side with the stronger qualifying market performance
-                    wins the round.
-                  </p>
-                </div>
+            <button
+              type="button"
+              className={`hero-team hero-team-doge ${
+                selectedSide === "DOGE" ? "selected" : ""
+              }`}
+              onClick={() => selectSide("DOGE")}
+            >
+              <div className="team-orbit doge-orbit">
+                <div className="team-avatar">DG</div>
               </div>
 
-              <div className="arena-panel room-statistics">
-                <div className="panel-heading">
-                  <div>
-                    <span className="panel-kicker">LIVE COMPARISON</span>
-                    <h3>ROOM STATISTICS</h3>
-                  </div>
-                </div>
+              <div className="hero-side-data">
+                <strong>DOGE SIDE</strong>
+                <span>50 PARTICIPANTS</span>
+                <small>VOLUME DEX: 10.8M USDT</small>
+              </div>
+            </button>
+          </section>
 
-                <div className="statistics-assets">
+          <section className="volume-panel">
+            <div className="panel-heading">
+              <div>
+                <span className="panel-icon">⌁</span>
+                <strong>VOLUME ON DEX</strong>
+                <small>(LAST 30 MIN)</small>
+              </div>
+
+              <div className="chart-tabs">
+                {["TOTAL", "SHIBA", "DOGE"].map((mode) => (
                   <button
                     type="button"
-                    className={`stat-asset shiba-stat ${
-                      selectedSide === "SHIBA" ? "selected" : ""
-                    }`}
-                    onClick={() => handleSideSelection("SHIBA")}
+                    key={mode}
+                    className={chartMode === mode ? "active" : ""}
+                    onClick={() => setChartMode(mode)}
                   >
-                    <span className="mini-orb">SH</span>
-
-                    <span>
-                      <strong>SHIBA</strong>
-                      <small>50 participants</small>
-                    </span>
-
-                    <b>12.4M USDT</b>
+                    {mode}
                   </button>
-
-                  <div className="statistics-vs">VS</div>
-
-                  <button
-                    type="button"
-                    className={`stat-asset doge-stat ${
-                      selectedSide === "DOGE" ? "selected" : ""
-                    }`}
-                    onClick={() => handleSideSelection("DOGE")}
-                  >
-                    <span className="mini-orb">DG</span>
-
-                    <span>
-                      <strong>DOGE</strong>
-                      <small>50 participants</small>
-                    </span>
-
-                    <b>10.8M USDT</b>
-                  </button>
-                </div>
-
-                <div className="volume-comparison">
-                  <div className="comparison-labels">
-                    <span>VOLUME DIFFERENCE</span>
-                    <strong>1.6M USDT</strong>
-                  </div>
-
-                  <div className="comparison-track">
-                    <div className="comparison-shiba" />
-                    <div className="comparison-doge" />
-                  </div>
-
-                  <div className="comparison-note">
-                    SHIBA currently leads the live volume comparison.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="arena-process">
-              <div>
-                <span className="process-icon">◆</span>
-                <p>
-                  <strong>ENTER THE ROOM</strong>
-                  Join the live battle.
-                </p>
-              </div>
-
-              <span className="process-arrow">›</span>
-
-              <div>
-                <span className="process-icon">◎</span>
-                <p>
-                  <strong>PLACE YOUR STRATEGY</strong>
-                  Choose your market side.
-                </p>
-              </div>
-
-              <span className="process-arrow">›</span>
-
-              <div>
-                <span className="process-icon">♛</span>
-                <p>
-                  <strong>TAKE THE VICTORY</strong>
-                  Follow the final result.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <aside className="room-sidebar">
-            <div className="room-status-card">
-              <div className="room-card-topline">
-                <span>ROOM #4827</span>
-                <b>
-                  <i className="status-dot" />
-                  IN PROGRESS
-                </b>
-              </div>
-
-              <h2>SHIBA VS DOGE</h2>
-              <p>Battle for the strongest qualifying market performance.</p>
-
-              <div className="room-details">
-                <div>
-                  <span>◷</span>
-                  <p>
-                    <small>DURATION</small>
-                    <strong>30 minutes</strong>
-                  </p>
-                </div>
-
-                <div>
-                  <span>♟</span>
-                  <p>
-                    <small>CAPACITY</small>
-                    <strong>100 / 100</strong>
-                  </p>
-                </div>
-
-                <div>
-                  <span>◆</span>
-                  <p>
-                    <small>STATUS</small>
-                    <strong>Live round</strong>
-                  </p>
-                </div>
-              </div>
-
-              <div className="side-selector">
-                <button
-                  type="button"
-                  className={selectedSide === "SHIBA" ? "selected shiba" : ""}
-                  onClick={() => handleSideSelection("SHIBA")}
-                >
-                  SHIBA
-                </button>
-
-                <button
-                  type="button"
-                  className={selectedSide === "DOGE" ? "selected doge" : ""}
-                  onClick={() => handleSideSelection("DOGE")}
-                >
-                  DOGE
-                </button>
-              </div>
-
-              <button
-                type="button"
-                className="enter-room-button"
-                onClick={handleEnterRoom}
-              >
-                ENTER ROOM
-                <span>→</span>
-              </button>
-            </div>
-
-            <div className="participants-panel">
-              <div className="participants-heading">
-                <div>
-                  <span className="panel-kicker">LIVE ROOM</span>
-                  <h3>PARTICIPANTS (100)</h3>
-                </div>
-
-                <span className="live-pulse">LIVE</span>
-              </div>
-
-              <div className="participant-summary">
-                <div className="shiba-summary">
-                  <span>SH</span>
-                  <p>
-                    <small>SHIBA</small>
-                    <strong>50</strong>
-                  </p>
-                </div>
-
-                <div className="doge-summary">
-                  <span>DG</span>
-                  <p>
-                    <small>DOGE</small>
-                    <strong>50</strong>
-                  </p>
-                </div>
-              </div>
-
-              <div className="participant-list">
-                {participants.map((participant, index) => (
-                  <div className="participant-row" key={participant.name}>
-                    <span
-                      className={`participant-avatar ${participant.side.toLowerCase()}`}
-                    >
-                      {index + 1}
-                    </span>
-
-                    <p>
-                      <strong>{participant.name}</strong>
-                      <small>
-                        Joined the {participant.side.toLowerCase()} side
-                      </small>
-                    </p>
-
-                    <time>{participant.time}</time>
-                  </div>
                 ))}
               </div>
+            </div>
+
+            <div className="chart-area">
+              <div className="chart-grid" />
+
+              <div className="chart-y-axis">
+                <span>25M</span>
+                <span>20M</span>
+                <span>15M</span>
+                <span>10M</span>
+                <span>5M</span>
+                <span>0</span>
+              </div>
+
+              <svg
+                className="volume-chart"
+                viewBox="0 0 900 270"
+                preserveAspectRatio="none"
+                aria-label="Battle volume chart"
+              >
+                <defs>
+                  <linearGradient
+                    id="shibaArea"
+                    x1="0"
+                    x2="0"
+                    y1="0"
+                    y2="1"
+                  >
+                    <stop
+                      offset="0%"
+                      stopColor="#ff26f8"
+                      stopOpacity="0.38"
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor="#ff26f8"
+                      stopOpacity="0"
+                    />
+                  </linearGradient>
+
+                  <linearGradient
+                    id="dogeArea"
+                    x1="0"
+                    x2="0"
+                    y1="0"
+                    y2="1"
+                  >
+                    <stop
+                      offset="0%"
+                      stopColor="#00f5ff"
+                      stopOpacity="0.35"
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor="#00f5ff"
+                      stopOpacity="0"
+                    />
+                  </linearGradient>
+
+                  <filter id="pinkGlow">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+
+                  <filter id="cyanGlow">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                <path
+                  d="M0,190
+                     C45,178 80,165 120,158
+                     C160,150 190,125 230,142
+                     C275,160 310,148 350,153
+                     C395,158 430,170 470,162
+                     C515,153 545,169 585,151
+                     C625,133 660,151 700,139
+                     C745,126 780,139 815,119
+                     C850,98 875,118 900,92
+                     L900,270 L0,270 Z"
+                  fill="url(#shibaArea)"
+                />
+
+                <path
+                  d="M0,190
+                     C45,178 80,165 120,158
+                     C160,150 190,125 230,142
+                     C275,160 310,148 350,153
+                     C395,158 430,170 470,162
+                     C515,153 545,169 585,151
+                     C625,133 660,151 700,139
+                     C745,126 780,139 815,119
+                     C850,98 875,118 900,92"
+                  fill="none"
+                  stroke="#ff26f8"
+                  strokeWidth="4"
+                  filter="url(#pinkGlow)"
+                />
+
+                <path
+                  d="M0,230
+                     C45,210 80,220 120,205
+                     C165,190 195,207 235,194
+                     C280,180 315,190 355,175
+                     C400,160 435,178 475,151
+                     C515,123 545,160 585,139
+                     C625,118 660,145 700,124
+                     C745,102 775,133 815,101
+                     C850,72 875,105 900,75
+                     L900,270 L0,270 Z"
+                  fill="url(#dogeArea)"
+                />
+
+                <path
+                  d="M0,230
+                     C45,210 80,220 120,205
+                     C165,190 195,207 235,194
+                     C280,180 315,190 355,175
+                     C400,160 435,178 475,151
+                     C515,123 545,160 585,139
+                     C625,118 660,145 700,124
+                     C745,102 775,133 815,101
+                     C850,72 875,105 900,75"
+                  fill="none"
+                  stroke="#00f5ff"
+                  strokeWidth="4"
+                  filter="url(#cyanGlow)"
+                />
+              </svg>
+
+              <div className="chart-times">
+                <span>14:05</span>
+                <span>14:10</span>
+                <span>14:15</span>
+                <span>14:20</span>
+                <span>14:25</span>
+                <span>14:30</span>
+              </div>
+
+              <div className="chart-values">
+                <span className="doge-value">10.8M</span>
+                <span className="shiba-value">12.4M</span>
+              </div>
+            </div>
+
+            <div className="chart-legend">
+              <span>
+                <i className="legend-shiba" /> SHIBA (12.4M)
+              </span>
+
+              <span>
+                <i className="legend-doge" /> DOGE (10.8M)
+              </span>
+
+              <small>LIVE MARKET FEED</small>
+            </div>
+          </section>
+
+          <div className="arena-information-grid">
+            <section className="how-panel terminal-panel">
+              <h2>HOW IT WORKS?</h2>
+
+              <div className="instruction">
+                <span>1</span>
+                <div>
+                  <strong>Choose a side</strong>
+                  <small>SHIBA or DOGE.</small>
+                </div>
+              </div>
+
+              <div className="instruction">
+                <span>2</span>
+                <div>
+                  <strong>Enter the room</strong>
+                  <small>Join the active participant pool.</small>
+                </div>
+              </div>
+
+              <div className="instruction">
+                <span>3</span>
+                <div>
+                  <strong>Follow the volume</strong>
+                  <small>
+                    The side with the strongest qualifying market volume wins.
+                  </small>
+                </div>
+              </div>
+
+              <div className="risk-note">
+                <strong>!</strong>
+                <span>
+                  Markets involve risk. Only participate with funds you can
+                  afford to lose.
+                </span>
+              </div>
+            </section>
+
+            <section className="statistics-panel terminal-panel">
+              <h2>ROOM STATISTICS</h2>
+
+              <div className="statistics-teams">
+                <div className="statistics-team shiba-stat">
+                  <div className="mini-token">SH</div>
+                  <div>
+                    <strong>SHIBA</strong>
+                    <span>50 participants</span>
+                  </div>
+                </div>
+
+                <div className="statistics-team doge-stat">
+                  <div className="mini-token">DG</div>
+                  <div>
+                    <strong>DOGE</strong>
+                    <span>50 participants</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="statistics-volume">
+                <div>
+                  <span>Current Volume (30m)</span>
+                  <strong>12.4M USDT</strong>
+                </div>
+
+                <div>
+                  <span>Current Volume (30m)</span>
+                  <strong>10.8M USDT</strong>
+                </div>
+              </div>
+
+              <div className="volume-difference">
+                <span>Volume Difference</span>
+
+                <div className="difference-track">
+                  <div className="difference-shiba" />
+                  <div className="difference-doge" />
+                </div>
+
+                <strong>1.6M USDT</strong>
+              </div>
+
+              <div className="payout-policy">
+                <span>WINNER DISTRIBUTION</span>
+                <strong>{WINNER_POOL_PERCENT}%</strong>
+
+                <span>PROTOCOL FEE</span>
+                <strong>{PROTOCOL_FEE_PERCENT}%</strong>
+              </div>
+            </section>
+          </div>
+
+          <section className="battle-process">
+            <div>
+              <span className="process-icon">ϟ</span>
+              <p>
+                <strong>ENTER THE ROOM</strong>
+                <small>Choose your side and join the battle.</small>
+              </p>
+              <b>›</b>
+            </div>
+
+            <div>
+              <span className="process-icon">◎</span>
+              <p>
+                <strong>PLACE YOUR STRATEGY</strong>
+                <small>Follow the market momentum.</small>
+              </p>
+              <b>›</b>
+            </div>
+
+            <div>
+              <span className="process-icon">♜</span>
+              <p>
+                <strong>TAKE THE VICTORY</strong>
+                <small>The winning side receives 98.5% of the prize pool.</small>
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <aside className="arena-right-column">
+          <section className="room-card terminal-panel">
+            <div className="room-card-top">
+              <span>ROOM #4827</span>
+              <strong>● IN PROGRESS</strong>
+            </div>
+
+            <h2>SHIBA VS DOGE</h2>
+            <p>Battle for the strongest qualifying market volume.</p>
+
+            <div className="room-details">
+              <div>
+                <span>◷</span>
+                <p>
+                  <small>Duration</small>
+                  <strong>30 minutes</strong>
+                </p>
+              </div>
+
+              <div>
+                <span>♙</span>
+                <p>
+                  <small>Participants</small>
+                  <strong>100 / 100</strong>
+                </p>
+              </div>
+
+              <div>
+                <span>◇</span>
+                <p>
+                  <small>Protocol Fee</small>
+                  <strong>1.5%</strong>
+                </p>
+              </div>
+
+              <div>
+                <span>↺</span>
+                <p>
+                  <small>One-Sided Round</small>
+                  <strong>Full Refund</strong>
+                </p>
+              </div>
+            </div>
+
+            <div className="side-selector">
+              <button
+                type="button"
+                className={selectedSide === "SHIBA" ? "active shiba" : ""}
+                onClick={() => selectSide("SHIBA")}
+              >
+                SHIBA
+              </button>
 
               <button
                 type="button"
-                className="view-participants"
-                onClick={() =>
-                  setNotification(
-                    "The complete participant directory will be connected to live room data."
-                  )
-                }
+                className={selectedSide === "DOGE" ? "active doge" : ""}
+                onClick={() => selectSide("DOGE")}
               >
-                VIEW ALL PARTICIPANTS
-                <span>→</span>
+                DOGE
               </button>
             </div>
 
-            <div className="integrity-card">
-              <img src={BULL_LOGO_URL} alt="Bull Protocol" />
+            <button
+              type="button"
+              className="enter-room-button"
+              onClick={enterRoom}
+            >
+              ENTER ROOM <span>→</span>
+            </button>
+          </section>
 
-              <div>
-                <span>ARENA STATUS</span>
-                <strong>PROTOCOL ONLINE</strong>
-                <small>Live interface connected</small>
+          <section className="participants-panel terminal-panel">
+            <div className="participants-heading">
+              <h2>PARTICIPANTS (100)</h2>
+              <span>LIVE</span>
+            </div>
+
+            <div className="participant-summary">
+              <div className="participant-team shiba-summary">
+                <span className="mini-token">SH</span>
+                <p>
+                  <small>SHIBA</small>
+                  <strong>50</strong>
+                </p>
+              </div>
+
+              <div className="participant-team doge-summary">
+                <span className="mini-token">DG</span>
+                <p>
+                  <small>DOGE</small>
+                  <strong>50</strong>
+                </p>
               </div>
             </div>
-          </aside>
-        </div>
+
+            <div className="participant-list">
+              {participants.map((participant) => (
+                <div
+                  className={`participant-row ${participant.side.toLowerCase()}`}
+                  key={participant.name}
+                >
+                  <span className="participant-avatar">
+                    {participant.name.charAt(0)}
+                  </span>
+
+                  <p>
+                    <strong>{participant.name}</strong>
+                    <small>Joined the {participant.side} side</small>
+                  </p>
+
+                  <time>{participant.time}</time>
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="view-participants"
+              onClick={() =>
+                setNotification(
+                  "The complete participant list will be connected to live room data."
+                )
+              }
+            >
+              View all participants (100) →
+            </button>
+          </section>
+
+          <section className="right-brand-card">
+            <img src={BULL_LOGO_URL} alt="Bull Protocol" />
+
+            <div>
+              <strong>BULL PROTOCOL</strong>
+              <span>MOMENTUM WINS</span>
+            </div>
+          </section>
+        </aside>
       </section>
     );
   }
@@ -688,56 +704,42 @@ function Terminal() {
   function renderProfile() {
     return (
       <section className="dashboard-page">
-        <div className="page-heading">
+        <div className="dashboard-heading">
           <span>ACCOUNT CENTER</span>
           <h1>MY PROFILE</h1>
-          <p>Manage your wallet connection and Bull Arena account.</p>
+          <p>Manage your wallet and review your Bull Arena activity.</p>
         </div>
 
         <div className="profile-grid">
-          <div className="dashboard-card profile-primary">
+          <section className="dashboard-card profile-wallet">
             <img src={BULL_LOGO_URL} alt="Bull Protocol" />
 
             <span>WALLET STATUS</span>
 
             <h2>{connected ? "CONNECTED" : "NOT CONNECTED"}</h2>
 
-            <p>
-              {connected
-                ? publicKey.toString()
-                : "Connect your wallet to access your arena profile."}
-            </p>
+            <p>{connected ? publicKey.toString() : "Connect your wallet to begin."}</p>
 
             {connected && (
-              <button
-                type="button"
-                className="secondary-action"
-                onClick={handleDisconnect}
-              >
+              <button type="button" onClick={handleDisconnect}>
                 DISCONNECT WALLET
               </button>
             )}
-          </div>
+          </section>
 
-          <div className="dashboard-card metric-card">
+          <section className="dashboard-card metric-card">
             <span>WALLET BALANCE</span>
             <strong>
               {balance !== null ? balance.toFixed(4) : "0.0000"}
             </strong>
             <small>Connected wallet balance</small>
-          </div>
+          </section>
 
-          <div className="dashboard-card metric-card">
+          <section className="dashboard-card metric-card">
             <span>BATTLE XP</span>
             <strong>0</strong>
-            <small>Arena experience</small>
-          </div>
-
-          <div className="dashboard-card metric-card">
-            <span>VICTORIES</span>
-            <strong>0</strong>
-            <small>Completed winning rounds</small>
-          </div>
+            <small>Competitive experience</small>
+          </section>
         </div>
       </section>
     );
@@ -746,85 +748,55 @@ function Terminal() {
   function renderLaunchpad() {
     return (
       <section className="dashboard-page">
-        <div className="page-heading">
+        <div className="dashboard-heading">
           <span>BULL ECOSYSTEM</span>
           <h1>LAUNCHPAD</h1>
-          <p>
-            Discover projects preparing to enter the Bull ecosystem.
-          </p>
+          <p>Discover upcoming projects inside the Bull ecosystem.</p>
         </div>
 
-        <div className="launch-grid">
-          <article className="dashboard-card launch-project featured-project">
-            <div className="project-status live">ECOSYSTEM</div>
-            <img src={BULL_LOGO_URL} alt="Bull Protocol" />
-            <h2>BULL PROTOCOL</h2>
-            <p>
-              The competitive momentum ecosystem powering the Bull Arena
-              experience.
-            </p>
-
-            <button
-              type="button"
-              className="secondary-action"
-              onClick={() =>
-                setNotification("Bull Protocol is the active ecosystem.")
-              }
-            >
-              VIEW PROJECT
-            </button>
-          </article>
-
-          <article className="dashboard-card launch-project">
-            <div className="project-status">UPCOMING</div>
-            <div className="project-placeholder">01</div>
-            <h2>NEXT LAUNCH</h2>
-            <p>
-              Verified upcoming projects will appear here when launch data is
-              available.
-            </p>
-
-            <button
-              type="button"
-              className="secondary-action"
-              onClick={() =>
-                setNotification("No additional launch is available yet.")
-              }
-            >
-              COMING SOON
-            </button>
-          </article>
+        <div className="dashboard-card coming-soon-card">
+          <img src={BULL_LOGO_URL} alt="Bull Protocol" />
+          <span>LAUNCHPAD</span>
+          <h2>PROJECT LAUNCHES ARE COMING</h2>
+          <p>
+            Launch functionality will be enabled when the production launch
+            infrastructure is connected.
+          </p>
         </div>
       </section>
     );
   }
 
   function renderLeaderboard() {
+    const leaders = [
+      ["01", "BullMaster", "12,840 XP"],
+      ["02", "MomentumKing", "11,420 XP"],
+      ["03", "ArenaWolf", "10,885 XP"],
+      ["04", "MarketBull", "9,740 XP"],
+      ["05", "AlphaTrader", "8,920 XP"],
+    ];
+
     return (
       <section className="dashboard-page">
-        <div className="page-heading">
+        <div className="dashboard-heading">
           <span>COMPETITIVE RANKING</span>
           <h1>LEADERBOARD</h1>
-          <p>Top Bull Arena competitors and their current performance.</p>
+          <p>Top performers across Bull Arena.</p>
         </div>
 
-        <div className="dashboard-card leaderboard-table">
-          {leaderboardPlayers.map((player) => (
-            <div className="leaderboard-entry" key={player.rank}>
-              <span className="leaderboard-rank">#{player.rank}</span>
-              <span className="leaderboard-avatar">
-                {player.name.charAt(0)}
-              </span>
-
+        <section className="dashboard-card leaderboard-list">
+          {leaders.map(([rank, name, xp]) => (
+            <div className="leader-row" key={rank}>
+              <span>#{rank}</span>
+              <div className="leader-avatar">{name.charAt(0)}</div>
               <p>
-                <strong>{player.name}</strong>
-                <small>{player.wins} victories</small>
+                <strong>{name}</strong>
+                <small>Active Trader</small>
               </p>
-
-              <b>{player.xp}</b>
+              <b>{xp}</b>
             </div>
           ))}
-        </div>
+        </section>
       </section>
     );
   }
@@ -832,33 +804,30 @@ function Terminal() {
   function renderRewards() {
     return (
       <section className="dashboard-page">
-        <div className="page-heading">
-          <span>PROGRESSION SYSTEM</span>
+        <div className="dashboard-heading">
+          <span>REWARD CENTER</span>
           <h1>REWARDS</h1>
-          <p>Track arena progression, achievements, and future rewards.</p>
+          <p>Track competitive progress and available achievements.</p>
         </div>
 
-        <div className="rewards-grid">
-          <div className="dashboard-card reward-box">
-            <span className="reward-symbol">✦</span>
-            <small>BATTLE XP</small>
-            <strong>0 XP</strong>
-            <p>Earn experience through eligible arena activity.</p>
-          </div>
+        <div className="reward-dashboard">
+          <section className="dashboard-card">
+            <span>BATTLE XP</span>
+            <strong>0</strong>
+            <p>Earn XP through eligible arena activity.</p>
+          </section>
 
-          <div className="dashboard-card reward-box">
-            <span className="reward-symbol">♛</span>
-            <small>CURRENT RANK</small>
+          <section className="dashboard-card">
+            <span>CURRENT RANK</span>
             <strong>ROOKIE</strong>
-            <p>Progress through the Bull Arena competitive ranks.</p>
-          </div>
+            <p>Compete in eligible rooms to progress.</p>
+          </section>
 
-          <div className="dashboard-card reward-box">
-            <span className="reward-symbol">◆</span>
-            <small>CLAIMABLE</small>
+          <section className="dashboard-card">
+            <span>AVAILABLE REWARDS</span>
             <strong>LOCKED</strong>
-            <p>Eligible rewards will become available here.</p>
-          </div>
+            <p>Reward claims will appear here when available.</p>
+          </section>
         </div>
       </section>
     );
@@ -867,210 +836,229 @@ function Terminal() {
   function renderSettings() {
     return (
       <section className="dashboard-page">
-        <div className="page-heading">
+        <div className="dashboard-heading">
           <span>TERMINAL CONTROL</span>
           <h1>SETTINGS</h1>
-          <p>Review your Bull Arena terminal configuration.</p>
+          <p>Manage your Bull Arena experience.</p>
         </div>
 
-        <div className="dashboard-card settings-panel">
-          <div className="settings-row">
+        <section className="dashboard-card settings-list">
+          <div>
             <p>
-              <strong>NETWORK STATUS</strong>
-              <small>Primary wallet network connection</small>
+              <strong>Network Status</strong>
+              <small>Primary wallet network</small>
             </p>
-
-            <span className="online-setting">
-              <i className="status-dot" />
-              ACTIVE
-            </span>
+            <span className="setting-online">● ONLINE</span>
           </div>
 
-          <div className="settings-row">
+          <div>
             <p>
-              <strong>WALLET</strong>
-              <small>{shortAddress}</small>
+              <strong>Wallet</strong>
+              <small>{connected ? shortAddress : "Not connected"}</small>
             </p>
-
             <span>{connected ? "CONNECTED" : "DISCONNECTED"}</span>
           </div>
 
-          <div className="settings-row">
+          <div>
             <p>
-              <strong>INTERFACE LANGUAGE</strong>
+              <strong>Interface Language</strong>
               <small>United States English</small>
             </p>
-
             <span>EN-US</span>
           </div>
 
-          <div className="settings-row">
+          <div>
             <p>
-              <strong>ARENA INTERFACE</strong>
-              <small>Professional trading terminal mode</small>
+              <strong>Winner Distribution</strong>
+              <small>Distribution from eligible settled prize pools</small>
             </p>
-
-            <span>ENABLED</span>
+            <span>98.5%</span>
           </div>
-        </div>
+
+          <div>
+            <p>
+              <strong>Protocol Fee</strong>
+              <small>Applied to eligible settled rounds</small>
+            </p>
+            <span>1.5%</span>
+          </div>
+
+          <div>
+            <p>
+              <strong>One-Sided Round Protection</strong>
+              <small>No opponent-side participation</small>
+            </p>
+            <span>100% REFUND / ZERO FEE</span>
+          </div>
+        </section>
       </section>
     );
   }
 
-  function renderContent() {
+  function renderCurrentPage() {
     switch (activeTab) {
       case "profile":
         return renderProfile();
-
       case "launchpad":
         return renderLaunchpad();
-
       case "leaderboard":
         return renderLeaderboard();
-
       case "rewards":
         return renderRewards();
-
       case "settings":
         return renderSettings();
-
       case "rooms":
       default:
-        return renderRooms();
+        return renderArena();
     }
   }
 
   if (isLoading) {
     return (
-      <div className="splash-screen">
-        <div className="splash-emblem">
+      <div className="bull-loading">
+        <div className="loading-logo">
           <img src={BULL_LOGO_URL} alt="Bull Protocol" />
         </div>
 
-        <div className="splash-brand">
+        <h1>
           BULL <span>PROTOCOL</span>
+        </h1>
+
+        <div className="loading-track">
+          <div />
         </div>
 
-        <p>MOMENTUM TRADING TERMINAL</p>
-
-        <div className="splash-progress">
-          <span />
-        </div>
-
-        <small>INITIALIZING ARENA SYSTEMS...</small>
+        <p>INITIALIZING MOMENTUM TERMINAL</p>
       </div>
     );
   }
 
   return (
-    <div className="terminal-shell">
+    <div className="bull-app">
       {notification && (
-        <div className="terminal-notification">
-          <span className="status-dot" />
+        <div className="app-notification">
+          <span>●</span>
           {notification}
         </div>
       )}
 
-      <header className="terminal-header">
+      <header className="bull-header">
         <button
           type="button"
-          className="terminal-brand"
-          onClick={() => handleNavigation("rooms")}
+          className="header-brand"
+          onClick={() => navigateTo("rooms")}
         >
           <img src={BULL_LOGO_URL} alt="Bull Protocol" />
 
-          <div>
-            <strong>
-              BULL <span>PROTOCOL</span>
-            </strong>
-            <small>MOMENTUM TRADING TERMINAL</small>
+          <div className="header-brand-name">
+            <strong>BULL</strong>
+            <span>PROTOCOL</span>
           </div>
         </button>
 
-        <div className="header-market-labels">
-          <span>TRADES</span>
-          <span>POOLS</span>
-          <span>REAL MARKET</span>
+        <div className="header-divider" />
+
+        <div className="terminal-title">
+          <strong>MOMENTUM TRADING TERMINAL</strong>
+
+          <div>
+            <span>TRADES</span>
+            <span>POOLS</span>
+            <span>REAL MARKET</span>
+          </div>
         </div>
 
         <div className="header-actions">
           <div className="online-pill">
-            <span className="status-dot" />
-            ONLINE
+            <span>●</span>
+            Online
           </div>
-
-          {connected && (
-            <div className="wallet-balance">
-              {balance !== null ? balance.toFixed(4) : "0.0000"} SOL
-            </div>
-          )}
 
           <WalletMultiButton className="wallet-button" />
         </div>
       </header>
 
-      <div className="terminal-body">
-        <aside className="main-sidebar">
-          <nav className="terminal-navigation">
+      <div className="bull-layout">
+        <aside className="bull-sidebar">
+          <nav>
             {navigationItems.map((item) => (
               <button
                 type="button"
                 key={item.id}
-                className={`navigation-button ${
+                className={`sidebar-link ${
                   activeTab === item.id ? "active" : ""
                 }`}
-                onClick={() => handleNavigation(item.id)}
+                onClick={() => navigateTo(item.id)}
               >
-                <span className="navigation-icon">{item.icon}</span>
+                <span className="sidebar-icon">{item.icon}</span>
 
-                <span className="navigation-copy">
+                <span className="sidebar-copy">
                   <strong>{item.label}</strong>
-                  <small>{item.description}</small>
+                  <small>{item.subtitle}</small>
                 </span>
 
                 {item.id === "rooms" && (
-                  <span className="navigation-live">LIVE</span>
+                  <span className="sidebar-live">LIVE</span>
                 )}
               </button>
             ))}
           </nav>
 
-          <div className="momentum-card">
+          <section className="momentum-card">
             <img src={BULL_LOGO_URL} alt="" />
 
-            <span>MORE MOMENTUM</span>
-            <strong>LESS EMOTION</strong>
+            <h3>
+              MORE <span>MOMENTUM,</span>
+              <br />
+              LESS EMOTION
+            </h3>
 
             <p>
-              Every round has a defined market window. Follow the data and
-              execute with discipline.
+              Here, every move matters. The game never stops in the market for
+              30 minutes, pay and play.
             </p>
 
             <button
               type="button"
-              onClick={() => handleNavigation("rooms")}
+              onClick={() =>
+                setNotification(
+                  "Choose a side, enter the room, and follow qualifying market volume."
+                )
+              }
             >
-              HOW IT WORKS
+              HOW IT WORKS?
             </button>
+          </section>
+
+          <div className="sidebar-wave" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
           </div>
 
-          <div className="sidebar-system">
-            <span className="status-dot" />
+          <div className="powered-by">
+            <small>POWERED BY</small>
 
-            <p>
-              <strong>BULL PROTOCOL</strong>
-              <small>SYSTEMS OPERATIONAL</small>
-            </p>
+            <div>
+              <img src={BULL_LOGO_URL} alt="" />
+              <p>
+                <strong>BULL PROTOCOL</strong>
+                <span>MOMENTUM WINS</span>
+              </p>
+            </div>
           </div>
         </aside>
 
-        <main className="terminal-content">{renderContent()}</main>
+        <main className="bull-content">{renderCurrentPage()}</main>
       </div>
 
-      <footer className="terminal-footer">
+      <footer className="bull-footer">
         <span>© 2026 BULL PROTOCOL</span>
-        <span>MOMENTUM WINS</span>
-        <span>ARENA SYSTEM ONLINE</span>
+        <span>98.5% WINNER DISTRIBUTION</span>
+        <span>1.5% PROTOCOL FEE</span>
+        <span>ONE-SIDED ROUND: FULL REFUND</span>
       </footer>
     </div>
   );
@@ -1086,7 +1074,7 @@ export default function App() {
     <ConnectionProvider endpoint={ENDPOINT}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <Terminal />
+          <ArenaTerminal />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
