@@ -22,6 +22,15 @@ const SHIBA_LOGO =
 const DOGE_LOGO =
   "https://s2.coinmarketcap.com/static/img/coins/128x128/74.png";
 
+const SIDEBAR_ITEMS = [
+  { id: "rooms", label: "ROOMS", subtitle: "Join battles", icon: "⚔" },
+  { id: "profile", label: "MY PROFILE", subtitle: "Wallet & history", icon: "◉" },
+  { id: "launchpad", label: "LAUNCHPAD", subtitle: "Launch new projects", icon: "◆" },
+  { id: "leaderboard", label: "LEADERBOARD", subtitle: "Top traders", icon: "♛" },
+  { id: "rewards", label: "REWARDS", subtitle: "XP & achievements", icon: "✦" },
+  { id: "settings", label: "SETTINGS", subtitle: "Preferences", icon: "⚙" },
+];
+
 function Arena() {
   const { connected, publicKey } = useWallet();
 
@@ -31,6 +40,7 @@ function Arena() {
   const [showEntry, setShowEntry] = useState(false);
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");
+  const [activeSection, setActiveSection] = useState("rooms");
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -121,7 +131,275 @@ function Arena() {
         </div>
       </header>
 
-      <main className="arena-page">
+      <style>{`
+        .bull-terminal-shell {
+          display: grid;
+          grid-template-columns: 220px minmax(0, 1fr);
+          gap: 10px;
+          width: 100%;
+          min-width: 0;
+          align-items: stretch;
+        }
+
+        .bull-sidebar {
+          min-width: 0;
+          padding: 14px 10px;
+          border-right: 1px solid rgba(0, 246, 255, 0.2);
+          border-top: 1px solid rgba(143, 64, 255, 0.13);
+          background:
+            linear-gradient(180deg, rgba(7, 10, 22, 0.98), rgba(3, 5, 13, 0.98)),
+            radial-gradient(circle at 50% 0%, rgba(132, 45, 255, 0.16), transparent 34%);
+          box-shadow: inset -10px 0 30px rgba(0, 246, 255, 0.025);
+        }
+
+        .bull-sidebar-title {
+          padding: 6px 10px 12px;
+          color: rgba(255,255,255,.42);
+          font-size: 8px;
+          font-weight: 800;
+          letter-spacing: .22em;
+        }
+
+        .bull-sidebar-nav {
+          display: flex;
+          flex-direction: column;
+          gap: 7px;
+        }
+
+        .bull-sidebar-button {
+          width: 100%;
+          min-height: 52px;
+          display: grid;
+          grid-template-columns: 30px 1fr;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 10px;
+          border: 1px solid transparent;
+          border-radius: 7px;
+          color: #b9c1d6;
+          background: transparent;
+          text-align: left;
+          cursor: pointer;
+          transition: .2s ease;
+        }
+
+        .bull-sidebar-button:hover {
+          border-color: rgba(0, 246, 255, .26);
+          background: rgba(0, 246, 255, .035);
+        }
+
+        .bull-sidebar-button.active {
+          border-color: rgba(91, 105, 255, .46);
+          background: linear-gradient(90deg, rgba(120, 44, 255, .24), rgba(0, 246, 255, .12));
+          box-shadow: 0 0 18px rgba(114, 47, 255, .13), inset 0 0 14px rgba(0, 246, 255, .035);
+        }
+
+        .bull-sidebar-icon {
+          font-size: 16px;
+          color: #8f78ff;
+          text-align: center;
+          filter: drop-shadow(0 0 7px rgba(115, 63, 255, .65));
+        }
+
+        .bull-sidebar-button.active .bull-sidebar-icon {
+          color: #00f6ff;
+        }
+
+        .bull-sidebar-copy {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+          min-width: 0;
+        }
+
+        .bull-sidebar-copy strong {
+          color: #eef5ff;
+          font-size: 9px;
+          letter-spacing: .08em;
+          line-height: 1;
+        }
+
+        .bull-sidebar-copy small {
+          color: #66708a;
+          font-size: 7px;
+          letter-spacing: .03em;
+        }
+
+        .bull-sidebar-promo {
+          position: relative;
+          overflow: hidden;
+          margin-top: 14px;
+          padding: 16px 12px;
+          min-height: 220px;
+          border: 1px solid rgba(105, 57, 255, .28);
+          border-radius: 9px;
+          background:
+            radial-gradient(circle at 50% 8%, rgba(0, 255, 151, .08), transparent 28%),
+            radial-gradient(circle at 20% 85%, rgba(139, 53, 255, .14), transparent 35%),
+            rgba(5, 7, 17, .92);
+          text-align: center;
+        }
+
+        .bull-sidebar-promo img {
+          width: 56px;
+          height: 56px;
+          object-fit: contain;
+          filter: drop-shadow(0 0 10px rgba(0, 246, 255, .6)) drop-shadow(0 0 16px rgba(143, 55, 255, .5));
+        }
+
+        .bull-sidebar-promo h3 {
+          margin: 8px 0 0;
+          color: #fff;
+          font-size: 11px;
+          line-height: 1.35;
+          letter-spacing: .09em;
+        }
+
+        .bull-sidebar-promo h3 span:first-child { color: #be52ff; }
+        .bull-sidebar-promo h3 span:last-child { color: #00f6ff; }
+
+        .bull-sidebar-promo p {
+          margin: 10px 0 14px;
+          color: #747f98;
+          font-size: 7.5px;
+          line-height: 1.55;
+        }
+
+        .bull-sidebar-promo button {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid rgba(0, 246, 255, .48);
+          border-radius: 5px;
+          color: #aafaff;
+          background: rgba(0, 246, 255, .025);
+          font-size: 7px;
+          font-weight: 800;
+          letter-spacing: .12em;
+        }
+
+        .bull-main-stage {
+          min-width: 0;
+          width: 100%;
+          overflow: hidden;
+        }
+
+        .bull-main-stage > .arena-page {
+          width: 100% !important;
+          max-width: none !important;
+          min-width: 0;
+        }
+
+        .bull-section-placeholder {
+          min-height: calc(100vh - 80px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 30px;
+          border: 1px solid rgba(0, 246, 255, .12);
+          background: radial-gradient(circle at 50% 25%, rgba(124, 48, 255, .09), transparent 38%), #03050c;
+        }
+
+        .bull-section-placeholder > div {
+          width: min(560px, 100%);
+          padding: 28px;
+          border: 1px solid rgba(0, 246, 255, .2);
+          border-radius: 10px;
+          background: rgba(5, 8, 18, .88);
+          text-align: center;
+          box-shadow: 0 0 35px rgba(0, 246, 255, .04);
+        }
+
+        .bull-section-placeholder small {
+          color: #00f6ff;
+          font-size: 8px;
+          letter-spacing: .2em;
+        }
+
+        .bull-section-placeholder h2 {
+          margin: 10px 0 8px;
+          color: #fff;
+          font-size: 25px;
+          letter-spacing: .08em;
+        }
+
+        .bull-section-placeholder p {
+          margin: 0;
+          color: #7b859d;
+          font-size: 11px;
+          line-height: 1.6;
+        }
+
+        @media (max-width: 980px) {
+          .bull-terminal-shell {
+            grid-template-columns: 1fr;
+          }
+
+          .bull-sidebar {
+            border-right: 0;
+            border-bottom: 1px solid rgba(0, 246, 255, 0.2);
+          }
+
+          .bull-sidebar-nav {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
+
+          .bull-sidebar-promo {
+            min-height: auto;
+          }
+        }
+
+        @media (max-width: 620px) {
+          .bull-sidebar-nav {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .bull-sidebar-button {
+            min-height: 46px;
+          }
+        }
+      `}</style>
+
+      <div className="bull-terminal-shell">
+        <aside className="bull-sidebar">
+          <div className="bull-sidebar-title">BULL PROTOCOL TERMINAL</div>
+
+          <nav className="bull-sidebar-nav" aria-label="Bull Protocol navigation">
+            {SIDEBAR_ITEMS.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={`bull-sidebar-button ${activeSection === item.id ? "active" : ""}`}
+                onClick={() => setActiveSection(item.id)}
+              >
+                <span className="bull-sidebar-icon">{item.icon}</span>
+                <span className="bull-sidebar-copy">
+                  <strong>{item.label}</strong>
+                  <small>{item.subtitle}</small>
+                </span>
+              </button>
+            ))}
+          </nav>
+
+          <div className="bull-sidebar-promo">
+            <img src="/bull-logo.png" alt="Bull Protocol" />
+            <h3>
+              <span>MORE MOMENTUM,</span><br />
+              <span>LESS EMOTION</span>
+            </h3>
+            <p>
+              Every move matters. Follow market momentum, choose your side and
+              enter the active room.
+            </p>
+            <button type="button" onClick={() => setActiveSection("rooms")}>
+              HOW IT WORKS?
+            </button>
+          </div>
+        </aside>
+
+        <div className="bull-main-stage">
+          {activeSection === "rooms" ? (
+            <main className="arena-page">
         <section
           className="battle-hero"
           style={{ backgroundImage: 'url("/arena-battle-bg.png.png")' }}
@@ -496,7 +774,21 @@ function Arena() {
             <img src={DOGE_LOGO} alt="" />
           </button>
         </section>
-      </main>
+            </main>
+          ) : (
+            <section className="bull-section-placeholder">
+              <div>
+                <small>BULL PROTOCOL</small>
+                <h2>{SIDEBAR_ITEMS.find((item) => item.id === activeSection)?.label}</h2>
+                <p>
+                  This section is preserved in the terminal navigation and will be
+                  connected to its full data and actions as the platform modules are completed.
+                </p>
+              </div>
+            </section>
+          )}
+        </div>
+      </div>
 
       {showEntry && (
         <div
@@ -578,7 +870,7 @@ function Arena() {
     </div>
   );
 }
-function OpeningScreen({ countdown }) {
+function OpeningScreen() {
   return (
     <div
       style={{
@@ -709,32 +1001,12 @@ function OpeningScreen({ countdown }) {
           MOMENTUM WINS
         </div>
 
-        <div
-          style={{
-            marginTop: "28px",
-            width: "64px",
-            height: "64px",
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "1px solid #00ff8c",
-            color: "#ffffff",
-            fontSize: "28px",
-            fontWeight: 900,
-            background: "rgba(0,0,0,.7)",
-            boxShadow:
-              "0 0 18px rgba(0,255,140,.8), 0 0 35px rgba(145,0,255,.5)",
-          }}
-        >
-          {countdown}
-        </div>
 
         <div
           style={{
             width: "230px",
             height: "3px",
-            marginTop: "22px",
+            marginTop: "30px",
             overflow: "hidden",
             background: "rgba(255,255,255,.08)",
           }}
@@ -772,25 +1044,13 @@ export default function App() {
     []
   );
   const [showOpening, setShowOpening] = useState(true);
-  const [openingCountdown, setOpeningCountdown] = useState(5);
 
   useEffect(() => {
-    const countdownInterval = setInterval(() => {
-      setOpeningCountdown((current) => {
-        if (current > 1) {
-          return current - 1;
-        }
-
-        return 1;
-      });
-    }, 1000);
-
     const openingTimer = setTimeout(() => {
       setShowOpening(false);
     }, 5000);
 
     return () => {
-      clearInterval(countdownInterval);
       clearTimeout(openingTimer);
     };
   }, []);
@@ -798,11 +1058,7 @@ export default function App() {
     <ConnectionProvider endpoint={ENDPOINT}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-        {showOpening ? (
-  <OpeningScreen countdown={openingCountdown} />
-) : (
-  <Arena />
-)}
+          {showOpening ? <OpeningScreen /> : <Arena />}
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
