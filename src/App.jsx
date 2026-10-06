@@ -745,6 +745,361 @@ function Arena() {
             min-height: 46px;
           }
         }
+
+        /* =========================================================
+           RESPONSIVE SIZE FIX - DESKTOP / TABLET / MOBILE
+        ========================================================= */
+        @media (max-width: 980px) {
+          html,
+          body,
+          #root {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+          }
+
+          .terminal {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+          }
+
+          .terminal-header {
+            width: 100%;
+            height: auto;
+            min-height: 58px;
+            padding: 8px 10px;
+            gap: 8px;
+            flex-wrap: wrap;
+          }
+
+          .brand {
+            min-width: 0;
+            flex: 1 1 220px;
+            gap: 6px;
+          }
+
+          .brand-logo {
+            width: 36px;
+            height: 36px;
+            flex: 0 0 36px;
+          }
+
+          .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+
+          .brand-copy strong {
+            font-size: 10px;
+          }
+
+          .brand-copy span {
+            font-size: 6px;
+          }
+
+          .terminal-title strong {
+            font-size: 9px;
+          }
+
+          .terminal-title span {
+            font-size: 5.5px;
+          }
+
+          .header-actions {
+            gap: 5px;
+            flex-wrap: wrap;
+          }
+
+          .online-status,
+          .wallet-address {
+            min-height: 28px;
+            padding: 0 8px;
+            font-size: 7px;
+          }
+
+          .wallet-adapter-button {
+            height: 32px !important;
+            min-height: 32px !important;
+            padding: 0 10px !important;
+            font-size: 8px !important;
+          }
+
+          .bull-terminal-shell {
+            grid-template-columns: minmax(0, 1fr) !important;
+            width: 100% !important;
+            max-width: 100vw !important;
+            min-width: 0 !important;
+            gap: 8px !important;
+          }
+
+          .bull-sidebar,
+          .bull-main-stage,
+          .bull-right-sidebar {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+          }
+
+          .bull-sidebar {
+            padding: 8px !important;
+          }
+
+          .bull-sidebar-title {
+            padding: 4px 4px 8px !important;
+            font-size: 7px !important;
+          }
+
+          .bull-sidebar-nav {
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 5px !important;
+          }
+
+          .bull-sidebar-button {
+            min-height: 44px !important;
+            grid-template-columns: 22px minmax(0, 1fr) !important;
+            gap: 5px !important;
+            padding: 6px !important;
+          }
+
+          .bull-sidebar-icon {
+            font-size: 13px !important;
+          }
+
+          .bull-sidebar-copy strong {
+            font-size: 7px !important;
+          }
+
+          .bull-sidebar-copy small {
+            font-size: 5.7px !important;
+          }
+
+          .bull-sidebar-promo {
+            min-height: auto !important;
+            margin-top: 8px !important;
+            padding: 10px !important;
+          }
+
+          .bull-sidebar-promo img {
+            width: 38px !important;
+            height: 38px !important;
+          }
+
+          .bull-sidebar-promo h3 {
+            font-size: 9px !important;
+          }
+
+          .bull-sidebar-promo p {
+            margin: 7px 0 9px !important;
+            font-size: 7px !important;
+          }
+
+          .bull-main-stage {
+            overflow: hidden !important;
+          }
+
+          .arena-page {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            margin: 0 !important;
+            padding: 0 6px 6px !important;
+            overflow: hidden !important;
+          }
+
+          .battle-hero {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            height: 330px !important;
+            min-height: 330px !important;
+          }
+
+          .battle-center h1 {
+            font-size: clamp(22px, 7vw, 34px) !important;
+          }
+
+          .battle-center p {
+            font-size: 7px !important;
+          }
+
+          .fighter {
+            gap: 4px !important;
+          }
+
+          .token-orbit {
+            width: 84px !important;
+            height: 84px !important;
+            min-width: 84px !important;
+            min-height: 84px !important;
+          }
+
+          .token-image img {
+            width: 58px !important;
+            height: 58px !important;
+          }
+
+          .fighter-stats strong {
+            font-size: 9px !important;
+          }
+
+          .fighter-stats span {
+            font-size: 7px !important;
+          }
+
+          .countdown {
+            min-width: 140px !important;
+            padding: 9px 12px !important;
+          }
+
+          .countdown span {
+            font-size: 6px !important;
+          }
+
+          .countdown strong {
+            font-size: 24px !important;
+          }
+
+          .chart-panel {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            padding: 10px 8px !important;
+            overflow: hidden !important;
+          }
+
+          .chart-header {
+            width: 100% !important;
+            min-width: 0 !important;
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+          }
+
+          .chart-tabs {
+            flex-wrap: wrap !important;
+          }
+
+          .volume-chart {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            height: 250px !important;
+            overflow: hidden !important;
+          }
+
+          .chart-svg {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            height: 100% !important;
+          }
+
+          .x-axis,
+          .chart-footer {
+            width: 100% !important;
+            min-width: 0 !important;
+          }
+
+          .arena-actions {
+            width: 100% !important;
+            max-width: 100% !important;
+            grid-template-columns: 1fr !important;
+            gap: 7px !important;
+          }
+
+          .side-action,
+          .arena-message {
+            min-height: 54px !important;
+          }
+
+          .bull-right-sidebar {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            padding: 8px !important;
+          }
+
+          .bull-right-card {
+            min-width: 0 !important;
+          }
+
+          .entry-modal {
+            width: min(94vw, 460px) !important;
+            max-width: 94vw !important;
+            max-height: 88vh !important;
+            overflow-y: auto !important;
+          }
+        }
+
+        @media (max-width: 620px) {
+          .terminal-header {
+            align-items: flex-start !important;
+          }
+
+          .brand {
+            width: 100% !important;
+            flex: 1 1 100% !important;
+          }
+
+          .header-actions {
+            width: 100% !important;
+            justify-content: flex-start !important;
+          }
+
+          .bull-sidebar-nav {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          }
+
+          .bull-right-sidebar {
+            grid-template-columns: 1fr !important;
+          }
+
+          .battle-hero {
+            height: 300px !important;
+            min-height: 300px !important;
+          }
+
+          .token-orbit {
+            width: 70px !important;
+            height: 70px !important;
+            min-width: 70px !important;
+            min-height: 70px !important;
+          }
+
+          .token-image img {
+            width: 48px !important;
+            height: 48px !important;
+          }
+
+          .battle-center h1 {
+            font-size: clamp(20px, 6vw, 28px) !important;
+          }
+
+          .countdown {
+            min-width: 120px !important;
+          }
+
+          .countdown strong {
+            font-size: 21px !important;
+          }
+
+          .volume-chart {
+            height: 220px !important;
+          }
+
+          .chart-tabs button {
+            padding: 5px 7px !important;
+            font-size: 6.5px !important;
+          }
+
+          .chart-footer {
+            flex-wrap: wrap !important;
+            gap: 6px !important;
+          }
+        }
       `}</style>
 
       <div className="bull-terminal-shell">
