@@ -773,12 +773,38 @@ export default function App() {
     () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
     []
   );
+  const [showOpening, setShowOpening] = useState(true);
+  const [openingCountdown, setOpeningCountdown] = useState(5);
 
+  useEffect(() => {
+    const countdownInterval = setInterval(() => {
+      setOpeningCountdown((current) => {
+        if (current > 1) {
+          return current - 1;
+        }
+
+        return 1;
+      });
+    }, 1000);
+
+    const openingTimer = setTimeout(() => {
+      setShowOpening(false);
+    }, 5000);
+
+    return () => {
+      clearInterval(countdownInterval);
+      clearTimeout(openingTimer);
+    };
+  }, []);
   return (
     <ConnectionProvider endpoint={ENDPOINT}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <Arena />
+        {showOpening ? (
+  <OpeningScreen countdown={openingCountdown} />
+) : (
+  <Arena />
+)}
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
