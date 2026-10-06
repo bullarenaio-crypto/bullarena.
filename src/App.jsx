@@ -2717,7 +2717,7 @@ function Arena() {
         }
 
         .terminal-header .brand-copy {
-          width: 178px !important;
+          width: 158px !important;
           display: flex !important;
           flex-direction: column !important;
           justify-content: center !important;
@@ -2726,9 +2726,9 @@ function Arena() {
 
         .terminal-header .brand-copy strong {
           color: #ecf3ff !important;
-          font-size: 27px !important;
+          font-size: 21px !important;
           font-weight: 900 !important;
-          letter-spacing: .13em !important;
+          letter-spacing: .105em !important;
           line-height: .98 !important;
           white-space: nowrap !important;
           text-shadow: 0 0 9px rgba(114, 74, 255, .5) !important;
@@ -2746,7 +2746,7 @@ function Arena() {
         .terminal-header .brand-divider {
           width: 2px !important;
           height: 48px !important;
-          margin: 0 22px 0 10px !important;
+          margin: 0 26px 0 18px !important;
           background: linear-gradient(180deg, #00e9ef, rgba(0, 233, 239, .34)) !important;
           box-shadow: 0 0 8px rgba(0, 233, 239, .22) !important;
         }
