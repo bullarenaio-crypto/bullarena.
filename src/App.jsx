@@ -1187,6 +1187,772 @@ function Arena() {
             gap: 6px !important;
           }
         }
+
+        /* =========================================================
+           PIXEL-MATCH CENTER / DESKTOP STABILITY
+           Isolated class names prevent old style.css rules from
+           stretching the chart and lower dashboard panels.
+        ========================================================= */
+
+        .bull-reference-center {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          min-width: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 8px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          overflow: visible !important;
+        }
+
+        /* ---------- REFERENCE CHART ---------- */
+        .bull-ref-chart {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          height: 198px !important;
+          min-height: 198px !important;
+          max-height: 198px !important;
+          padding: 8px 9px 6px !important;
+          overflow: hidden !important;
+          border: 1px solid rgba(0, 177, 255, .58) !important;
+          border-radius: 8px !important;
+          background:
+            linear-gradient(180deg, rgba(3, 13, 31, .98), rgba(2, 8, 22, .98)) !important;
+          box-shadow:
+            inset 0 0 22px rgba(0, 143, 255, .035),
+            0 0 0 1px rgba(0, 235, 255, .015) !important;
+          position: relative !important;
+        }
+
+        .bull-ref-chart-header {
+          height: 25px !important;
+          min-height: 25px !important;
+          display: flex !important;
+          align-items: flex-start !important;
+          justify-content: space-between !important;
+          gap: 8px !important;
+        }
+
+        .bull-ref-chart-header > div:first-child {
+          min-width: 0 !important;
+          display: flex !important;
+          align-items: center !important;
+          gap: 5px !important;
+          color: #dff6ff !important;
+          white-space: nowrap !important;
+        }
+
+        .bull-ref-chart-icon {
+          color: #00edf2 !important;
+          font-size: 9px !important;
+          line-height: 1 !important;
+        }
+
+        .bull-ref-chart-header strong {
+          font-size: 8px !important;
+          line-height: 1 !important;
+          letter-spacing: .02em !important;
+          color: #dff6ff !important;
+        }
+
+        .bull-ref-chart-header small {
+          margin-left: 2px !important;
+          font-size: 5.5px !important;
+          color: #769bb4 !important;
+        }
+
+        .bull-ref-chart-tabs {
+          display: flex !important;
+          align-items: center !important;
+          gap: 4px !important;
+          flex-wrap: nowrap !important;
+        }
+
+        .bull-ref-chart-tabs button {
+          min-width: 42px !important;
+          height: 21px !important;
+          padding: 0 7px !important;
+          border: 1px solid rgba(0, 137, 221, .46) !important;
+          border-radius: 5px !important;
+          background: rgba(1, 9, 23, .9) !important;
+          color: #6f94ae !important;
+          font-size: 5.5px !important;
+          font-weight: 800 !important;
+          cursor: pointer !important;
+        }
+
+        .bull-ref-chart-tabs button.active {
+          border-color: #00dfe9 !important;
+          color: #18f4f5 !important;
+          background: rgba(0, 214, 229, .13) !important;
+          box-shadow: inset 0 0 10px rgba(0, 236, 255, .07) !important;
+        }
+
+        .bull-ref-volume {
+          position: relative !important;
+          box-sizing: border-box !important;
+          width: 100% !important;
+          height: 143px !important;
+          min-height: 143px !important;
+          margin-top: 1px !important;
+          padding: 0 0 17px 28px !important;
+          overflow: hidden !important;
+        }
+
+        .bull-ref-y-axis {
+          position: absolute !important;
+          top: 1px !important;
+          bottom: 17px !important;
+          left: 0 !important;
+          width: 24px !important;
+          display: flex !important;
+          flex-direction: column !important;
+          justify-content: space-between !important;
+          align-items: flex-end !important;
+          z-index: 3 !important;
+        }
+
+        .bull-ref-y-axis span,
+        .bull-ref-x-axis span {
+          font-size: 5px !important;
+          line-height: 1 !important;
+          color: #638aa4 !important;
+          white-space: nowrap !important;
+        }
+
+        .bull-ref-chart-svg {
+          position: absolute !important;
+          left: 28px !important;
+          right: 0 !important;
+          top: 0 !important;
+          width: calc(100% - 28px) !important;
+          height: 123px !important;
+          display: block !important;
+          overflow: visible !important;
+        }
+
+        .bull-ref-chart-grid line {
+          stroke: rgba(0, 101, 177, .20) !important;
+          stroke-width: 1 !important;
+          vector-effect: non-scaling-stroke !important;
+        }
+
+        .bull-ref-area {
+          stroke: none !important;
+        }
+
+        .bull-ref-area.shiba-area {
+          fill: url(#shibaFill) !important;
+        }
+
+        .bull-ref-area.doge-area {
+          fill: url(#dogeFill) !important;
+        }
+
+        .bull-ref-line {
+          fill: none !important;
+          stroke-width: 1.65 !important;
+          vector-effect: non-scaling-stroke !important;
+        }
+
+        .bull-ref-line.shiba-chart-line {
+          stroke: #ff21e8 !important;
+          filter: drop-shadow(0 0 3px rgba(255, 33, 232, .7)) !important;
+        }
+
+        .bull-ref-line.doge-chart-line {
+          stroke: #00eee8 !important;
+          filter: drop-shadow(0 0 3px rgba(0, 238, 232, .7)) !important;
+        }
+
+        .bull-ref-point.doge-point {
+          fill: #00f0e9 !important;
+          filter: drop-shadow(0 0 4px #00f0e9) !important;
+        }
+
+        .bull-ref-point.shiba-point {
+          fill: #f627e8 !important;
+          filter: drop-shadow(0 0 4px #f627e8) !important;
+        }
+
+        .bull-ref-value {
+          position: absolute !important;
+          right: 0 !important;
+          z-index: 5 !important;
+          min-width: 29px !important;
+          padding: 2px 4px !important;
+          border-radius: 2px 0 0 2px !important;
+          font-size: 5.5px !important;
+          font-weight: 900 !important;
+          line-height: 1.2 !important;
+          text-align: center !important;
+        }
+
+        .bull-ref-value.doge-value {
+          top: 38px !important;
+          color: #002f31 !important;
+          background: #18efe7 !important;
+        }
+
+        .bull-ref-value.shiba-value {
+          top: 61px !important;
+          color: #fff !important;
+          background: #ca26db !important;
+        }
+
+        .bull-ref-x-axis {
+          position: absolute !important;
+          left: 28px !important;
+          right: 0 !important;
+          bottom: 1px !important;
+          display: flex !important;
+          justify-content: space-between !important;
+          align-items: center !important;
+          z-index: 4 !important;
+        }
+
+        .bull-ref-chart-footer {
+          height: 17px !important;
+          min-height: 17px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: space-between !important;
+          gap: 8px !important;
+          padding-left: 28px !important;
+          overflow: hidden !important;
+        }
+
+        .bull-ref-legends {
+          min-width: 0 !important;
+          display: flex !important;
+          align-items: center !important;
+          gap: 10px !important;
+        }
+
+        .bull-ref-legends span {
+          display: inline-flex !important;
+          align-items: center !important;
+          gap: 4px !important;
+          color: #89a9bc !important;
+          font-size: 5.5px !important;
+          white-space: nowrap !important;
+        }
+
+        .bull-ref-legends i {
+          width: 6px !important;
+          height: 6px !important;
+          border-radius: 50% !important;
+          display: inline-block !important;
+        }
+
+        .bull-ref-legends .legend-shiba i {
+          background: #f426e7 !important;
+          box-shadow: 0 0 5px #f426e7 !important;
+        }
+
+        .bull-ref-legends .legend-doge i {
+          background: #00ece6 !important;
+          box-shadow: 0 0 5px #00ece6 !important;
+        }
+
+        .bull-ref-data-note {
+          color: #5f7f96 !important;
+          font-size: 5px !important;
+          letter-spacing: .08em !important;
+          white-space: nowrap !important;
+        }
+
+        .bull-ref-volume.filter-shiba .doge-area,
+        .bull-ref-volume.filter-shiba .doge-chart-line,
+        .bull-ref-volume.filter-shiba .doge-point {
+          opacity: .14 !important;
+        }
+
+        .bull-ref-volume.filter-doge .shiba-area,
+        .bull-ref-volume.filter-doge .shiba-chart-line,
+        .bull-ref-volume.filter-doge .shiba-point {
+          opacity: .14 !important;
+        }
+
+        /* ---------- REFERENCE LOWER PANELS ---------- */
+        .bull-ref-info-grid {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          height: 144px !important;
+          min-height: 144px !important;
+          max-height: 144px !important;
+          display: grid !important;
+          grid-template-columns: .78fr 1.22fr !important;
+          gap: 8px !important;
+          align-items: stretch !important;
+        }
+
+        .bull-ref-panel {
+          box-sizing: border-box !important;
+          position: relative !important;
+          min-width: 0 !important;
+          overflow: hidden !important;
+          border: 1px solid rgba(0, 150, 255, .60) !important;
+          border-radius: 8px !important;
+          background:
+            linear-gradient(180deg, rgba(4, 15, 35, .985), rgba(2, 9, 23, .985)) !important;
+          box-shadow:
+            inset 0 0 22px rgba(0, 105, 255, .025),
+            0 0 0 1px rgba(0, 230, 255, .018) !important;
+        }
+
+        .bull-ref-how,
+        .bull-ref-stats {
+          height: 144px !important;
+          min-height: 144px !important;
+          max-height: 144px !important;
+          padding: 9px 10px !important;
+        }
+
+        .bull-ref-how h2,
+        .bull-ref-stats h2 {
+          margin: 0 0 6px !important;
+          color: #ddf4ff !important;
+          font-size: 9px !important;
+          line-height: 1 !important;
+          letter-spacing: .025em !important;
+        }
+
+        .bull-ref-instruction {
+          min-height: 23px !important;
+          display: flex !important;
+          align-items: center !important;
+          gap: 6px !important;
+          margin: 2px 0 !important;
+        }
+
+        .bull-ref-num {
+          width: 18px !important;
+          height: 18px !important;
+          flex: 0 0 18px !important;
+          display: grid !important;
+          place-items: center !important;
+          border: 1px solid #829eb7 !important;
+          border-radius: 50% !important;
+          color: #e3efff !important;
+          font-size: 7px !important;
+          line-height: 1 !important;
+        }
+
+        .bull-ref-instruction p {
+          min-width: 0 !important;
+          margin: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          line-height: 1.05 !important;
+        }
+
+        .bull-ref-instruction strong {
+          color: #dfefff !important;
+          font-size: 7px !important;
+          font-weight: 700 !important;
+        }
+
+        .bull-ref-instruction small {
+          margin-top: 1px !important;
+          color: #6fa2bf !important;
+          font-size: 6px !important;
+        }
+
+        .bull-ref-notice {
+          min-height: 28px !important;
+          margin-top: 5px !important;
+          padding: 4px 6px !important;
+          display: flex !important;
+          align-items: center !important;
+          gap: 6px !important;
+          border: 1px solid rgba(255, 182, 0, .43) !important;
+          border-radius: 4px !important;
+          background: rgba(255, 166, 0, .035) !important;
+        }
+
+        .bull-ref-notice > span {
+          width: 17px !important;
+          height: 17px !important;
+          flex: 0 0 17px !important;
+          display: grid !important;
+          place-items: center !important;
+          border: 1px solid #ffc000 !important;
+          border-radius: 50% !important;
+          color: #ffc000 !important;
+          font-size: 7px !important;
+          font-weight: 900 !important;
+        }
+
+        .bull-ref-notice p {
+          margin: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          line-height: 1.05 !important;
+        }
+
+        .bull-ref-notice strong {
+          color: #ffd43b !important;
+          font-size: 6.5px !important;
+        }
+
+        .bull-ref-notice small {
+          margin-top: 1px !important;
+          color: #8fa1a7 !important;
+          font-size: 5.5px !important;
+        }
+
+        .bull-ref-stat-sides {
+          display: grid !important;
+          grid-template-columns: 1fr 1px 1fr !important;
+          align-items: stretch !important;
+        }
+
+        .bull-ref-stat-divider {
+          width: 1px !important;
+          background: linear-gradient(180deg, transparent, rgba(0,149,255,.6), transparent) !important;
+        }
+
+        .bull-ref-stat-side {
+          min-width: 0 !important;
+          display: grid !important;
+          grid-template-columns: 34px minmax(0, 1fr) !important;
+          align-items: center !important;
+          gap: 6px !important;
+          padding: 1px 8px !important;
+        }
+
+        .bull-ref-stat-token {
+          width: 34px !important;
+          height: 34px !important;
+          display: grid !important;
+          place-items: center !important;
+          border-radius: 50% !important;
+          background: rgba(0, 7, 18, .8) !important;
+        }
+
+        .bull-ref-stat-side.shiba .bull-ref-stat-token {
+          border: 1px solid #ee23ff !important;
+          box-shadow: 0 0 8px rgba(238,35,255,.55), inset 0 0 7px rgba(238,35,255,.2) !important;
+        }
+
+        .bull-ref-stat-side.doge .bull-ref-stat-token {
+          border: 1px solid #00ecf3 !important;
+          box-shadow: 0 0 8px rgba(0,236,243,.55), inset 0 0 7px rgba(0,236,243,.2) !important;
+        }
+
+        .bull-ref-stat-token img {
+          width: 25px !important;
+          height: 25px !important;
+          border-radius: 50% !important;
+          object-fit: cover !important;
+        }
+
+        .bull-ref-stat-side > div:nth-child(2) {
+          min-width: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+        }
+
+        .bull-ref-stat-side > div:nth-child(2) strong {
+          font-size: 7px !important;
+          line-height: 1 !important;
+        }
+
+        .bull-ref-stat-side.shiba > div:nth-child(2) strong {
+          color: #f329ef !important;
+        }
+
+        .bull-ref-stat-side.doge > div:nth-child(2) strong {
+          color: #13eef1 !important;
+        }
+
+        .bull-ref-stat-side > div:nth-child(2) span {
+          margin-top: 2px !important;
+          color: #8daec1 !important;
+          font-size: 6px !important;
+        }
+
+        .bull-ref-stat-side p {
+          grid-column: 1 / -1 !important;
+          margin: 4px 0 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          color: #24dff0 !important;
+          font-size: 6px !important;
+          line-height: 1.1 !important;
+        }
+
+        .bull-ref-stat-side p strong {
+          margin-top: 2px !important;
+          color: #dff8ff !important;
+          font-size: 11px !important;
+          line-height: 1 !important;
+        }
+
+        .bull-ref-diff {
+          margin-top: 7px !important;
+          padding: 5px 6px !important;
+          display: grid !important;
+          grid-template-columns: auto minmax(55px,1fr) auto auto !important;
+          align-items: center !important;
+          gap: 6px !important;
+          border: 1px solid rgba(0,168,255,.46) !important;
+          border-radius: 4px !important;
+          background: rgba(0,102,166,.045) !important;
+        }
+
+        .bull-ref-diff > span {
+          color: #25ddeb !important;
+          font-size: 5.5px !important;
+          white-space: nowrap !important;
+        }
+
+        .bull-ref-diff-track {
+          height: 6px !important;
+          overflow: hidden !important;
+          border-radius: 999px !important;
+          background: #092640 !important;
+        }
+
+        .bull-ref-diff-track i {
+          display: block !important;
+          width: 65% !important;
+          height: 100% !important;
+          border-radius: inherit !important;
+          background: linear-gradient(90deg,#db00ff,#00f1ed) !important;
+          box-shadow: 0 0 7px rgba(0,237,255,.3) !important;
+        }
+
+        .bull-ref-diff strong {
+          color: #14e8f0 !important;
+          font-size: 6px !important;
+          white-space: nowrap !important;
+        }
+
+        .bull-ref-diff small {
+          color: #7396aa !important;
+          font-size: 4.5px !important;
+          white-space: nowrap !important;
+        }
+
+        /* ---------- REFERENCE BOTTOM STRIP ---------- */
+        .bull-ref-bottom {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          height: 44px !important;
+          min-height: 44px !important;
+          max-height: 44px !important;
+          display: grid !important;
+          grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+          overflow: hidden !important;
+          padding: 0 !important;
+        }
+
+        .bull-ref-bottom-step {
+          min-width: 0 !important;
+          display: grid !important;
+          grid-template-columns: 23px minmax(0,1fr) 8px !important;
+          align-items: center !important;
+          gap: 5px !important;
+          padding: 6px 8px !important;
+          border-right: 1px solid rgba(0,133,224,.33) !important;
+        }
+
+        .bull-ref-bottom-step:last-child {
+          border-right: 0 !important;
+        }
+
+        .bull-ref-step-symbol {
+          color: #c52cff !important;
+          font-size: 20px !important;
+          line-height: 1 !important;
+          text-shadow: 0 0 8px rgba(194,44,255,.5) !important;
+        }
+
+        .bull-ref-bottom-step:nth-child(2) .bull-ref-step-symbol {
+          color: #3b7cff !important;
+        }
+
+        .bull-ref-bottom-step:nth-child(3) .bull-ref-step-symbol {
+          color: #9f6cff !important;
+        }
+
+        .bull-ref-bottom-step > div {
+          min-width: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+        }
+
+        .bull-ref-bottom-step strong {
+          color: #20edf3 !important;
+          font-size: 5.7px !important;
+          line-height: 1.05 !important;
+          white-space: nowrap !important;
+        }
+
+        .bull-ref-bottom-step small {
+          margin-top: 2px !important;
+          color: #718da4 !important;
+          font-size: 5px !important;
+          line-height: 1.05 !important;
+          white-space: nowrap !important;
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
+        }
+
+        .bull-ref-bottom-step b {
+          color: #b8d2e3 !important;
+          font-size: 15px !important;
+          font-weight: 400 !important;
+        }
+
+        /* Keep the complete desktop dashboard at laptop widths.
+           The old 980px breakpoint was forcing the sidebars above/below
+           the arena on scaled laptop displays. */
+        @media (min-width: 721px) {
+          .bull-terminal-shell {
+            grid-template-columns: 155px minmax(0, 1fr) 210px !important;
+            gap: 8px !important;
+            align-items: stretch !important;
+          }
+
+          .bull-sidebar {
+            width: auto !important;
+            max-width: none !important;
+            padding: 8px !important;
+            border-right: 1px solid rgba(0,246,255,.2) !important;
+            border-bottom: 0 !important;
+          }
+
+          .bull-sidebar-nav {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 5px !important;
+          }
+
+          .bull-sidebar-button {
+            min-height: 43px !important;
+            grid-template-columns: 25px minmax(0,1fr) !important;
+            gap: 5px !important;
+            padding: 6px !important;
+          }
+
+          .bull-sidebar-icon {
+            font-size: 13px !important;
+          }
+
+          .bull-sidebar-copy strong {
+            font-size: 7px !important;
+          }
+
+          .bull-sidebar-copy small {
+            font-size: 5.5px !important;
+          }
+
+          .bull-sidebar-promo {
+            min-height: 150px !important;
+            margin-top: 8px !important;
+            padding: 9px 7px !important;
+          }
+
+          .bull-sidebar-promo img {
+            width: 39px !important;
+            height: 39px !important;
+          }
+
+          .bull-sidebar-promo h3 {
+            margin-top: 4px !important;
+            font-size: 8px !important;
+          }
+
+          .bull-sidebar-promo p {
+            margin: 6px 0 8px !important;
+            font-size: 5.7px !important;
+            line-height: 1.35 !important;
+          }
+
+          .bull-sidebar-promo button {
+            padding: 6px !important;
+            font-size: 5.5px !important;
+          }
+
+          .bull-main-stage {
+            width: auto !important;
+            max-width: none !important;
+            min-width: 0 !important;
+            overflow: visible !important;
+          }
+
+          .bull-right-sidebar {
+            width: auto !important;
+            max-width: none !important;
+            min-width: 0 !important;
+            padding: 8px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 8px !important;
+            border-left: 1px solid rgba(0,246,255,.2) !important;
+            border-top: 1px solid rgba(143,64,255,.13) !important;
+          }
+
+          .bull-right-brand {
+            grid-column: auto !important;
+            min-height: 62px !important;
+            margin-top: auto !important;
+          }
+        }
+
+        @media (max-width: 720px) {
+          .bull-ref-chart {
+            height: 210px !important;
+            min-height: 210px !important;
+            max-height: none !important;
+          }
+
+          .bull-ref-chart-header {
+            height: auto !important;
+            min-height: 43px !important;
+            flex-wrap: wrap !important;
+          }
+
+          .bull-ref-volume {
+            height: 145px !important;
+          }
+
+          .bull-ref-info-grid {
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            grid-template-columns: 1fr !important;
+          }
+
+          .bull-ref-how,
+          .bull-ref-stats {
+            height: auto !important;
+            min-height: 138px !important;
+            max-height: none !important;
+          }
+
+          .bull-ref-bottom {
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            grid-template-columns: 1fr !important;
+          }
+
+          .bull-ref-bottom-step {
+            min-height: 44px !important;
+            border-right: 0 !important;
+            border-bottom: 1px solid rgba(0,133,224,.33) !important;
+          }
+
+          .bull-ref-bottom-step:last-child {
+            border-bottom: 0 !important;
+          }
+        }
+
       `}</style>
 
       <div className="bull-terminal-shell">
@@ -1228,7 +1994,7 @@ function Arena() {
 
         <div className="bull-main-stage">
           {activeSection === "rooms" ? (
-            <main className="arena-page">
+            <main className="arena-page bull-reference-center">
         <section
           className="battle-hero"
           style={{ backgroundImage: 'url("/arena-battle-bg.png.png")' }}
@@ -1342,15 +2108,15 @@ function Arena() {
           </div>
         </section>
 
-        <section className="chart-panel">
-          <div className="chart-header">
+        <section className="bull-ref-chart">
+          <div className="bull-ref-chart-header">
             <div>
-              <span className="chart-icon">↗</span>
+              <span className="bull-ref-chart-icon">↗</span>
               <strong>VOLUME ON DEX</strong>
               <small>(LAST 30 MIN)</small>
             </div>
 
-            <div className="chart-tabs">
+            <div className="bull-ref-chart-tabs">
               {["TOTAL", "SHIBA", "DOGE"].map((tab) => (
                 <button
                   key={tab}
@@ -1364,8 +2130,8 @@ function Arena() {
             </div>
           </div>
 
-          <div className={`volume-chart filter-${chartFilter.toLowerCase()}`}>
-            <div className="y-axis">
+          <div className={`bull-ref-volume filter-${chartFilter.toLowerCase()}`}>
+            <div className="bull-ref-y-axis">
               <span>25M</span>
               <span>20M</span>
               <span>15M</span>
@@ -1377,7 +2143,7 @@ function Arena() {
             <svg
               viewBox="0 0 1400 360"
               preserveAspectRatio="none"
-              className="chart-svg"
+              className="bull-ref-chart-svg"
               aria-label="Volume chart preview"
             >
               <defs>
@@ -1404,7 +2170,7 @@ function Arena() {
                 </linearGradient>
               </defs>
 
-              <g className="chart-grid">
+              <g className="bull-ref-chart-grid">
                 <line x1="0" y1="20" x2="1400" y2="20" />
                 <line x1="0" y1="84" x2="1400" y2="84" />
                 <line x1="0" y1="148" x2="1400" y2="148" />
@@ -1421,7 +2187,7 @@ function Arena() {
               </g>
 
               <path
-                className="chart-area shiba-area"
+                className="bull-ref-area shiba-area"
                 d="M0 270
                    L70 255
                    L140 238
@@ -1448,7 +2214,7 @@ function Arena() {
               />
 
               <path
-                className="chart-area doge-area"
+                className="bull-ref-area doge-area"
                 d="M0 300
                    L70 292
                    L140 285
@@ -1475,7 +2241,7 @@ function Arena() {
               />
 
               <polyline
-                className="chart-line shiba-chart-line"
+                className="bull-ref-line shiba-chart-line"
                 points="
                   0,270
                   70,255
@@ -1502,7 +2268,7 @@ function Arena() {
               />
 
               <polyline
-                className="chart-line doge-chart-line"
+                className="bull-ref-line doge-chart-line"
                 points="
                   0,300
                   70,292
@@ -1529,24 +2295,24 @@ function Arena() {
               />
 
               <circle
-                className="chart-point doge-point"
+                className="bull-ref-point doge-point"
                 cx="1400"
                 cy="92"
                 r="7"
               />
 
               <circle
-                className="chart-point shiba-point"
+                className="bull-ref-point shiba-point"
                 cx="1400"
                 cy="160"
                 r="7"
               />
             </svg>
 
-            <div className="chart-value doge-value">10.8M</div>
-            <div className="chart-value shiba-value">12.4M</div>
+            <div className="bull-ref-value doge-value">10.8M</div>
+            <div className="bull-ref-value shiba-value">12.4M</div>
 
-            <div className="x-axis">
+            <div className="bull-ref-x-axis">
               <span>14:05</span>
               <span>14:10</span>
               <span>14:15</span>
@@ -1556,8 +2322,8 @@ function Arena() {
             </div>
           </div>
 
-          <div className="chart-footer">
-            <div className="chart-legends">
+          <div className="bull-ref-chart-footer">
+            <div className="bull-ref-legends">
               <span className="legend-shiba">
                 <i />
                 Shiba (12.4M)
@@ -1569,39 +2335,39 @@ function Arena() {
               </span>
             </div>
 
-            <span className="data-note">MARKET DATA PREVIEW</span>
+            <span className="bull-ref-data-note">MARKET DATA PREVIEW</span>
           </div>
         </section>
 
-        <section className="information-grid">
-          <div className="panel how-it-works">
+        <section className="bull-ref-info-grid">
+          <div className="bull-ref-panel bull-ref-how">
             <h2>HOW IT WORKS?</h2>
 
-            <div className="instruction-row">
-              <span className="instruction-number">1</span>
+            <div className="bull-ref-instruction">
+              <span className="bull-ref-num">1</span>
               <p>
                 <strong>Choose a side</strong>
                 <small>Shiba or Doge.</small>
               </p>
             </div>
 
-            <div className="instruction-row">
-              <span className="instruction-number">2</span>
+            <div className="bull-ref-instruction">
+              <span className="bull-ref-num">2</span>
               <p>
                 <strong>Enter the room</strong>
                 <small>Join the participants.</small>
               </p>
             </div>
 
-            <div className="instruction-row">
-              <span className="instruction-number">3</span>
+            <div className="bull-ref-instruction">
+              <span className="bull-ref-num">3</span>
               <p>
                 <strong>Follow the volume</strong>
                 <small>The market data determines the room result.</small>
               </p>
             </div>
 
-            <div className="risk-notice">
+            <div className="bull-ref-notice">
               <span>!</span>
               <p>
                 <strong>ROOM RULES APPLY</strong>
@@ -1610,12 +2376,12 @@ function Arena() {
             </div>
           </div>
 
-          <div className="panel room-statistics">
+          <div className="bull-ref-panel bull-ref-stats">
             <h2>ROOM STATISTICS</h2>
 
-            <div className="statistics-sides">
-              <div className="statistics-side shiba-stat">
-                <div className="stat-token">
+            <div className="bull-ref-stat-sides">
+              <div className="bull-ref-stat-side shiba">
+                <div className="bull-ref-stat-token">
                   <img src={SHIBA_LOGO} alt="SHIBA" />
                 </div>
                 <div>
@@ -1628,10 +2394,10 @@ function Arena() {
                 </p>
               </div>
 
-              <div className="statistics-divider" />
+              <div className="bull-ref-stat-divider" />
 
-              <div className="statistics-side doge-stat">
-                <div className="stat-token">
+              <div className="bull-ref-stat-side doge">
+                <div className="bull-ref-stat-token">
                   <img src={DOGE_LOGO} alt="DOGE" />
                 </div>
                 <div>
@@ -1645,18 +2411,18 @@ function Arena() {
               </div>
             </div>
 
-            <div className="volume-difference">
+            <div className="bull-ref-diff">
               <span>Volume Difference</span>
-              <div className="difference-track"><i /></div>
+              <div className="bull-ref-diff-track"><i /></div>
               <strong>1.6M USDT</strong>
               <small>(in favor of Shiba)</small>
             </div>
           </div>
         </section>
 
-        <section className="panel bottom-steps">
-          <div className="bottom-step">
-            <span className="step-symbol">ϟ</span>
+        <section className="bull-ref-panel bull-ref-bottom">
+          <div className="bull-ref-bottom-step">
+            <span className="bull-ref-step-symbol">ϟ</span>
             <div>
               <strong>ENTER THE ROOM</strong>
               <small>Join the side you want to support.</small>
@@ -1664,8 +2430,8 @@ function Arena() {
             <b>›</b>
           </div>
 
-          <div className="bottom-step">
-            <span className="step-symbol">◎</span>
+          <div className="bull-ref-bottom-step">
+            <span className="bull-ref-step-symbol">◎</span>
             <div>
               <strong>PLACE YOUR STRATEGY</strong>
               <small>The volume of the market decides.</small>
@@ -1673,8 +2439,8 @@ function Arena() {
             <b>›</b>
           </div>
 
-          <div className="bottom-step">
-            <span className="step-symbol">♜</span>
+          <div className="bull-ref-bottom-step">
+            <span className="bull-ref-step-symbol">♜</span>
             <div>
               <strong>ROOM RESULT</strong>
               <small>The result follows the configured room rules.</small>
