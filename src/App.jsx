@@ -39,66 +39,6 @@ const ROOM_PARTICIPANTS = [
   { name: "BullMaster", side: "SHIBA", time: "5 min" },
 ];
 
-
-function SideLightning({ side }) {
-  const gradientId = `side-lightning-gradient-${side}`;
-
-  return (
-    <div
-      className={`side-lightning side-lightning-${side}`}
-      aria-hidden="true"
-    >
-      <svg
-        viewBox="0 0 180 900"
-        preserveAspectRatio="none"
-        focusable="false"
-      >
-        <defs>
-          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#9945ff" />
-            <stop offset="34%" stopColor="#14f195" />
-            <stop offset="64%" stopColor="#7fffd4" />
-            <stop offset="100%" stopColor="#00e6ff" />
-          </linearGradient>
-
-          <filter id={`side-lightning-glow-${side}`} x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="5" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
-        <path
-          className="side-bolt side-bolt-main"
-          d="M88 0 L55 105 L102 165 L42 260 L96 335 L53 430 L118 510 L72 610 L123 700 L80 790 L103 900"
-          style={{ stroke: `url(#${gradientId})` }}
-          filter={`url(#side-lightning-glow-${side})`}
-        />
-
-        <path
-          className="side-bolt side-bolt-secondary"
-          d="M132 40 L96 140 L141 210 L92 315 L137 395 L90 500 L145 590 L103 690 L152 780 L118 875"
-          style={{ stroke: `url(#${gradientId})` }}
-          filter={`url(#side-lightning-glow-${side})`}
-        />
-
-        <path
-          className="side-bolt side-bolt-branch"
-          d="M72 240 L18 300 L61 343 M99 505 L155 555 L117 607 M77 700 L24 755 L65 796"
-          style={{ stroke: `url(#${gradientId})` }}
-          filter={`url(#side-lightning-glow-${side})`}
-        />
-      </svg>
-
-      <div className="side-lightning-haze" />
-      <div className="side-lightning-orb orb-one" />
-      <div className="side-lightning-orb orb-two" />
-    </div>
-  );
-}
-
 function Arena() {
   const { connected, publicKey } = useWallet();
 
@@ -109,6 +49,7 @@ function Arena() {
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");
   const [activeSection, setActiveSection] = useState("rooms");
+  const [dashboardOpen, setDashboardOpen] = useState(false);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -186,6 +127,16 @@ function Arena() {
         </div>
 
         <div className="header-actions">
+          <button
+            type="button"
+            className="bull-dashboard-trigger"
+            onClick={() => setDashboardOpen(true)}
+            aria-label="Open dashboard menu"
+          >
+            <span>☰</span>
+            DASHBOARD
+          </button>
+
           <div className="online-status">
             <span className="online-dot" />
             Online
@@ -201,19 +152,14 @@ function Arena() {
 
       <style>{`
         .bull-terminal-shell {
-          display: grid;
-          grid-template-columns: 220px minmax(0, 1fr) 250px;
-          gap: 10px;
+          display: block;
           width: 100%;
           min-width: 0;
-          align-items: stretch;
         }
 
         .bull-sidebar {
           min-width: 0;
           padding: 14px 10px;
-          display: flex;
-          flex-direction: column;
           border-right: 1px solid rgba(0, 246, 255, 0.2);
           border-top: 1px solid rgba(143, 64, 255, 0.13);
           background:
@@ -234,7 +180,6 @@ function Arena() {
           display: flex;
           flex-direction: column;
           gap: 7px;
-          margin-bottom: 14px;
         }
 
         .bull-sidebar-button {
@@ -299,7 +244,7 @@ function Arena() {
         .bull-sidebar-promo {
           position: relative;
           overflow: hidden;
-          margin-top: auto;
+          margin-top: 14px;
           padding: 16px 12px;
           min-height: 220px;
           border: 1px solid rgba(105, 57, 255, .28);
@@ -2017,477 +1962,322 @@ function Arena() {
         }
 
 
-        /* =========================================================
-           DESKTOP PROPORTION ADJUSTMENT
-           Smaller center + larger sidebars + taller lower area
-        ========================================================= */
-        @media (min-width: 721px) {
-          .bull-terminal-shell {
-            grid-template-columns: 185px minmax(0, 1fr) 245px !important;
-            gap: 9px !important;
-          }
-
-          .bull-sidebar {
-            padding: 10px !important;
-          }
-
-          .bull-sidebar-button {
-            min-height: 46px !important;
-            grid-template-columns: 28px minmax(0, 1fr) !important;
-            gap: 7px !important;
-            padding: 7px 8px !important;
-          }
-
-          .bull-sidebar-icon {
-            font-size: 14px !important;
-          }
-
-          .bull-sidebar-copy strong {
-            font-size: 7.5px !important;
-          }
-
-          .bull-sidebar-copy small {
-            font-size: 6px !important;
-          }
-
-          .bull-sidebar-promo {
-            min-height: 175px !important;
-            padding: 11px 9px !important;
-          }
-
-          .bull-sidebar-promo img {
-            width: 44px !important;
-            height: 44px !important;
-          }
-
-          .bull-sidebar-promo h3 {
-            font-size: 8.5px !important;
-          }
-
-          .bull-sidebar-promo p {
-            font-size: 6.1px !important;
-            line-height: 1.4 !important;
-          }
-
-          .bull-right-sidebar {
-            padding: 9px !important;
-            gap: 9px !important;
-          }
-
-          .bull-room-card {
-            padding: 11px !important;
-          }
-
-          .bull-participants-card {
-            padding: 10px !important;
-          }
-
-          .bull-participant-row {
-            min-height: 41px !important;
-          }
-
-          /* Give more vertical space to the area below the chart */
-          .bull-ref-info-grid {
-            height: 172px !important;
-            min-height: 172px !important;
-            max-height: 172px !important;
-            grid-template-columns: .80fr 1.20fr !important;
-            gap: 9px !important;
-          }
-
-          .bull-ref-how,
-          .bull-ref-stats {
-            height: 172px !important;
-            min-height: 172px !important;
-            max-height: 172px !important;
-            padding: 11px 12px !important;
-          }
-
-          .bull-ref-how h2,
-          .bull-ref-stats h2 {
-            font-size: 10px !important;
-            margin-bottom: 8px !important;
-          }
-
-          .bull-ref-instruction {
-            min-height: 26px !important;
-            margin: 3px 0 !important;
-          }
-
-          .bull-ref-num {
-            width: 20px !important;
-            height: 20px !important;
-            flex-basis: 20px !important;
-            font-size: 7.5px !important;
-          }
-
-          .bull-ref-instruction strong {
-            font-size: 7.5px !important;
-          }
-
-          .bull-ref-instruction small {
-            font-size: 6.2px !important;
-          }
-
-          .bull-ref-notice {
-            min-height: 32px !important;
-            margin-top: 7px !important;
-            padding: 5px 7px !important;
-          }
-
-          .bull-ref-stat-side {
-            grid-template-columns: 38px minmax(0, 1fr) !important;
-            gap: 7px !important;
-            padding: 3px 10px !important;
-          }
-
-          .bull-ref-stat-token {
-            width: 38px !important;
-            height: 38px !important;
-          }
-
-          .bull-ref-stat-token img {
-            width: 29px !important;
-            height: 29px !important;
-          }
-
-          .bull-ref-stat-side > div:nth-child(2) strong {
-            font-size: 7.5px !important;
-          }
-
-          .bull-ref-stat-side > div:nth-child(2) span {
-            font-size: 6.3px !important;
-          }
-
-          .bull-ref-stat-side p {
-            margin-top: 5px !important;
-            font-size: 6.3px !important;
-          }
-
-          .bull-ref-stat-side p strong {
-            font-size: 12px !important;
-          }
-
-          .bull-ref-diff {
-            margin-top: 9px !important;
-            padding: 6px 8px !important;
-          }
-
-          /* Make the last strip under the two panels larger */
-          .bull-ref-bottom {
-            height: 54px !important;
-            min-height: 54px !important;
-            max-height: 54px !important;
-          }
-
-          .bull-ref-bottom-step {
-            grid-template-columns: 26px minmax(0, 1fr) 9px !important;
-            gap: 6px !important;
-            padding: 7px 9px !important;
-          }
-
-          .bull-ref-step-symbol {
-            font-size: 23px !important;
-          }
-
-          .bull-ref-bottom-step strong {
-            font-size: 6.2px !important;
-          }
-
-          .bull-ref-bottom-step small {
-            font-size: 5.4px !important;
-          }
-        }
-
 
         /* =========================================================
-           ANIMATED SIDE LIGHTNING
-           Solana-inspired purple/green + Hyperliquid-inspired mint/cyan
+           CLEAN DASHBOARD MENU
+           Left navigation and room sidebars live inside one drawer.
         ========================================================= */
-
-        .bull-sidebar,
-        .bull-right-sidebar {
-          position: relative !important;
-          isolation: isolate;
-          overflow: hidden !important;
+        .bull-dashboard-trigger {
+          height: 34px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 7px;
+          padding: 0 12px;
+          border: 1px solid rgba(0, 236, 255, .72);
+          border-radius: 8px;
+          background: linear-gradient(90deg, rgba(111, 37, 255, .23), rgba(0, 229, 244, .10));
+          color: #dffcff;
+          font-size: 8px;
+          font-weight: 900;
+          letter-spacing: .08em;
+          cursor: pointer;
+          box-shadow: 0 0 14px rgba(0, 236, 255, .08), inset 0 0 12px rgba(121, 49, 255, .06);
         }
 
-        .bull-sidebar > *:not(.side-lightning),
-        .bull-right-sidebar > *:not(.side-lightning) {
-          position: relative;
-          z-index: 2;
+        .bull-dashboard-trigger span {
+          color: #00f0f3;
+          font-size: 15px;
+          line-height: 1;
         }
 
-        .side-lightning {
-          position: absolute;
+        .bull-dashboard-trigger:hover {
+          border-color: #00f7ff;
+          box-shadow: 0 0 18px rgba(0, 246, 255, .14), inset 0 0 16px rgba(121, 49, 255, .09);
+        }
+
+        .bull-dashboard-overlay {
+          position: fixed;
           inset: 0;
-          z-index: 0;
-          overflow: hidden;
-          pointer-events: none;
-          opacity: .72;
-          mix-blend-mode: screen;
+          z-index: 5000;
+          display: flex;
+          align-items: stretch;
+          background: rgba(1, 4, 12, .72);
+          backdrop-filter: blur(7px);
+          -webkit-backdrop-filter: blur(7px);
         }
 
-        .side-lightning::before,
-        .side-lightning::after {
+        .bull-dashboard-drawer {
+          width: min(330px, 88vw);
+          height: 100%;
+          overflow-y: auto;
+          padding: 12px;
+          border-right: 1px solid rgba(0, 238, 255, .38);
+          background:
+            radial-gradient(circle at 30% 0%, rgba(132, 48, 255, .16), transparent 30%),
+            radial-gradient(circle at 100% 35%, rgba(0, 231, 255, .08), transparent 30%),
+            linear-gradient(180deg, rgba(5, 8, 20, .995), rgba(2, 5, 13, .995));
+          box-shadow: 22px 0 60px rgba(0, 0, 0, .48), inset -12px 0 34px rgba(0, 238, 255, .025);
+          animation: bullDrawerIn .22s ease-out both;
+        }
+
+        @keyframes bullDrawerIn {
+          from { transform: translateX(-24px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+
+        .bull-dashboard-drawer-head {
+          min-height: 56px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          padding: 4px 4px 11px;
+          border-bottom: 1px solid rgba(0, 148, 230, .20);
+        }
+
+        .bull-dashboard-brand {
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          min-width: 0;
+        }
+
+        .bull-dashboard-brand img {
+          width: 42px;
+          height: 42px;
+          object-fit: contain;
+          filter: drop-shadow(0 0 10px rgba(0, 246, 255, .58));
+        }
+
+        .bull-dashboard-brand div {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+        }
+
+        .bull-dashboard-brand strong {
+          color: #f2f7ff;
+          font-size: 10px;
+          letter-spacing: .10em;
+        }
+
+        .bull-dashboard-brand small {
+          margin-top: 2px;
+          color: #00eaf2;
+          font-size: 6px;
+          letter-spacing: .14em;
+        }
+
+        .bull-dashboard-close {
+          width: 32px;
+          height: 32px;
+          display: grid;
+          place-items: center;
+          flex: 0 0 32px;
+          border: 1px solid rgba(111, 151, 192, .28);
+          border-radius: 7px;
+          background: rgba(4, 9, 21, .86);
+          color: #a8cfe2;
+          font-size: 19px;
+          cursor: pointer;
+        }
+
+        .bull-dashboard-section-label {
+          margin: 12px 4px 7px;
+          color: #566f8a;
+          font-size: 6px;
+          font-weight: 900;
+          letter-spacing: .20em;
+        }
+
+        .bull-dashboard-drawer .bull-sidebar-nav {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 5px !important;
+        }
+
+        .bull-dashboard-drawer .bull-sidebar-button {
+          min-height: 48px !important;
+          grid-template-columns: 28px minmax(0, 1fr) !important;
+          gap: 7px !important;
+          padding: 7px 9px !important;
+        }
+
+        .bull-dashboard-drawer .bull-sidebar-copy strong {
+          font-size: 8px !important;
+        }
+
+        .bull-dashboard-drawer .bull-sidebar-copy small {
+          font-size: 6.5px !important;
+        }
+
+        /* Animated wireframe only under Settings */
+        .bull-dashboard-waves {
+          position: relative;
+          height: 86px;
+          margin: 8px 2px 12px;
+          overflow: hidden;
+          border: 1px solid rgba(0, 124, 235, .18);
+          border-radius: 8px;
+          background:
+            linear-gradient(180deg, rgba(4, 8, 21, .20), rgba(2, 6, 17, .92)),
+            repeating-linear-gradient(90deg, transparent 0 20px, rgba(0, 153, 255, .07) 21px 22px),
+            repeating-linear-gradient(0deg, transparent 0 13px, rgba(126, 58, 255, .07) 14px 15px);
+          box-shadow: inset 0 0 30px rgba(18, 64, 255, .06);
+        }
+
+        .bull-dashboard-waves::before,
+        .bull-dashboard-waves::after {
           content: "";
           position: absolute;
-          width: 150px;
-          height: 150px;
+          left: -20%;
+          width: 140%;
+          height: 52px;
+          border-top: 2px solid rgba(0, 229, 255, .78);
           border-radius: 50%;
-          filter: blur(42px);
-          opacity: .19;
-          animation: sideEnergyDrift 7s ease-in-out infinite alternate;
+          filter: drop-shadow(0 0 6px rgba(0, 229, 255, .7));
+          transform: skewX(-18deg);
+          animation: bullWaveMove 4.8s linear infinite;
         }
 
-        .side-lightning::before {
-          top: 18%;
-          left: -48px;
-          background: radial-gradient(
-            circle,
-            rgba(153, 69, 255, .95) 0%,
-            rgba(20, 241, 149, .35) 42%,
-            transparent 72%
-          );
+        .bull-dashboard-waves::before {
+          bottom: 7px;
+          box-shadow:
+            0 -9px 0 -7px rgba(119, 52, 255, .82),
+            0 -18px 0 -15px rgba(0, 229, 255, .45),
+            0 -27px 0 -23px rgba(145, 60, 255, .42);
         }
 
-        .side-lightning::after {
-          right: -55px;
-          bottom: 13%;
-          background: radial-gradient(
-            circle,
-            rgba(127, 255, 212, .9) 0%,
-            rgba(0, 230, 255, .35) 46%,
-            transparent 73%
-          );
-          animation-delay: -3.4s;
+        .bull-dashboard-waves::after {
+          bottom: -8px;
+          border-top-color: rgba(128, 52, 255, .82);
+          filter: drop-shadow(0 0 6px rgba(128, 52, 255, .65));
+          animation-duration: 6.2s;
+          animation-direction: reverse;
         }
 
-        .side-lightning svg {
-          position: absolute;
-          inset: -7% 0;
+        @keyframes bullWaveMove {
+          from { transform: translateX(-4%) skewX(-18deg); }
+          50% { transform: translateX(4%) skewX(-12deg); }
+          to { transform: translateX(-4%) skewX(-18deg); }
+        }
+
+        .bull-dashboard-room-stack {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-top: 5px;
+        }
+
+        .bull-dashboard-room-stack .bull-right-card {
           width: 100%;
-          height: 114%;
-          overflow: visible;
-          opacity: .86;
-          animation: sideLightningFloat 6.5s ease-in-out infinite alternate;
         }
 
-        .side-lightning-right svg {
-          transform: scaleX(-1);
-          animation-name: sideLightningFloatRight;
-          animation-duration: 7.2s;
+        .bull-dashboard-room-stack .bull-right-brand {
+          display: none;
         }
 
-        .side-bolt {
-          fill: none;
-          stroke-width: 2.15;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-          vector-effect: non-scaling-stroke;
-          stroke-dasharray: 14 12 40 9;
-          animation:
-            sideBoltRun 2.3s linear infinite,
-            sideBoltFlicker 4.2s steps(1, end) infinite;
+        /* Main page no longer reserves permanent side columns */
+        .bull-terminal-shell {
+          display: block !important;
+          grid-template-columns: none !important;
+          width: 100% !important;
+          max-width: 100% !important;
         }
 
-        .side-bolt-main {
-          stroke-width: 2.4;
-        }
-
-        .side-bolt-secondary {
-          stroke-width: 1.5;
-          opacity: .52;
-          animation-duration: 3.1s, 5.4s;
-          animation-delay: -.8s, -1.4s;
-        }
-
-        .side-bolt-branch {
-          stroke-width: 1.35;
-          opacity: .7;
-          animation-duration: 1.85s, 3.6s;
-          animation-delay: -.3s, -2s;
-        }
-
-        .side-lightning-haze {
-          position: absolute;
-          inset: 0;
-          background:
-            linear-gradient(
-              180deg,
-              transparent 0%,
-              rgba(153, 69, 255, .045) 22%,
-              rgba(20, 241, 149, .05) 47%,
-              rgba(127, 255, 212, .045) 70%,
-              transparent 100%
-            ),
-            repeating-linear-gradient(
-              112deg,
-              transparent 0 42px,
-              rgba(0, 230, 255, .025) 43px 44px,
-              transparent 45px 88px
-            );
-          animation: sideHazePulse 5s ease-in-out infinite alternate;
-        }
-
-        .side-lightning-orb {
-          position: absolute;
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          background: #7fffd4;
-          box-shadow:
-            0 0 9px #7fffd4,
-            0 0 18px rgba(20, 241, 149, .85),
-            0 0 32px rgba(153, 69, 255, .65);
-          animation: sideOrbTravel 6s ease-in-out infinite;
-        }
-
-        .side-lightning-orb.orb-one {
-          left: 23%;
-          top: 16%;
-        }
-
-        .side-lightning-orb.orb-two {
-          right: 20%;
-          top: 63%;
-          width: 7px;
-          height: 7px;
-          background: #9945ff;
-          box-shadow:
-            0 0 9px #9945ff,
-            0 0 20px rgba(153, 69, 255, .9),
-            0 0 30px rgba(0, 230, 255, .45);
-          animation-delay: -3s;
-        }
-
-        @keyframes sideBoltRun {
-          from {
-            stroke-dashoffset: 0;
-          }
-          to {
-            stroke-dashoffset: -150;
+        @media (max-width: 1180px) {
+          .bull-terminal-shell {
+            display: block !important;
+            grid-template-columns: none !important;
+            width: 100% !important;
+            max-width: 100% !important;
           }
         }
 
-        @keyframes sideBoltFlicker {
-          0%, 7%, 11%, 37%, 41%, 73%, 100% {
-            opacity: .86;
+        .bull-main-stage {
+          width: min(1240px, calc(100% - 16px)) !important;
+          max-width: 1240px !important;
+          margin: 8px auto 14px !important;
+          overflow: visible !important;
+        }
+
+        @media (min-width: 721px) {
+          .bull-terminal-shell {
+            display: block !important;
+            grid-template-columns: none !important;
           }
-          8%, 10%, 38%, 40%, 74% {
-            opacity: .23;
-          }
-          55% {
-            opacity: 1;
+
+          .bull-main-stage {
+            width: min(1240px, calc(100% - 20px)) !important;
+            max-width: 1240px !important;
+            margin: 8px auto 14px !important;
           }
         }
 
-        @keyframes sideLightningFloat {
-          0% {
-            transform: translate3d(-5px, -16px, 0) scale(1.02);
-          }
-          50% {
-            transform: translate3d(6px, 7px, 0) scale(1.055);
-          }
-          100% {
-            transform: translate3d(-1px, 20px, 0) scale(1.015);
-          }
-        }
-
-        @keyframes sideLightningFloatRight {
-          0% {
-            transform: scaleX(-1) translate3d(-4px, -18px, 0) scale(1.02);
-          }
-          50% {
-            transform: scaleX(-1) translate3d(5px, 9px, 0) scale(1.06);
-          }
-          100% {
-            transform: scaleX(-1) translate3d(0, 22px, 0) scale(1.01);
-          }
-        }
-
-        @keyframes sideEnergyDrift {
-          from {
-            transform: translate3d(0, -18px, 0) scale(.92);
-            opacity: .11;
-          }
-          to {
-            transform: translate3d(14px, 24px, 0) scale(1.16);
-            opacity: .27;
-          }
-        }
-
-        @keyframes sideHazePulse {
-          from {
-            opacity: .38;
-            transform: translateY(-1.5%);
-          }
-          to {
-            opacity: .8;
-            transform: translateY(1.5%);
-          }
-        }
-
-        @keyframes sideOrbTravel {
-          0% {
-            transform: translate3d(-4px, -18px, 0) scale(.65);
-            opacity: .2;
-          }
-          20% {
-            opacity: 1;
-          }
-          52% {
-            transform: translate3d(38px, 180px, 0) scale(1.15);
-            opacity: .9;
-          }
-          100% {
-            transform: translate3d(-12px, 390px, 0) scale(.55);
-            opacity: 0;
-          }
-        }
-
-        /* Keep the effects elegant on phones instead of covering the UI */
         @media (max-width: 720px) {
-          .side-lightning {
-            opacity: .32;
+          .bull-dashboard-trigger {
+            height: 31px;
+            padding: 0 9px;
+            font-size: 7px;
           }
 
-          .side-bolt {
-            stroke-width: 1.25;
+          .bull-dashboard-trigger span {
+            font-size: 13px;
           }
 
-          .side-lightning::before,
-          .side-lightning::after {
-            opacity: .09;
+          .bull-dashboard-drawer {
+            width: min(310px, 92vw);
+            padding: 10px;
           }
 
-          .side-lightning-orb {
-            display: none;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .side-lightning *,
-          .side-lightning::before,
-          .side-lightning::after {
-            animation: none !important;
+          .bull-main-stage {
+            width: calc(100% - 8px) !important;
+            margin: 4px auto 8px !important;
           }
         }
 
       `}</style>
 
-      <div className="bull-terminal-shell">
-        <aside className="bull-sidebar">
-          <SideLightning side="left" />
-          <div className="bull-sidebar-title">BULL PROTOCOL TERMINAL</div>
+      {dashboardOpen && (
+        <div
+          className="bull-dashboard-overlay"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              setDashboardOpen(false);
+            }
+          }}
+        >
+          <aside className="bull-dashboard-drawer" aria-label="Bull Protocol dashboard menu">
+            <div className="bull-dashboard-drawer-head">
+              <div className="bull-dashboard-brand">
+                <img src="/bull-logo.png" alt="Bull Protocol" />
+                <div>
+                  <strong>BULL PROTOCOL</strong>
+                  <small>DASHBOARD MENU</small>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="bull-dashboard-close"
+                onClick={() => setDashboardOpen(false)}
+                aria-label="Close dashboard menu"
+              >
+                ×
+              </button>
+            </div>
 
+            <div className="bull-dashboard-section-label">NAVIGATION</div>
           <nav className="bull-sidebar-nav" aria-label="Bull Protocol navigation">
             {SIDEBAR_ITEMS.map((item) => (
               <button
                 key={item.id}
                 type="button"
                 className={`bull-sidebar-button ${activeSection === item.id ? "active" : ""}`}
-                onClick={() => setActiveSection(item.id)}
+                onClick={() => {
+                  setActiveSection(item.id);
+                  setDashboardOpen(false);
+                }}
               >
                 <span className="bull-sidebar-icon">{item.icon}</span>
                 <span className="bull-sidebar-copy">
@@ -2498,22 +2288,96 @@ function Arena() {
             ))}
           </nav>
 
-          <div className="bull-sidebar-promo">
-            <img src="/bull-logo.png" alt="Bull Protocol" />
-            <h3>
-              <span>MORE MOMENTUM,</span><br />
-              <span>LESS EMOTION</span>
-            </h3>
-            <p>
-              Every move matters. Follow market momentum, choose your side and
-              enter the active room.
-            </p>
-            <button type="button" onClick={() => setActiveSection("rooms")}>
-              HOW IT WORKS?
-            </button>
-          </div>
-        </aside>
+            <div className="bull-dashboard-waves" aria-hidden="true" />
 
+            <div className="bull-dashboard-section-label">ACTIVE ROOM</div>
+            <div className="bull-dashboard-room-stack">
+          <section className="bull-right-card bull-room-card">
+            <div className="bull-room-card-top">
+              <span className="bull-room-number">ROOM #4827</span>
+              <span className="bull-room-live"><i /> IN PROGRESS</span>
+            </div>
+
+            <h3>SHIBA VS DOGE</h3>
+            <p>Battle for market momentum during the active 30-minute room.</p>
+
+            <div className="bull-room-facts">
+              <div className="bull-room-fact">
+                <small>Duration</small>
+                <strong>30 minutes</strong>
+              </div>
+              <div className="bull-room-fact">
+                <small>Participants</small>
+                <strong>100 / 100</strong>
+              </div>
+            </div>
+
+            <div className="bull-network-row">
+              <small>Market Status</small>
+              <strong>LIVE MARKET</strong>
+            </div>
+
+            <button
+              type="button"
+              className="bull-enter-room"
+              onClick={() => {
+                setSelectedSide(null);
+                setShowEntry(true);
+                setMessage("");
+              }}
+            >
+              ENTER ROOM →
+            </button>
+          </section>
+
+          <section className="bull-right-card bull-participants-card">
+            <div className="bull-participants-heading">
+              <strong>PARTICIPANTS (100)</strong>
+              <span>LIVE</span>
+            </div>
+
+            <div className="bull-team-totals">
+              <div className="bull-team-total shiba">
+                <img src={SHIBA_LOGO} alt="SHIBA" />
+                <span>SHIBA<b>50</b></span>
+              </div>
+              <div className="bull-team-total doge">
+                <img src={DOGE_LOGO} alt="DOGE" />
+                <span>DOGE<b>50</b></span>
+              </div>
+            </div>
+
+            <div className="bull-participant-list">
+              {ROOM_PARTICIPANTS.map((participant) => (
+                <div className="bull-participant-row" key={participant.name}>
+                  <div className="bull-participant-avatar">
+                    <img
+                      src={participant.side === "SHIBA" ? SHIBA_LOGO : DOGE_LOGO}
+                      alt=""
+                    />
+                  </div>
+                  <div className="bull-participant-copy">
+                    <strong>{participant.name}</strong>
+                    <small className={participant.side.toLowerCase()}>
+                      Joined the {participant.side === "SHIBA" ? "Shiba" : "Doge"} side
+                    </small>
+                  </div>
+                  <time>{participant.time}</time>
+                </div>
+              ))}
+            </div>
+
+            <button type="button" className="bull-view-participants">
+              View all participants (100) <span>→</span>
+            </button>
+          </section>
+
+            </div>
+          </aside>
+        </div>
+      )}
+
+      <div className="bull-terminal-shell">
         <div className="bull-main-stage">
           {activeSection === "rooms" ? (
             <main className="arena-page bull-reference-center">
@@ -2985,96 +2849,6 @@ function Arena() {
           )}
         </div>
 
-        <aside className="bull-right-sidebar" aria-label="Active room details">
-          <SideLightning side="right" />
-          <section className="bull-right-card bull-room-card">
-            <div className="bull-room-card-top">
-              <span className="bull-room-number">ROOM #4827</span>
-              <span className="bull-room-live"><i /> IN PROGRESS</span>
-            </div>
-
-            <h3>SHIBA VS DOGE</h3>
-            <p>Battle for market momentum during the active 30-minute room.</p>
-
-            <div className="bull-room-facts">
-              <div className="bull-room-fact">
-                <small>Duration</small>
-                <strong>30 minutes</strong>
-              </div>
-              <div className="bull-room-fact">
-                <small>Participants</small>
-                <strong>100 / 100</strong>
-              </div>
-            </div>
-
-            <div className="bull-network-row">
-              <small>Market Status</small>
-              <strong>LIVE MARKET</strong>
-            </div>
-
-            <button
-              type="button"
-              className="bull-enter-room"
-              onClick={() => {
-                setSelectedSide(null);
-                setShowEntry(true);
-                setMessage("");
-              }}
-            >
-              ENTER ROOM →
-            </button>
-          </section>
-
-          <section className="bull-right-card bull-participants-card">
-            <div className="bull-participants-heading">
-              <strong>PARTICIPANTS (100)</strong>
-              <span>LIVE</span>
-            </div>
-
-            <div className="bull-team-totals">
-              <div className="bull-team-total shiba">
-                <img src={SHIBA_LOGO} alt="SHIBA" />
-                <span>SHIBA<b>50</b></span>
-              </div>
-              <div className="bull-team-total doge">
-                <img src={DOGE_LOGO} alt="DOGE" />
-                <span>DOGE<b>50</b></span>
-              </div>
-            </div>
-
-            <div className="bull-participant-list">
-              {ROOM_PARTICIPANTS.map((participant) => (
-                <div className="bull-participant-row" key={participant.name}>
-                  <div className="bull-participant-avatar">
-                    <img
-                      src={participant.side === "SHIBA" ? SHIBA_LOGO : DOGE_LOGO}
-                      alt=""
-                    />
-                  </div>
-                  <div className="bull-participant-copy">
-                    <strong>{participant.name}</strong>
-                    <small className={participant.side.toLowerCase()}>
-                      Joined the {participant.side === "SHIBA" ? "Shiba" : "Doge"} side
-                    </small>
-                  </div>
-                  <time>{participant.time}</time>
-                </div>
-              ))}
-            </div>
-
-            <button type="button" className="bull-view-participants">
-              View all participants (100) <span>→</span>
-            </button>
-          </section>
-
-          <div className="bull-right-brand">
-            <img src="/bull-logo.png" alt="Bull Protocol" />
-            <div className="bull-right-brand-copy">
-              <strong>BULL PROTOCOL</strong>
-              <small>MOMENTUM WINS</small>
-            </div>
-          </div>
-        </aside>
       </div>
 
       {showEntry && (
