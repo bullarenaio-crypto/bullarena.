@@ -1607,3 +1607,115 @@ a {
     grid-template-columns: 1fr;
   }
 }
+/* =========================================================
+   BULL ARENA — LOWER ELECTRIC ENERGY EFFECT
+   ========================================================= */
+
+.how-it-works,
+.room-statistics {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      circle at 0% 50%,
+      rgba(181, 0, 255, 0.20) 0%,
+      rgba(103, 0, 255, 0.10) 28%,
+      transparent 58%
+    ),
+    radial-gradient(
+      circle at 100% 50%,
+      rgba(0, 229, 255, 0.16) 0%,
+      rgba(0, 122, 255, 0.08) 30%,
+      transparent 60%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(9, 8, 35, 0.98),
+      rgba(3, 18, 42, 0.98)
+    );
+}
+
+/* Purple electric energy */
+.how-it-works::before,
+.room-statistics::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  z-index: -2;
+  pointer-events: none;
+
+  background:
+    repeating-conic-gradient(
+      from 215deg at 18% 52%,
+      transparent 0deg 5deg,
+      rgba(219, 44, 255, 0.20) 5.5deg 6deg,
+      transparent 6.5deg 14deg
+    ),
+    radial-gradient(
+      ellipse at 12% 50%,
+      rgba(236, 31, 255, 0.42) 0%,
+      rgba(130, 24, 255, 0.20) 20%,
+      transparent 50%
+    );
+
+  filter: blur(2px);
+  opacity: 0.95;
+  transform: rotate(-4deg) scale(1.15);
+  animation: bullElectricPulse 4s ease-in-out infinite alternate;
+}
+
+/* Cyan electric energy */
+.how-it-works::after,
+.room-statistics::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    repeating-conic-gradient(
+      from 35deg at 88% 50%,
+      transparent 0deg 6deg,
+      rgba(0, 229, 255, 0.17) 6.5deg 7deg,
+      transparent 7.5deg 15deg
+    ),
+    radial-gradient(
+      ellipse at 90% 50%,
+      rgba(0, 229, 255, 0.30) 0%,
+      rgba(0, 122, 255, 0.14) 22%,
+      transparent 52%
+    );
+
+  filter: blur(3px);
+  opacity: 0.85;
+  transform: rotate(4deg) scale(1.15);
+  animation: bullElectricPulse 5s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes bullElectricPulse {
+  0% {
+    opacity: 0.65;
+    filter: blur(3px) brightness(0.9);
+    transform: scale(1.08);
+  }
+
+  50% {
+    opacity: 1;
+    filter: blur(1px) brightness(1.35);
+  }
+
+  100% {
+    opacity: 0.78;
+    filter: blur(2px) brightness(1.1);
+    transform: scale(1.18);
+  }
+}
+
+/* Keep all lower-panel content above the energy */
+.how-it-works > *,
+.room-statistics > * {
+  position: relative;
+  z-index: 2;
+}
