@@ -152,6 +152,8 @@ function Arena() {
         .bull-sidebar {
           min-width: 0;
           padding: 14px 10px;
+          display: flex;
+          flex-direction: column;
           border-right: 1px solid rgba(0, 246, 255, 0.2);
           border-top: 1px solid rgba(143, 64, 255, 0.13);
           background:
@@ -172,6 +174,7 @@ function Arena() {
           display: flex;
           flex-direction: column;
           gap: 7px;
+          margin-bottom: 14px;
         }
 
         .bull-sidebar-button {
@@ -236,7 +239,7 @@ function Arena() {
         .bull-sidebar-promo {
           position: relative;
           overflow: hidden;
-          margin-top: 14px;
+          margin-top: auto;
           padding: 16px 12px;
           min-height: 220px;
           border: 1px solid rgba(105, 57, 255, .28);
