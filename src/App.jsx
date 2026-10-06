@@ -14,7 +14,6 @@ import {
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
 
-const NETWORK_ENDPOINT = clusterApiUrl("mainnet-beta");
 const BULL_LOGO = "/bull-logo.png";
 
 const SHIBA_LOGO =
@@ -23,422 +22,169 @@ const SHIBA_LOGO =
 const DOGE_LOGO =
   "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png";
 
+const ENDPOINT = clusterApiUrl("mainnet-beta");
+
 const participants = [
   {
-    name: "ShibaStorm_23",
+    name: "ShibaTeam_97...",
     side: "SHIBA",
-    amount: "1.20",
-    time: "2 min ago",
+    time: "2 min",
+    image: SHIBA_LOGO,
   },
   {
-    name: "DogeKing77",
+    name: "DogeWolf_72...",
     side: "DOGE",
-    amount: "0.85",
-    time: "3 min ago",
+    time: "2 min",
+    image: DOGE_LOGO,
   },
   {
-    name: "CryptoBull",
+    name: "CryptoLuna",
     side: "SHIBA",
-    amount: "2.10",
-    time: "4 min ago",
+    time: "3 min",
+    avatar: "CL",
   },
   {
-    name: "MoonRunner",
+    name: "TraderAlpha",
     side: "DOGE",
-    amount: "1.45",
-    time: "5 min ago",
+    time: "4 min",
+    avatar: "TA",
+  },
+  {
+    name: "SolMaster",
+    side: "SHIBA",
+    time: "5 min",
+    avatar: "SM",
   },
 ];
 
-function Icon({ name }) {
-  const icons = {
-    rooms: (
-      <>
-        <path d="M5 5h14v14H5z" />
-        <path d="M9 9l6 6M15 9l-6 6" />
-      </>
-    ),
-    profile: (
-      <>
-        <circle cx="12" cy="8" r="3" />
-        <path d="M6 19c.6-3.2 2.6-5 6-5s5.4 1.8 6 5" />
-      </>
-    ),
-    launchpad: (
-      <>
-        <path d="M12 3l7 7-7 11-7-11 7-7z" />
-        <path d="M8 10h8" />
-      </>
-    ),
-    leaderboard: (
-      <>
-        <path d="M5 19h14" />
-        <path d="M7 16V9h3v7" />
-        <path d="M11 16V5h3v11" />
-        <path d="M15 16v-4h3v4" />
-      </>
-    ),
-    rewards: (
-      <>
-        <path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4-3.9-3.8 5.4-.8L12 3z" />
-      </>
-    ),
-    settings: (
-      <>
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4" />
-      </>
-    ),
+function Icon({ type }) {
+  const common = {
+    width: 21,
+    height: 21,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.8,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
   };
 
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="menu-icon"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {icons[name]}
-    </svg>
-  );
+  if (type === "rooms") {
+    return (
+      <svg {...common}>
+        <path d="M4 4l16 16" />
+        <path d="M20 4L4 20" />
+        <path d="M7 4l13 13" />
+        <path d="M17 4L4 17" />
+      </svg>
+    );
+  }
+
+  if (type === "profile") {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="7" r="4" />
+        <path d="M4 21c.7-5 3.3-7 8-7s7.3 2 8 7" />
+      </svg>
+    );
+  }
+
+  if (type === "launchpad") {
+    return (
+      <svg {...common}>
+        <path d="M14 4c3-2 5-1 6-1 0 1 1 3-1 6l-6 6-4-4 5-7Z" />
+        <path d="M9 11l-4 1-2 4 6-1" />
+        <path d="M13 15l-1 6 4-2 1-4" />
+        <circle cx="15.5" cy="7.5" r="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "leaderboard") {
+    return (
+      <svg {...common}>
+        <path d="M8 4h8v5a4 4 0 0 1-8 0V4Z" />
+        <path d="M8 6H4v2c0 3 2 4 5 4" />
+        <path d="M16 6h4v2c0 3-2 4-5 4" />
+        <path d="M12 13v5" />
+        <path d="M8 21h8" />
+        <path d="M9 18h6" />
+      </svg>
+    );
+  }
+
+  if (type === "rewards") {
+    return (
+      <svg {...common}>
+        <path d="M12 2l2 3 4-.5.5 4 3 2-2 3 1 4-4 .5-2 3-3-2.5-4 .5-.5-4-3-2 2-3-1-4 4-.5L12 2Z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    );
+  }
+
+  if (type === "settings") {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19 13.5v-3l-2-.7a7 7 0 0 0-.7-1.7l.9-1.9-2.1-2.1-1.9.9a7 7 0 0 0-1.7-.7L10.5 2h-3l-.7 2.3a7 7 0 0 0-1.7.7l-1.9-.9-2.1 2.1.9 1.9a7 7 0 0 0-.7 1.7L0 10.5v3l2.3.7c.2.6.4 1.2.7 1.7l-.9 1.9 2.1 2.1 1.9-.9c.5.3 1.1.5 1.7.7l.7 2.3h3l.7-2.3c.6-.2 1.2-.4 1.7-.7l1.9.9 2.1-2.1-.9-1.9c.3-.5.5-1.1.7-1.7L19 13.5Z" transform="translate(2)" />
+      </svg>
+    );
+  }
+
+  if (type === "clock") {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
+      </svg>
+    );
+  }
+
+  if (type === "users") {
+    return (
+      <svg {...common}>
+        <circle cx="9" cy="8" r="3" />
+        <path d="M3 19c.5-4 2.5-6 6-6s5.5 2 6 6" />
+        <path d="M15 6a3 3 0 0 1 0 6" />
+        <path d="M17 13c2.4.6 3.6 2.6 4 5" />
+      </svg>
+    );
+  }
+
+  if (type === "link") {
+    return (
+      <svg {...common}>
+        <path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" />
+        <path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" />
+      </svg>
+    );
+  }
+
+  return null;
 }
 
-function BullMark({ small = false }) {
+function BullBrand({ compact = false }) {
   return (
-    <div className={`bull-mark ${small ? "bull-mark-small" : ""}`}>
-      <img src={BULL_LOGO} alt="Bull Protocol" />
+    <div className={`bull-brand ${compact ? "compact" : ""}`}>
+      <div className="brand-logo-shell">
+        <img src={BULL_LOGO} alt="Bull Protocol" />
+      </div>
+
+      <div className="brand-copy">
+        <strong>BULL PROTOCOL</strong>
+        <span>MOMENTUM TRADING TERMINAL</span>
+      </div>
     </div>
   );
 }
 
-function TokenBadge({ token, size = "large" }) {
-  const isShiba = token === "SHIBA";
-
-  return (
-    <div
-      className={`token-badge ${
-        isShiba ? "token-shiba" : "token-doge"
-      } token-badge-${size}`}
-    >
-      <div className="token-ring token-ring-one" />
-      <div className="token-ring token-ring-two" />
-
-      <div className="token-logo-shell">
-        <img
-          src={isShiba ? SHIBA_LOGO : DOGE_LOGO}
-          alt={isShiba ? "Shiba Inu" : "Dogecoin"}
-        />
-      </div>
-
-      <span className="token-code">{isShiba ? "SH" : "DG"}</span>
-    </div>
-  );
-}
-
-function CountdownTimer() {
-  const [seconds, setSeconds] = useState(28 * 60 + 17);
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setSeconds((current) => {
-        if (current <= 0) {
-          return 30 * 60;
-        }
-
-        return current - 1;
-      });
-    }, 1000);
-
-    return () => window.clearInterval(interval);
-  }, []);
-
-  const minutes = Math.floor(seconds / 60)
-    .toString()
-    .padStart(2, "0");
-
-  const remainingSeconds = (seconds % 60).toString().padStart(2, "0");
-
-  return (
-    <div className="countdown">
-      <span>TIME REMAINING</span>
-      <strong>
-        {minutes}:{remainingSeconds}
-      </strong>
-    </div>
-  );
-}
-
-function ArenaEnergy() {
-  return (
-    <svg
-      className="arena-energy"
-      viewBox="0 0 1000 420"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="energyMain" x1="0" x2="1">
-          <stop offset="0%" stopColor="#8b3dff" />
-          <stop offset="50%" stopColor="#4169ff" />
-          <stop offset="100%" stopColor="#00f5ff" />
-        </linearGradient>
-
-        <filter id="energyGlow">
-          <feGaussianBlur stdDeviation="8" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-
-      <path
-        d="M0 50 L145 105 L260 66 L390 168 L500 92 L625 176 L760 72 L1000 155"
-        className="energy-line energy-line-top"
-      />
-
-      <path
-        d="M0 360 L145 282 L280 346 L402 242 L500 320 L630 236 L770 350 L1000 270"
-        className="energy-line energy-line-bottom"
-      />
-
-      <path
-        d="M0 195 L160 176 L265 214 L390 181 L500 211 L635 170 L780 213 L1000 190"
-        className="energy-line energy-line-center"
-      />
-
-      <path
-        d="M150 105 L210 150 L184 177 L250 205"
-        className="energy-branch"
-      />
-
-      <path
-        d="M760 72 L715 135 L742 170 L680 208"
-        className="energy-branch energy-branch-cyan"
-      />
-
-      <path
-        d="M280 346 L330 296 L310 266 L370 230"
-        className="energy-branch"
-      />
-
-      <path
-        d="M770 350 L725 305 L746 266 L690 235"
-        className="energy-branch energy-branch-cyan"
-      />
-    </svg>
-  );
-}
-
-function MarketChart({ selectedChart, setSelectedChart }) {
-  return (
-    <section className="panel market-chart-panel">
-      <div className="panel-heading chart-heading">
-        <div>
-          <span className="eyebrow">LIVE MARKET FEED</span>
-
-          <h2>
-            VOLUME ON DEX <small>(LAST 30 MIN)</small>
-          </h2>
-        </div>
-
-        <div className="chart-tabs">
-          {["TOTAL", "SHIBA", "DOGE"].map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              className={selectedChart === tab ? "active" : ""}
-              onClick={() => setSelectedChart(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className={`market-chart market-chart-${selectedChart.toLowerCase()}`}>
-        <svg
-          viewBox="0 0 1000 330"
-          preserveAspectRatio="none"
-          role="img"
-          aria-label="Market volume preview chart"
-        >
-          <defs>
-            <linearGradient id="shibaFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ff61f6" stopOpacity=".42" />
-              <stop offset="100%" stopColor="#ff61f6" stopOpacity=".02" />
-            </linearGradient>
-
-            <linearGradient id="dogeFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#1ce8ff" stopOpacity=".36" />
-              <stop offset="100%" stopColor="#1ce8ff" stopOpacity=".02" />
-            </linearGradient>
-
-            <filter id="chartGlow">
-              <feGaussianBlur stdDeviation="5" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          {[45, 100, 155, 210, 265].map((y) => (
-            <line
-              key={`horizontal-${y}`}
-              x1="65"
-              y1={y}
-              x2="970"
-              y2={y}
-              className="chart-grid-line"
-            />
-          ))}
-
-          {[65, 220, 375, 530, 685, 840, 970].map((x) => (
-            <line
-              key={`vertical-${x}`}
-              x1={x}
-              y1="25"
-              x2={x}
-              y2="285"
-              className="chart-grid-line chart-grid-vertical"
-            />
-          ))}
-
-          <path
-            className="chart-area shiba-area"
-            d="M65 230
-               C120 215 145 190 200 198
-               C260 205 286 164 340 174
-               C390 184 420 150 470 158
-               C520 169 555 130 610 140
-               C660 149 690 112 745 124
-               C795 136 830 92 875 105
-               C920 115 940 76 970 82
-               L970 285 L65 285 Z"
-            fill="url(#shibaFill)"
-          />
-
-          <path
-            className="chart-area doge-area"
-            d="M65 270
-               C120 264 145 228 205 235
-               C255 241 290 205 345 214
-               C395 223 425 188 475 196
-               C525 204 555 169 610 179
-               C660 190 700 151 750 161
-               C800 170 835 142 880 151
-               C920 158 945 126 970 132
-               L970 285 L65 285 Z"
-            fill="url(#dogeFill)"
-          />
-
-          <path
-            className="chart-line shiba-line"
-            d="M65 230
-               C120 215 145 190 200 198
-               C260 205 286 164 340 174
-               C390 184 420 150 470 158
-               C520 169 555 130 610 140
-               C660 149 690 112 745 124
-               C795 136 830 92 875 105
-               C920 115 940 76 970 82"
-          />
-
-          <path
-            className="chart-line doge-line"
-            d="M65 270
-               C120 264 145 228 205 235
-               C255 241 290 205 345 214
-               C395 223 425 188 475 196
-               C525 204 555 169 610 179
-               C660 190 700 151 750 161
-               C800 170 835 142 880 151
-               C920 158 945 126 970 132"
-          />
-
-          <text x="12" y="48" className="chart-axis-label">
-            25M
-          </text>
-          <text x="12" y="103" className="chart-axis-label">
-            20M
-          </text>
-          <text x="12" y="158" className="chart-axis-label">
-            15M
-          </text>
-          <text x="12" y="213" className="chart-axis-label">
-            10M
-          </text>
-          <text x="24" y="268" className="chart-axis-label">
-            5M
-          </text>
-
-          <text x="65" y="315" className="chart-time-label">
-            14:05
-          </text>
-          <text x="235" y="315" className="chart-time-label">
-            14:10
-          </text>
-          <text x="405" y="315" className="chart-time-label">
-            14:15
-          </text>
-          <text x="575" y="315" className="chart-time-label">
-            14:20
-          </text>
-          <text x="745" y="315" className="chart-time-label">
-            14:25
-          </text>
-          <text x="925" y="315" className="chart-time-label">
-            14:30
-          </text>
-
-          <g className="chart-value chart-value-shiba">
-            <rect x="902" y="63" width="68" height="28" rx="3" />
-            <text x="936" y="82" textAnchor="middle">
-              12.4M
-            </text>
-          </g>
-
-          <g className="chart-value chart-value-doge">
-            <rect x="902" y="119" width="68" height="28" rx="3" />
-            <text x="936" y="138" textAnchor="middle">
-              10.8M
-            </text>
-          </g>
-        </svg>
-
-        <div className="chart-footer">
-          <div className="chart-legend">
-            <span>
-              <i className="legend-dot shiba-dot" />
-              SHIBA VOLUME
-            </span>
-
-            <span>
-              <i className="legend-dot doge-dot" />
-              DOGE VOLUME
-            </span>
-          </div>
-
-          <span className="chart-source">MARKET DATA PREVIEW</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Sidebar({ activeSection, setActiveSection }) {
+function SideNavigation({ activePage, setActivePage }) {
   const items = [
     {
       id: "rooms",
       title: "ROOMS",
-      subtitle: "Live battles",
+      subtitle: "Join battles",
       icon: "rooms",
-      badge: "LIVE",
     },
     {
       id: "profile",
@@ -473,37 +219,37 @@ function Sidebar({ activeSection, setActiveSection }) {
   ];
 
   return (
-    <aside className="sidebar">
-      <nav className="sidebar-navigation" aria-label="Main navigation">
+    <aside className="left-sidebar">
+      <nav className="side-navigation">
         {items.map((item) => (
           <button
             type="button"
             key={item.id}
-            className={`sidebar-item ${
-              activeSection === item.id ? "active" : ""
+            className={`side-nav-item ${
+              activePage === item.id ? "active" : ""
             }`}
-            onClick={() => setActiveSection(item.id)}
+            onClick={() => setActivePage(item.id)}
           >
-            <span className="sidebar-icon-shell">
-              <Icon name={item.icon} />
+            <span className="side-nav-icon">
+              <Icon type={item.icon} />
             </span>
 
-            <span className="sidebar-copy">
+            <span className="side-nav-copy">
               <strong>{item.title}</strong>
               <small>{item.subtitle}</small>
             </span>
 
-            {item.badge && (
-              <span className="sidebar-badge">{item.badge}</span>
+            {item.id === "rooms" && (
+              <span className="live-badge">LIVE</span>
             )}
           </button>
         ))}
       </nav>
 
       <div className="momentum-card">
-        <div className="momentum-card-glow" />
-
-        <BullMark small />
+        <div className="momentum-bull">
+          <img src={BULL_LOGO} alt="" />
+        </div>
 
         <h3>
           MORE MOMENTUM,
@@ -512,81 +258,268 @@ function Sidebar({ activeSection, setActiveSection }) {
         </h3>
 
         <p>
-          Every room has a defined market window. Follow the data, choose your
-          side and compete with discipline.
+          Here, every move matters.
+          <br />
+          The game never stops
+          <br />
+          in the market for 30 minutes.
         </p>
 
-        <button
-          type="button"
-          onClick={() => setActiveSection("rooms")}
-          className="text-link"
-        >
+        <button type="button" className="outline-action">
           HOW IT WORKS?
         </button>
       </div>
 
-      <div className="terrain-visual" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
+      <div className="wireframe-landscape" aria-hidden="true">
+        <span className="wire-line line-1" />
+        <span className="wire-line line-2" />
+        <span className="wire-line line-3" />
+        <span className="wire-line line-4" />
+        <span className="wire-line line-5" />
       </div>
 
-      <div className="sidebar-brand-bottom">
-        <BullMark small />
-
-        <div>
-          <strong>BULL PROTOCOL</strong>
-          <span>MOMENTUM WINS</span>
-        </div>
+      <div className="powered-by">
+        <span>POWERED BY</span>
+        <BullBrand compact />
       </div>
     </aside>
   );
 }
 
-function ArenaHero() {
+function ArenaHero({ timeLeft }) {
   return (
     <section className="arena-hero panel">
-      <ArenaEnergy />
+      <div className="arena-energy energy-left" />
+      <div className="arena-energy energy-right" />
 
-      <div className="arena-grid-overlay" />
+      <svg
+        className="arena-lightning"
+        viewBox="0 0 1000 330"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          className="lightning purple"
+          d="M0 28 L115 78 L210 38 L310 108 L402 72 L475 146 L405 190 L305 166 L225 230 L115 188 L0 218"
+        />
+        <path
+          className="lightning cyan"
+          d="M1000 30 L888 84 L805 42 L710 112 L612 74 L528 148 L603 190 L700 166 L792 232 L890 184 L1000 220"
+        />
+      </svg>
 
-      <div className="arena-side arena-side-shiba">
-        <TokenBadge token="SHIBA" />
+      <div className="arena-status">
+        <span className="status-dot" />
+        ACTIVE ROOM
+      </div>
 
-        <div className="side-stat-card">
-          <span>SHIBA SIDE</span>
-          <strong>50 PARTICIPANTS</strong>
-          <small>VOLUME DEX: 12.4M USDT</small>
+      <div className="arena-layout">
+        <div className="fighter fighter-shiba">
+          <div className="fighter-orb">
+            <div className="fighter-ring ring-one" />
+            <div className="fighter-ring ring-two" />
+            <img src={SHIBA_LOGO} alt="Shiba" />
+          </div>
+
+          <div className="fighter-data">
+            <strong>SHIBA SIDE</strong>
+            <span>50 PARTICIPANTS</span>
+            <small>VOLUME DEX: 12.4M USDT</small>
+          </div>
+        </div>
+
+        <div className="arena-center">
+          <h1>
+            SHIBA <span>VS</span> DOGE
+          </h1>
+
+          <p>30 MINUTES • 100 PARTICIPANTS</p>
+
+          <div className="timer-frame">
+            <small>TIME REMAINING</small>
+            <strong>{timeLeft}</strong>
+          </div>
+        </div>
+
+        <div className="fighter fighter-doge">
+          <div className="fighter-data">
+            <strong>DOGE SIDE</strong>
+            <span>50 PARTICIPANTS</span>
+            <small>VOLUME DEX: 10.8M USDT</small>
+          </div>
+
+          <div className="fighter-orb">
+            <div className="fighter-ring ring-one" />
+            <div className="fighter-ring ring-two" />
+            <img src={DOGE_LOGO} alt="Doge" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MarketChart() {
+  const [marketTab, setMarketTab] = useState("total");
+
+  return (
+    <section className="market-panel panel">
+      <div className="section-heading chart-heading">
+        <div>
+          <span className="eyebrow">LIVE MARKET FEED</span>
+          <h2>
+            VOLUME ON DEX <small>(LAST 30 MIN)</small>
+          </h2>
+        </div>
+
+        <div className="chart-tabs">
+          {["total", "shiba", "doge"].map((tab) => (
+            <button
+              type="button"
+              key={tab}
+              className={marketTab === tab ? "active" : ""}
+              onClick={() => setMarketTab(tab)}
+            >
+              {tab.toUpperCase()}
+            </button>
+          ))}
         </div>
       </div>
 
-      <div className="arena-center">
-        <span className="active-room-badge">
-          <i />
-          ACTIVE ROOM
-        </span>
-
-        <h1>
-          <span>SHIBA</span>
-          <em>VS</em>
-          <span>DOGE</span>
-        </h1>
-
-        <p>30 MINUTES • 100 PARTICIPANTS</p>
-
-        <CountdownTimer />
-      </div>
-
-      <div className="arena-side arena-side-doge">
-        <div className="side-stat-card">
-          <span>DOGE SIDE</span>
-          <strong>50 PARTICIPANTS</strong>
-          <small>VOLUME DEX: 10.8M USDT</small>
+      <div className="chart-area">
+        <div className="chart-y-axis">
+          <span>25M</span>
+          <span>20M</span>
+          <span>15M</span>
+          <span>10M</span>
+          <span>5M</span>
+          <span>0</span>
         </div>
 
-        <TokenBadge token="DOGE" />
+        <svg
+          className="volume-chart"
+          viewBox="0 0 900 245"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="Market volume chart preview"
+        >
+          <defs>
+            <linearGradient id="shibaFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ff16ef" stopOpacity="0.48" />
+              <stop offset="100%" stopColor="#791aff" stopOpacity="0.03" />
+            </linearGradient>
+
+            <linearGradient id="dogeFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#00f6f0" stopOpacity="0.42" />
+              <stop offset="100%" stopColor="#00a6ff" stopOpacity="0.02" />
+            </linearGradient>
+          </defs>
+
+          <g className="chart-grid">
+            <line x1="0" y1="10" x2="900" y2="10" />
+            <line x1="0" y1="54" x2="900" y2="54" />
+            <line x1="0" y1="98" x2="900" y2="98" />
+            <line x1="0" y1="142" x2="900" y2="142" />
+            <line x1="0" y1="186" x2="900" y2="186" />
+            <line x1="0" y1="230" x2="900" y2="230" />
+
+            <line x1="0" y1="10" x2="0" y2="230" />
+            <line x1="150" y1="10" x2="150" y2="230" />
+            <line x1="300" y1="10" x2="300" y2="230" />
+            <line x1="450" y1="10" x2="450" y2="230" />
+            <line x1="600" y1="10" x2="600" y2="230" />
+            <line x1="750" y1="10" x2="750" y2="230" />
+            <line x1="900" y1="10" x2="900" y2="230" />
+          </g>
+
+          {(marketTab === "total" || marketTab === "shiba") && (
+            <>
+              <path
+                className="chart-fill shiba-fill"
+                d="M0 168
+                L28 157 L55 149 L83 146 L110 137 L138 132
+                L165 119 L193 127 L220 135 L248 132 L275 139
+                L303 136 L330 141 L358 137 L385 145 L413 142
+                L440 139 L468 146 L495 151 L523 144 L550 152
+                L578 142 L605 145 L633 139 L660 142 L688 135
+                L715 131 L743 127 L770 129 L798 124 L825 121
+                L853 116 L880 112 L900 108
+                L900 230 L0 230 Z"
+                fill="url(#shibaFill)"
+              />
+
+              <path
+                className="chart-line shiba-line"
+                d="M0 168
+                L28 157 L55 149 L83 146 L110 137 L138 132
+                L165 119 L193 127 L220 135 L248 132 L275 139
+                L303 136 L330 141 L358 137 L385 145 L413 142
+                L440 139 L468 146 L495 151 L523 144 L550 152
+                L578 142 L605 145 L633 139 L660 142 L688 135
+                L715 131 L743 127 L770 129 L798 124 L825 121
+                L853 116 L880 112 L900 108"
+              />
+            </>
+          )}
+
+          {(marketTab === "total" || marketTab === "doge") && (
+            <>
+              <path
+                className="chart-fill doge-fill"
+                d="M0 205
+                L28 197 L55 184 L83 190 L110 180 L138 183
+                L165 176 L193 181 L220 169 L248 171 L275 161
+                L303 164 L330 153 L358 159 L385 148 L413 151
+                L440 141 L468 132 L495 116 L523 129 L550 137
+                L578 122 L605 128 L633 111 L660 119 L688 113
+                L715 105 L743 111 L770 101 L798 91 L825 103
+                L853 97 L880 84 L900 91
+                L900 230 L0 230 Z"
+                fill="url(#dogeFill)"
+              />
+
+              <path
+                className="chart-line doge-line"
+                d="M0 205
+                L28 197 L55 184 L83 190 L110 180 L138 183
+                L165 176 L193 181 L220 169 L248 171 L275 161
+                L303 164 L330 153 L358 159 L385 148 L413 151
+                L440 141 L468 132 L495 116 L523 129 L550 137
+                L578 122 L605 128 L633 111 L660 119 L688 113
+                L715 105 L743 111 L770 101 L798 91 L825 103
+                L853 97 L880 84 L900 91"
+              />
+            </>
+          )}
+        </svg>
+
+        <div className="chart-x-axis">
+          <span>14:05</span>
+          <span>14:10</span>
+          <span>14:15</span>
+          <span>14:20</span>
+          <span>14:25</span>
+          <span>14:30</span>
+        </div>
+
+        <span className="chart-value doge-value">10.8M</span>
+        <span className="chart-value shiba-value">12.4M</span>
+      </div>
+
+      <div className="chart-footer">
+        <div className="chart-legend">
+          <span>
+            <i className="legend-dot shiba" />
+            Shiba (12.4M)
+          </span>
+
+          <span>
+            <i className="legend-dot doge" />
+            Doge (10.8M)
+          </span>
+        </div>
+
+        <span className="data-source">MARKET DATA</span>
       </div>
     </section>
   );
@@ -594,48 +527,38 @@ function ArenaHero() {
 
 function HowItWorks() {
   return (
-    <section className="panel information-panel">
-      <div className="panel-heading">
-        <div>
-          <span className="eyebrow">BATTLE RULES</span>
-          <h2>HOW IT WORKS?</h2>
-        </div>
+    <section className="how-it-works panel">
+      <h2>HOW IT WORKS?</h2>
+
+      <div className="instruction-row">
+        <span className="instruction-number">1</span>
+        <p>
+          <strong>Choose a side</strong>
+          <small>Shiba or Doge.</small>
+        </p>
       </div>
 
-      <div className="steps">
-        <div className="step">
-          <span>01</span>
-          <div>
-            <strong>CHOOSE A SIDE</strong>
-            <p>Select the market side you believe will win the active room.</p>
-          </div>
-        </div>
-
-        <div className="step">
-          <span>02</span>
-          <div>
-            <strong>FOLLOW THE MARKET</strong>
-            <p>Track the market data throughout the room window.</p>
-          </div>
-        </div>
-
-        <div className="step">
-          <span>03</span>
-          <div>
-            <strong>ROOM SETTLEMENT</strong>
-            <p>
-              The final result is determined by the room rules and verified
-              market data.
-            </p>
-          </div>
-        </div>
+      <div className="instruction-row">
+        <span className="instruction-number">2</span>
+        <p>
+          <strong>Enter the room</strong>
+          <small>Join the participants.</small>
+        </p>
       </div>
 
-      <div className="information-notice">
+      <div className="instruction-row">
+        <span className="instruction-number">3</span>
+        <p>
+          <strong>Follow the market</strong>
+          <small>The result is determined when the round closes.</small>
+        </p>
+      </div>
+
+      <div className="risk-notice">
         <span>!</span>
         <p>
-          Live settlement and transaction execution will be enabled only after
-          the production contract and market-data layer are connected.
+          <strong>Round rules apply.</strong>
+          <small>Review the room conditions before participating.</small>
         </p>
       </div>
     </section>
@@ -644,115 +567,142 @@ function HowItWorks() {
 
 function RoomStatistics() {
   return (
-    <section className="panel statistics-panel">
-      <div className="panel-heading">
-        <div>
-          <span className="eyebrow">LIVE OVERVIEW</span>
-          <h2>ROOM STATISTICS</h2>
-        </div>
-      </div>
+    <section className="room-statistics panel">
+      <h2>ROOM STATISTICS</h2>
 
-      <div className="statistics-columns">
-        <div className="statistics-token">
-          <div className="statistics-title">
-            <span className="stat-token-dot shiba-dot" />
+      <div className="statistics-sides">
+        <div className="statistics-side shiba-stat">
+          <div className="stat-token">
+            <img src={SHIBA_LOGO} alt="Shiba" />
+          </div>
+
+          <div>
             <strong>SHIBA</strong>
+            <span>50 participants</span>
           </div>
 
-          <div className="statistics-row">
-            <span>Participants</span>
-            <strong>50</strong>
-          </div>
-
-          <div className="statistics-row">
-            <span>DEX Volume</span>
-            <strong>12.4M</strong>
-          </div>
+          <p>
+            Current Volume (30m)
+            <strong>12.4M USDT</strong>
+          </p>
         </div>
 
-        <div className="statistics-token">
-          <div className="statistics-title">
-            <span className="stat-token-dot doge-dot" />
+        <div className="statistics-divider" />
+
+        <div className="statistics-side doge-stat">
+          <div className="stat-token">
+            <img src={DOGE_LOGO} alt="Doge" />
+          </div>
+
+          <div>
             <strong>DOGE</strong>
+            <span>50 participants</span>
           </div>
 
-          <div className="statistics-row">
-            <span>Participants</span>
-            <strong>50</strong>
-          </div>
-
-          <div className="statistics-row">
-            <span>DEX Volume</span>
-            <strong>10.8M</strong>
-          </div>
+          <p>
+            Current Volume (30m)
+            <strong>10.8M USDT</strong>
+          </p>
         </div>
       </div>
 
       <div className="volume-difference">
-        <div className="volume-difference-heading">
-          <span>VOLUME DIFFERENCE</span>
-          <strong>1.6M</strong>
-        </div>
+        <span>Volume Difference</span>
 
         <div className="difference-track">
-          <span className="difference-shiba" />
-          <span className="difference-doge" />
+          <i />
         </div>
 
-        <div className="difference-labels">
-          <span>SHIBA 53.4%</span>
-          <span>DOGE 46.6%</span>
+        <strong>1.6M USDT</strong>
+
+        <small>(in favor of Shiba)</small>
+      </div>
+    </section>
+  );
+}
+
+function BottomSteps() {
+  return (
+    <section className="bottom-steps panel">
+      <div className="bottom-step">
+        <span className="step-symbol">ϟ</span>
+
+        <div>
+          <strong>ENTER THE ROOM</strong>
+          <small>Join the right side. Rooms are limited.</small>
+        </div>
+
+        <b>›</b>
+      </div>
+
+      <div className="bottom-step">
+        <span className="step-symbol">◎</span>
+
+        <div>
+          <strong>PLACE YOUR STRATEGY</strong>
+          <small>The market volume decides.</small>
+        </div>
+
+        <b>›</b>
+      </div>
+
+      <div className="bottom-step">
+        <span className="step-symbol">♜</span>
+
+        <div>
+          <strong>TAKE THE VICTORY</strong>
+          <small>Results are settled when the round ends.</small>
         </div>
       </div>
     </section>
   );
 }
 
-function RoomSidebar({ selectedSide, setSelectedSide, openEntry }) {
+function RoomSidebar({
+  selectedSide,
+  setSelectedSide,
+  onEnterRoom,
+}) {
   return (
     <aside className="room-sidebar">
-      <section className="room-details panel">
-        <div className="room-status-row">
-          <span>ROOM #4827</span>
+      <section className="room-summary panel">
+        <div className="room-summary-top">
+          <span className="room-number">ROOM #4827</span>
 
-          <span className="room-progress">
+          <span className="progress-badge">
             <i />
             IN PROGRESS
           </span>
         </div>
 
         <h2>SHIBA VS DOGE</h2>
-
         <p className="room-description">
-          Battle based on the room's configured market-volume rules.
+          Market volume battle
         </p>
 
-        <div className="room-meta-grid">
+        <div className="room-meta">
           <div>
-            <span className="meta-icon">◷</span>
-
-            <div>
-              <small>DURATION</small>
-              <strong>30 Minutes</strong>
-            </div>
+            <Icon type="clock" />
+            <span>
+              Duration
+              <strong>30 minutes</strong>
+            </span>
           </div>
 
           <div>
-            <span className="meta-icon">◉</span>
-
-            <div>
-              <small>PARTICIPANTS</small>
-              <strong>100 / 100</strong>
-            </div>
+            <Icon type="users" />
+            <span>
+              Participants
+              <strong>100/100</strong>
+            </span>
           </div>
 
           <div>
-            <span className="meta-icon">◇</span>
-
-            <div>
-              <small>NETWORK</small>
-              <strong>Connected Wallet</strong>
-            </div>
+            <Icon type="link" />
+            <span>
+              Market
+              <strong>Live room</strong>
+            </span>
           </div>
         </div>
 
@@ -777,7 +727,7 @@ function RoomSidebar({ selectedSide, setSelectedSide, openEntry }) {
         <button
           type="button"
           className="enter-room-button"
-          onClick={openEntry}
+          onClick={onEnterRoom}
         >
           ENTER ROOM
           <span>→</span>
@@ -788,46 +738,62 @@ function RoomSidebar({ selectedSide, setSelectedSide, openEntry }) {
         <div className="participants-heading">
           <div>
             <span className="eyebrow">ROOM ACTIVITY</span>
-            <h3>PARTICIPANTS (100)</h3>
+            <h2>PARTICIPANTS (100)</h2>
           </div>
 
-          <span className="live-label">LIVE</span>
+          <span className="live-mini">LIVE</span>
         </div>
 
         <div className="participant-totals">
-          <div>
-            <TokenBadge token="SHIBA" size="small" />
-            <span>SHIBA</span>
-            <strong>50</strong>
+          <div className="participant-total shiba">
+            <img src={SHIBA_LOGO} alt="Shiba" />
+            <span>
+              SHIBA
+              <strong>50</strong>
+            </span>
           </div>
 
-          <div>
-            <TokenBadge token="DOGE" size="small" />
-            <span>DOGE</span>
-            <strong>50</strong>
+          <div className="participant-total doge">
+            <img src={DOGE_LOGO} alt="Doge" />
+            <span>
+              DOGE
+              <strong>50</strong>
+            </span>
           </div>
         </div>
 
         <div className="participant-list">
-          {participants.map((participant, index) => (
-            <div className="participant-row" key={`${participant.name}-${index}`}>
-              <div
-                className={`participant-avatar ${
-                  participant.side === "SHIBA" ? "shiba" : "doge"
-                }`}
-              >
-                {participant.name.slice(0, 1)}
+          {participants.map((participant) => (
+            <div
+              className="participant-row"
+              key={`${participant.name}-${participant.side}`}
+            >
+              <div className="participant-avatar">
+                {participant.image ? (
+                  <img src={participant.image} alt="" />
+                ) : (
+                  <span>{participant.avatar}</span>
+                )}
               </div>
 
               <div className="participant-copy">
                 <strong>{participant.name}</strong>
-                <span>{participant.time}</span>
+                <small>
+                  Joined the{" "}
+                  <b
+                    className={
+                      participant.side === "SHIBA"
+                        ? "text-shiba"
+                        : "text-doge"
+                    }
+                  >
+                    {participant.side.toLowerCase()}
+                  </b>{" "}
+                  side
+                </small>
               </div>
 
-              <div className="participant-value">
-                <strong>{participant.amount}</strong>
-                <span>{participant.side}</span>
-              </div>
+              <time>{participant.time}</time>
             </div>
           ))}
         </div>
@@ -838,512 +804,316 @@ function RoomSidebar({ selectedSide, setSelectedSide, openEntry }) {
         </button>
       </section>
 
-      <div className="right-brand">
-        <BullMark small />
-
-        <div>
-          <strong>BULL PROTOCOL</strong>
-          <span>MOMENTUM WINS</span>
-        </div>
+      <div className="sidebar-footer-brand">
+        <BullBrand compact />
+        <strong>MOMENTUM WINS</strong>
       </div>
     </aside>
   );
 }
 
-function BottomStrategyStrip() {
-  return (
-    <section className="strategy-strip">
-      <div>
-        <span className="strategy-number">01</span>
-
-        <div>
-          <strong>ENTER THE ROOM</strong>
-          <p>Choose your side before the room closes.</p>
-        </div>
-      </div>
-
-      <div>
-        <span className="strategy-number">02</span>
-
-        <div>
-          <strong>PLACE YOUR STRATEGY</strong>
-          <p>Follow the market data and room conditions.</p>
-        </div>
-      </div>
-
-      <div>
-        <span className="strategy-number">03</span>
-
-        <div>
-          <strong>COMPLETE THE BATTLE</strong>
-          <p>The room closes when the configured timer expires.</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function RoomsPage({
-  selectedChart,
-  setSelectedChart,
+  timeLeft,
   selectedSide,
   setSelectedSide,
-  openEntry,
+  onEnterRoom,
 }) {
   return (
-    <>
-      <main className="main-dashboard">
-        <ArenaHero />
+    <div className="rooms-page">
+      <main className="battle-content">
+        <ArenaHero timeLeft={timeLeft} />
 
-        <MarketChart
-          selectedChart={selectedChart}
-          setSelectedChart={setSelectedChart}
-        />
+        <MarketChart />
 
-        <div className="dashboard-information-grid">
+        <div className="information-grid">
           <HowItWorks />
           <RoomStatistics />
         </div>
 
-        <BottomStrategyStrip />
+        <BottomSteps />
       </main>
 
       <RoomSidebar
         selectedSide={selectedSide}
         setSelectedSide={setSelectedSide}
-        openEntry={openEntry}
+        onEnterRoom={onEnterRoom}
       />
-    </>
+    </div>
   );
 }
 
-function GenericPage({ eyebrow, title, description, children }) {
+function GenericPage({ type }) {
+  const content = {
+    profile: {
+      eyebrow: "ACCOUNT CENTER",
+      title: "MY PROFILE",
+      description:
+        "Connect your wallet to access your account activity and room history.",
+    },
+    launchpad: {
+      eyebrow: "PROJECT CENTER",
+      title: "LAUNCHPAD",
+      description:
+        "A dedicated space for future project launches and new market rooms.",
+    },
+    leaderboard: {
+      eyebrow: "GLOBAL RANKING",
+      title: "LEADERBOARD",
+      description:
+        "Track competitive performance across Bull Protocol rooms.",
+    },
+    rewards: {
+      eyebrow: "ACHIEVEMENTS",
+      title: "REWARDS",
+      description:
+        "Track XP, milestones, achievements, and future protocol rewards.",
+    },
+    settings: {
+      eyebrow: "TERMINAL CONTROL",
+      title: "SETTINGS",
+      description:
+        "Manage your terminal preferences and interface options.",
+    },
+  };
+
+  const page = content[type] || content.profile;
+
   return (
-    <main className="secondary-page">
-      <section className="secondary-hero panel">
-        <span className="eyebrow">{eyebrow}</span>
-        <h1>{title}</h1>
-        <p>{description}</p>
+    <div className="generic-page">
+      <section className="generic-hero panel">
+        <span className="eyebrow">{page.eyebrow}</span>
+        <h1>{page.title}</h1>
+        <p>{page.description}</p>
       </section>
 
-      {children}
-    </main>
-  );
-}
-
-function ProfilePage({ connected, publicKey }) {
-  return (
-    <GenericPage
-      eyebrow="ACCOUNT CENTER"
-      title="MY PROFILE"
-      description="Review your connected wallet, room activity and battle history."
-    >
-      <div className="secondary-grid">
-        <section className="panel secondary-card">
-          <span className="eyebrow">WALLET STATUS</span>
-          <h2>{connected ? "CONNECTED" : "NOT CONNECTED"}</h2>
-
+      <section className="generic-grid">
+        <article className="generic-card panel">
+          <span className="generic-index">01</span>
+          <h2>TERMINAL ACCESS</h2>
           <p>
-            {connected && publicKey
-              ? `${publicKey.toBase58().slice(0, 6)}...${publicKey
-                  .toBase58()
-                  .slice(-4)}`
-              : "Connect your wallet to access account activity."}
+            This module is prepared for the next integration stage.
           </p>
-        </section>
+        </article>
 
-        <section className="panel secondary-card">
-          <span className="eyebrow">BATTLE HISTORY</span>
-          <h2>NO VERIFIED HISTORY YET</h2>
+        <article className="generic-card panel">
+          <span className="generic-index">02</span>
+          <h2>LIVE DATA</h2>
           <p>
-            Production battle history will appear here after the settlement
-            layer is connected.
+            Real account and market data will be connected through the
+            production data layer.
           </p>
-        </section>
-      </div>
-    </GenericPage>
-  );
-}
+        </article>
 
-function LaunchpadPage() {
-  return (
-    <GenericPage
-      eyebrow="PROJECT ACCESS"
-      title="LAUNCHPAD"
-      description="A dedicated area for future project launches and verified arena integrations."
-    >
-      <section className="panel launchpad-preview">
-        <div>
-          <span className="eyebrow">COMING NEXT</span>
-          <h2>BUILD THE NEXT BATTLE</h2>
+        <article className="generic-card panel">
+          <span className="generic-index">03</span>
+          <h2>PROTOCOL STATUS</h2>
           <p>
-            Launchpad tools will be activated after project verification,
-            market-data requirements and production settlement rules are
-            finalized.
+            The interface remains synchronized with the main Bull Protocol
+            terminal design.
           </p>
-        </div>
-
-        <div className="launchpad-orbit">
-          <BullMark />
-        </div>
+        </article>
       </section>
-    </GenericPage>
-  );
-}
-
-function LeaderboardPage() {
-  const leaders = [
-    ["01", "MomentumKing", "2,480 XP"],
-    ["02", "BullRunner", "2,210 XP"],
-    ["03", "MarketPulse", "1,970 XP"],
-    ["04", "AlphaWave", "1,820 XP"],
-    ["05", "NeonTrader", "1,640 XP"],
-  ];
-
-  return (
-    <GenericPage
-      eyebrow="GLOBAL RANKING"
-      title="LEADERBOARD"
-      description="Performance rankings will be based on verified production activity."
-    >
-      <section className="panel leaderboard-table">
-        {leaders.map(([position, name, score]) => (
-          <div key={position} className="leaderboard-row">
-            <span>{position}</span>
-            <strong>{name}</strong>
-            <small>{score}</small>
-          </div>
-        ))}
-      </section>
-    </GenericPage>
-  );
-}
-
-function RewardsPage() {
-  return (
-    <GenericPage
-      eyebrow="PROGRESSION"
-      title="REWARDS"
-      description="Track XP, achievements and future protocol rewards."
-    >
-      <div className="secondary-grid">
-        <section className="panel secondary-card">
-          <span className="eyebrow">CURRENT XP</span>
-          <h2>0 XP</h2>
-          <p>Verified XP will begin accumulating with production activity.</p>
-        </section>
-
-        <section className="panel secondary-card">
-          <span className="eyebrow">ACHIEVEMENTS</span>
-          <h2>0 UNLOCKED</h2>
-          <p>Achievements will be tied to verified arena milestones.</p>
-        </section>
-      </div>
-    </GenericPage>
-  );
-}
-
-function SettingsPage() {
-  const [sound, setSound] = useState(true);
-  const [animations, setAnimations] = useState(true);
-  const [compact, setCompact] = useState(false);
-
-  return (
-    <GenericPage
-      eyebrow="TERMINAL CONTROL"
-      title="SETTINGS"
-      description="Customize your Bull Protocol terminal experience."
-    >
-      <section className="panel settings-list">
-        <label>
-          <div>
-            <strong>SOUND EFFECTS</strong>
-            <span>Enable terminal interface sounds.</span>
-          </div>
-
-          <input
-            type="checkbox"
-            checked={sound}
-            onChange={(event) => setSound(event.target.checked)}
-          />
-        </label>
-
-        <label>
-          <div>
-            <strong>INTERFACE ANIMATIONS</strong>
-            <span>Enable glow and motion effects.</span>
-          </div>
-
-          <input
-            type="checkbox"
-            checked={animations}
-            onChange={(event) => setAnimations(event.target.checked)}
-          />
-        </label>
-
-        <label>
-          <div>
-            <strong>COMPACT DATA MODE</strong>
-            <span>Reduce spacing in data-heavy panels.</span>
-          </div>
-
-          <input
-            type="checkbox"
-            checked={compact}
-            onChange={(event) => setCompact(event.target.checked)}
-          />
-        </label>
-      </section>
-    </GenericPage>
+    </div>
   );
 }
 
 function EntryModal({
-  open,
-  close,
   selectedSide,
   setSelectedSide,
-  connected,
+  onClose,
 }) {
-  const [amount, setAmount] = useState("");
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    if (!open) {
-      setMessage("");
-    }
-  }, [open]);
-
-  if (!open) {
-    return null;
-  }
-
-  const submitEntry = (event) => {
-    event.preventDefault();
-
-    if (!connected) {
-      setMessage("Connect your wallet before entering a room.");
-      return;
-    }
-
-    if (!amount || Number(amount) <= 0) {
-      setMessage("Enter a valid participation amount.");
-      return;
-    }
-
-    setMessage(
-      "The interface is ready, but production transaction execution is not connected yet."
-    );
-  };
+  const { connected } = useWallet();
 
   return (
-    <div className="modal-backdrop" onMouseDown={close}>
+    <div className="modal-backdrop" onClick={onClose}>
       <div
         className="entry-modal panel"
-        onMouseDown={(event) => event.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           className="modal-close"
-          onClick={close}
+          onClick={onClose}
           aria-label="Close"
         >
           ×
         </button>
 
         <span className="eyebrow">ROOM #4827</span>
-        <h2>ENTER THE BATTLE</h2>
+        <h2>ENTER THE ROOM</h2>
 
-        <p>
-          Choose your side and participation amount. No transaction will be
-          submitted until the production contract is connected.
+        <p className="modal-description">
+          Select your side before continuing.
         </p>
 
-        <form onSubmit={submitEntry}>
-          <div className="modal-side-selector">
-            <button
-              type="button"
-              className={selectedSide === "SHIBA" ? "active shiba" : ""}
-              onClick={() => setSelectedSide("SHIBA")}
-            >
+        <div className="modal-side-options">
+          <button
+            type="button"
+            className={selectedSide === "SHIBA" ? "selected shiba" : ""}
+            onClick={() => setSelectedSide("SHIBA")}
+          >
+            <img src={SHIBA_LOGO} alt="" />
+            <span>
               SHIBA
-            </button>
-
-            <button
-              type="button"
-              className={selectedSide === "DOGE" ? "active doge" : ""}
-              onClick={() => setSelectedSide("DOGE")}
-            >
-              DOGE
-            </button>
-          </div>
-
-          <label className="amount-field">
-            <span>PARTICIPATION AMOUNT</span>
-
-            <input
-              type="number"
-              min="0"
-              step="0.01"
-              value={amount}
-              onChange={(event) => setAmount(event.target.value)}
-              placeholder="0.00"
-            />
-          </label>
-
-          <button type="submit" className="enter-room-button">
-            CONTINUE
-            <span>→</span>
+              <small>50 participants</small>
+            </span>
           </button>
 
-          {message && <div className="modal-message">{message}</div>}
-        </form>
+          <button
+            type="button"
+            className={selectedSide === "DOGE" ? "selected doge" : ""}
+            onClick={() => setSelectedSide("DOGE")}
+          >
+            <img src={DOGE_LOGO} alt="" />
+            <span>
+              DOGE
+              <small>50 participants</small>
+            </span>
+          </button>
+        </div>
+
+        {!connected ? (
+          <div className="modal-wallet">
+            <p>Connect your wallet to continue.</p>
+            <WalletMultiButton />
+          </div>
+        ) : (
+          <div className="integration-notice">
+            <strong>WALLET CONNECTED</strong>
+            <p>
+              The room transaction layer is not connected yet. No transaction
+              will be submitted from this preview.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
 function Terminal() {
-  const { connected, publicKey } = useWallet();
+  const { publicKey, connected } = useWallet();
 
-  const [activeSection, setActiveSection] = useState("rooms");
-  const [selectedChart, setSelectedChart] = useState("TOTAL");
+  const [activePage, setActivePage] = useState("rooms");
   const [selectedSide, setSelectedSide] = useState("SHIBA");
+  const [secondsRemaining, setSecondsRemaining] = useState(28 * 60 + 17);
   const [entryOpen, setEntryOpen] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setSecondsRemaining((current) => {
+        if (current <= 0) {
+          return 30 * 60;
+        }
+
+        return current - 1;
+      });
+    }, 1000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const timeLeft = useMemo(() => {
+    const minutes = Math.floor(secondsRemaining / 60);
+    const seconds = secondsRemaining % 60;
+
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+      2,
+      "0"
+    )}`;
+  }, [secondsRemaining]);
 
   const shortAddress = useMemo(() => {
     if (!publicKey) {
       return "";
     }
 
-    const address = publicKey.toBase58();
+    const value = publicKey.toBase58();
 
-    return `${address.slice(0, 4)}...${address.slice(-4)}`;
+    return `${value.slice(0, 4)}...${value.slice(-4)}`;
   }, [publicKey]);
 
-  const renderContent = () => {
-    if (activeSection === "profile") {
-      return <ProfilePage connected={connected} publicKey={publicKey} />;
-    }
-
-    if (activeSection === "launchpad") {
-      return <LaunchpadPage />;
-    }
-
-    if (activeSection === "leaderboard") {
-      return <LeaderboardPage />;
-    }
-
-    if (activeSection === "rewards") {
-      return <RewardsPage />;
-    }
-
-    if (activeSection === "settings") {
-      return <SettingsPage />;
-    }
-
-    return (
-      <RoomsPage
-        selectedChart={selectedChart}
-        setSelectedChart={setSelectedChart}
-        selectedSide={selectedSide}
-        setSelectedSide={setSelectedSide}
-        openEntry={() => setEntryOpen(true)}
-      />
-    );
-  };
-
   return (
-    <div className="terminal-shell">
-      <header className="topbar">
-        <button
-          type="button"
-          className="brand"
-          onClick={() => setActiveSection("rooms")}
-        >
-          <BullMark />
+    <div className="bull-terminal">
+      <header className="terminal-header">
+        <div className="header-brand-area">
+          <BullBrand />
 
-          <div className="brand-copy">
-            <strong>
-              BULL <span>PROTOCOL</span>
-            </strong>
-            <small>MOMENTUM TRADING TERMINAL</small>
+          <div className="header-divider" />
+
+          <div className="terminal-name">
+            <strong>MOMENTUM TRADING TERMINAL</strong>
+
+            <div>
+              <span>TRADES</span>
+              <i>•</i>
+              <span>POOLS</span>
+              <i>•</i>
+              <span>REAL MARKET</span>
+            </div>
           </div>
-        </button>
+        </div>
 
-        <div className="topbar-divider" />
-
-        <div className="terminal-title">MOMENTUM TRADING TERMINAL</div>
-
-        <nav className="topbar-navigation">
-          <button
-            type="button"
-            onClick={() => setActiveSection("rooms")}
-          >
-            TRADES
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveSection("rooms")}
-          >
-            POOLS
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveSection("rooms")}
-          >
-            MARKET DATA
-          </button>
-        </nav>
-
-        <div className="topbar-actions">
-          <div className="online-indicator">
+        <div className="header-actions">
+          <span className="online-indicator">
             <i />
-            ONLINE
-          </div>
+            Online
+          </span>
 
-          <WalletMultiButton>
-            {connected && shortAddress ? shortAddress : "SELECT WALLET"}
-          </WalletMultiButton>
+          <div className="wallet-shell">
+            {connected && (
+              <span className="connected-address">
+                {shortAddress}
+              </span>
+            )}
+
+            <WalletMultiButton />
+          </div>
         </div>
       </header>
 
-      <div className="terminal-layout">
-        <Sidebar
-          activeSection={activeSection}
-          setActiveSection={setActiveSection}
+      <div className="terminal-body">
+        <SideNavigation
+          activePage={activePage}
+          setActivePage={setActivePage}
         />
 
-        <div
-          className={`terminal-content ${
-            activeSection !== "rooms" ? "secondary-content" : ""
-          }`}
-        >
-          {renderContent()}
+        <div className="terminal-workspace">
+          {activePage === "rooms" ? (
+            <RoomsPage
+              timeLeft={timeLeft}
+              selectedSide={selectedSide}
+              setSelectedSide={setSelectedSide}
+              onEnterRoom={() => setEntryOpen(true)}
+            />
+          ) : (
+            <GenericPage type={activePage} />
+          )}
         </div>
       </div>
 
-      <EntryModal
-        open={entryOpen}
-        close={() => setEntryOpen(false)}
-        selectedSide={selectedSide}
-        setSelectedSide={setSelectedSide}
-        connected={connected}
-      />
+      {entryOpen && (
+        <EntryModal
+          selectedSide={selectedSide}
+          setSelectedSide={setSelectedSide}
+          onClose={() => setEntryOpen(false)}
+        />
+      )}
     </div>
   );
 }
 
 export default function App() {
   const wallets = useMemo(
-    () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
+    () => [
+      new PhantomWalletAdapter(),
+      new SolflareWalletAdapter(),
+    ],
     []
   );
 
   return (
-    <ConnectionProvider endpoint={NETWORK_ENDPOINT}>
+    <ConnectionProvider endpoint={ENDPOINT}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <Terminal />
