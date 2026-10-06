@@ -3937,6 +3937,26 @@ function Arena() {
           }
         }
 
+
+
+        /* =========================================================
+           LOWER DASHBOARD AREA - 30% SMALLER ONLY
+           Applies only from VOLUME ON DEX through the bottom action bar.
+           Header, sidebar and battle/arena section remain unchanged.
+        ========================================================= */
+        .bull-lower-section-scale {
+          width: 142.8571429% !important;
+          max-width: 142.8571429% !important;
+          min-width: 142.8571429% !important;
+          zoom: 0.7;
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 8px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          box-sizing: border-box !important;
+        }
+
       `}</style>
 
       <div className="bull-terminal-shell">
@@ -4100,6 +4120,7 @@ function Arena() {
           </div>
         </section>
 
+        <div className="bull-lower-section-scale">
         <section className="bull-ref-chart">
           <div className="bull-ref-chart-header">
             <div>
@@ -4440,6 +4461,7 @@ function Arena() {
             <b>›</b>
           </div>
         </section>
+        </div>
             </main>
           ) : (
             <section className="bull-section-placeholder">
