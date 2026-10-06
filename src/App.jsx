@@ -23,12 +23,12 @@ const DOGE_LOGO =
   "https://s2.coinmarketcap.com/static/img/coins/128x128/74.png";
 
 const SIDEBAR_ITEMS = [
-  { id: "rooms", label: "ROOMS", subtitle: "Join battles", icon: "⚔" },
-  { id: "profile", label: "MY PROFILE", subtitle: "Wallet & history", icon: "◉" },
-  { id: "launchpad", label: "LAUNCHPAD", subtitle: "Launch new projects", icon: "◆" },
-  { id: "leaderboard", label: "LEADERBOARD", subtitle: "Top traders", icon: "♛" },
-  { id: "rewards", label: "REWARDS", subtitle: "XP & achievements", icon: "✦" },
-  { id: "settings", label: "SETTINGS", subtitle: "Preferences", icon: "⚙" },
+  { id: "rooms", label: "Rooms", subtitle: "Join battles", icon: "⚔" },
+  { id: "profile", label: "My Profile", subtitle: "Wallet & history", icon: "◉" },
+  { id: "launchpad", label: "Launchpad", subtitle: "Launch new projects", icon: "◆" },
+  { id: "leaderboard", label: "Leaderboard", subtitle: "Top traders", icon: "♛" },
+  { id: "rewards", label: "Rewards", subtitle: "XP & achievements", icon: "✦" },
+  { id: "settings", label: "Settings", subtitle: "Preferences", icon: "⚙" },
 ];
 
 const ROOM_PARTICIPANTS = [
@@ -2657,6 +2657,1209 @@ function Arena() {
           }
         }
 
+        /* =========================================================
+           REFERENCE IMAGE MATCH — DESKTOP TERMINAL
+           Target composition: 1408 × 1056 reference image.
+           This block intentionally comes last so it wins against
+           previous experimental layout overrides.
+        ========================================================= */
+
+        .terminal {
+          width: 100% !important;
+          min-height: 100vh !important;
+          overflow-x: hidden !important;
+          background:
+            radial-gradient(circle at 78% 12%, rgba(0, 212, 255, .035), transparent 31%),
+            radial-gradient(circle at 12% 56%, rgba(85, 37, 255, .045), transparent 28%),
+            #020714 !important;
+        }
+
+        .terminal-header {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          height: 84px !important;
+          min-height: 84px !important;
+          margin: 0 !important;
+          padding: 0 24px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: space-between !important;
+          gap: 20px !important;
+          border-bottom: 2px solid #00d9f4 !important;
+          background:
+            linear-gradient(180deg, rgba(4, 10, 28, .995), rgba(3, 8, 23, .995)) !important;
+          box-shadow: 0 1px 0 rgba(98, 35, 255, .42), 0 8px 26px rgba(0, 0, 0, .24) !important;
+          position: relative !important;
+          z-index: 100 !important;
+        }
+
+        .terminal-header .brand {
+          min-width: 0 !important;
+          display: flex !important;
+          align-items: center !important;
+          gap: 0 !important;
+        }
+
+        .terminal-header .brand-logo {
+          width: 78px !important;
+          height: 78px !important;
+          flex: 0 0 78px !important;
+          display: grid !important;
+          place-items: center !important;
+          margin-right: 8px !important;
+        }
+
+        .terminal-header .brand-logo img {
+          width: 74px !important;
+          height: 74px !important;
+          object-fit: contain !important;
+          filter: drop-shadow(0 0 7px rgba(0, 238, 255, .9)) !important;
+        }
+
+        .terminal-header .brand-copy {
+          width: 178px !important;
+          display: flex !important;
+          flex-direction: column !important;
+          justify-content: center !important;
+          line-height: 1 !important;
+        }
+
+        .terminal-header .brand-copy strong {
+          color: #ecf3ff !important;
+          font-size: 27px !important;
+          font-weight: 900 !important;
+          letter-spacing: .13em !important;
+          line-height: .98 !important;
+          white-space: nowrap !important;
+          text-shadow: 0 0 9px rgba(114, 74, 255, .5) !important;
+        }
+
+        .terminal-header .brand-copy span {
+          margin-top: 7px !important;
+          color: #c1caff !important;
+          font-size: 12px !important;
+          font-weight: 700 !important;
+          letter-spacing: .34em !important;
+          white-space: nowrap !important;
+        }
+
+        .terminal-header .brand-divider {
+          width: 2px !important;
+          height: 48px !important;
+          margin: 0 22px 0 10px !important;
+          background: linear-gradient(180deg, #00e9ef, rgba(0, 233, 239, .34)) !important;
+          box-shadow: 0 0 8px rgba(0, 233, 239, .22) !important;
+        }
+
+        .terminal-header .terminal-title {
+          display: flex !important;
+          flex-direction: column !important;
+          justify-content: center !important;
+          gap: 7px !important;
+          line-height: 1 !important;
+          white-space: nowrap !important;
+        }
+
+        .terminal-header .terminal-title strong {
+          color: #bfc8ff !important;
+          font-size: 16px !important;
+          font-weight: 800 !important;
+          letter-spacing: .105em !important;
+          font-style: italic !important;
+        }
+
+        .terminal-header .terminal-title strong::first-letter {
+          color: #00f1ef !important;
+        }
+
+        .terminal-header .terminal-title span {
+          color: #00e7f1 !important;
+          font-size: 14px !important;
+          font-weight: 800 !important;
+          letter-spacing: .06em !important;
+        }
+
+        .terminal-header .header-actions {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: flex-end !important;
+          gap: 18px !important;
+          flex: 0 0 auto !important;
+        }
+
+        .terminal-header .online-status {
+          height: 45px !important;
+          min-width: 118px !important;
+          padding: 0 18px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 11px !important;
+          border: 1.5px solid #00e3db !important;
+          border-radius: 17px !important;
+          background: rgba(0, 21, 34, .76) !important;
+          color: #00efe8 !important;
+          font-size: 15px !important;
+          font-weight: 800 !important;
+          letter-spacing: .01em !important;
+          box-shadow: inset 0 0 18px rgba(0, 229, 220, .035) !important;
+        }
+
+        .terminal-header .online-dot {
+          width: 15px !important;
+          height: 15px !important;
+          border: 3px solid #00e9df !important;
+          border-radius: 50% !important;
+          background: transparent !important;
+          box-shadow: 0 0 10px rgba(0, 239, 230, .34) !important;
+        }
+
+        .terminal-header .wallet-address {
+          display: none !important;
+        }
+
+        .terminal-header .wallet-adapter-button,
+        .terminal-header .wallet-adapter-button-trigger {
+          height: 46px !important;
+          min-width: 220px !important;
+          padding: 0 20px !important;
+          border: 1.5px solid #009cf5 !important;
+          border-radius: 14px !important;
+          background: linear-gradient(180deg, rgba(5, 18, 44, .98), rgba(3, 13, 33, .98)) !important;
+          color: #d7ddff !important;
+          font-size: 15px !important;
+          font-weight: 700 !important;
+          justify-content: center !important;
+          box-shadow: inset 0 0 16px rgba(0, 132, 255, .05) !important;
+        }
+
+        .bull-terminal-shell {
+          box-sizing: border-box !important;
+          display: grid !important;
+          grid-template-columns: 230px minmax(0, 1fr) !important;
+          gap: 26px !important;
+          width: calc(100% - 48px) !important;
+          max-width: 1360px !important;
+          margin: 24px auto 16px !important;
+          padding: 0 !important;
+          align-items: start !important;
+        }
+
+        .bull-dashboard-fixed {
+          box-sizing: border-box !important;
+          position: relative !important;
+          top: auto !important;
+          z-index: 3 !important;
+          width: 230px !important;
+          min-width: 230px !important;
+          height: 930px !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          overflow: visible !important;
+          border: 0 !important;
+          border-radius: 0 !important;
+          background: transparent !important;
+          box-shadow: none !important;
+        }
+
+        .bull-dashboard-side-title {
+          box-sizing: border-box !important;
+          width: 230px !important;
+          height: 57px !important;
+          display: grid !important;
+          grid-template-columns: 42px minmax(0, 1fr) 22px !important;
+          align-items: center !important;
+          gap: 4px !important;
+          padding: 0 15px !important;
+          border: 2px solid transparent !important;
+          border-radius: 12px !important;
+          background:
+            linear-gradient(#071126, #071126) padding-box,
+            linear-gradient(90deg, #e128ff, #00e9ef) border-box !important;
+          box-shadow:
+            0 0 16px rgba(219, 27, 255, .22),
+            inset 0 0 22px rgba(25, 166, 255, .08) !important;
+          color: #edf5ff !important;
+        }
+
+        .bull-dashboard-side-icon {
+          color: #13eff0 !important;
+          font-size: 29px !important;
+          font-weight: 400 !important;
+          line-height: 1 !important;
+        }
+
+        .bull-dashboard-side-title > span:nth-child(2) {
+          color: #f0f5ff !important;
+          font-size: 18px !important;
+          font-weight: 800 !important;
+          letter-spacing: 0 !important;
+        }
+
+        .bull-dashboard-side-title b {
+          color: #00edf1 !important;
+          font-size: 24px !important;
+          font-weight: 700 !important;
+          text-align: right !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-nav {
+          box-sizing: border-box !important;
+          width: 230px !important;
+          margin-top: 8px !important;
+          padding: 10px 15px 11px !important;
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 0 !important;
+          border: 1.5px solid #168bff !important;
+          border-radius: 11px !important;
+          background:
+            radial-gradient(circle at 15% 5%, rgba(122, 44, 255, .12), transparent 30%),
+            linear-gradient(180deg, rgba(4, 14, 36, .98), rgba(3, 11, 30, .98)) !important;
+          box-shadow: inset 0 0 32px rgba(0, 164, 255, .025) !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-button {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          min-height: 58px !important;
+          height: 58px !important;
+          display: grid !important;
+          grid-template-columns: 40px minmax(0, 1fr) !important;
+          align-items: center !important;
+          gap: 9px !important;
+          padding: 0 !important;
+          border: 0 !important;
+          border-bottom: 1px solid rgba(36, 115, 175, .23) !important;
+          border-radius: 0 !important;
+          background: transparent !important;
+          box-shadow: none !important;
+          text-align: left !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-button:last-child {
+          border-bottom: 0 !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-button.active {
+          background: transparent !important;
+          box-shadow: none !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-icon {
+          color: #d9e0ff !important;
+          font-size: 27px !important;
+          line-height: 1 !important;
+          text-align: center !important;
+          filter: drop-shadow(0 0 5px rgba(113, 87, 255, .4)) !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-button.active .bull-sidebar-icon {
+          color: #d9e0ff !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-copy {
+          gap: 4px !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-copy strong {
+          color: #eef3ff !important;
+          font-size: 15px !important;
+          font-weight: 700 !important;
+          line-height: 1 !important;
+          letter-spacing: 0 !important;
+          text-transform: none !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-copy small {
+          margin-top: 1px !important;
+          color: #8bb4ff !important;
+          font-size: 12px !important;
+          line-height: 1 !important;
+          letter-spacing: 0 !important;
+        }
+
+        .bull-dashboard-fixed .bull-dashboard-waves {
+          box-sizing: border-box !important;
+          width: calc(100% + 48px) !important;
+          height: 360px !important;
+          margin: 68px 0 0 -24px !important;
+          border: 0 !important;
+          border-radius: 0 !important;
+          opacity: .92 !important;
+          background:
+            radial-gradient(ellipse at 24% 70%, rgba(0, 98, 255, .14), transparent 45%),
+            repeating-linear-gradient(88deg, transparent 0 24px, rgba(0, 126, 255, .08) 25px 26px),
+            repeating-linear-gradient(0deg, transparent 0 18px, rgba(72, 39, 255, .08) 19px 20px) !important;
+          -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 100%) !important;
+          mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 100%) !important;
+          box-shadow: none !important;
+        }
+
+        .bull-dashboard-fixed .bull-dashboard-waves::before,
+        .bull-dashboard-fixed .bull-dashboard-waves::after {
+          height: 140px !important;
+          width: 150% !important;
+          left: -25% !important;
+          border-top-width: 2px !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-footer-brand {
+          position: absolute !important;
+          left: 3px !important;
+          bottom: 5px !important;
+          display: grid !important;
+          grid-template-columns: 60px minmax(0, 1fr) !important;
+          align-items: center !important;
+          gap: 9px !important;
+          width: 220px !important;
+        }
+
+        .bull-sidebar-footer-brand img {
+          width: 60px !important;
+          height: 60px !important;
+          object-fit: contain !important;
+          filter: drop-shadow(0 0 7px rgba(0, 238, 255, .7)) !important;
+        }
+
+        .bull-sidebar-footer-brand div {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 5px !important;
+        }
+
+        .bull-sidebar-footer-brand strong {
+          color: #d8e1ff !important;
+          font-size: 12px !important;
+          font-weight: 800 !important;
+          letter-spacing: .18em !important;
+          white-space: nowrap !important;
+        }
+
+        .bull-sidebar-footer-brand span {
+          color: #66b8ff !important;
+          font-size: 8px !important;
+          font-weight: 700 !important;
+          letter-spacing: .3em !important;
+          white-space: nowrap !important;
+        }
+
+        .bull-main-stage,
+        .bull-main-stage > .arena-page,
+        .bull-reference-center {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          max-width: none !important;
+          min-width: 0 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          overflow: visible !important;
+        }
+
+        .bull-reference-center {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 13px !important;
+        }
+
+        .bull-reference-center .battle-hero {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          height: 275px !important;
+          min-height: 275px !important;
+          max-height: 275px !important;
+          margin: 0 !important;
+          overflow: hidden !important;
+          border: 1.5px solid #00aef6 !important;
+          border-left-color: #d600ef !important;
+          border-radius: 13px !important;
+          background-color: #040b19 !important;
+          background-size: cover !important;
+          background-position: center !important;
+          box-shadow: inset 0 0 35px rgba(0, 132, 255, .08) !important;
+          position: relative !important;
+        }
+
+        .bull-reference-center .battle-hero > img {
+          opacity: .97 !important;
+        }
+
+        .active-room-badge {
+          position: absolute !important;
+          top: 18px !important;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          min-width: 148px !important;
+          height: 38px !important;
+          padding: 0 16px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 10px !important;
+          border: 1.5px solid #00ddf3 !important;
+          border-radius: 11px !important;
+          background: rgba(4, 19, 42, .87) !important;
+          color: #00eef1 !important;
+          font-size: 13px !important;
+          font-weight: 800 !important;
+          letter-spacing: .04em !important;
+          box-shadow: 0 0 13px rgba(0, 223, 243, .3), inset 0 0 12px rgba(0, 223, 243, .06) !important;
+          z-index: 7 !important;
+        }
+
+        .active-room-badge span {
+          width: 12px !important;
+          height: 12px !important;
+          border-radius: 50% !important;
+          background: #13eddc !important;
+          box-shadow: 0 0 10px rgba(19, 237, 220, .76) !important;
+        }
+
+        .battle-center {
+          position: absolute !important;
+          top: 65px !important;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          z-index: 6 !important;
+          text-align: center !important;
+          width: 480px !important;
+        }
+
+        .battle-center h1 {
+          margin: 0 !important;
+          display: flex !important;
+          align-items: baseline !important;
+          justify-content: center !important;
+          gap: 24px !important;
+          font-size: 38px !important;
+          line-height: 1 !important;
+          font-weight: 900 !important;
+          letter-spacing: -.02em !important;
+          text-shadow: 0 0 8px rgba(62, 83, 255, .32) !important;
+        }
+
+        .battle-center h1 small {
+          color: #00edf1 !important;
+          font-size: 19px !important;
+          font-weight: 900 !important;
+        }
+
+        .battle-center .shiba-title {
+          color: #eef1ff !important;
+        }
+
+        .battle-center .doge-title {
+          color: #00eff0 !important;
+        }
+
+        .battle-center p {
+          margin: 8px 0 0 !important;
+          color: #00e8f1 !important;
+          font-size: 19px !important;
+          line-height: 1 !important;
+          font-weight: 800 !important;
+          letter-spacing: .01em !important;
+        }
+
+        .fighter {
+          position: absolute !important;
+          top: 34px !important;
+          z-index: 5 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          gap: 2px !important;
+        }
+
+        .fighter-shiba {
+          left: 24px !important;
+          width: 330px !important;
+        }
+
+        .fighter-doge {
+          right: 24px !important;
+          width: 330px !important;
+        }
+
+        .bull-reference-center .token-orbit {
+          width: 144px !important;
+          height: 144px !important;
+          min-width: 144px !important;
+          min-height: 144px !important;
+          transform: none !important;
+          margin: 0 !important;
+          border: 0 !important;
+          background: transparent !important;
+        }
+
+        .bull-reference-center .token-image,
+        .bull-reference-center .token-image img {
+          border-radius: 50% !important;
+        }
+
+        .bull-reference-center .token-image img {
+          width: 91px !important;
+          height: 91px !important;
+          object-fit: cover !important;
+        }
+
+        .fighter-stats {
+          width: 100% !important;
+          margin-top: -4px !important;
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 5px !important;
+          line-height: 1 !important;
+        }
+
+        .fighter-shiba .fighter-stats {
+          align-items: flex-start !important;
+          text-align: left !important;
+        }
+
+        .fighter-doge .fighter-stats {
+          align-items: flex-end !important;
+          text-align: right !important;
+        }
+
+        .fighter-stats strong {
+          font-size: 18px !important;
+          font-weight: 900 !important;
+        }
+
+        .fighter-shiba .fighter-stats strong,
+        .fighter-shiba .fighter-stats b {
+          color: #f000e8 !important;
+        }
+
+        .fighter-doge .fighter-stats strong,
+        .fighter-doge .fighter-stats b {
+          color: #00eff0 !important;
+        }
+
+        .fighter-stats span {
+          color: #dbe4ff !important;
+          font-size: 16px !important;
+          font-weight: 600 !important;
+        }
+
+        .fighter-stats span:last-child {
+          color: #7cc4ff !important;
+          font-size: 16px !important;
+        }
+
+        .countdown {
+          box-sizing: border-box !important;
+          position: absolute !important;
+          left: 50% !important;
+          bottom: 23px !important;
+          transform: translateX(-50%) !important;
+          min-width: 305px !important;
+          height: 96px !important;
+          padding: 15px 32px 11px !important;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 3px !important;
+          border: 1.5px solid #00c8ee !important;
+          border-left-width: 0 !important;
+          border-right-width: 0 !important;
+          clip-path: polygon(11% 0, 89% 0, 100% 50%, 89% 100%, 11% 100%, 0 50%) !important;
+          background: linear-gradient(180deg, rgba(1, 14, 33, .95), rgba(1, 9, 24, .98)) !important;
+          box-shadow: inset 0 0 20px rgba(0, 182, 246, .07), 0 0 15px rgba(0, 132, 255, .1) !important;
+          z-index: 6 !important;
+        }
+
+        .countdown span {
+          color: #00e6ef !important;
+          font-size: 14px !important;
+          font-weight: 800 !important;
+        }
+
+        .countdown strong {
+          color: #eff5ff !important;
+          font-size: 47px !important;
+          line-height: .95 !important;
+          font-weight: 800 !important;
+          letter-spacing: .02em !important;
+          text-shadow: 0 0 9px rgba(0, 138, 255, .58) !important;
+        }
+
+        .bull-reference-center .bull-ref-chart {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          height: 303px !important;
+          min-height: 303px !important;
+          max-height: 303px !important;
+          margin: 0 !important;
+          padding: 11px 24px 9px !important;
+          overflow: hidden !important;
+          border: 1.5px solid #008ff5 !important;
+          border-left-color: #d400e9 !important;
+          border-radius: 12px !important;
+          background: linear-gradient(180deg, rgba(3, 14, 34, .985), rgba(3, 11, 28, .985)) !important;
+          box-shadow: inset 0 0 26px rgba(0, 130, 255, .035) !important;
+        }
+
+        .bull-ref-chart-header {
+          height: 38px !important;
+          min-height: 38px !important;
+          align-items: center !important;
+        }
+
+        .bull-ref-chart-header > div:first-child {
+          gap: 9px !important;
+        }
+
+        .bull-ref-chart-icon {
+          font-size: 24px !important;
+          color: #c0a8ff !important;
+        }
+
+        .bull-ref-chart-header strong {
+          color: #cdd5ff !important;
+          font-size: 18px !important;
+          font-weight: 800 !important;
+          letter-spacing: .03em !important;
+        }
+
+        .bull-ref-chart-header small {
+          margin-left: 0 !important;
+          color: #8d9fff !important;
+          font-size: 16px !important;
+          letter-spacing: .02em !important;
+        }
+
+        .bull-ref-chart-tabs {
+          gap: 13px !important;
+        }
+
+        .bull-ref-chart-tabs button {
+          min-width: 88px !important;
+          height: 36px !important;
+          padding: 0 18px !important;
+          border: 1px solid #0068c9 !important;
+          border-radius: 10px !important;
+          background: rgba(4, 17, 40, .86) !important;
+          color: #79bcff !important;
+          font-size: 13px !important;
+          font-weight: 700 !important;
+        }
+
+        .bull-ref-chart-tabs button.active {
+          border-color: #00e6ef !important;
+          color: #00f2f2 !important;
+          background: linear-gradient(180deg, rgba(0, 105, 144, .45), rgba(0, 35, 71, .45)) !important;
+          box-shadow: 0 0 12px rgba(0, 222, 239, .25), inset 0 0 9px rgba(0, 222, 239, .08) !important;
+        }
+
+        .bull-reference-center .bull-ref-volume {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          height: 216px !important;
+          min-height: 216px !important;
+          margin-top: 0 !important;
+          padding-left: 43px !important;
+          padding-right: 44px !important;
+          position: relative !important;
+        }
+
+        .bull-reference-center .bull-ref-chart-svg {
+          width: 100% !important;
+          height: 184px !important;
+          max-width: none !important;
+          margin: 0 !important;
+          display: block !important;
+        }
+
+        .bull-ref-y-axis {
+          left: 0 !important;
+          top: 8px !important;
+          height: 184px !important;
+          width: 39px !important;
+          color: #d8e6ff !important;
+          font-size: 12px !important;
+        }
+
+        .bull-ref-x-axis {
+          left: 43px !important;
+          right: 44px !important;
+          bottom: 1px !important;
+          color: #d9e5ff !important;
+          font-size: 12px !important;
+        }
+
+        .bull-ref-chart-grid line {
+          stroke: rgba(0, 84, 156, .52) !important;
+          stroke-width: 1 !important;
+        }
+
+        .bull-ref-line {
+          stroke-width: 4 !important;
+          filter: drop-shadow(0 0 4px currentColor) !important;
+        }
+
+        .bull-ref-value {
+          right: 0 !important;
+          min-width: 52px !important;
+          height: 28px !important;
+          padding: 0 7px !important;
+          display: grid !important;
+          place-items: center !important;
+          border-radius: 6px !important;
+          color: #fff !important;
+          font-size: 13px !important;
+          font-weight: 800 !important;
+        }
+
+        .bull-ref-chart-footer {
+          height: 29px !important;
+          min-height: 29px !important;
+          margin-top: 0 !important;
+          padding: 0 0 0 2px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: space-between !important;
+        }
+
+        .bull-ref-legends {
+          gap: 34px !important;
+          color: #c5d5ff !important;
+          font-size: 13px !important;
+        }
+
+        .bull-ref-legends i {
+          width: 23px !important;
+          height: 10px !important;
+          margin-right: 7px !important;
+          border-radius: 999px !important;
+        }
+
+        .bull-ref-data-note {
+          color: #8ac7ff !important;
+          font-size: 12px !important;
+          font-weight: 800 !important;
+          letter-spacing: .02em !important;
+        }
+
+        .bull-ref-info-grid {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          height: 252px !important;
+          min-height: 252px !important;
+          max-height: 252px !important;
+          display: grid !important;
+          grid-template-columns: 416px minmax(0, 1fr) !important;
+          gap: 12px !important;
+          margin: 0 !important;
+        }
+
+        .bull-ref-how,
+        .bull-ref-stats {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          height: 252px !important;
+          min-height: 252px !important;
+          max-height: 252px !important;
+          margin: 0 !important;
+          padding: 14px 24px !important;
+          border: 1.5px solid #008ff5 !important;
+          border-left-color: #d400e9 !important;
+          border-radius: 11px !important;
+          background: linear-gradient(180deg, rgba(3, 14, 34, .985), rgba(3, 11, 28, .985)) !important;
+          overflow: hidden !important;
+        }
+
+        .bull-ref-how h2,
+        .bull-ref-stats h2 {
+          margin: 0 0 12px !important;
+          color: #ccd7ff !important;
+          font-size: 19px !important;
+          font-weight: 800 !important;
+          line-height: 1 !important;
+        }
+
+        .bull-ref-stats h2 {
+          color: #00edf1 !important;
+        }
+
+        .bull-ref-instruction {
+          min-height: 41px !important;
+          margin: 0 !important;
+          gap: 17px !important;
+        }
+
+        .bull-ref-num {
+          width: 38px !important;
+          height: 38px !important;
+          flex: 0 0 38px !important;
+          border: 2px solid #dce9ff !important;
+          color: #eef4ff !important;
+          font-size: 16px !important;
+          font-weight: 700 !important;
+        }
+
+        .bull-ref-instruction p {
+          line-height: 1.02 !important;
+        }
+
+        .bull-ref-instruction strong {
+          color: #eff4ff !important;
+          font-size: 14px !important;
+          font-weight: 700 !important;
+        }
+
+        .bull-ref-instruction small {
+          margin-top: 4px !important;
+          color: #86b9ff !important;
+          font-size: 12px !important;
+        }
+
+        .bull-ref-notice {
+          min-height: 45px !important;
+          margin-top: 3px !important;
+          padding: 6px 12px !important;
+          gap: 14px !important;
+          border: 1px solid #1a80df !important;
+          border-radius: 7px !important;
+          background: rgba(2, 22, 48, .74) !important;
+        }
+
+        .bull-ref-notice > span {
+          width: 32px !important;
+          height: 32px !important;
+          flex: 0 0 32px !important;
+          border: 2px solid #ffd300 !important;
+          color: #ffd300 !important;
+          font-size: 17px !important;
+        }
+
+        .bull-ref-notice strong {
+          color: #ffd300 !important;
+          font-size: 12px !important;
+        }
+
+        .bull-ref-notice small {
+          margin-top: 2px !important;
+          color: #ffd300 !important;
+          font-size: 10px !important;
+        }
+
+        .bull-ref-stat-sides {
+          height: 145px !important;
+          grid-template-columns: 1fr 1px 1fr !important;
+        }
+
+        .bull-ref-stat-divider {
+          margin: 3px 8px !important;
+          background: rgba(0, 188, 234, .72) !important;
+        }
+
+        .bull-ref-stat-side {
+          grid-template-columns: 74px minmax(0, 1fr) !important;
+          gap: 14px !important;
+          padding: 0 17px !important;
+        }
+
+        .bull-ref-stat-token {
+          width: 72px !important;
+          height: 72px !important;
+        }
+
+        .bull-ref-stat-token img {
+          width: 55px !important;
+          height: 55px !important;
+        }
+
+        .bull-ref-stat-side > div:nth-child(2) strong {
+          font-size: 18px !important;
+          font-weight: 900 !important;
+        }
+
+        .bull-ref-stat-side > div:nth-child(2) span {
+          margin-top: 4px !important;
+          color: #d8e7ff !important;
+          font-size: 14px !important;
+        }
+
+        .bull-ref-stat-side p {
+          margin: 3px 0 0 !important;
+          color: #00e2ea !important;
+          font-size: 14px !important;
+          font-weight: 700 !important;
+        }
+
+        .bull-ref-stat-side p strong {
+          margin-top: 6px !important;
+          color: #f0f5ff !important;
+          font-size: 28px !important;
+        }
+
+        .bull-ref-stat-side.doge p strong {
+          color: #00f0ef !important;
+        }
+
+        .bull-ref-diff {
+          box-sizing: border-box !important;
+          height: 47px !important;
+          margin-top: 8px !important;
+          padding: 0 14px !important;
+          grid-template-columns: auto minmax(150px, 1fr) auto auto !important;
+          gap: 14px !important;
+          border: 1.5px solid #00a8df !important;
+          border-radius: 8px !important;
+          background: rgba(0, 56, 82, .15) !important;
+        }
+
+        .bull-ref-diff > span {
+          color: #00edf1 !important;
+          font-size: 14px !important;
+          font-weight: 700 !important;
+        }
+
+        .bull-ref-diff-track {
+          height: 20px !important;
+          border-radius: 999px !important;
+          background: #0a3964 !important;
+        }
+
+        .bull-ref-diff-track i {
+          width: 73% !important;
+          background: linear-gradient(90deg, #e600f7 0%, #a93eff 28%, #00ecf1 100%) !important;
+        }
+
+        .bull-ref-diff strong {
+          color: #00eff0 !important;
+          font-size: 16px !important;
+          font-weight: 800 !important;
+        }
+
+        .bull-ref-diff small {
+          color: #00dbea !important;
+          font-size: 11px !important;
+          font-weight: 700 !important;
+        }
+
+        .bull-ref-bottom {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          height: 64px !important;
+          min-height: 64px !important;
+          max-height: 64px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          display: grid !important;
+          grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+          border: 1.5px solid #008ff5 !important;
+          border-left-color: #d400e9 !important;
+          border-radius: 11px !important;
+          background: linear-gradient(180deg, rgba(3, 14, 34, .985), rgba(3, 11, 28, .985)) !important;
+          overflow: hidden !important;
+        }
+
+        .bull-ref-bottom-step {
+          min-width: 0 !important;
+          grid-template-columns: 50px minmax(0, 1fr) 18px !important;
+          gap: 14px !important;
+          padding: 8px 22px !important;
+          border-right: 0 !important;
+        }
+
+        .bull-ref-step-symbol {
+          color: #d200ff !important;
+          font-size: 43px !important;
+          text-shadow: 0 0 9px rgba(199, 0, 255, .72) !important;
+        }
+
+        .bull-ref-bottom-step:nth-child(2) .bull-ref-step-symbol {
+          color: #596bff !important;
+        }
+
+        .bull-ref-bottom-step:nth-child(3) .bull-ref-step-symbol {
+          color: #9e6aff !important;
+        }
+
+        .bull-ref-bottom-step strong {
+          color: #00edf1 !important;
+          font-size: 13px !important;
+          font-weight: 800 !important;
+          line-height: 1 !important;
+        }
+
+        .bull-ref-bottom-step small {
+          margin-top: 6px !important;
+          color: #7ea7cf !important;
+          font-size: 10px !important;
+          line-height: 1 !important;
+          overflow: visible !important;
+          text-overflow: clip !important;
+        }
+
+        .bull-ref-bottom-step b {
+          color: #e4edf8 !important;
+          font-size: 32px !important;
+          line-height: 1 !important;
+        }
+
+        /* Keep the desktop composition intact as long as possible. */
+        @media (max-width: 1180px) {
+          .terminal-header {
+            height: auto !important;
+            min-height: 84px !important;
+            padding: 10px 16px !important;
+            flex-wrap: wrap !important;
+          }
+
+          .terminal-header .terminal-title {
+            display: none !important;
+          }
+
+          .bull-terminal-shell {
+            width: calc(100% - 24px) !important;
+            grid-template-columns: 205px minmax(0, 1fr) !important;
+            gap: 14px !important;
+            margin-top: 16px !important;
+          }
+
+          .bull-dashboard-fixed,
+          .bull-dashboard-side-title,
+          .bull-dashboard-fixed .bull-sidebar-nav {
+            width: 205px !important;
+            min-width: 205px !important;
+          }
+
+          .bull-ref-info-grid {
+            grid-template-columns: minmax(315px, .72fr) minmax(0, 1.28fr) !important;
+          }
+
+          .fighter-shiba { left: 10px !important; width: 265px !important; }
+          .fighter-doge { right: 10px !important; width: 265px !important; }
+          .bull-reference-center .token-orbit { width: 122px !important; height: 122px !important; min-width: 122px !important; min-height: 122px !important; }
+          .bull-reference-center .token-image img { width: 78px !important; height: 78px !important; }
+          .fighter-stats strong { font-size: 15px !important; }
+          .fighter-stats span, .fighter-stats span:last-child { font-size: 13px !important; }
+        }
+
+        @media (max-width: 860px) {
+          .terminal-header .brand-copy,
+          .terminal-header .brand-divider {
+            display: none !important;
+          }
+
+          .terminal-header .header-actions {
+            gap: 8px !important;
+          }
+
+          .terminal-header .online-status {
+            min-width: 96px !important;
+            height: 40px !important;
+            padding: 0 11px !important;
+            font-size: 13px !important;
+          }
+
+          .terminal-header .wallet-adapter-button,
+          .terminal-header .wallet-adapter-button-trigger {
+            min-width: 165px !important;
+            height: 42px !important;
+            padding: 0 12px !important;
+            font-size: 12px !important;
+          }
+
+          .bull-terminal-shell {
+            display: block !important;
+            width: calc(100% - 16px) !important;
+            margin-top: 10px !important;
+          }
+
+          .bull-dashboard-fixed {
+            width: 100% !important;
+            min-width: 0 !important;
+            height: auto !important;
+            margin-bottom: 10px !important;
+          }
+
+          .bull-dashboard-side-title,
+          .bull-dashboard-fixed .bull-sidebar-nav {
+            width: 100% !important;
+            min-width: 0 !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-nav {
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            padding: 8px !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-button {
+            border-bottom: 0 !important;
+            min-height: 52px !important;
+            height: 52px !important;
+            padding: 0 5px !important;
+          }
+
+          .bull-dashboard-fixed .bull-dashboard-waves,
+          .bull-dashboard-fixed .bull-sidebar-footer-brand {
+            display: none !important;
+          }
+
+          .bull-reference-center .battle-hero {
+            height: 330px !important;
+            min-height: 330px !important;
+            max-height: 330px !important;
+          }
+
+          .fighter-shiba { left: 5px !important; width: 230px !important; }
+          .fighter-doge { right: 5px !important; width: 230px !important; }
+          .battle-center { top: 74px !important; width: 360px !important; }
+          .battle-center h1 { font-size: 31px !important; gap: 14px !important; }
+          .battle-center p { font-size: 14px !important; }
+          .countdown { bottom: 24px !important; }
+
+          .bull-reference-center .bull-ref-chart {
+            height: 300px !important;
+            min-height: 300px !important;
+            max-height: 300px !important;
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+          }
+
+          .bull-ref-chart-header {
+            height: auto !important;
+            min-height: 72px !important;
+            flex-wrap: wrap !important;
+            align-content: center !important;
+            gap: 8px !important;
+          }
+
+          .bull-ref-info-grid {
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            grid-template-columns: 1fr !important;
+          }
+
+          .bull-ref-how,
+          .bull-ref-stats {
+            height: auto !important;
+            min-height: 252px !important;
+            max-height: none !important;
+          }
+
+          .bull-ref-bottom {
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            grid-template-columns: 1fr !important;
+          }
+
+          .bull-ref-bottom-step {
+            min-height: 64px !important;
+          }
+        }
+
       `}</style>
 
       <div className="bull-terminal-shell">
@@ -2668,7 +3871,7 @@ function Arena() {
             aria-expanded={dashboardOpen}
           >
             <span className="bull-dashboard-side-icon">☰</span>
-            <span>DASHBOARD</span>
+            <span>Dashboard</span>
             <b>{dashboardOpen ? "⌃" : "⌄"}</b>
           </button>
 
@@ -2692,6 +3895,14 @@ function Arena() {
               </nav>
 
               <div className="bull-dashboard-waves" aria-hidden="true" />
+
+              <div className="bull-sidebar-footer-brand" aria-hidden="true">
+                <img src="/bull-logo.png" alt="" />
+                <div>
+                  <strong>BULL PROTOCOL</strong>
+                  <span>MOMENTUM WINS</span>
+                </div>
+              </div>
             </>
           )}
         </aside>
@@ -3039,7 +4250,7 @@ function Arena() {
               </span>
             </div>
 
-            <span className="bull-ref-data-note">MARKET DATA PREVIEW</span>
+            <span className="bull-ref-data-note">☠ DEXSCREENER</span>
           </div>
         </section>
 
