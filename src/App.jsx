@@ -4108,6 +4108,287 @@ function Arena() {
           }
         }
 
+
+        /* =========================================================
+           FINAL REFERENCE LOCK — USER APPROVED 1448 × 1086 LAYOUT
+           These rules intentionally come last.
+        ========================================================= */
+        @media (min-width: 1181px) {
+          html,
+          body,
+          #root {
+            margin: 0 !important;
+            width: 100% !important;
+            min-width: 1181px !important;
+            background: #020714 !important;
+          }
+
+          .terminal {
+            width: 100% !important;
+            min-height: 1086px !important;
+            overflow-x: hidden !important;
+          }
+
+          .terminal-header {
+            width: 100% !important;
+            height: 86px !important;
+            min-height: 86px !important;
+            padding: 0 24px !important;
+          }
+
+          .terminal-header .brand-logo {
+            width: 78px !important;
+            height: 78px !important;
+            flex-basis: 78px !important;
+          }
+
+          .terminal-header .brand-logo img {
+            width: 74px !important;
+            height: 74px !important;
+          }
+
+          .terminal-header .brand-copy {
+            width: 158px !important;
+          }
+
+          .terminal-header .brand-copy strong {
+            font-size: 17.85px !important;
+          }
+
+          .terminal-header .brand-divider {
+            height: 48px !important;
+            margin-left: 18px !important;
+            margin-right: 26px !important;
+          }
+
+          .bull-terminal-shell {
+            display: grid !important;
+            grid-template-columns: 230px minmax(0, 1fr) !important;
+            gap: 26px !important;
+            box-sizing: border-box !important;
+            width: calc(100% - 48px) !important;
+            max-width: 1400px !important;
+            margin: 23px auto 0 !important;
+            padding: 0 !important;
+            align-items: start !important;
+          }
+
+          .bull-dashboard-fixed {
+            width: 230px !important;
+            min-width: 230px !important;
+            height: 977px !important;
+            overflow: visible !important;
+          }
+
+          .bull-dashboard-side-title {
+            width: 230px !important;
+            height: 57px !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-nav {
+            width: 230px !important;
+            margin-top: 8px !important;
+            padding: 10px 15px 11px !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-button {
+            height: 58px !important;
+            min-height: 58px !important;
+          }
+
+          /* Exact visual artwork from the approved reference, used only in
+             the decorative lower-left area. Functional UI remains real HTML. */
+          .bull-dashboard-fixed .bull-dashboard-waves {
+            position: relative !important;
+            width: 280px !important;
+            min-width: 280px !important;
+            max-width: 280px !important;
+            height: 541px !important;
+            min-height: 541px !important;
+            max-height: 541px !important;
+            margin: 0 0 0 -24px !important;
+            border: 0 !important;
+            border-radius: 0 !important;
+            opacity: 1 !important;
+            background:
+              url("/sidebar-hyperliquid-reference.png") left top / 280px 541px no-repeat !important;
+            -webkit-mask-image: none !important;
+            mask-image: none !important;
+            box-shadow: none !important;
+            overflow: hidden !important;
+            animation: none !important;
+          }
+
+          .bull-dashboard-fixed .bull-dashboard-waves::before {
+            content: "" !important;
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            left: 0 !important;
+            top: 0 !important;
+            border: 0 !important;
+            border-radius: 0 !important;
+            background:
+              linear-gradient(
+                105deg,
+                transparent 0%,
+                transparent 40%,
+                rgba(82, 255, 218, .08) 49%,
+                rgba(82, 255, 218, .18) 50%,
+                rgba(82, 255, 218, .08) 51%,
+                transparent 60%,
+                transparent 100%
+              ) !important;
+            transform: translateX(-120%) !important;
+            filter: none !important;
+            opacity: .8 !important;
+            animation: bullReferenceWaveSweep 7s linear infinite !important;
+          }
+
+          .bull-dashboard-fixed .bull-dashboard-waves::after {
+            display: none !important;
+            content: none !important;
+          }
+
+          @keyframes bullReferenceWaveSweep {
+            0% { transform: translateX(-120%); }
+            100% { transform: translateX(120%); }
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-footer-brand {
+            display: none !important;
+          }
+
+          .bull-main-stage,
+          .bull-main-stage > .arena-page,
+          .bull-reference-center {
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+
+          .bull-reference-center {
+            gap: 13px !important;
+          }
+
+          .bull-reference-center .battle-hero {
+            width: 100% !important;
+            height: 275px !important;
+            min-height: 275px !important;
+            max-height: 275px !important;
+          }
+
+          .fighter {
+            top: 43px !important;
+          }
+
+          .fighter-shiba {
+            left: 60px !important;
+            width: 330px !important;
+          }
+
+          .fighter-doge {
+            right: 34px !important;
+            width: 330px !important;
+          }
+
+          .battle-center {
+            top: 65px !important;
+            width: 480px !important;
+          }
+
+          .countdown {
+            bottom: 23px !important;
+            min-width: 305px !important;
+            height: 96px !important;
+          }
+
+          .bull-lower-section-scale {
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+            zoom: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 13px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+            overflow: visible !important;
+          }
+
+          .bull-lower-section-scale > .bull-ref-chart,
+          .bull-lower-section-scale > .bull-ref-info-grid,
+          .bull-lower-section-scale > .bull-ref-bottom {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            margin: 0 !important;
+          }
+
+          .bull-reference-center .bull-ref-chart {
+            height: 303px !important;
+            min-height: 303px !important;
+            max-height: 303px !important;
+            padding: 11px 24px 9px !important;
+          }
+
+          .bull-ref-info-grid {
+            height: 252px !important;
+            min-height: 252px !important;
+            max-height: 252px !important;
+            grid-template-columns: 416px minmax(0, 1fr) !important;
+            gap: 12px !important;
+          }
+
+          .bull-ref-how,
+          .bull-ref-stats {
+            height: 252px !important;
+            min-height: 252px !important;
+            max-height: 252px !important;
+          }
+
+          .bull-ref-how {
+            padding: 14px 24px 11px !important;
+          }
+
+          .bull-ref-instruction {
+            min-height: 41px !important;
+          }
+
+          .bull-ref-instruction:nth-of-type(3) {
+            min-height: 63px !important;
+            align-items: flex-start !important;
+          }
+
+          .bull-ref-instruction:nth-of-type(3) small {
+            max-width: 292px !important;
+            line-height: 1.08 !important;
+          }
+
+          .bull-ref-notice {
+            min-height: 45px !important;
+            margin-top: 1px !important;
+          }
+
+          .bull-ref-bottom {
+            height: 64px !important;
+            min-height: 64px !important;
+            max-height: 64px !important;
+          }
+
+          .bull-ref-bottom-step:first-child small {
+            white-space: nowrap !important;
+          }
+
+          .bull-ref-bottom-step:nth-child(3) .bull-ref-step-symbol {
+            font-size: 39px !important;
+          }
+        }
+
       `}</style>
 
       <div className="bull-terminal-shell">
@@ -4352,123 +4633,49 @@ function Arena() {
 
               <path
                 className="bull-ref-area shiba-area"
-                d="M0 270
-                   L70 255
-                   L140 238
-                   L210 245
-                   L280 210
-                   L350 225
-                   L420 250
-                   L490 238
-                   L560 260
-                   L630 246
-                   L700 235
-                   L770 248
-                   L840 232
-                   L910 252
-                   L980 225
-                   L1050 210
-                   L1120 225
-                   L1190 208
-                   L1260 195
-                   L1330 175
-                   L1400 160
-                   L1400 340
-                   L0 340 Z"
+                d="M0 300 L23 297 L46 288 L69 277 L92 270 L115 276 L138 272 L161 273 L186 276 L209 266 L233 265 L256 263 L279 255 L302 248 L326 245 L349 251 L372 252 L396 252 L419 255 L442 254 L466 253 L489 257 L512 254 L536 257 L559 259 L582 260 L606 259 L629 263 L652 264 L676 263 L699 260 L722 257 L746 258 L769 257 L792 257 L816 257 L839 255 L862 253 L886 250 L909 246 L932 249 L956 253 L979 255 L1002 253 L1026 248 L1049 243 L1072 239 L1096 240 L1119 237 L1142 236 L1166 237 L1189 233 L1212 229 L1236 222 L1259 218 L1282 220 L1306 218 L1329 213 L1352 204 L1376 197 L1400 191 L1400 340 L0 340 Z"
               />
 
               <path
                 className="bull-ref-area doge-area"
-                d="M0 300
-                   L70 292
-                   L140 285
-                   L210 300
-                   L280 287
-                   L350 280
-                   L420 268
-                   L490 270
-                   L560 245
-                   L630 225
-                   L700 190
-                   L770 175
-                   L840 205
-                   L910 168
-                   L980 175
-                   L1050 140
-                   L1120 155
-                   L1190 145
-                   L1260 110
-                   L1330 125
-                   L1400 92
-                   L1400 340
-                   L0 340 Z"
+                d="M0 335 L23 331 L46 330 L69 324 L92 323 L115 313 L138 312 L161 319 L186 321 L209 321 L233 320 L256 319 L279 318 L302 315 L326 316 L349 319 L372 318 L396 314 L419 313 L442 309 L466 307 L489 306 L512 306 L536 303 L559 297 L582 293 L606 288 L629 281 L652 275 L676 268 L699 258 L722 248 L746 239 L769 232 L792 224 L816 218 L839 215 L862 219 L886 228 L909 223 L932 214 L956 210 L979 203 L1002 201 L1026 197 L1049 187 L1072 181 L1096 177 L1119 182 L1142 190 L1166 189 L1189 193 L1212 197 L1236 194 L1259 184 L1282 174 L1306 163 L1329 157 L1352 160 L1376 151 L1400 145 L1400 340 L0 340 Z"
               />
 
               <polyline
                 className="bull-ref-line shiba-chart-line"
                 points="
-                  0,270
-                  70,255
-                  140,238
-                  210,245
-                  280,210
-                  350,225
-                  420,250
-                  490,238
-                  560,260
-                  630,246
-                  700,235
-                  770,248
-                  840,232
-                  910,252
-                  980,225
-                  1050,210
-                  1120,225
-                  1190,208
-                  1260,195
-                  1330,175
-                  1400,160
+                  0,300 23,297 46,288 69,277 92,270 115,276 138,272 161,273 186,276 209,266
+233,265 256,263 279,255 302,248 326,245 349,251 372,252 396,252 419,255 442,254
+466,253 489,257 512,254 536,257 559,259 582,260 606,259 629,263 652,264 676,263
+699,260 722,257 746,258 769,257 792,257 816,257 839,255 862,253 886,250 909,246
+932,249 956,253 979,255 1002,253 1026,248 1049,243 1072,239 1096,240 1119,237 1142,236
+1166,237 1189,233 1212,229 1236,222 1259,218 1282,220 1306,218 1329,213 1352,204 1376,197 1400,191
                 "
               />
 
               <polyline
                 className="bull-ref-line doge-chart-line"
                 points="
-                  0,300
-                  70,292
-                  140,285
-                  210,300
-                  280,287
-                  350,280
-                  420,268
-                  490,270
-                  560,245
-                  630,225
-                  700,190
-                  770,175
-                  840,205
-                  910,168
-                  980,175
-                  1050,140
-                  1120,155
-                  1190,145
-                  1260,110
-                  1330,125
-                  1400,92
+                  0,335 23,331 46,330 69,324 92,323 115,313 138,312 161,319 186,321 209,321
+233,320 256,319 279,318 302,315 326,316 349,319 372,318 396,314 419,313 442,309
+466,307 489,306 512,306 536,303 559,297 582,293 606,288 629,281 652,275 676,268
+699,258 722,248 746,239 769,232 792,224 816,218 839,215 862,219 886,228 909,223
+932,214 956,210 979,203 1002,201 1026,197 1049,187 1072,181 1096,177 1119,182 1142,190
+1166,189 1189,193 1212,197 1236,194 1259,184 1282,174 1306,163 1329,157 1352,160 1376,151 1400,145
                 "
               />
 
               <circle
                 className="bull-ref-point doge-point"
                 cx="1400"
-                cy="92"
+                cy="145"
                 r="7"
               />
 
               <circle
                 className="bull-ref-point shiba-point"
                 cx="1400"
-                cy="160"
+                cy="191"
                 r="7"
               />
             </svg>
@@ -4526,16 +4733,16 @@ function Arena() {
             <div className="bull-ref-instruction">
               <span className="bull-ref-num">3</span>
               <p>
-                <strong>Follow the volume</strong>
-                <small>The market data determines the room result.</small>
+                <strong>Start the volume</strong>
+                <small>The side with the highest volume on the DEX wins in 30 minutes. Pay and take the other side.</small>
               </p>
             </div>
 
             <div className="bull-ref-notice">
               <span>!</span>
               <p>
-                <strong>ROOM RULES APPLY</strong>
-                <small>Review the active room before participating.</small>
+                <strong>There is no risk of loss.</strong>
+                <small>Only the winning side moves forward.</small>
               </p>
             </div>
           </div>
@@ -4589,7 +4796,7 @@ function Arena() {
             <span className="bull-ref-step-symbol">ϟ</span>
             <div>
               <strong>ENTER THE ROOM</strong>
-              <small>Join the side you want to support.</small>
+              <small>Join the right side, the rooms are limited.</small>
             </div>
             <b>›</b>
           </div>
@@ -4606,8 +4813,8 @@ function Arena() {
           <div className="bull-ref-bottom-step">
             <span className="bull-ref-step-symbol">♜</span>
             <div>
-              <strong>ROOM RESULT</strong>
-              <small>The result follows the configured room rules.</small>
+              <strong>TAKE THE VICTORY</strong>
+              <small>The side that loses pays.</small>
             </div>
             <b>›</b>
           </div>
