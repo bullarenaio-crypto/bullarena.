@@ -666,8 +666,7 @@ input:focus-visible {
       rgba(0, 8, 20, 0.02) 70%,
       rgba(0, 12, 18, 0.08) 100%
     ),
-    url("/arena-battle-bg.png");
-
+   url("/arena-battle-bg.png.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
