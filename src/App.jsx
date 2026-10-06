@@ -580,7 +580,194 @@ function Arena() {
     </div>
   );
 }
+function OpeningScreen({ countdown }) {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 999999,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        background:
+          "radial-gradient(circle at 30% 50%, rgba(145, 0, 255, 0.22), transparent 35%), radial-gradient(circle at 70% 50%, rgba(0, 255, 140, 0.18), transparent 35%), #020306",
+      }}
+    >
+      <style>{`
+        @keyframes openingBullFloat {
+          0%, 100% {
+            transform: translateY(0) scale(1);
+          }
+          50% {
+            transform: translateY(-10px) scale(1.03);
+          }
+        }
 
+        @keyframes openingPulse {
+          0%, 100% {
+            transform: scale(0.95);
+            opacity: 0.5;
+          }
+          50% {
+            transform: scale(1.08);
+            opacity: 1;
+          }
+        }
+
+        @keyframes openingRotate {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes openingLoad {
+          from {
+            transform: scaleX(0);
+          }
+          to {
+            transform: scaleX(1);
+          }
+        }
+      `}</style>
+
+      <div
+        style={{
+          position: "absolute",
+          width: "520px",
+          height: "520px",
+          borderRadius: "50%",
+          background:
+            "conic-gradient(from 0deg, rgba(0,255,140,.7), rgba(145,0,255,.7), rgba(0,255,140,.7))",
+          filter: "blur(80px)",
+          opacity: 0.3,
+          animation: "openingRotate 5s linear infinite",
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          width: "390px",
+          height: "390px",
+          borderRadius: "50%",
+          border: "1px solid rgba(0,255,140,.7)",
+          boxShadow:
+            "0 0 30px rgba(0,255,140,.5), inset 0 0 35px rgba(145,0,255,.35)",
+          animation: "openingPulse 1.8s ease-in-out infinite",
+        }}
+      />
+
+      <div
+        style={{
+          position: "relative",
+          zIndex: 5,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <img
+          src="/bull-logo.png"
+          alt="Bull Protocol"
+          style={{
+            width: "min(300px, 65vw)",
+            height: "300px",
+            objectFit: "contain",
+            filter:
+              "drop-shadow(0 0 15px #00ff8c) drop-shadow(0 0 35px #9100ff)",
+            animation: "openingBullFloat 2s ease-in-out infinite",
+          }}
+        />
+
+        <div
+          style={{
+            marginTop: "20px",
+            color: "#ffffff",
+            fontSize: "clamp(28px, 4vw, 52px)",
+            fontWeight: 900,
+            letterSpacing: "0.16em",
+            textShadow:
+              "0 0 12px #00ff8c, 0 0 30px rgba(145,0,255,.9)",
+          }}
+        >
+          BULL PROTOCOL
+        </div>
+
+        <div
+          style={{
+            marginTop: "8px",
+            color: "#9dffd1",
+            fontSize: "12px",
+            fontWeight: 700,
+            letterSpacing: "0.45em",
+          }}
+        >
+          MOMENTUM WINS
+        </div>
+
+        <div
+          style={{
+            marginTop: "28px",
+            width: "64px",
+            height: "64px",
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "1px solid #00ff8c",
+            color: "#ffffff",
+            fontSize: "28px",
+            fontWeight: 900,
+            background: "rgba(0,0,0,.7)",
+            boxShadow:
+              "0 0 18px rgba(0,255,140,.8), 0 0 35px rgba(145,0,255,.5)",
+          }}
+        >
+          {countdown}
+        </div>
+
+        <div
+          style={{
+            width: "230px",
+            height: "3px",
+            marginTop: "22px",
+            overflow: "hidden",
+            background: "rgba(255,255,255,.08)",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              transformOrigin: "left",
+              background:
+                "linear-gradient(90deg, #9100ff, #00ff8c, #9100ff)",
+              boxShadow: "0 0 15px #00ff8c",
+              animation: "openingLoad 5s linear forwards",
+            }}
+          />
+        </div>
+
+        <div
+          style={{
+            marginTop: "12px",
+            color: "rgba(255,255,255,.5)",
+            fontSize: "9px",
+            letterSpacing: "0.3em",
+          }}
+        >
+          INITIALIZING TRADING TERMINAL
+        </div>
+      </div>
+    </div>
+  );
+}
 export default function App() {
   const wallets = useMemo(
     () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
