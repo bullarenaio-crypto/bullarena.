@@ -49,7 +49,7 @@ function Arena() {
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");
   const [activeSection, setActiveSection] = useState("rooms");
-  const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [dashboardOpen, setDashboardOpen] = useState(true);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -127,16 +127,6 @@ function Arena() {
         </div>
 
         <div className="header-actions">
-          <button
-            type="button"
-            className="bull-dashboard-trigger"
-            onClick={() => setDashboardOpen(true)}
-            aria-label="Open dashboard menu"
-          >
-            <span>☰</span>
-            DASHBOARD
-          </button>
-
           <div className="online-status">
             <span className="online-dot" />
             Online
@@ -2237,147 +2227,297 @@ function Arena() {
           }
         }
 
+
+        /* =========================================================
+           FINAL LAYOUT: VISIBLE DASHBOARD SIDEBAR
+        ========================================================= */
+
+        .bull-terminal-shell {
+          display: grid !important;
+          grid-template-columns: 190px minmax(0, 1fr) !important;
+          gap: 8px !important;
+          width: min(1440px, calc(100% - 12px)) !important;
+          max-width: 1440px !important;
+          margin: 7px auto 14px !important;
+          align-items: start !important;
+        }
+
+        .bull-dashboard-fixed {
+          position: sticky !important;
+          top: 74px !important;
+          z-index: 80 !important;
+          min-width: 0 !important;
+          padding: 8px !important;
+          overflow: hidden !important;
+          border: 1px solid rgba(0, 205, 255, .32) !important;
+          border-radius: 8px !important;
+          background:
+            radial-gradient(circle at 30% 0%, rgba(123, 43, 255, .16), transparent 32%),
+            linear-gradient(180deg, rgba(5, 9, 22, .99), rgba(2, 6, 15, .99)) !important;
+          box-shadow:
+            inset 0 0 28px rgba(0, 206, 255, .025),
+            0 0 18px rgba(0, 0, 0, .18) !important;
+        }
+
+        .bull-dashboard-side-title {
+          width: 100% !important;
+          height: 42px !important;
+          display: grid !important;
+          grid-template-columns: 24px minmax(0, 1fr) 18px !important;
+          align-items: center !important;
+          gap: 5px !important;
+          padding: 0 8px !important;
+          border: 1px solid rgba(0, 236, 255, .70) !important;
+          border-radius: 7px !important;
+          background:
+            linear-gradient(90deg, rgba(116, 35, 255, .34), rgba(0, 224, 244, .18)) !important;
+          box-shadow:
+            0 0 15px rgba(0, 236, 255, .10),
+            inset 0 0 14px rgba(111, 42, 255, .09) !important;
+          color: #f0fbff !important;
+          text-align: left !important;
+          cursor: pointer !important;
+        }
+
+        .bull-dashboard-side-icon {
+          color: #18f1f4 !important;
+          font-size: 17px !important;
+          line-height: 1 !important;
+        }
+
+        .bull-dashboard-side-title > span:nth-child(2) {
+          font-size: 10px !important;
+          font-weight: 900 !important;
+          letter-spacing: .06em !important;
+        }
+
+        .bull-dashboard-side-title b {
+          color: #00edf1 !important;
+          font-size: 14px !important;
+          font-weight: 800 !important;
+          text-align: right !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-nav {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 5px !important;
+          margin-top: 7px !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-button {
+          min-height: 49px !important;
+          grid-template-columns: 29px minmax(0, 1fr) !important;
+          gap: 7px !important;
+          padding: 7px 8px !important;
+          border-radius: 6px !important;
+        }
+
+        /* Larger dashboard wording */
+        .bull-dashboard-fixed .bull-sidebar-icon {
+          font-size: 16px !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-copy strong {
+          font-size: 10px !important;
+          line-height: 1.05 !important;
+          letter-spacing: .035em !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-copy small {
+          margin-top: 2px !important;
+          font-size: 7.5px !important;
+          line-height: 1.12 !important;
+        }
+
+        /* Waves remain only below Settings */
+        .bull-dashboard-fixed .bull-dashboard-waves {
+          height: 76px !important;
+          margin: 8px 0 0 !important;
+        }
+
+        /* Main content uses the remaining width */
+        .bull-main-stage {
+          width: 100% !important;
+          max-width: none !important;
+          min-width: 0 !important;
+          margin: 0 !important;
+          overflow: visible !important;
+        }
+
+        /* Reduce the mascot/battle area by approximately 10% */
+        .bull-reference-center .battle-hero {
+          width: 90% !important;
+          max-width: 90% !important;
+          height: 234px !important;
+          min-height: 234px !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+
+        .bull-reference-center .token-orbit {
+          transform: scale(.90) !important;
+          transform-origin: center !important;
+        }
+
+        /* Reduce the chart panel by approximately 10% */
+        .bull-reference-center .bull-ref-chart {
+          width: 90% !important;
+          height: 178px !important;
+          min-height: 178px !important;
+          max-height: 178px !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+
+        .bull-reference-center .bull-ref-volume {
+          height: 126px !important;
+          min-height: 126px !important;
+        }
+
+        .bull-reference-center .bull-ref-chart-svg {
+          height: 107px !important;
+        }
+
+        .bull-reference-center .bull-ref-chart-footer {
+          height: 15px !important;
+          min-height: 15px !important;
+        }
+
+        /* Larger top/header wording */
+        .terminal-header .brand-copy strong {
+          font-size: 15px !important;
+          letter-spacing: .08em !important;
+        }
+
+        .terminal-header .brand-copy span {
+          font-size: 8px !important;
+        }
+
+        .terminal-header .terminal-title strong {
+          font-size: 11px !important;
+        }
+
+        .terminal-header .terminal-title span {
+          font-size: 7px !important;
+        }
+
+        .terminal-header .online-status,
+        .terminal-header .wallet-address {
+          font-size: 8.5px !important;
+        }
+
+        .terminal-header .wallet-adapter-button {
+          font-size: 9px !important;
+        }
+
+        /* Larger footer wording */
+        .bull-ref-bottom-step strong {
+          font-size: 7.2px !important;
+          line-height: 1.08 !important;
+        }
+
+        .bull-ref-bottom-step small {
+          font-size: 6.2px !important;
+          line-height: 1.08 !important;
+        }
+
+        /* Keep the dashboard sidebar visible at laptop/tablet widths too */
+        @media (max-width: 980px) {
+          .bull-terminal-shell {
+            display: grid !important;
+            grid-template-columns: 175px minmax(0, 1fr) !important;
+            width: calc(100% - 8px) !important;
+            max-width: none !important;
+            gap: 6px !important;
+          }
+
+          .bull-dashboard-fixed {
+            position: relative !important;
+            top: auto !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-copy strong {
+            font-size: 9.5px !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-copy small {
+            font-size: 7px !important;
+          }
+
+          .bull-main-stage {
+            overflow: hidden !important;
+          }
+        }
+
+        @media (max-width: 620px) {
+          .bull-terminal-shell {
+            grid-template-columns: 160px minmax(0, 1fr) !important;
+          }
+
+          .bull-dashboard-side-title > span:nth-child(2) {
+            font-size: 9px !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-button {
+            min-height: 46px !important;
+            grid-template-columns: 25px minmax(0, 1fr) !important;
+            padding-left: 6px !important;
+            padding-right: 6px !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-icon {
+            font-size: 14px !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-copy strong {
+            font-size: 8.5px !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-copy small {
+            font-size: 6.5px !important;
+          }
+        }
+
       `}</style>
 
-      {dashboardOpen && (
-        <div
-          className="bull-dashboard-overlay"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setDashboardOpen(false);
-            }
-          }}
-        >
-          <aside className="bull-dashboard-drawer" aria-label="Bull Protocol dashboard menu">
-            <div className="bull-dashboard-drawer-head">
-              <div className="bull-dashboard-brand">
-                <img src="/bull-logo.png" alt="Bull Protocol" />
-                <div>
-                  <strong>BULL PROTOCOL</strong>
-                  <small>DASHBOARD MENU</small>
-                </div>
-              </div>
-              <button
-                type="button"
-                className="bull-dashboard-close"
-                onClick={() => setDashboardOpen(false)}
-                aria-label="Close dashboard menu"
-              >
-                ×
-              </button>
-            </div>
-
-            <div className="bull-dashboard-section-label">NAVIGATION</div>
-          <nav className="bull-sidebar-nav" aria-label="Bull Protocol navigation">
-            {SIDEBAR_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={`bull-sidebar-button ${activeSection === item.id ? "active" : ""}`}
-                onClick={() => {
-                  setActiveSection(item.id);
-                  setDashboardOpen(false);
-                }}
-              >
-                <span className="bull-sidebar-icon">{item.icon}</span>
-                <span className="bull-sidebar-copy">
-                  <strong>{item.label}</strong>
-                  <small>{item.subtitle}</small>
-                </span>
-              </button>
-            ))}
-          </nav>
-
-            <div className="bull-dashboard-waves" aria-hidden="true" />
-
-            <div className="bull-dashboard-section-label">ACTIVE ROOM</div>
-            <div className="bull-dashboard-room-stack">
-          <section className="bull-right-card bull-room-card">
-            <div className="bull-room-card-top">
-              <span className="bull-room-number">ROOM #4827</span>
-              <span className="bull-room-live"><i /> IN PROGRESS</span>
-            </div>
-
-            <h3>SHIBA VS DOGE</h3>
-            <p>Battle for market momentum during the active 30-minute room.</p>
-
-            <div className="bull-room-facts">
-              <div className="bull-room-fact">
-                <small>Duration</small>
-                <strong>30 minutes</strong>
-              </div>
-              <div className="bull-room-fact">
-                <small>Participants</small>
-                <strong>100 / 100</strong>
-              </div>
-            </div>
-
-            <div className="bull-network-row">
-              <small>Market Status</small>
-              <strong>LIVE MARKET</strong>
-            </div>
-
-            <button
-              type="button"
-              className="bull-enter-room"
-              onClick={() => {
-                setSelectedSide(null);
-                setShowEntry(true);
-                setMessage("");
-              }}
-            >
-              ENTER ROOM →
-            </button>
-          </section>
-
-          <section className="bull-right-card bull-participants-card">
-            <div className="bull-participants-heading">
-              <strong>PARTICIPANTS (100)</strong>
-              <span>LIVE</span>
-            </div>
-
-            <div className="bull-team-totals">
-              <div className="bull-team-total shiba">
-                <img src={SHIBA_LOGO} alt="SHIBA" />
-                <span>SHIBA<b>50</b></span>
-              </div>
-              <div className="bull-team-total doge">
-                <img src={DOGE_LOGO} alt="DOGE" />
-                <span>DOGE<b>50</b></span>
-              </div>
-            </div>
-
-            <div className="bull-participant-list">
-              {ROOM_PARTICIPANTS.map((participant) => (
-                <div className="bull-participant-row" key={participant.name}>
-                  <div className="bull-participant-avatar">
-                    <img
-                      src={participant.side === "SHIBA" ? SHIBA_LOGO : DOGE_LOGO}
-                      alt=""
-                    />
-                  </div>
-                  <div className="bull-participant-copy">
-                    <strong>{participant.name}</strong>
-                    <small className={participant.side.toLowerCase()}>
-                      Joined the {participant.side === "SHIBA" ? "Shiba" : "Doge"} side
-                    </small>
-                  </div>
-                  <time>{participant.time}</time>
-                </div>
-              ))}
-            </div>
-
-            <button type="button" className="bull-view-participants">
-              View all participants (100) <span>→</span>
-            </button>
-          </section>
-
-            </div>
-          </aside>
-        </div>
-      )}
-
       <div className="bull-terminal-shell">
+        <aside className="bull-dashboard-fixed" aria-label="Bull Protocol dashboard">
+          <button
+            type="button"
+            className="bull-dashboard-side-title"
+            onClick={() => setDashboardOpen((current) => !current)}
+            aria-expanded={dashboardOpen}
+          >
+            <span className="bull-dashboard-side-icon">☰</span>
+            <span>DASHBOARD</span>
+            <b>{dashboardOpen ? "⌃" : "⌄"}</b>
+          </button>
+
+          {dashboardOpen && (
+            <>
+              <nav className="bull-sidebar-nav" aria-label="Bull Protocol navigation">
+                {SIDEBAR_ITEMS.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`bull-sidebar-button ${activeSection === item.id ? "active" : ""}`}
+                    onClick={() => setActiveSection(item.id)}
+                  >
+                    <span className="bull-sidebar-icon">{item.icon}</span>
+                    <span className="bull-sidebar-copy">
+                      <strong>{item.label}</strong>
+                      <small>{item.subtitle}</small>
+                    </span>
+                  </button>
+                ))}
+              </nav>
+
+              <div className="bull-dashboard-waves" aria-hidden="true" />
+            </>
+          )}
+        </aside>
+
         <div className="bull-main-stage">
           {activeSection === "rooms" ? (
             <main className="arena-page bull-reference-center">
