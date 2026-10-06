@@ -124,6 +124,23 @@ function Arena() {
       <main className="arena-page">
         <section
           className="battle-hero"
+          <section className="battle-hero">
+  <img
+    src="/arena-battle-bg.png.png"
+    alt=""
+    style={{
+      position: "absolute",
+      inset: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      objectPosition: "center",
+      zIndex: 0,
+      pointerEvents: "none",
+    }}
+  />
+
+  <div className="battle-energy battle-energy-left" />
           style={{ backgroundImage: 'url("/arena-battle-bg.png.png")' }}
         >
           <div className="battle-energy battle-energy-left" />
