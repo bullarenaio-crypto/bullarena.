@@ -1953,6 +1953,189 @@ function Arena() {
           }
         }
 
+
+        /* =========================================================
+           DESKTOP PROPORTION ADJUSTMENT
+           Smaller center + larger sidebars + taller lower area
+        ========================================================= */
+        @media (min-width: 721px) {
+          .bull-terminal-shell {
+            grid-template-columns: 185px minmax(0, 1fr) 245px !important;
+            gap: 9px !important;
+          }
+
+          .bull-sidebar {
+            padding: 10px !important;
+          }
+
+          .bull-sidebar-button {
+            min-height: 46px !important;
+            grid-template-columns: 28px minmax(0, 1fr) !important;
+            gap: 7px !important;
+            padding: 7px 8px !important;
+          }
+
+          .bull-sidebar-icon {
+            font-size: 14px !important;
+          }
+
+          .bull-sidebar-copy strong {
+            font-size: 7.5px !important;
+          }
+
+          .bull-sidebar-copy small {
+            font-size: 6px !important;
+          }
+
+          .bull-sidebar-promo {
+            min-height: 175px !important;
+            padding: 11px 9px !important;
+          }
+
+          .bull-sidebar-promo img {
+            width: 44px !important;
+            height: 44px !important;
+          }
+
+          .bull-sidebar-promo h3 {
+            font-size: 8.5px !important;
+          }
+
+          .bull-sidebar-promo p {
+            font-size: 6.1px !important;
+            line-height: 1.4 !important;
+          }
+
+          .bull-right-sidebar {
+            padding: 9px !important;
+            gap: 9px !important;
+          }
+
+          .bull-room-card {
+            padding: 11px !important;
+          }
+
+          .bull-participants-card {
+            padding: 10px !important;
+          }
+
+          .bull-participant-row {
+            min-height: 41px !important;
+          }
+
+          /* Give more vertical space to the area below the chart */
+          .bull-ref-info-grid {
+            height: 172px !important;
+            min-height: 172px !important;
+            max-height: 172px !important;
+            grid-template-columns: .80fr 1.20fr !important;
+            gap: 9px !important;
+          }
+
+          .bull-ref-how,
+          .bull-ref-stats {
+            height: 172px !important;
+            min-height: 172px !important;
+            max-height: 172px !important;
+            padding: 11px 12px !important;
+          }
+
+          .bull-ref-how h2,
+          .bull-ref-stats h2 {
+            font-size: 10px !important;
+            margin-bottom: 8px !important;
+          }
+
+          .bull-ref-instruction {
+            min-height: 26px !important;
+            margin: 3px 0 !important;
+          }
+
+          .bull-ref-num {
+            width: 20px !important;
+            height: 20px !important;
+            flex-basis: 20px !important;
+            font-size: 7.5px !important;
+          }
+
+          .bull-ref-instruction strong {
+            font-size: 7.5px !important;
+          }
+
+          .bull-ref-instruction small {
+            font-size: 6.2px !important;
+          }
+
+          .bull-ref-notice {
+            min-height: 32px !important;
+            margin-top: 7px !important;
+            padding: 5px 7px !important;
+          }
+
+          .bull-ref-stat-side {
+            grid-template-columns: 38px minmax(0, 1fr) !important;
+            gap: 7px !important;
+            padding: 3px 10px !important;
+          }
+
+          .bull-ref-stat-token {
+            width: 38px !important;
+            height: 38px !important;
+          }
+
+          .bull-ref-stat-token img {
+            width: 29px !important;
+            height: 29px !important;
+          }
+
+          .bull-ref-stat-side > div:nth-child(2) strong {
+            font-size: 7.5px !important;
+          }
+
+          .bull-ref-stat-side > div:nth-child(2) span {
+            font-size: 6.3px !important;
+          }
+
+          .bull-ref-stat-side p {
+            margin-top: 5px !important;
+            font-size: 6.3px !important;
+          }
+
+          .bull-ref-stat-side p strong {
+            font-size: 12px !important;
+          }
+
+          .bull-ref-diff {
+            margin-top: 9px !important;
+            padding: 6px 8px !important;
+          }
+
+          /* Make the last strip under the two panels larger */
+          .bull-ref-bottom {
+            height: 54px !important;
+            min-height: 54px !important;
+            max-height: 54px !important;
+          }
+
+          .bull-ref-bottom-step {
+            grid-template-columns: 26px minmax(0, 1fr) 9px !important;
+            gap: 6px !important;
+            padding: 7px 9px !important;
+          }
+
+          .bull-ref-step-symbol {
+            font-size: 23px !important;
+          }
+
+          .bull-ref-bottom-step strong {
+            font-size: 6.2px !important;
+          }
+
+          .bull-ref-bottom-step small {
+            font-size: 5.4px !important;
+          }
+        }
+
       `}</style>
 
       <div className="bull-terminal-shell">
