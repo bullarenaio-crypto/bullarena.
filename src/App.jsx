@@ -122,9 +122,7 @@ function Arena() {
       </header>
 
       <main className="arena-page">
-        <section
-          className="battle-hero"
-          <section className="battle-hero">
+        <section className="battle-hero"
   <img
     src="/arena-battle-bg.png.png"
     alt=""
