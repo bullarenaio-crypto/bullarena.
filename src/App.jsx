@@ -39,6 +39,66 @@ const ROOM_PARTICIPANTS = [
   { name: "BullMaster", side: "SHIBA", time: "5 min" },
 ];
 
+
+function SideLightning({ side }) {
+  const gradientId = `side-lightning-gradient-${side}`;
+
+  return (
+    <div
+      className={`side-lightning side-lightning-${side}`}
+      aria-hidden="true"
+    >
+      <svg
+        viewBox="0 0 180 900"
+        preserveAspectRatio="none"
+        focusable="false"
+      >
+        <defs>
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#9945ff" />
+            <stop offset="34%" stopColor="#14f195" />
+            <stop offset="64%" stopColor="#7fffd4" />
+            <stop offset="100%" stopColor="#00e6ff" />
+          </linearGradient>
+
+          <filter id={`side-lightning-glow-${side}`} x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <path
+          className="side-bolt side-bolt-main"
+          d="M88 0 L55 105 L102 165 L42 260 L96 335 L53 430 L118 510 L72 610 L123 700 L80 790 L103 900"
+          style={{ stroke: `url(#${gradientId})` }}
+          filter={`url(#side-lightning-glow-${side})`}
+        />
+
+        <path
+          className="side-bolt side-bolt-secondary"
+          d="M132 40 L96 140 L141 210 L92 315 L137 395 L90 500 L145 590 L103 690 L152 780 L118 875"
+          style={{ stroke: `url(#${gradientId})` }}
+          filter={`url(#side-lightning-glow-${side})`}
+        />
+
+        <path
+          className="side-bolt side-bolt-branch"
+          d="M72 240 L18 300 L61 343 M99 505 L155 555 L117 607 M77 700 L24 755 L65 796"
+          style={{ stroke: `url(#${gradientId})` }}
+          filter={`url(#side-lightning-glow-${side})`}
+        />
+      </svg>
+
+      <div className="side-lightning-haze" />
+      <div className="side-lightning-orb orb-one" />
+      <div className="side-lightning-orb orb-two" />
+    </div>
+  );
+}
+
 function Arena() {
   const { connected, publicKey } = useWallet();
 
@@ -2139,10 +2199,286 @@ function Arena() {
           }
         }
 
+
+        /* =========================================================
+           ANIMATED SIDE LIGHTNING
+           Solana-inspired purple/green + Hyperliquid-inspired mint/cyan
+        ========================================================= */
+
+        .bull-sidebar,
+        .bull-right-sidebar {
+          position: relative !important;
+          isolation: isolate;
+          overflow: hidden !important;
+        }
+
+        .bull-sidebar > *:not(.side-lightning),
+        .bull-right-sidebar > *:not(.side-lightning) {
+          position: relative;
+          z-index: 2;
+        }
+
+        .side-lightning {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          overflow: hidden;
+          pointer-events: none;
+          opacity: .72;
+          mix-blend-mode: screen;
+        }
+
+        .side-lightning::before,
+        .side-lightning::after {
+          content: "";
+          position: absolute;
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          filter: blur(42px);
+          opacity: .19;
+          animation: sideEnergyDrift 7s ease-in-out infinite alternate;
+        }
+
+        .side-lightning::before {
+          top: 18%;
+          left: -48px;
+          background: radial-gradient(
+            circle,
+            rgba(153, 69, 255, .95) 0%,
+            rgba(20, 241, 149, .35) 42%,
+            transparent 72%
+          );
+        }
+
+        .side-lightning::after {
+          right: -55px;
+          bottom: 13%;
+          background: radial-gradient(
+            circle,
+            rgba(127, 255, 212, .9) 0%,
+            rgba(0, 230, 255, .35) 46%,
+            transparent 73%
+          );
+          animation-delay: -3.4s;
+        }
+
+        .side-lightning svg {
+          position: absolute;
+          inset: -7% 0;
+          width: 100%;
+          height: 114%;
+          overflow: visible;
+          opacity: .86;
+          animation: sideLightningFloat 6.5s ease-in-out infinite alternate;
+        }
+
+        .side-lightning-right svg {
+          transform: scaleX(-1);
+          animation-name: sideLightningFloatRight;
+          animation-duration: 7.2s;
+        }
+
+        .side-bolt {
+          fill: none;
+          stroke-width: 2.15;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          vector-effect: non-scaling-stroke;
+          stroke-dasharray: 14 12 40 9;
+          animation:
+            sideBoltRun 2.3s linear infinite,
+            sideBoltFlicker 4.2s steps(1, end) infinite;
+        }
+
+        .side-bolt-main {
+          stroke-width: 2.4;
+        }
+
+        .side-bolt-secondary {
+          stroke-width: 1.5;
+          opacity: .52;
+          animation-duration: 3.1s, 5.4s;
+          animation-delay: -.8s, -1.4s;
+        }
+
+        .side-bolt-branch {
+          stroke-width: 1.35;
+          opacity: .7;
+          animation-duration: 1.85s, 3.6s;
+          animation-delay: -.3s, -2s;
+        }
+
+        .side-lightning-haze {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(
+              180deg,
+              transparent 0%,
+              rgba(153, 69, 255, .045) 22%,
+              rgba(20, 241, 149, .05) 47%,
+              rgba(127, 255, 212, .045) 70%,
+              transparent 100%
+            ),
+            repeating-linear-gradient(
+              112deg,
+              transparent 0 42px,
+              rgba(0, 230, 255, .025) 43px 44px,
+              transparent 45px 88px
+            );
+          animation: sideHazePulse 5s ease-in-out infinite alternate;
+        }
+
+        .side-lightning-orb {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: #7fffd4;
+          box-shadow:
+            0 0 9px #7fffd4,
+            0 0 18px rgba(20, 241, 149, .85),
+            0 0 32px rgba(153, 69, 255, .65);
+          animation: sideOrbTravel 6s ease-in-out infinite;
+        }
+
+        .side-lightning-orb.orb-one {
+          left: 23%;
+          top: 16%;
+        }
+
+        .side-lightning-orb.orb-two {
+          right: 20%;
+          top: 63%;
+          width: 7px;
+          height: 7px;
+          background: #9945ff;
+          box-shadow:
+            0 0 9px #9945ff,
+            0 0 20px rgba(153, 69, 255, .9),
+            0 0 30px rgba(0, 230, 255, .45);
+          animation-delay: -3s;
+        }
+
+        @keyframes sideBoltRun {
+          from {
+            stroke-dashoffset: 0;
+          }
+          to {
+            stroke-dashoffset: -150;
+          }
+        }
+
+        @keyframes sideBoltFlicker {
+          0%, 7%, 11%, 37%, 41%, 73%, 100% {
+            opacity: .86;
+          }
+          8%, 10%, 38%, 40%, 74% {
+            opacity: .23;
+          }
+          55% {
+            opacity: 1;
+          }
+        }
+
+        @keyframes sideLightningFloat {
+          0% {
+            transform: translate3d(-5px, -16px, 0) scale(1.02);
+          }
+          50% {
+            transform: translate3d(6px, 7px, 0) scale(1.055);
+          }
+          100% {
+            transform: translate3d(-1px, 20px, 0) scale(1.015);
+          }
+        }
+
+        @keyframes sideLightningFloatRight {
+          0% {
+            transform: scaleX(-1) translate3d(-4px, -18px, 0) scale(1.02);
+          }
+          50% {
+            transform: scaleX(-1) translate3d(5px, 9px, 0) scale(1.06);
+          }
+          100% {
+            transform: scaleX(-1) translate3d(0, 22px, 0) scale(1.01);
+          }
+        }
+
+        @keyframes sideEnergyDrift {
+          from {
+            transform: translate3d(0, -18px, 0) scale(.92);
+            opacity: .11;
+          }
+          to {
+            transform: translate3d(14px, 24px, 0) scale(1.16);
+            opacity: .27;
+          }
+        }
+
+        @keyframes sideHazePulse {
+          from {
+            opacity: .38;
+            transform: translateY(-1.5%);
+          }
+          to {
+            opacity: .8;
+            transform: translateY(1.5%);
+          }
+        }
+
+        @keyframes sideOrbTravel {
+          0% {
+            transform: translate3d(-4px, -18px, 0) scale(.65);
+            opacity: .2;
+          }
+          20% {
+            opacity: 1;
+          }
+          52% {
+            transform: translate3d(38px, 180px, 0) scale(1.15);
+            opacity: .9;
+          }
+          100% {
+            transform: translate3d(-12px, 390px, 0) scale(.55);
+            opacity: 0;
+          }
+        }
+
+        /* Keep the effects elegant on phones instead of covering the UI */
+        @media (max-width: 720px) {
+          .side-lightning {
+            opacity: .32;
+          }
+
+          .side-bolt {
+            stroke-width: 1.25;
+          }
+
+          .side-lightning::before,
+          .side-lightning::after {
+            opacity: .09;
+          }
+
+          .side-lightning-orb {
+            display: none;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .side-lightning *,
+          .side-lightning::before,
+          .side-lightning::after {
+            animation: none !important;
+          }
+        }
+
       `}</style>
 
       <div className="bull-terminal-shell">
         <aside className="bull-sidebar">
+          <SideLightning side="left" />
           <div className="bull-sidebar-title">BULL PROTOCOL TERMINAL</div>
 
           <nav className="bull-sidebar-nav" aria-label="Bull Protocol navigation">
@@ -2650,6 +2986,7 @@ function Arena() {
         </div>
 
         <aside className="bull-right-sidebar" aria-label="Active room details">
+          <SideLightning side="right" />
           <section className="bull-right-card bull-room-card">
             <div className="bull-room-card-top">
               <span className="bull-room-number">ROOM #4827</span>
