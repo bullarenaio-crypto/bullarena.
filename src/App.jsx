@@ -8,13 +8,90 @@ import {
   WalletModalProvider,
   WalletMultiButton,
 } from "@solana/wallet-adapter-react-ui";
-import {
-  PhantomWalletAdapter,
-  SolflareWalletAdapter,
-} from "@solana/wallet-adapter-wallets";
+import * as SolanaWalletAdapters from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
 
 const ENDPOINT = clusterApiUrl("mainnet-beta");
+
+
+// Build the broadest Solana wallet list available from the installed
+// @solana/wallet-adapter-wallets package. Wallets that implement the
+// Solana Wallet Standard are also discovered automatically by WalletProvider.
+// MetaMask is intentionally excluded from Bull Protocol.
+function createSupportedWalletAdapters() {
+  const excludedExports = new Set(["UnsafeBurnerWalletAdapter"]);
+  const seenWalletNames = new Set();
+
+  return Object.entries(SolanaWalletAdapters)
+    .filter(
+      ([exportName, AdapterClass]) =>
+        exportName.endsWith("WalletAdapter") &&
+        !excludedExports.has(exportName) &&
+        !exportName.toLowerCase().includes("metamask") &&
+        typeof AdapterClass === "function"
+    )
+    .map(([, AdapterClass]) => {
+      try {
+        const adapter = new AdapterClass();
+        const walletName = String(adapter?.name || "");
+
+        if (!walletName || /meta\s*mask/i.test(walletName)) return null;
+        if (seenWalletNames.has(walletName)) return null;
+
+        seenWalletNames.add(walletName);
+        return adapter;
+      } catch {
+        // Some legacy adapters require project-specific configuration.
+        // Wallet Standard compatible wallets remain available automatically.
+        return null;
+      }
+    })
+    .filter(Boolean);
+}
+
+function RemoveMetaMaskWalletOption() {
+  useEffect(() => {
+    const removeStoredMetaMaskSelection = () => {
+      try {
+        const selectedWallet = window.localStorage.getItem("walletName");
+        if (selectedWallet && /meta\s*mask/i.test(selectedWallet)) {
+          window.localStorage.removeItem("walletName");
+        }
+      } catch {
+        // Ignore storage restrictions from private browsers.
+      }
+    };
+
+    const hideMetaMaskEntries = () => {
+      document
+        .querySelectorAll(
+          ".wallet-adapter-modal-list li, .wallet-adapter-modal-list .wallet-adapter-button"
+        )
+        .forEach((element) => {
+          if (/meta\s*mask/i.test(element.textContent || "")) {
+            const listItem = element.closest("li");
+            if (listItem) {
+              listItem.style.display = "none";
+              listItem.setAttribute("aria-hidden", "true");
+            } else {
+              element.style.display = "none";
+              element.setAttribute("aria-hidden", "true");
+            }
+          }
+        });
+    };
+
+    removeStoredMetaMaskSelection();
+    hideMetaMaskEntries();
+
+    const observer = new MutationObserver(hideMetaMaskEntries);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return null;
+}
 
 const SHIBA_LOGO =
   "https://s2.coinmarketcap.com/static/img/coins/128x128/5994.png";
@@ -2726,7 +2803,7 @@ function Arena() {
 
         .terminal-header .brand-copy strong {
           color: #ecf3ff !important;
-          font-size: 21px !important;
+          font-size: 17.85px !important;
           font-weight: 900 !important;
           letter-spacing: .105em !important;
           line-height: .98 !important;
@@ -4629,10 +4706,7 @@ function OpeningScreen() {
   );
 }
 export default function App() {
-  const wallets = useMemo(
-    () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
-    []
-  );
+  const wallets = useMemo(() => createSupportedWalletAdapters(), []);
   const [showOpening, setShowOpening] = useState(true);
 
   useEffect(() => {
@@ -4646,8 +4720,12 @@ export default function App() {
   }, []);
   return (
     <ConnectionProvider endpoint={ENDPOINT}>
-      <WalletProvider wallets={wallets} autoConnect>
+      <WalletProvider
+        wallets={wallets}
+        autoConnect={(adapter) => !/meta\s*mask/i.test(String(adapter?.name || ""))}
+      >
         <WalletModalProvider>
+          <RemoveMetaMaskWalletOption />
           {showOpening ? <OpeningScreen /> : <Arena />}
         </WalletModalProvider>
       </WalletProvider>
