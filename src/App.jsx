@@ -679,6 +679,49 @@ function Arena() {
           line-height: 1.6;
         }
 
+        /* =========================================================
+           CENTER CONTENT PROPORTIONS - MATCH REFERENCE
+        ========================================================= */
+        .bull-main-stage .chart-panel {
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          padding: 9px 10px 7px;
+          overflow: visible;
+        }
+
+        .bull-main-stage .volume-chart {
+          position: relative;
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          height: 188px;
+          overflow: visible;
+        }
+
+        .bull-main-stage .chart-svg {
+          display: block;
+          width: 100%;
+          height: 160px;
+        }
+
+        .bull-main-stage .chart-footer {
+          margin-top: 3px;
+          min-height: 18px;
+        }
+
+        .bull-main-stage .information-grid {
+          width: 100%;
+          display: grid;
+          grid-template-columns: 0.78fr 1.22fr;
+          gap: 9px;
+        }
+
+        .bull-main-stage .bottom-steps {
+          width: 100%;
+          margin-top: 0;
+        }
+
         @media (max-width: 1180px) {
           .bull-terminal-shell {
             grid-template-columns: 170px minmax(0, 1fr) 210px;
@@ -987,15 +1030,15 @@ function Arena() {
             width: 100% !important;
             max-width: 100% !important;
             min-width: 0 !important;
-            height: 250px !important;
-            overflow: hidden !important;
+            height: 190px !important;
+            overflow: visible !important;
           }
 
           .chart-svg {
             width: 100% !important;
             max-width: 100% !important;
             min-width: 0 !important;
-            height: 100% !important;
+            height: 158px !important;
           }
 
           .x-axis,
@@ -1004,16 +1047,24 @@ function Arena() {
             min-width: 0 !important;
           }
 
-          .arena-actions {
+          .information-grid {
             width: 100% !important;
-            max-width: 100% !important;
-            grid-template-columns: 1fr !important;
+            grid-template-columns: 1fr 1fr !important;
             gap: 7px !important;
           }
 
-          .side-action,
-          .arena-message {
-            min-height: 54px !important;
+          .how-it-works,
+          .room-statistics {
+            min-height: auto !important;
+          }
+
+          .bottom-steps {
+            width: 100% !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+          }
+
+          .bottom-step {
+            min-width: 0 !important;
           }
 
           .bull-right-sidebar {
@@ -1031,6 +1082,42 @@ function Arena() {
             max-width: 94vw !important;
             max-height: 88vh !important;
             overflow-y: auto !important;
+          }
+        }
+
+        @media (max-width: 720px) {
+          .bull-main-stage .information-grid {
+            grid-template-columns: 1fr !important;
+          }
+
+          .bull-main-stage .bottom-steps {
+            grid-template-columns: 1fr !important;
+          }
+
+          .bull-main-stage .bottom-step {
+            min-height: 52px !important;
+            border-right: 0 !important;
+            border-bottom: 1px solid rgba(0, 133, 224, 0.35) !important;
+          }
+
+          .bull-main-stage .bottom-step:last-child {
+            border-bottom: 0 !important;
+          }
+
+          .bull-main-stage .bottom-step small {
+            white-space: normal !important;
+          }
+
+          .bull-main-stage .volume-chart {
+            height: 172px !important;
+          }
+
+          .bull-main-stage .chart-svg {
+            height: 142px !important;
+          }
+
+          .bull-main-stage .chart-footer {
+            margin-top: 5px !important;
           }
         }
 
@@ -1486,35 +1573,114 @@ function Arena() {
           </div>
         </section>
 
-        <section className="arena-actions">
-          <button
-            type="button"
-            className="side-action shiba-action"
-            onClick={() => openEntry("SHIBA")}
-          >
-            <img src={SHIBA_LOGO} alt="" />
-            <span>
-              <small>CHOOSE YOUR SIDE</small>
-              <strong>ENTER SHIBA</strong>
-            </span>
-          </button>
+        <section className="information-grid">
+          <div className="panel how-it-works">
+            <h2>HOW IT WORKS?</h2>
 
-          <div className="arena-message">
-            <span>THE MARKET DECIDES</span>
-            <strong>MOMENTUM WINS</strong>
+            <div className="instruction-row">
+              <span className="instruction-number">1</span>
+              <p>
+                <strong>Choose a side</strong>
+                <small>Shiba or Doge.</small>
+              </p>
+            </div>
+
+            <div className="instruction-row">
+              <span className="instruction-number">2</span>
+              <p>
+                <strong>Enter the room</strong>
+                <small>Join the participants.</small>
+              </p>
+            </div>
+
+            <div className="instruction-row">
+              <span className="instruction-number">3</span>
+              <p>
+                <strong>Follow the volume</strong>
+                <small>The market data determines the room result.</small>
+              </p>
+            </div>
+
+            <div className="risk-notice">
+              <span>!</span>
+              <p>
+                <strong>ROOM RULES APPLY</strong>
+                <small>Review the active room before participating.</small>
+              </p>
+            </div>
           </div>
 
-          <button
-            type="button"
-            className="side-action doge-action"
-            onClick={() => openEntry("DOGE")}
-          >
-            <span>
-              <small>CHOOSE YOUR SIDE</small>
-              <strong>ENTER DOGE</strong>
-            </span>
-            <img src={DOGE_LOGO} alt="" />
-          </button>
+          <div className="panel room-statistics">
+            <h2>ROOM STATISTICS</h2>
+
+            <div className="statistics-sides">
+              <div className="statistics-side shiba-stat">
+                <div className="stat-token">
+                  <img src={SHIBA_LOGO} alt="SHIBA" />
+                </div>
+                <div>
+                  <strong>SHIBA</strong>
+                  <span>50 participants</span>
+                </div>
+                <p>
+                  Current Volume (30m)
+                  <strong>12.4M USDT</strong>
+                </p>
+              </div>
+
+              <div className="statistics-divider" />
+
+              <div className="statistics-side doge-stat">
+                <div className="stat-token">
+                  <img src={DOGE_LOGO} alt="DOGE" />
+                </div>
+                <div>
+                  <strong>DOGE</strong>
+                  <span>50 participants</span>
+                </div>
+                <p>
+                  Current Volume (30m)
+                  <strong>10.8M USDT</strong>
+                </p>
+              </div>
+            </div>
+
+            <div className="volume-difference">
+              <span>Volume Difference</span>
+              <div className="difference-track"><i /></div>
+              <strong>1.6M USDT</strong>
+              <small>(in favor of Shiba)</small>
+            </div>
+          </div>
+        </section>
+
+        <section className="panel bottom-steps">
+          <div className="bottom-step">
+            <span className="step-symbol">ϟ</span>
+            <div>
+              <strong>ENTER THE ROOM</strong>
+              <small>Join the side you want to support.</small>
+            </div>
+            <b>›</b>
+          </div>
+
+          <div className="bottom-step">
+            <span className="step-symbol">◎</span>
+            <div>
+              <strong>PLACE YOUR STRATEGY</strong>
+              <small>The volume of the market decides.</small>
+            </div>
+            <b>›</b>
+          </div>
+
+          <div className="bottom-step">
+            <span className="step-symbol">♜</span>
+            <div>
+              <strong>ROOM RESULT</strong>
+              <small>The result follows the configured room rules.</small>
+            </div>
+            <b>›</b>
+          </div>
         </section>
             </main>
           ) : (
