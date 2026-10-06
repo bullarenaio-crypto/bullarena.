@@ -3978,6 +3978,136 @@ function Arena() {
           box-sizing: border-box !important;
         }
 
+
+        /* =========================================================
+           FINAL SIDEBAR LOWER ART — HYPERLIQUID GREEN DEPTH
+           Aligned exactly to the 230px dashboard width.
+        ========================================================= */
+        .bull-dashboard-fixed .bull-dashboard-waves {
+          box-sizing: border-box !important;
+          position: relative !important;
+          width: 230px !important;
+          max-width: 230px !important;
+          height: 320px !important;
+          margin: 48px 0 0 0 !important;
+          overflow: hidden !important;
+          border: 1px solid rgba(38, 218, 166, .18) !important;
+          border-radius: 11px !important;
+          opacity: 1 !important;
+          isolation: isolate !important;
+          background:
+            radial-gradient(ellipse at 50% 92%, rgba(40, 222, 169, .19), transparent 43%),
+            radial-gradient(ellipse at 16% 42%, rgba(16, 126, 101, .12), transparent 38%),
+            linear-gradient(180deg, rgba(2, 13, 18, .08), rgba(1, 18, 19, .68) 55%, rgba(1, 12, 15, .97)) !important;
+          -webkit-mask-image: none !important;
+          mask-image: none !important;
+          box-shadow:
+            inset 0 0 38px rgba(35, 224, 171, .045),
+            inset 0 -42px 70px rgba(14, 116, 91, .08),
+            0 0 20px rgba(0, 0, 0, .20) !important;
+          animation: bullHyperGlow 5.5s ease-in-out infinite !important;
+        }
+
+        .bull-dashboard-fixed .bull-dashboard-waves::before {
+          content: "" !important;
+          position: absolute !important;
+          z-index: 1 !important;
+          left: -72px !important;
+          right: -72px !important;
+          top: 106px !important;
+          bottom: -116px !important;
+          width: auto !important;
+          height: auto !important;
+          border: 0 !important;
+          border-radius: 0 !important;
+          background:
+            repeating-linear-gradient(
+              90deg,
+              transparent 0 24px,
+              rgba(53, 237, 183, .29) 25px 26px
+            ),
+            repeating-linear-gradient(
+              0deg,
+              transparent 0 20px,
+              rgba(30, 196, 148, .25) 21px 22px
+            ) !important;
+          background-position: 0 0, 0 0 !important;
+          transform-origin: 50% 100% !important;
+          transform: perspective(230px) rotateX(58deg) scale(1.14) !important;
+          filter:
+            drop-shadow(0 0 4px rgba(47, 238, 181, .32))
+            drop-shadow(0 0 11px rgba(20, 170, 128, .14)) !important;
+          box-shadow: none !important;
+          opacity: .90 !important;
+          animation: bullHyperGridFlow 4.6s linear infinite !important;
+        }
+
+        .bull-dashboard-fixed .bull-dashboard-waves::after {
+          content: "" !important;
+          position: absolute !important;
+          z-index: 2 !important;
+          left: -38% !important;
+          bottom: 72px !important;
+          width: 176% !important;
+          height: 98px !important;
+          border: 0 !important;
+          border-top: 2px solid rgba(72, 239, 188, .95) !important;
+          border-radius: 50% !important;
+          background: transparent !important;
+          box-shadow:
+            0 -16px 0 -14px rgba(46, 214, 165, .76),
+            0 -31px 0 -29px rgba(32, 174, 134, .52),
+            0 -47px 0 -45px rgba(23, 127, 101, .34) !important;
+          filter:
+            drop-shadow(0 0 5px rgba(77, 244, 194, .76))
+            drop-shadow(0 0 14px rgba(24, 184, 139, .32)) !important;
+          transform: skewX(-12deg) translateX(-2%) !important;
+          opacity: .95 !important;
+          animation: bullHyperWave 5.8s ease-in-out infinite alternate !important;
+        }
+
+        @keyframes bullHyperGridFlow {
+          0% {
+            background-position: 0 0, 0 0;
+            transform: perspective(230px) rotateX(58deg) scale(1.14) translateY(0);
+          }
+          50% {
+            background-position: 13px 0, 0 11px;
+            transform: perspective(230px) rotateX(60deg) scale(1.18) translateY(5px);
+          }
+          100% {
+            background-position: 26px 0, 0 22px;
+            transform: perspective(230px) rotateX(58deg) scale(1.14) translateY(0);
+          }
+        }
+
+        @keyframes bullHyperWave {
+          0% {
+            transform: skewX(-12deg) translateX(-3%) translateY(2px) scaleY(.90);
+          }
+          50% {
+            transform: skewX(-8deg) translateX(2%) translateY(-5px) scaleY(1.08);
+          }
+          100% {
+            transform: skewX(-14deg) translateX(5%) translateY(3px) scaleY(.94);
+          }
+        }
+
+        @keyframes bullHyperGlow {
+          0%, 100% {
+            box-shadow:
+              inset 0 0 38px rgba(35, 224, 171, .045),
+              inset 0 -42px 70px rgba(14, 116, 91, .08),
+              0 0 20px rgba(0, 0, 0, .20);
+          }
+          50% {
+            box-shadow:
+              inset 0 0 46px rgba(46, 239, 181, .075),
+              inset 0 -50px 82px rgba(16, 143, 109, .12),
+              0 0 24px rgba(22, 159, 121, .08);
+          }
+        }
+
       `}</style>
 
       <div className="bull-terminal-shell">
