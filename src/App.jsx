@@ -31,6 +31,14 @@ const SIDEBAR_ITEMS = [
   { id: "settings", label: "SETTINGS", subtitle: "Preferences", icon: "⚙" },
 ];
 
+const ROOM_PARTICIPANTS = [
+  { name: "ShibaTeam_97...", side: "SHIBA", time: "2 min" },
+  { name: "DogeWolf_72...", side: "DOGE", time: "2 min" },
+  { name: "CryptoLuna", side: "SHIBA", time: "3 min" },
+  { name: "TraderAlpha", side: "DOGE", time: "4 min" },
+  { name: "BullMaster", side: "SHIBA", time: "5 min" },
+];
+
 function Arena() {
   const { connected, publicKey } = useWallet();
 
@@ -134,7 +142,7 @@ function Arena() {
       <style>{`
         .bull-terminal-shell {
           display: grid;
-          grid-template-columns: 220px minmax(0, 1fr);
+          grid-template-columns: 220px minmax(0, 1fr) 250px;
           gap: 10px;
           width: 100%;
           min-width: 0;
@@ -289,6 +297,348 @@ function Arena() {
           min-width: 0;
         }
 
+        .bull-right-sidebar {
+          min-width: 0;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          border-left: 1px solid rgba(0, 246, 255, 0.2);
+          border-top: 1px solid rgba(143, 64, 255, 0.13);
+          background:
+            radial-gradient(circle at 50% 0%, rgba(0, 246, 255, 0.06), transparent 28%),
+            linear-gradient(180deg, rgba(6, 9, 20, 0.98), rgba(3, 5, 13, 0.98));
+          box-shadow: inset 10px 0 30px rgba(0, 246, 255, 0.018);
+        }
+
+        .bull-right-card {
+          border: 1px solid rgba(0, 164, 255, 0.22);
+          border-radius: 8px;
+          background:
+            linear-gradient(180deg, rgba(8, 12, 27, 0.96), rgba(4, 7, 17, 0.96));
+          box-shadow:
+            0 0 22px rgba(0, 246, 255, 0.025),
+            inset 0 0 22px rgba(117, 50, 255, 0.025);
+        }
+
+        .bull-room-card {
+          padding: 12px;
+        }
+
+        .bull-room-card-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          padding-bottom: 9px;
+          border-bottom: 1px solid rgba(100, 151, 206, 0.12);
+        }
+
+        .bull-room-number {
+          padding: 4px 7px;
+          border-radius: 4px;
+          background: rgba(255,255,255,.035);
+          color: #75829a;
+          font-size: 7px;
+          font-weight: 800;
+          letter-spacing: .08em;
+        }
+
+        .bull-room-live {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          color: #42f2a0;
+          font-size: 6.5px;
+          font-weight: 800;
+          letter-spacing: .07em;
+        }
+
+        .bull-room-live i {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #29f39a;
+          box-shadow: 0 0 9px rgba(41, 243, 154, .85);
+        }
+
+        .bull-room-card h3 {
+          margin: 12px 0 3px;
+          color: #f4f8ff;
+          font-size: 14px;
+          letter-spacing: .02em;
+        }
+
+        .bull-room-card > p {
+          margin: 0;
+          color: #67758e;
+          font-size: 7px;
+          line-height: 1.4;
+        }
+
+        .bull-room-facts {
+          margin-top: 11px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 7px;
+        }
+
+        .bull-room-fact {
+          min-width: 0;
+          padding: 9px 8px;
+          border: 1px solid rgba(70, 130, 192, .14);
+          border-radius: 6px;
+          background: rgba(3, 7, 17, .65);
+        }
+
+        .bull-room-fact small,
+        .bull-network-row small {
+          display: block;
+          color: #52617a;
+          font-size: 6px;
+          letter-spacing: .03em;
+        }
+
+        .bull-room-fact strong {
+          display: block;
+          margin-top: 3px;
+          color: #cfe8f7;
+          font-size: 8px;
+        }
+
+        .bull-network-row {
+          margin-top: 8px;
+          padding: 8px 2px 2px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+        }
+
+        .bull-network-row strong {
+          color: #a8ddea;
+          font-size: 7px;
+          letter-spacing: .06em;
+        }
+
+        .bull-enter-room {
+          width: 100%;
+          margin-top: 12px;
+          padding: 11px 10px;
+          border: 1px solid rgba(0, 246, 255, .3);
+          border-radius: 6px;
+          color: #fff;
+          background: linear-gradient(90deg, #7927ef, #6639ff 52%, #00b9d9);
+          box-shadow: 0 0 18px rgba(119, 47, 255, .28);
+          font-size: 8px;
+          font-weight: 900;
+          letter-spacing: .12em;
+          cursor: pointer;
+        }
+
+        .bull-participants-card {
+          padding: 11px;
+        }
+
+        .bull-participants-heading {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+        }
+
+        .bull-participants-heading strong {
+          color: #e9f5ff;
+          font-size: 8px;
+          letter-spacing: .1em;
+        }
+
+        .bull-participants-heading span {
+          padding: 2px 5px;
+          border: 1px solid rgba(0, 245, 216, .24);
+          border-radius: 3px;
+          color: #00f5d8;
+          font-size: 5px;
+          letter-spacing: .08em;
+        }
+
+        .bull-team-totals {
+          margin-top: 10px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 6px;
+        }
+
+        .bull-team-total {
+          min-width: 0;
+          display: grid;
+          grid-template-columns: 32px 1fr;
+          align-items: center;
+          gap: 6px;
+          padding: 7px;
+          border-radius: 6px;
+          background: rgba(3, 8, 19, .78);
+        }
+
+        .bull-team-total.shiba {
+          border: 1px solid rgba(240, 51, 233, .28);
+        }
+
+        .bull-team-total.doge {
+          border: 1px solid rgba(21, 232, 232, .28);
+        }
+
+        .bull-team-total img {
+          width: 30px;
+          height: 30px;
+          padding: 2px;
+          border-radius: 50%;
+          object-fit: cover;
+          background: #06101f;
+        }
+
+        .bull-team-total.shiba img {
+          border: 1px solid #ef36e6;
+          box-shadow: 0 0 8px rgba(239, 54, 230, .4);
+        }
+
+        .bull-team-total.doge img {
+          border: 1px solid #16e8e8;
+          box-shadow: 0 0 8px rgba(22, 232, 232, .4);
+        }
+
+        .bull-team-total span {
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 1px;
+          font-size: 6px;
+          font-weight: 800;
+        }
+
+        .bull-team-total.shiba span { color: #f44bec; }
+        .bull-team-total.doge span { color: #27e8e9; }
+
+        .bull-team-total b {
+          color: #eaf8ff;
+          font-size: 13px;
+        }
+
+        .bull-participant-list {
+          margin-top: 7px;
+        }
+
+        .bull-participant-row {
+          min-height: 39px;
+          display: grid;
+          grid-template-columns: 27px minmax(0,1fr) auto;
+          align-items: center;
+          gap: 7px;
+          border-bottom: 1px solid rgba(0, 120, 190, .13);
+        }
+
+        .bull-participant-avatar {
+          width: 25px;
+          height: 25px;
+          display: grid;
+          place-items: center;
+          overflow: hidden;
+          border-radius: 50%;
+          border: 1px solid rgba(0, 180, 255, .35);
+          background: #07152a;
+        }
+
+        .bull-participant-avatar img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .bull-participant-copy {
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+
+        .bull-participant-copy strong {
+          overflow: hidden;
+          color: #cfe4f1;
+          font-size: 7px;
+          font-weight: 650;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+        .bull-participant-copy small {
+          overflow: hidden;
+          color: #5a718a;
+          font-size: 5.5px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+        .bull-participant-copy small.shiba { color: #bd58bb; }
+        .bull-participant-copy small.doge { color: #52b7bb; }
+
+        .bull-participant-row time {
+          color: #5f9db8;
+          font-size: 5.5px;
+        }
+
+        .bull-view-participants {
+          width: 100%;
+          margin-top: 8px;
+          padding: 5px 0 0;
+          border: 0;
+          background: transparent;
+          color: #68b4d1;
+          text-align: left;
+          font-size: 6.5px;
+          cursor: pointer;
+        }
+
+        .bull-view-participants span {
+          color: #00e9f0;
+        }
+
+        .bull-right-brand {
+          min-height: 78px;
+          margin-top: auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          border: 1px solid rgba(0, 173, 255, .12);
+          border-radius: 8px;
+          background: rgba(4, 7, 16, .72);
+        }
+
+        .bull-right-brand img {
+          width: 40px;
+          height: 40px;
+          object-fit: contain;
+          filter: drop-shadow(0 0 9px rgba(0, 246, 255, .5));
+        }
+
+        .bull-right-brand-copy {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+
+        .bull-right-brand-copy strong {
+          color: #f4f8ff;
+          font-size: 8px;
+          letter-spacing: .08em;
+        }
+
+        .bull-right-brand-copy small {
+          color: #60748a;
+          font-size: 5.5px;
+          letter-spacing: .12em;
+        }
+
         .bull-section-placeholder {
           min-height: calc(100vh - 80px);
           display: flex;
@@ -329,6 +679,22 @@ function Arena() {
           line-height: 1.6;
         }
 
+        @media (max-width: 1180px) {
+          .bull-terminal-shell {
+            grid-template-columns: 170px minmax(0, 1fr) 210px;
+          }
+
+          .bull-sidebar {
+            padding-left: 7px;
+            padding-right: 7px;
+          }
+
+          .bull-right-sidebar {
+            padding-left: 7px;
+            padding-right: 7px;
+          }
+        }
+
         @media (max-width: 980px) {
           .bull-terminal-shell {
             grid-template-columns: 1fr;
@@ -337,6 +703,19 @@ function Arena() {
           .bull-sidebar {
             border-right: 0;
             border-bottom: 1px solid rgba(0, 246, 255, 0.2);
+          }
+
+          .bull-right-sidebar {
+            border-left: 0;
+            border-top: 1px solid rgba(0, 246, 255, 0.2);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: start;
+          }
+
+          .bull-right-brand {
+            grid-column: 1 / -1;
+            margin-top: 0;
           }
 
           .bull-sidebar-nav {
@@ -350,6 +729,14 @@ function Arena() {
         }
 
         @media (max-width: 620px) {
+          .bull-right-sidebar {
+            grid-template-columns: 1fr;
+          }
+
+          .bull-right-brand {
+            grid-column: auto;
+          }
+
           .bull-sidebar-nav {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
@@ -788,6 +1175,96 @@ function Arena() {
             </section>
           )}
         </div>
+
+        <aside className="bull-right-sidebar" aria-label="Active room details">
+          <section className="bull-right-card bull-room-card">
+            <div className="bull-room-card-top">
+              <span className="bull-room-number">ROOM #4827</span>
+              <span className="bull-room-live"><i /> IN PROGRESS</span>
+            </div>
+
+            <h3>SHIBA VS DOGE</h3>
+            <p>Battle for market momentum during the active 30-minute room.</p>
+
+            <div className="bull-room-facts">
+              <div className="bull-room-fact">
+                <small>Duration</small>
+                <strong>30 minutes</strong>
+              </div>
+              <div className="bull-room-fact">
+                <small>Participants</small>
+                <strong>100 / 100</strong>
+              </div>
+            </div>
+
+            <div className="bull-network-row">
+              <small>Market Status</small>
+              <strong>LIVE MARKET</strong>
+            </div>
+
+            <button
+              type="button"
+              className="bull-enter-room"
+              onClick={() => {
+                setSelectedSide(null);
+                setShowEntry(true);
+                setMessage("");
+              }}
+            >
+              ENTER ROOM →
+            </button>
+          </section>
+
+          <section className="bull-right-card bull-participants-card">
+            <div className="bull-participants-heading">
+              <strong>PARTICIPANTS (100)</strong>
+              <span>LIVE</span>
+            </div>
+
+            <div className="bull-team-totals">
+              <div className="bull-team-total shiba">
+                <img src={SHIBA_LOGO} alt="SHIBA" />
+                <span>SHIBA<b>50</b></span>
+              </div>
+              <div className="bull-team-total doge">
+                <img src={DOGE_LOGO} alt="DOGE" />
+                <span>DOGE<b>50</b></span>
+              </div>
+            </div>
+
+            <div className="bull-participant-list">
+              {ROOM_PARTICIPANTS.map((participant) => (
+                <div className="bull-participant-row" key={participant.name}>
+                  <div className="bull-participant-avatar">
+                    <img
+                      src={participant.side === "SHIBA" ? SHIBA_LOGO : DOGE_LOGO}
+                      alt=""
+                    />
+                  </div>
+                  <div className="bull-participant-copy">
+                    <strong>{participant.name}</strong>
+                    <small className={participant.side.toLowerCase()}>
+                      Joined the {participant.side === "SHIBA" ? "Shiba" : "Doge"} side
+                    </small>
+                  </div>
+                  <time>{participant.time}</time>
+                </div>
+              ))}
+            </div>
+
+            <button type="button" className="bull-view-participants">
+              View all participants (100) <span>→</span>
+            </button>
+          </section>
+
+          <div className="bull-right-brand">
+            <img src="/bull-logo.png" alt="Bull Protocol" />
+            <div className="bull-right-brand-copy">
+              <strong>BULL PROTOCOL</strong>
+              <small>MOMENTUM WINS</small>
+            </div>
+          </div>
+        </aside>
       </div>
 
       {showEntry && (
