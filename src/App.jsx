@@ -2479,6 +2479,184 @@ function Arena() {
           }
         }
 
+
+        /* =========================================================
+           FINAL SPACING FIX
+           - Dashboard scrolls together with arena/chart
+           - No empty side margins around arena or chart
+           - Dashboard and lower sections use the available width
+        ========================================================= */
+
+        .bull-terminal-shell {
+          display: grid !important;
+          grid-template-columns: 220px minmax(0, 1fr) !important;
+          gap: 6px !important;
+          width: 100% !important;
+          max-width: none !important;
+          margin: 0 !important;
+          padding: 0 6px 10px !important;
+          align-items: start !important;
+          box-sizing: border-box !important;
+        }
+
+        /* Dashboard now moves together with the rest of the page */
+        .bull-dashboard-fixed {
+          position: relative !important;
+          top: auto !important;
+          align-self: start !important;
+          width: 100% !important;
+          min-width: 0 !important;
+          margin: 0 !important;
+        }
+
+        /* Main area fills all remaining space */
+        .bull-main-stage,
+        .bull-reference-center,
+        .bull-main-stage > .arena-page {
+          width: 100% !important;
+          max-width: none !important;
+          min-width: 0 !important;
+          margin: 0 !important;
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+          box-sizing: border-box !important;
+        }
+
+        /* Arena: keep the 10% height reduction, but remove side gaps */
+        .bull-reference-center .battle-hero {
+          width: 100% !important;
+          max-width: 100% !important;
+          height: 234px !important;
+          min-height: 234px !important;
+          margin: 0 !important;
+        }
+
+        .bull-reference-center .token-orbit {
+          transform: scale(.90) !important;
+          transform-origin: center !important;
+        }
+
+        /* Chart: keep it shorter, but make it full width */
+        .bull-reference-center .bull-ref-chart {
+          width: 100% !important;
+          max-width: 100% !important;
+          height: 178px !important;
+          min-height: 178px !important;
+          max-height: 178px !important;
+          margin: 0 !important;
+        }
+
+        .bull-reference-center .bull-ref-volume {
+          width: 100% !important;
+          max-width: 100% !important;
+          height: 126px !important;
+          min-height: 126px !important;
+        }
+
+        .bull-reference-center .bull-ref-chart-svg {
+          width: calc(100% - 28px) !important;
+          max-width: none !important;
+          height: 107px !important;
+        }
+
+        /* Lower sections fill the center width with no side gaps */
+        .bull-ref-info-grid,
+        .bull-ref-bottom {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+
+        .bull-ref-info-grid {
+          min-height: 154px !important;
+          height: 154px !important;
+          max-height: 154px !important;
+        }
+
+        .bull-ref-how,
+        .bull-ref-stats {
+          min-height: 154px !important;
+          height: 154px !important;
+          max-height: 154px !important;
+        }
+
+        .bull-ref-bottom {
+          min-height: 50px !important;
+          height: 50px !important;
+          max-height: 50px !important;
+        }
+
+        /* Slightly larger dashboard to use the left side better */
+        .bull-dashboard-side-title {
+          height: 44px !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-button {
+          min-height: 51px !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-copy strong {
+          font-size: 10.5px !important;
+        }
+
+        .bull-dashboard-fixed .bull-sidebar-copy small {
+          font-size: 8px !important;
+        }
+
+        /* Keep the bottom wording readable */
+        .bull-ref-bottom-step strong {
+          font-size: 7.6px !important;
+        }
+
+        .bull-ref-bottom-step small {
+          font-size: 6.5px !important;
+        }
+
+        /* Tablet: same order, everything scrolls together */
+        @media (max-width: 980px) {
+          .bull-terminal-shell {
+            grid-template-columns: 190px minmax(0, 1fr) !important;
+            width: 100% !important;
+            gap: 5px !important;
+            margin: 0 !important;
+            padding: 0 4px 8px !important;
+          }
+
+          .bull-dashboard-fixed {
+            position: relative !important;
+            top: auto !important;
+          }
+
+          .bull-reference-center .battle-hero,
+          .bull-reference-center .bull-ref-chart,
+          .bull-ref-info-grid,
+          .bull-ref-bottom {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+        }
+
+        /* Small screens: preserve the same left-to-right order */
+        @media (max-width: 620px) {
+          .bull-terminal-shell {
+            grid-template-columns: 170px minmax(0, 1fr) !important;
+            gap: 4px !important;
+            padding-left: 3px !important;
+            padding-right: 3px !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-copy strong {
+            font-size: 9px !important;
+          }
+
+          .bull-dashboard-fixed .bull-sidebar-copy small {
+            font-size: 6.8px !important;
+          }
+        }
+
       `}</style>
 
       <div className="bull-terminal-shell">
