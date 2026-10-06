@@ -122,7 +122,10 @@ function Arena() {
       </header>
 
       <main className="arena-page">
-        <section className="battle-hero">
+        <section
+          className="battle-hero"
+          style={{ backgroundImage: 'url("/arena-battle-bg.png.png")' }}
+        >
           <div className="battle-energy battle-energy-left" />
           <div className="battle-energy battle-energy-right" />
 
