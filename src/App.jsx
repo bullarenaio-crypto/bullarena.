@@ -4389,6 +4389,33 @@ function Arena() {
           }
         }
 
+
+        /* =========================================================
+           FINAL SIZE ADJUSTMENT — CURRENT WORKING SITE
+           Desktop only: entire interface is 15% smaller while keeping
+           the same colors, proportions, layout and functionality.
+        ========================================================= */
+        @media (min-width: 1181px) {
+          .terminal {
+            zoom: 0.85 !important;
+            width: 117.6470588% !important;
+            max-width: 117.6470588% !important;
+          }
+        }
+
+        /* Fallback for browsers without CSS zoom support. */
+        @supports not (zoom: 1) {
+          @media (min-width: 1181px) {
+            .terminal {
+              zoom: 1 !important;
+              width: 117.6470588% !important;
+              max-width: 117.6470588% !important;
+              transform: scale(0.85) !important;
+              transform-origin: top left !important;
+            }
+          }
+        }
+
       `}</style>
 
       <div className="bull-terminal-shell">
