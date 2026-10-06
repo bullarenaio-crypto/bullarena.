@@ -3945,15 +3945,36 @@ function Arena() {
            Header, sidebar and battle/arena section remain unchanged.
         ========================================================= */
         .bull-lower-section-scale {
-          width: 142.8571429% !important;
-          max-width: 142.8571429% !important;
-          min-width: 142.8571429% !important;
-          zoom: 0.7;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          zoom: 1 !important;
           display: flex !important;
           flex-direction: column !important;
           gap: 8px !important;
           margin: 0 !important;
           padding: 0 !important;
+          box-sizing: border-box !important;
+          overflow: visible !important;
+        }
+
+        /* Keep the complete lower area exactly aligned with the arena width.
+           No horizontal scaling, no oversized inner canvas, and no clipping. */
+        .bull-lower-section-scale > .bull-ref-chart,
+        .bull-lower-section-scale > .bull-ref-info-grid,
+        .bull-lower-section-scale > .bull-ref-bottom {
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          box-sizing: border-box !important;
+        }
+
+        .bull-lower-section-scale .bull-ref-how,
+        .bull-lower-section-scale .bull-ref-stats {
+          min-width: 0 !important;
+          max-width: 100% !important;
           box-sizing: border-box !important;
         }
 
